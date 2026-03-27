@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cinematic Scroll Layers</title>
+  <style>
+    :root {
+      --duration: 900ms;
+      --easing: cubic-bezier(0.22, 1, 0.36, 1);
+      --overlay: rgba(0, 0, 0, 0.34);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      touch-action: none;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .viewport {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: scale(1);
+      transition: opacity var(--duration) var(--easing), transform var(--duration) var(--easing);
+      will-change: opacity, transform;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .scene video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      pointer-events: none;
+    }
+
+    .scene[data-index="1"] video {
+      object-position: center 12%;
+    }
+
+    .scene[data-index="0"] video {
+      object-position: center 2%;
+    }
+
+    .scene[data-index="2"] video {
+      object-position: center 10%;
+    }
+
+    .scene .overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--overlay);
+      pointer-events: none;
+    }
+
+    .profile-scene .overlay {
+      background: rgba(0, 0, 0, 0.48);
+    }
+
+    .profile-layout {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: minmax(260px, 34vw) minmax(0, 1fr);
+      gap: clamp(18px, 2.6vw, 44px);
+      align-items: start;
+      padding: clamp(22px, 3.2vw, 52px);
+      padding-top: clamp(112px, 13vh, 156px);
+    }
+
+    .profile-image {
+      width: 100%;
+      height: min(82vh, 960px);
+      object-fit: cover;
+      object-position: center 16%;
+      margin-top: 0;
+      margin-left: 0;
+      border-radius: 14px;
+      border: none;
+      box-shadow: 0 18px 56px rgba(0, 0, 0, 0.35);
+    }
+
+    .profile-copy {
+      align-self: start;
+      overflow-y: auto;
+      overflow-x: hidden;
+      overscroll-behavior: contain;
+      max-height: 82vh;
+      margin-top: -26px;
+      padding: clamp(12px, 1.5vw, 20px);
+      border-radius: 14px;
+      border: none;
+      background: rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: rgba(255, 255, 255, 0.94);
+      font-size: clamp(12px, 0.86vw, 14px);
+      line-height: 1.55;
+      letter-spacing: 0.015em;
+      text-align: left;
+      transform-origin: top left;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.45) rgba(255, 255, 255, 0.12);
+    }
+
+    .profile-copy::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .profile-copy::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+    }
+
+    .profile-copy::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.45);
+      border-radius: 999px;
+    }
+
+    .profile-copy p + p {
+      margin-top: 15px;
+    }
+
+    .press-section {
+      margin-top: 20px;
+    }
+
+    .profile-footer {
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .profile-footer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .footer-heading {
+      font-size: clamp(15px, 1.1vw, 20px);
+      line-height: 1.2;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .footer-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: min(100%, 260px);
+      min-height: 46px;
+      padding: 10px 16px;
+      background: #e7e3de;
+      color: #151515;
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid #e7e3de;
+      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .footer-btn + .footer-btn {
+      margin-top: 10px;
+    }
+
+    .footer-btn:hover {
+      background: #fff;
+      color: #000;
+      transform: translateY(-1px);
+    }
+
+    .footer-links {
+      margin-top: 16px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.95);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-search {
+      width: 100%;
+      max-width: 400px;
+      min-height: 46px;
+      padding: 10px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      background: rgba(0, 0, 0, 0.2);
+      color: #fff;
+      font: inherit;
+    }
+
+    .footer-search::placeholder {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .footer-social {
+      margin-top: 16px;
+    }
+
+    .footer-action-stack {
+      margin-top: 12px;
+    }
+
+    .footer-social-title {
+      font-size: clamp(13px, 0.95vw, 16px);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .footer-social-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      color: #fff;
+      text-decoration: none;
+      transition: transform 160ms ease, filter 160ms ease;
+    }
+
+    .social-icon svg {
+      width: 17px;
+      height: 17px;
+      fill: #fff;
+      display: block;
+    }
+
+    .social-icon:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    .social-youtube {
+      background: #ff2f00;
+    }
+
+    .social-apple {
+      background: #f1f1f1;
+    }
+
+    .social-apple svg {
+      fill: #111;
+    }
+
+    .social-spotify {
+      background: #7bbf45;
+      border-radius: 999px;
+    }
+
+    .social-instagram {
+      background: radial-gradient(circle at 20% 115%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+    }
+
+    .social-linkedin {
+      background: #0077b5;
+    }
+
+    .social-facebook {
+      background: #4267b2;
+    }
+
+    .social-tiktok {
+      background: transparent;
+      border-radius: 0;
+    }
+
+    .footer-legal {
+      margin-top: 20px;
+      font-size: clamp(11px, 0.84vw, 14px);
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .press-title {
+      font-size: clamp(18px, 1.35vw, 24px);
+      line-height: 1.2;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+      letter-spacing: 0.01em;
+    }
+
+    .press-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .press-card {
+      min-height: 74px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background 180ms ease, transform 180ms ease, border-color 180ms ease;
+    }
+
+    .press-card:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.34);
+      transform: translateY(-2px);
+    }
+
+    .press-card.light-bg {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(255, 255, 255, 0.95);
+    }
+
+    .press-card.light-bg:hover {
+      background: #ffffff;
+      border-color: #ffffff;
+    }
+
+    .press-card.jp-card {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(255, 255, 255, 0.85);
+    }
+
+    .press-card.jp-card:hover {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(255, 255, 255, 0.95);
+    }
+
+    .press-logo {
+      width: 100%;
+      max-width: 180px;
+      max-height: 38px;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      filter: none;
+      opacity: 1;
+    }
+
+    .press-logo.bright {
+      filter: brightness(0) invert(1) contrast(1.05) brightness(1.35);
+    }
+
+    .press-logo.cbs-logo {
+      max-width: 210px;
+      max-height: 52px;
+    }
+
+    .press-card.pix11-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .press-card.pix11-card:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.34);
+    }
+
+    .pix11-wordmark {
+      color: #fff;
+      font-size: clamp(16px, 1vw, 18px);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .press-logo-text {
+      font-size: clamp(13px, 0.9vw, 16px);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: rgba(255, 255, 255, 0.95);
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .scene.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 3;
+      pointer-events: auto;
+    }
+
+    .brand {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 12;
+      color: rgba(255, 255, 255, 0.94);
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 10px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .brand.profile-aligned {
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 800;
+    }
+
+    .scene1-menu {
+      position: fixed;
+      right: 12px;
+      top: 18px;
+      transform: none;
+      z-index: 13;
+      pointer-events: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 220ms ease;
+    }
+
+    body[data-scene="0"] .scene1-menu {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scene2-menu {
+      position: fixed;
+      right: 12px;
+      top: 18px;
+      transform: none;
+      z-index: 13;
+      pointer-events: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 220ms ease;
+    }
+
+    body[data-scene="1"] .scene2-menu {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scene3-menu {
+      position: fixed;
+      right: 12px;
+      top: 18px;
+      transform: none;
+      z-index: 13;
+      pointer-events: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 220ms ease;
+    }
+
+    body[data-scene="2"] .scene3-menu {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scene1-menu details {
+      min-width: 0;
+      width: 46px;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      overflow: visible;
+      position: relative;
+    }
+
+    .scene2-menu details {
+      min-width: 0;
+      width: 46px;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      overflow: visible;
+      position: relative;
+    }
+
+    .scene3-menu details {
+      min-width: 0;
+      width: 46px;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      overflow: visible;
+      position: relative;
+    }
+
+    .scene1-menu summary {
+      list-style: none;
+      cursor: pointer;
+      width: 46px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.95);
+      user-select: none;
+    }
+
+    .scene2-menu summary {
+      list-style: none;
+      cursor: pointer;
+      width: 46px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.95);
+      user-select: none;
+    }
+
+    .scene3-menu summary {
+      list-style: none;
+      cursor: pointer;
+      width: 46px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.95);
+      user-select: none;
+    }
+
+    .scene1-menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .scene2-menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .scene3-menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .scene1-menu summary::before {
+      content: "";
+      width: 18px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 999px;
+      box-shadow: 0 -6px 0 rgba(255, 255, 255, 0.96), 0 6px 0 rgba(255, 255, 255, 0.96);
+    }
+
+    .scene2-menu summary::before {
+      content: "";
+      width: 18px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 999px;
+      box-shadow: 0 -6px 0 rgba(255, 255, 255, 0.96), 0 6px 0 rgba(255, 255, 255, 0.96);
+    }
+
+    .scene3-menu summary::before {
+      content: "";
+      width: 18px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 999px;
+      box-shadow: 0 -6px 0 rgba(255, 255, 255, 0.96), 0 6px 0 rgba(255, 255, 255, 0.96);
+    }
+
+    .scene1-menu ul {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top right;
+      animation: dropdownIn 180ms ease;
+    }
+
+    .scene2-menu ul {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top right;
+      animation: dropdownIn 180ms ease;
+    }
+
+    .scene3-menu ul {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top right;
+      animation: dropdownIn 180ms ease;
+    }
+
+    .scene1-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .scene2-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .scene3-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .scene1-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .scene2-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .scene3-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .headline-wrap {
+      position: fixed;
+      left: 36px;
+      right: auto;
+      width: min(980px, calc(100vw - 40px));
+      bottom: clamp(74px, 12vh, 130px);
+      z-index: 11;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .headline {
+      color: #fff;
+      font-size: clamp(30px, 5.6vw, 76px);
+      line-height: 0.98;
+      font-weight: 700;
+      width: 100%;
+      max-width: none;
+      white-space: nowrap;
+      text-align: left;
+      text-indent: 0;
+      text-shadow: 0 8px 30px rgba(0, 0, 0, 0.26);
+    }
+
+    .headline-subtext {
+      margin-top: 16px;
+      width: 100%;
+      max-width: 100%;
+      padding-left: 0.7em;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: clamp(14px, 1.18vw, 20px);
+      line-height: 1.5;
+      font-weight: 500;
+      text-shadow: 0 6px 24px rgba(0, 0, 0, 0.24);
+      white-space: pre-line;
+      text-align: left;
+      margin-left: 0;
+    }
+
+    @media (max-width: 1100px), (max-height: 760px) {
+      .profile-layout {
+        grid-template-columns: minmax(220px, 32vw) minmax(0, 1fr);
+        gap: clamp(14px, 2vw, 26px);
+        padding: clamp(14px, 2vw, 26px);
+        padding-top: clamp(92px, 11vh, 124px);
+      }
+
+      .profile-image {
+        height: min(72vh, 700px);
+        object-fit: cover;
+        object-position: center 14%;
+        background: none;
+      }
+
+      .profile-copy {
+        margin-top: -18px;
+        max-height: 72vh;
+      }
+    }
+
+    @media (max-height: 640px) {
+      .profile-layout {
+        gap: 12px;
+        padding: 12px;
+        padding-top: 78px;
+      }
+
+      .profile-image {
+        height: min(62vh, 520px);
+      }
+
+      .profile-copy {
+        max-height: 62vh;
+        font-size: 11px;
+        line-height: 1.42;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .scene[data-index="0"] video {
+        object-position: center 0%;
+      }
+
+      .scene[data-index="1"] video {
+        object-position: center 8%;
+      }
+
+      .scene[data-index="2"] video {
+        object-position: center 6%;
+      }
+
+      .brand {
+        top: 14px;
+        left: 14px;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        padding: 8px 12px;
+      }
+
+      .headline-wrap {
+        left: 26px;
+        right: auto;
+        width: calc(100vw - 28px);
+        bottom: 86px;
+      }
+
+      .headline {
+        font-size: clamp(24px, 6.8vw, 38px);
+        max-width: none;
+      }
+
+      .headline-subtext {
+        margin-top: 12px;
+        font-size: clamp(13px, 3.7vw, 17px);
+        line-height: 1.42;
+        max-width: 96vw;
+      }
+
+      .profile-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(0, 1fr);
+        align-items: start;
+        padding: 14px;
+        padding-top: 92px;
+        gap: 12px;
+      }
+
+      .profile-image {
+        height: min(38vh, 380px);
+        object-fit: cover;
+        object-position: center 10%;
+        background: none;
+        margin-top: 0;
+        margin-left: 0;
+      }
+
+      .profile-copy {
+        margin-top: 0;
+        max-height: 46vh;
+        font-size: 11px;
+        line-height: 1.45;
+        padding: 10px;
+      }
+
+      .press-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .profile-footer-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .footer-search {
+        max-width: 100%;
+      }
+
+      .scene1-menu {
+        right: 10px;
+        top: 14px;
+        bottom: auto;
+        transform: none;
+      }
+
+      .scene2-menu {
+        right: 10px;
+        top: 14px;
+        bottom: auto;
+        transform: none;
+      }
+
+      .scene3-menu {
+        right: 10px;
+        top: 14px;
+        bottom: auto;
+        transform: none;
+      }
+
+      .scene1-menu details {
+        width: 44px;
+      }
+
+      .scene1-menu ul {
+        min-width: 190px;
+      }
+
+      .scene2-menu details {
+        width: 44px;
+      }
+
+      .scene2-menu ul {
+        min-width: 190px;
+      }
+
+      .scene3-menu details {
+        width: 44px;
+      }
+
+      .scene3-menu ul {
+        min-width: 190px;
+      }
+
+    }
+
+    .scene-arrow {
+      position: fixed;
+      bottom: clamp(18px, 2.8vh, 34px);
+      display: inline-block;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: clamp(44px, 5.4vw, 58px);
+      line-height: 1;
+      z-index: 16;
+      text-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+      transition: transform 180ms ease, color 180ms ease;
+    }
+
+    .scene-next-arrow {
+      right: clamp(18px, 2.4vw, 32px);
+    }
+
+    .scene-prev-arrow {
+      left: clamp(18px, 2.4vw, 32px);
+    }
+
+    .scene-arrow:hover {
+      color: rgba(255, 255, 255, 0.8);
+      transform: translateY(-2px);
+    }
+
+    @keyframes dropdownIn {
+      from {
+        opacity: 0;
+        transform: translateY(-4px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="viewport" id="viewport">
+    <section class="scene active" data-index="0">
+      <video src="depth1.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+      <div class="overlay"></div>
+    </section>
+
+    <section class="scene" data-index="1">
+      <video src="istockphoto-1397154176-640_adpp_is.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+      <div class="overlay"></div>
+    </section>
+
+    <section class="scene" data-index="2">
+      <video src="istockphoto-1733016928-640_adpp_is.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+      <div class="overlay"></div>
+    </section>
+
+    <section class="scene profile-scene" data-index="3">
+      <div class="profile-layout">
+        <img src="Gayle.png" alt="Gayle Jennings-O'Byrne" class="profile-image" />
+        <article class="profile-copy">
+          <p>Gayle Jennings-O'Byrne is the CEO of Wocstar Capital and co-founder of the Wocstar Fund, an early-stage venture capital fund that invests in a new generation of innovative and diverse tech entrepreneurs. Recognized by the New York Times as one of &quot;10 Women Changing the Landscape of Leadership,&quot; she has been named one of Forbes &quot;50 Over 50&quot; investors and a &quot;Top Black Venture Capitalist&quot; (Business Insider) and a &quot;Top 10 Woman of Influence in Venture Capital&quot; by Venture Capital Journal. Her track record of identifying and empowering visionary founders has resulted in successful fund exits that have returned investor capital. Gayle also leads Wocstar Academy, a global program that trains CEOs for capital readiness, and oversees a major grant on behalf of Pivotal Ventures and other foundations to address systemic underinvestment in female fund managers.</p>
+          <p>Gayle has over 30+ years of Wall Street, technology, philanthropy, training, and professional speaking experience. She is a former mergers and acquisitions banker at JPMorgan. She led the capital/planning effort for the Cinema High School, the 1st public high school of its kind. She began her career at Sun Microsystems.</p>
+          <p>She is a graduate of the Wharton School of Business, the University of Michigan, and an attendee of the National University of Singapore and the City of London Polytechnic.</p>
+          <p>She is the former President of The Nantucket Project Academy and a former board member of Tri Delta Foundation Board, Women.NYC, NYC Economic Development Corporation, and board member of BE.NYC (Black Entrepreneurs), NYC Department of Small Business Services. Gayle is a 2022 recipient of the U.S. Presidential Lifetime Achievement Award, the 2021 Tri-Delta Woman of Achievement Award. Gayle's media experience includes M&amp;A of film studios and assets, Associate Producer of &quot;Thoughts of a Colored Man&quot; a Broadway play (October 2021) and investor in &quot;For Colored Girls Who Have Considered Suicide / When the Rainbow Is Enuf&quot; (April 2022) which was nominated for seven Tony Awards as well as investor in several films and media projects.</p>
+          <section class="press-section" aria-label="Find Gayle in the press">
+            <h2 class="press-title">Find Gayle in the press</h2>
+            <div class="press-grid">
+              <a class="press-card" href="https://www.nytimes.com/live/2021/03/05/world/women-leadership" target="_blank" rel="noopener noreferrer" aria-label="Read New York Times coverage about Gayle">
+                <img class="press-logo bright" src="the-new-york-times-seeklogo.png" alt="The New York Times" />
+              </a>
+              <a class="press-card" href="https://www.abcnews.go.com/search?searchtext=Gayle%20Jennings-O%27Byrne" target="_blank" rel="noopener noreferrer" aria-label="Read ABC News coverage about Gayle">
+                <img class="press-logo bright" src="abc-news-seeklogo.png" alt="ABC News" />
+              </a>
+              <a class="press-card" href="https://www.crainsnewyork.com/search?query=Gayle%20Jennings-O%27Byrne" target="_blank" rel="noopener noreferrer" aria-label="Read Crain's New York coverage about Gayle">
+                <img class="press-logo" src="Crain's_New_York_idQCK4RdSh_0.png" alt="Crain's New York" />
+              </a>
+              <a class="press-card" href="https://www.cbsnews.com/search/?q=Gayle%20Jennings-O%27Byrne" target="_blank" rel="noopener noreferrer" aria-label="Read CBS News coverage about Gayle">
+                <img class="press-logo cbs-logo" src="CBS_News_id1klAFr7p_1.jpeg" alt="CBS News" />
+              </a>
+              <a class="press-card pix11-card" href="https://pix11.com/new-york-living/personality-and-your-finances/" target="_blank" rel="noopener noreferrer" aria-label="Watch PIX11 coverage featuring Gayle">
+                <span class="pix11-wordmark">PIX11</span>
+              </a>
+              <a class="press-card" href="https://www.forbes.com/sites/maggiemcgrath/2024/08/01/50-over-50-investment/" target="_blank" rel="noopener noreferrer" aria-label="Read Forbes coverage about Gayle">
+                <img class="press-logo bright" src="Forbes_idvlzRQKLx_1.png" alt="Forbes" />
+              </a>
+              <a class="press-card jp-card" href="https://www.jpmorgan.com/search?query=Gayle%20Jennings-O%27Byrne" target="_blank" rel="noopener noreferrer" aria-label="Read JPMorgan coverage about Gayle">
+                <img class="press-logo" src="jp-morgan-seeklogo.png" alt="JPMorgan" />
+              </a>
+            </div>
+          </section>
+          <footer class="profile-footer" aria-label="Site footer">
+            <div class="profile-footer-grid">
+              <div>
+                <h2 class="footer-heading">Join us. Sign up for the newsletter.</h2>
+                <a class="footer-btn" href="#" aria-label="Subscribe to newsletter">Subscribe</a>
+                <div class="footer-links">
+                  <a href="#">Wocstar Capital Commitment</a>
+                  <a href="#">SMS Terms &amp; Conditions</a>
+                  <a href="#">Privacy Policy</a>
+                </div>
+              </div>
+              <div>
+                <input class="footer-search" type="search" name="footer-search" placeholder="Search" aria-label="Search" />
+                <div class="footer-action-stack">
+                  <a class="footer-btn" href="#">Contact</a>
+                  <a class="footer-btn" href="#">News</a>
+                </div>
+                <div class="footer-social">
+                  <p class="footer-social-title">Follow us on social</p>
+                  <div class="footer-social-row" aria-label="Social links">
+                    <a class="social-icon social-youtube" href="#" aria-label="YouTube">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M23 12s0-3.2-.4-4.7c-.2-.8-.8-1.4-1.6-1.6C19.4 5.3 12 5.3 12 5.3s-7.4 0-9 .4c-.8.2-1.4.8-1.6 1.6C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.8 1.4 1.6 1.6 1.6.4 9 .4 9 .4s7.4 0 9-.4c.8-.2 1.4-.8 1.6-1.6.4-1.5.4-4.7.4-4.7zM10 15.5V8.5L16 12l-6 3.5z"/>
+                      </svg>
+                    </a>
+                    <a class="social-icon social-apple" href="#" aria-label="Apple">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M16.6 12.6c0-2.4 2-3.5 2.1-3.6-1.2-1.7-3-1.9-3.6-1.9-1.5-.2-2.9.9-3.6.9-.8 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.9 2.3-1.7 2.9-.4 7.2 1.2 9.5.8 1.1 1.8 2.3 3.1 2.2 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.1-1.1 2.9-2.2.9-1.3 1.3-2.7 1.3-2.8-.1 0-2.8-1.1-2.8-3.6zM14.2 5.6c.7-.8 1.2-1.9 1.1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1 .1 2-.5 2.7-1.3z"/>
+                      </svg>
+                    </a>
+                    <a class="social-icon social-spotify" href="#" aria-label="Spotify">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 1.5C6.2 1.5 1.5 6.2 1.5 12S6.2 22.5 12 22.5 22.5 17.8 22.5 12 17.8 1.5 12 1.5zm4.8 14.9c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.9-9.4-1.1-.3.1-.7-.1-.8-.5-.1-.3.1-.7.5-.8 4-.9 7.5-.5 10.3 1.2.4.1.5.6.3 1zm1.2-2.7c-.3.4-.8.5-1.2.3-2.8-1.7-7.2-2.2-10.5-1.2-.5.1-1-.1-1.1-.6-.1-.5.1-1 .6-1.1 3.8-1.1 8.6-.6 11.9 1.4.4.2.5.8.3 1.2zm.1-2.8C14.8 9 9.7 8.9 6.6 9.9c-.6.2-1.2-.1-1.4-.7-.2-.6.1-1.2.7-1.4 3.6-1.1 9.2-1 13.4 1.4.5.3.7 1 .4 1.5-.2.5-.9.7-1.4.4z"/>
+                      </svg>
+                    </a>
+                    <a class="social-icon social-instagram" href="#" aria-label="Instagram">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm0 1.8c-2.2 0-4 1.8-4 4v8.4c0 2.2 1.8 4 4 4h8.4c2.2 0 4-1.8 4-4V7.8c0-2.2-1.8-4-4-4H7.8zm9.1 1.4a1.3 1.3 0 110 2.6 1.3 1.3 0 010-2.6zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.8a3.2 3.2 0 100 6.4 3.2 3.2 0 000-6.4z"/>
+                      </svg>
+                    </a>
+                    <a class="social-icon social-linkedin" href="#" aria-label="LinkedIn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4.7 3.5a2.1 2.1 0 100 4.2 2.1 2.1 0 000-4.2zM3 9h3.4v12H3V9zm6 0h3.2v1.6h.1c.4-.8 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5V21h-3.4v-5.8c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H9V9z"/>
+                      </svg>
+                    </a>
+                    <a class="social-icon social-facebook" href="#" aria-label="Facebook">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.2V11H8v3h2.4v8h3.1z"/>
+                      </svg>
+                    </a>
+                    <a class="social-icon social-tiktok" href="#" aria-label="TikTok">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M14 3c.2 1.7 1.2 3 2.9 3.8 1 .5 2 .7 3.1.7v2.7c-1.5 0-3-.4-4.3-1.1v5.9c0 3.2-2.5 5.7-5.7 5.7S4.3 18.2 4.3 15 6.8 9.3 10 9.3c.4 0 .8 0 1.2.1V12c-.4-.1-.8-.2-1.2-.2-1.8 0-3.2 1.4-3.2 3.2S8.2 18.2 10 18.2s3.2-1.4 3.2-3.2V3h.8z"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="footer-legal">
+              Copyright &copy; 2026 Wocstar Capital, LLC. All rights reserved.<br />
+              Wocstar&reg; is a registered trademark of Wocstar Capital, LLC.<br />
+              170 E. 88th St. NY, NY 10012
+            </p>
+          </footer>
+        </article>
+      </div>
+      <div class="overlay"></div>
+    </section>
+  </main>
+
+  <div class="brand">Wocstar</div>
+  <nav class="scene1-menu" aria-label="Scene one menu">
+    <details>
+      <summary aria-label="Open scene one menu"></summary>
+      <ul>
+        <li><a href="#the-fund">The Fund</a></li>
+        <li><a href="https://form.jotform.com/250832645113047" target="_blank" rel="noopener noreferrer">Fund application form</a></li>
+        <li><a href="#portfolio-companies">Portfolio companies</a></li>
+        <li><a href="#success-stories-exits">Success stories &amp; exits</a></li>
+      </ul>
+    </details>
+  </nav>
+  <nav class="scene2-menu" aria-label="Scene two menu">
+    <details>
+      <summary aria-label="Open scene two menu"></summary>
+      <ul>
+        <li><a href="#about-the-academy">About the Academy</a></li>
+        <li><a href="#upcoming-webinars">Upcoming Webinars</a></li>
+      </ul>
+    </details>
+  </nav>
+  <nav class="scene3-menu" aria-label="Scene three menu">
+    <details>
+      <summary aria-label="Open scene three menu"></summary>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#media-fellows">Media Fellows</a></li>
+        <li><a href="#wocstar-media-foundation">Wocstar Media Foundation</a></li>
+        <li><a href="#podcasting">Podcasting</a></li>
+      </ul>
+    </details>
+  </nav>
+  <div class="headline-wrap">
+    <h1 class="headline" id="headline">Wocstar Fund</h1>
+    <p class="headline-subtext" id="headlineSubtext"></p>
+  </div>
+
+  <a class="scene-arrow scene-prev-arrow" href="#" aria-label="Go to previous page section" title="Previous">
+    <span aria-hidden="true">&#8249;</span>
+  </a>
+
+  <a class="scene-arrow scene-next-arrow" href="#" aria-label="Go to next page section" title="Next">
+    <span aria-hidden="true">&#8250;</span>
+  </a>
+
+  <script>
+    (function () {
+      const scenes = Array.from(document.querySelectorAll('.scene'));
+      const brand = document.querySelector('.brand');
+      const headline = document.getElementById('headline');
+      const headlineWrap = document.querySelector('.headline-wrap');
+      const headlineSubtext = document.getElementById('headlineSubtext');
+      const nextArrow = document.querySelector('.scene-next-arrow');
+      const prevArrow = document.querySelector('.scene-prev-arrow');
+      const sceneTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'Gayle Jennings-O\'Byrne'];
+      const sceneDescriptions = [
+        `An early-stage fund backing bold, tech-driven ideas at the edge of what's possible.
+
+We partner with visionary founders building the systems, platforms, and technologies that will define a more sustainable future.`,
+        'The Wocstar Entrepreneur Academy helps you unlock capital, grow your business, and build lasting success.',
+        'Turning Powerful Stories into Lasting Impact',
+        ''
+      ];
+      const transitionDuration = 900;
+      const swipeThreshold = 50;
+      const wheelThreshold = 35;
+
+      let currentIndex = 0;
+      let isAnimating = false;
+      let touchStartY = null;
+      let touchStartedInProfileCopy = false;
+
+      function fitProfileContentToViewport() {
+        const profileCopy = document.querySelector('.profile-scene .profile-copy');
+        if (!profileCopy) return;
+        profileCopy.style.transform = 'none';
+      }
+
+      function alignBrandToProfileHeadshot() {
+        const profileImage = document.querySelector('.profile-scene .profile-image');
+        if (!profileImage) return;
+
+        const rect = profileImage.getBoundingClientRect();
+        const targetLeft = Math.max(12, Math.round(rect.left));
+        const targetTop = window.innerWidth <= 768 ? 14 : 20;
+
+        brand.style.left = `${targetLeft}px`;
+        brand.style.top = `${targetTop}px`;
+      }
+
+      const videos = Array.from(document.querySelectorAll('video'));
+      videos.forEach((video) => {
+        video.muted = true;
+
+        const tryPlay = () => {
+          const playPromise = video.play();
+          if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(() => {});
+          }
+        };
+
+        if (video.readyState >= 2) {
+          tryPlay();
+        } else {
+          video.addEventListener('canplay', tryPlay, { once: true });
+        }
+      });
+
+      function updateStatus() {
+        const isProfileScene = currentIndex === 3;
+        const isFirstScene = currentIndex === 0;
+        const isLastScene = currentIndex === scenes.length - 1;
+        document.body.setAttribute('data-scene', String(currentIndex));
+        brand.textContent = isProfileScene ? "Gayle Jennings-O'Byrne" : 'Wocstar';
+        brand.classList.toggle('profile-aligned', isProfileScene);
+        headline.textContent = sceneTitles[currentIndex];
+        headlineSubtext.textContent = sceneDescriptions[currentIndex];
+        headlineWrap.style.opacity = isProfileScene ? '0' : '1';
+        nextArrow.style.display = isLastScene ? 'none' : 'inline-block';
+        prevArrow.style.display = isFirstScene ? 'none' : 'inline-block';
+
+        if (isProfileScene) {
+          alignBrandToProfileHeadshot();
+          requestAnimationFrame(fitProfileContentToViewport);
+        } else {
+          brand.style.left = '';
+          brand.style.top = '';
+        }
+      }
+
+      function setLayerOrder(nextIndex, fromIndex) {
+        scenes.forEach((scene, index) => {
+          if (index === nextIndex) {
+            scene.style.zIndex = '3';
+          } else if (index === fromIndex) {
+            scene.style.zIndex = '2';
+          } else {
+            scene.style.zIndex = '1';
+          }
+        });
+      }
+
+      function transitionTo(nextIndex) {
+        if (isAnimating) return;
+        if (nextIndex < 0 || nextIndex >= scenes.length || nextIndex === currentIndex) return;
+
+        isAnimating = true;
+
+        const fromIndex = currentIndex;
+        const currentScene = scenes[fromIndex];
+        const nextScene = scenes[nextIndex];
+
+        setLayerOrder(nextIndex, fromIndex);
+
+        // Update text immediately so previous scene copy does not linger.
+        currentIndex = nextIndex;
+        updateStatus();
+
+        nextScene.style.transition = 'none';
+        nextScene.style.opacity = '0';
+        nextScene.style.transform = 'scale(1.2)';
+        nextScene.classList.add('active');
+
+        void nextScene.offsetWidth;
+
+        nextScene.style.transition = '';
+
+        requestAnimationFrame(() => {
+          nextScene.style.opacity = '1';
+          nextScene.style.transform = 'scale(1)';
+
+          currentScene.style.opacity = '0';
+          currentScene.style.transform = 'scale(0.8)';
+        });
+
+        window.setTimeout(() => {
+          currentScene.classList.remove('active');
+          currentScene.style.opacity = '';
+          currentScene.style.transform = '';
+
+          nextScene.style.opacity = '';
+          nextScene.style.transform = '';
+
+          // Re-align after transition completes to avoid transform-timing drift.
+          if (currentIndex === 3) {
+            requestAnimationFrame(alignBrandToProfileHeadshot);
+            requestAnimationFrame(fitProfileContentToViewport);
+          }
+
+          isAnimating = false;
+        }, transitionDuration + 30);
+      }
+
+      function onWheel(event) {
+        event.preventDefault();
+        if (isAnimating) return;
+
+        if (currentIndex === 3) {
+          const profileCopy = document.querySelector('.profile-scene .profile-copy');
+          if (profileCopy) {
+            profileCopy.scrollTop += event.deltaY;
+          }
+          return;
+        }
+
+        if (Math.abs(event.deltaY) < wheelThreshold) return;
+
+        if (event.deltaY > 0) {
+          transitionTo(currentIndex + 1);
+        } else {
+          transitionTo(currentIndex - 1);
+        }
+      }
+
+      function onTouchStart(event) {
+        if (!event.touches || !event.touches[0]) return;
+        touchStartY = event.touches[0].clientY;
+        touchStartedInProfileCopy = Boolean(
+          currentIndex === 3 && event.target && event.target.closest('.profile-copy')
+        );
+      }
+
+      function onTouchMove(event) {
+        if (currentIndex === 3 && event.target && event.target.closest('.profile-copy')) {
+          return;
+        }
+        event.preventDefault();
+      }
+
+      function onTouchEnd(event) {
+        if (touchStartY === null || isAnimating) {
+          touchStartY = null;
+          touchStartedInProfileCopy = false;
+          return;
+        }
+
+        if (currentIndex === 3 && touchStartedInProfileCopy) {
+          touchStartY = null;
+          touchStartedInProfileCopy = false;
+          return;
+        }
+
+        if (!event.changedTouches || !event.changedTouches[0]) {
+          touchStartY = null;
+          touchStartedInProfileCopy = false;
+          return;
+        }
+
+        const endY = event.changedTouches[0].clientY;
+        const deltaY = touchStartY - endY;
+
+        if (Math.abs(deltaY) >= swipeThreshold) {
+          if (deltaY > 0) {
+            transitionTo(currentIndex + 1);
+          } else {
+            transitionTo(currentIndex - 1);
+          }
+        }
+
+        touchStartY = null;
+        touchStartedInProfileCopy = false;
+      }
+
+      window.addEventListener('wheel', onWheel, { passive: false });
+      window.addEventListener('touchstart', onTouchStart, { passive: true });
+      window.addEventListener('touchmove', onTouchMove, { passive: false });
+      window.addEventListener('touchend', onTouchEnd, { passive: true });
+      nextArrow.addEventListener('click', (event) => {
+        event.preventDefault();
+        transitionTo(currentIndex + 1);
+      });
+      prevArrow.addEventListener('click', (event) => {
+        event.preventDefault();
+        transitionTo(currentIndex - 1);
+      });
+      window.addEventListener('resize', () => {
+        if (currentIndex === 3) {
+          alignBrandToProfileHeadshot();
+          fitProfileContentToViewport();
+        }
+      });
+
+      updateStatus();
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
