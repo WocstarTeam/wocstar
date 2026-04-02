@@ -84,6 +84,122 @@
       background: rgba(0, 0, 0, 0.48);
     }
 
+    .universe-scene .overlay {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .universe-layout {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      padding: clamp(86px, 10vh, 130px) clamp(20px, 4vw, 54px) clamp(24px, 5vh, 56px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(16px, 2.4vh, 28px);
+    }
+
+    .universe-header {
+      max-width: min(760px, 92vw);
+    }
+
+    .universe-title {
+      color: #fff;
+      font-size: clamp(30px, 5.1vw, 68px);
+      line-height: 0.98;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      text-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    .universe-subtitle {
+      margin-top: 10px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: clamp(14px, 1.3vw, 21px);
+      line-height: 1.45;
+      max-width: min(640px, 92vw);
+    }
+
+    .universe-collage {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .universe-shape {
+      position: absolute;
+      top: 14%;
+      left: 26%;
+      width: min(35vw, 480px);
+      height: min(35vw, 480px);
+      background: linear-gradient(140deg, rgba(70, 134, 255, 0.4), rgba(10, 24, 60, 0.2));
+      transform: rotate(-45deg);
+      border-radius: 22% 22% 12% 12%;
+      pointer-events: none;
+    }
+
+    .universe-shape::before,
+    .universe-shape::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 34% 30%, rgba(119, 171, 255, 0.3), rgba(23, 42, 88, 0.2) 72%);
+    }
+
+    .universe-shape::before {
+      left: 0;
+      top: -50%;
+    }
+
+    .universe-shape::after {
+      left: 50%;
+      top: 0;
+    }
+
+    .universe-group {
+      position: absolute;
+      inset: 0;
+    }
+
+    .profile-orbit {
+      position: absolute;
+      border-radius: 999px;
+      width: var(--orbit-size);
+      height: var(--orbit-size);
+      left: var(--orbit-left);
+      top: var(--orbit-top);
+      text-decoration: none;
+      z-index: var(--orbit-layer, 2);
+      transition: transform 220ms ease, box-shadow 220ms ease;
+    }
+
+    .profile-orbit:hover,
+    .profile-orbit:focus-visible {
+      transform: scale(1.06);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.34);
+      outline: none;
+    }
+
+    .profile-orbit__photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 999px;
+      border: 2px solid var(--orbit-ring, #4d8fff);
+      background: radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.45), rgba(29, 58, 111, 0.45) 44%, rgba(16, 22, 36, 0.64));
+      display: block;
+    }
+
+    .profile-orbit--01 { --orbit-size: clamp(110px, 16.5vw, 198px); --orbit-left: 7%; --orbit-top: 34%; --orbit-layer: 4; --orbit-ring: #5f9dff; }
+    .profile-orbit--02 { --orbit-size: clamp(92px, 13.2vw, 164px); --orbit-left: 24%; --orbit-top: 20%; --orbit-layer: 3; --orbit-ring: #f1c98d; }
+    .profile-orbit--03 { --orbit-size: clamp(104px, 14vw, 178px); --orbit-left: 40%; --orbit-top: 36%; --orbit-layer: 5; --orbit-ring: #5f9dff; }
+    .profile-orbit--04 { --orbit-size: clamp(88px, 12.3vw, 150px); --orbit-left: 56%; --orbit-top: 18%; --orbit-layer: 2; --orbit-ring: #d6ad67; }
+    .profile-orbit--05 { --orbit-size: clamp(116px, 15.6vw, 190px); --orbit-left: 66%; --orbit-top: 43%; --orbit-layer: 4; --orbit-ring: #5f9dff; }
+    .profile-orbit--06 { --orbit-size: clamp(82px, 11.5vw, 138px); --orbit-left: 79%; --orbit-top: 27%; --orbit-layer: 3; --orbit-ring: #e8be7a; }
+    .profile-orbit--07 { --orbit-size: clamp(96px, 13.5vw, 166px); --orbit-left: 28%; --orbit-top: 56%; --orbit-layer: 3; --orbit-ring: #6ca7ff; }
+    .profile-orbit--08 { --orbit-size: clamp(86px, 11.8vw, 142px); --orbit-left: 52%; --orbit-top: 62%; --orbit-layer: 2; --orbit-ring: #f0c684; }
+
     .profile-layout {
       position: absolute;
       inset: 0;
@@ -707,6 +823,23 @@
       visibility: visible;
     }
 
+    .scene4-menu {
+      position: fixed;
+      right: 12px;
+      top: 18px;
+      transform: none;
+      z-index: 13;
+      pointer-events: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 220ms ease;
+    }
+
+    body[data-scene="3"] .scene4-menu {
+      opacity: 1;
+      visibility: visible;
+    }
+
     .scene1-menu details {
       min-width: 0;
       width: 46px;
@@ -732,6 +865,18 @@
     }
 
     .scene3-menu details {
+      min-width: 0;
+      width: 46px;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      overflow: visible;
+      position: relative;
+    }
+
+    .scene4-menu details {
       min-width: 0;
       width: 46px;
       border: none;
@@ -779,6 +924,18 @@
       user-select: none;
     }
 
+    .scene4-menu summary {
+      list-style: none;
+      cursor: pointer;
+      width: 46px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.95);
+      user-select: none;
+    }
+
     .scene1-menu summary::-webkit-details-marker {
       display: none;
     }
@@ -788,6 +945,10 @@
     }
 
     .scene3-menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .scene4-menu summary::-webkit-details-marker {
       display: none;
     }
 
@@ -810,6 +971,15 @@
     }
 
     .scene3-menu summary::before {
+      content: "";
+      width: 18px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 999px;
+      box-shadow: 0 -6px 0 rgba(255, 255, 255, 0.96), 0 6px 0 rgba(255, 255, 255, 0.96);
+    }
+
+    .scene4-menu summary::before {
       content: "";
       width: 18px;
       height: 2px;
@@ -869,6 +1039,23 @@
       animation: dropdownIn 180ms ease;
     }
 
+    .scene4-menu ul {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top right;
+      animation: dropdownIn 180ms ease;
+    }
+
     .scene1-menu a {
       display: block;
       padding: 9px 12px;
@@ -893,6 +1080,14 @@
       text-decoration: none;
     }
 
+    .scene4-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
     .scene1-menu a:hover {
       background: rgba(255, 255, 255, 0.12);
     }
@@ -902,6 +1097,10 @@
     }
 
     .scene3-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .scene4-menu a:hover {
       background: rgba(255, 255, 255, 0.12);
     }
 
@@ -1040,6 +1239,53 @@
         gap: 12px;
       }
 
+      .universe-layout {
+        padding: 84px 14px 22px;
+        gap: 12px;
+      }
+
+      .universe-title {
+        font-size: clamp(28px, 8.5vw, 44px);
+      }
+
+      .universe-subtitle {
+        font-size: clamp(13px, 3.6vw, 17px);
+        margin-top: 8px;
+      }
+
+      .universe-collage {
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        gap: 10px;
+        padding-right: 2px;
+      }
+
+      .universe-shape {
+        width: min(64vw, 340px);
+        height: min(64vw, 340px);
+        top: 12%;
+        left: 18%;
+      }
+
+      .universe-group {
+        display: contents;
+      }
+
+      .profile-orbit {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: clamp(80px, 22vw, 118px);
+        height: clamp(80px, 22vw, 118px);
+      }
+
+      .profile-orbit__photo {
+        font-size: clamp(11px, 3vw, 14px);
+      }
+
       .profile-image {
         height: min(38vh, 380px);
         object-fit: cover;
@@ -1096,6 +1342,13 @@
         transform: none;
       }
 
+      .scene4-menu {
+        right: 10px;
+        top: 14px;
+        bottom: auto;
+        transform: none;
+      }
+
       .scene1-menu details {
         width: 44px;
       }
@@ -1117,6 +1370,14 @@
       }
 
       .scene3-menu ul {
+        min-width: 190px;
+      }
+
+      .scene4-menu details {
+        width: 44px;
+      }
+
+      .scene4-menu ul {
         min-width: 190px;
       }
 
@@ -1177,7 +1438,49 @@
       <div class="overlay"></div>
     </section>
 
-    <section class="scene profile-scene" data-index="3">
+    <section class="scene universe-scene" data-index="3">
+      <div class="universe-layout">
+        <header class="universe-header">
+          <h2 class="universe-title">The Wocstar Universe</h2>
+        </header>
+        <div class="universe-collage" aria-label="Wocstar Universe profiles">
+          <div class="universe-shape" aria-hidden="true"></div>
+          <section class="universe-group" data-group="core-team" aria-label="Core team">
+            <a class="profile-orbit profile-orbit--01" href="/universe/gayle-jennings-obyrne.html" aria-label="Gayle Jennings-O'Byrne biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+            </a>
+            <a class="profile-orbit profile-orbit--02" href="/universe/core-team-member-2.html" aria-label="Core team member biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+            </a>
+            <a class="profile-orbit profile-orbit--03" href="/universe/core-team-member-3.html" aria-label="Core team member biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+            </a>
+          </section>
+          <section class="universe-group" data-group="partners" aria-label="Partners">
+            <a class="profile-orbit profile-orbit--04" href="/universe/partner-1.html" aria-label="Partner biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+            </a>
+            <a class="profile-orbit profile-orbit--05" href="/universe/partner-2.html" aria-label="Partner biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+            </a>
+            <a class="profile-orbit profile-orbit--06" href="/universe/partner-3.html" aria-label="Partner biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+            </a>
+          </section>
+          <section class="universe-group" data-group="collaborators" aria-label="Collaborators">
+            <a class="profile-orbit profile-orbit--07" href="/universe/collaborator-1.html" aria-label="Collaborator biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+            </a>
+            <a class="profile-orbit profile-orbit--08" href="/universe/collaborator-2.html" aria-label="Collaborator biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+            </a>
+          </section>
+        </div>
+      </div>
+      <div class="overlay"></div>
+    </section>
+
+    <section class="scene profile-scene" data-index="4">
       <div class="profile-layout">
         <img src="Gayle.png" alt="Gayle Jennings-O'Byrne" class="profile-image" />
         <article class="profile-copy">
@@ -1347,6 +1650,17 @@
       </ul>
     </details>
   </nav>
+  <nav class="scene4-menu" aria-label="Scene four menu">
+    <details>
+      <summary aria-label="Open scene four menu"></summary>
+      <ul>
+        <li><a href="/universe/core-team.html">Core team</a></li>
+        <li><a href="/universe/partners.html">Partners</a></li>
+        <li><a href="/universe/collaborators.html">Collaborators</a></li>
+        <li><a href="/universe/gayle-jennings-obyrne.html">Gayle biography</a></li>
+      </ul>
+    </details>
+  </nav>
   <div class="headline-wrap">
     <h1 class="headline" id="headline">Wocstar Fund</h1>
     <p class="headline-subtext" id="headlineSubtext"></p>
@@ -1376,19 +1690,23 @@
       const contactForm = document.getElementById('contactForm');
       const contactFormStatus = document.getElementById('contactFormStatus');
       const contactNameInput = document.getElementById('contactName');
-      const sceneTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'Gayle Jennings-O\'Byrne'];
+      const universeSceneIndex = 3;
+      const profileSceneIndex = 4;
+      const sceneTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'The Wocstar Universe', 'Gayle Jennings-O\'Byrne'];
       const sceneDescriptions = [
         `An early-stage fund backing bold, tech-driven ideas at the edge of what's possible.
 
-We partner with visionary founders building the systems, platforms, and technologies that will define a more sustainable future.`,
+        We partner with visionary founders building the systems, platforms, and technologies that will define a more sustainable future.`,
         'The Wocstar Entrepreneur Academy helps you unlock capital, grow your business, and build lasting success.',
-        'Turning Powerful Stories into Lasting Impact',
+        'Turning Powerful Stories into Lasting Impact.',
+        '',
         ''
       ];
       const sceneBrandLogos = [
         { src: 'Wocstar logos/wocstar-fund-logo.png', alt: 'Wocstar Fund' },
         { src: 'Wocstar logos/wocstar-academy-logo.png', alt: 'Wocstar Academy' },
-        { src: 'Wocstar logos/wocstar-media-logo.png', alt: 'Wocstar Media' }
+        { src: 'Wocstar logos/wocstar-media-logo.png', alt: 'Wocstar Media' },
+        { src: 'Wocstar logos/wocstar-logo.png', alt: 'The Wocstar Universe' }
       ];
       const transitionDuration = 900;
       const swipeThreshold = 50;
@@ -1411,7 +1729,7 @@ We partner with visionary founders building the systems, platforms, and technolo
 
       function renderBrandDropdown() {
         if (!brandDropdown) return;
-        const options = [0, 1, 2]
+        const options = [0, 1, 2, universeSceneIndex]
           .filter((index) => index !== currentIndex)
           .map((index) => {
             const logo = sceneBrandLogos[index];
@@ -1422,7 +1740,7 @@ We partner with visionary founders building the systems, platforms, and technolo
       }
 
       function toggleBrandDropdown() {
-        if (!brand || !brandDropdown || currentIndex > 2) return;
+        if (!brand || !brandDropdown || currentIndex > universeSceneIndex) return;
         if (brandDropdown.hidden === false) {
           closeBrandDropdown();
           return;
@@ -1517,7 +1835,8 @@ We partner with visionary founders building the systems, platforms, and technolo
       });
 
       function updateStatus() {
-        const isProfileScene = currentIndex === 3;
+        const isProfileScene = currentIndex === profileSceneIndex;
+        const isUniverseScene = currentIndex === universeSceneIndex;
         const isFirstScene = currentIndex === 0;
         const isLastScene = currentIndex === scenes.length - 1;
         document.body.setAttribute('data-scene', String(currentIndex));
@@ -1535,7 +1854,7 @@ We partner with visionary founders building the systems, platforms, and technolo
         brand.classList.toggle('profile-aligned', isProfileScene);
         headline.textContent = sceneTitles[currentIndex];
         headlineSubtext.textContent = sceneDescriptions[currentIndex];
-        headlineWrap.style.opacity = isProfileScene ? '0' : '1';
+        headlineWrap.style.opacity = (isProfileScene || isUniverseScene) ? '0' : '1';
         nextArrow.style.display = isLastScene ? 'none' : 'inline-block';
         prevArrow.style.display = isFirstScene ? 'none' : 'inline-block';
 
@@ -1605,7 +1924,7 @@ We partner with visionary founders building the systems, platforms, and technolo
           nextScene.style.transform = '';
 
           // Re-align after transition completes to avoid transform-timing drift.
-          if (currentIndex === 3) {
+          if (currentIndex === profileSceneIndex) {
             requestAnimationFrame(alignBrandToProfileHeadshot);
             requestAnimationFrame(fitProfileContentToViewport);
           }
@@ -1619,7 +1938,7 @@ We partner with visionary founders building the systems, platforms, and technolo
         if (isAnimating) return;
         if (isContactModalOpen()) return;
 
-        if (currentIndex === 3) {
+        if (currentIndex === profileSceneIndex) {
           const profileCopy = document.querySelector('.profile-scene .profile-copy');
           if (profileCopy) {
             const maxScrollTop = Math.max(0, profileCopy.scrollHeight - profileCopy.clientHeight);
@@ -1661,13 +1980,13 @@ We partner with visionary founders building the systems, platforms, and technolo
         if (!event.touches || !event.touches[0]) return;
         touchStartY = event.touches[0].clientY;
         touchStartedInProfileCopy = Boolean(
-          currentIndex === 3 && event.target && event.target.closest('.profile-copy')
+          currentIndex === profileSceneIndex && event.target && event.target.closest('.profile-copy')
         );
       }
 
       function onTouchMove(event) {
         if (isContactModalOpen()) return;
-        if (currentIndex === 3 && event.target && event.target.closest('.profile-copy')) {
+        if (currentIndex === profileSceneIndex && event.target && event.target.closest('.profile-copy')) {
           return;
         }
         event.preventDefault();
@@ -1695,7 +2014,7 @@ We partner with visionary founders building the systems, platforms, and technolo
         const endY = event.changedTouches[0].clientY;
         const deltaY = touchStartY - endY;
 
-        if (currentIndex === 3 && touchStartedInProfileCopy) {
+        if (currentIndex === profileSceneIndex && touchStartedInProfileCopy) {
           const profileCopy = document.querySelector('.profile-scene .profile-copy');
           if (profileCopy && Math.abs(deltaY) >= swipeThreshold) {
             const maxScrollTop = Math.max(0, profileCopy.scrollHeight - profileCopy.clientHeight);
@@ -1740,7 +2059,7 @@ We partner with visionary founders building the systems, platforms, and technolo
       if (brand) {
         brand.addEventListener('click', (event) => {
           event.preventDefault();
-          if (currentIndex > 2) return;
+          if (currentIndex > universeSceneIndex) return;
           toggleBrandDropdown();
         });
       }
@@ -1799,7 +2118,7 @@ We partner with visionary founders building the systems, platforms, and technolo
         }
       });
       window.addEventListener('resize', () => {
-        if (currentIndex === 3) {
+        if (currentIndex === profileSceneIndex) {
           alignBrandToProfileHeadshot();
           fitProfileContentToViewport();
         }
