@@ -173,6 +173,7 @@
       text-decoration: none;
       z-index: var(--orbit-layer, 2);
       transition: transform 220ms ease, box-shadow 220ms ease;
+      overflow: visible;
     }
 
     .profile-orbit:hover,
@@ -189,6 +190,50 @@
       border: 2px solid var(--orbit-ring, #4d8fff);
       background: radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.45), rgba(29, 58, 111, 0.45) 44%, rgba(16, 22, 36, 0.64));
       display: block;
+    }
+
+    .profile-orbit__dialog {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 10px);
+      transform: translate(-50%, 6px);
+      min-width: 120px;
+      max-width: min(180px, 42vw);
+      padding: 8px 12px;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: clamp(11px, 0.85vw, 13px);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.2;
+      background: rgba(8, 18, 36, 0.38);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px);
+      box-shadow: inset 0 0 0 1px rgba(177, 196, 227, 0.85);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 170ms ease, transform 170ms ease;
+      white-space: nowrap;
+    }
+
+    .profile-orbit__dialog::after {
+      content: "";
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      width: 8px;
+      height: 3px;
+      background: rgba(177, 196, 227, 0.95);
+      box-shadow: -3px 3px 0 rgba(177, 196, 227, 0.95);
+      opacity: 0.8;
+    }
+
+    .profile-orbit:hover .profile-orbit__dialog,
+    .profile-orbit:focus-visible .profile-orbit__dialog {
+      opacity: 1;
+      transform: translate(-50%, 0);
     }
 
     .profile-orbit--01 { --orbit-size: clamp(110px, 16.5vw, 198px); --orbit-left: 7%; --orbit-top: 34%; --orbit-layer: 4; --orbit-ring: #5f9dff; }
@@ -1471,31 +1516,39 @@
           <section class="universe-group" data-group="core-team" aria-label="Core team">
             <a class="profile-orbit profile-orbit--01" href="/universe/gayle-jennings-obyrne.html" aria-label="Gayle Jennings-O'Byrne biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Pialy</span>
             </a>
             <a class="profile-orbit profile-orbit--02" href="/universe/core-team-member-2.html" aria-label="Core team member biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Colleen</span>
             </a>
             <a class="profile-orbit profile-orbit--03" href="/universe/core-team-member-3.html" aria-label="Core team member biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Gayle Jennings-O'Byrne</span>
             </a>
           </section>
           <section class="universe-group" data-group="partners" aria-label="Partners">
             <a class="profile-orbit profile-orbit--04" href="/universe/partner-1.html" aria-label="Partner biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Laurel</span>
             </a>
             <a class="profile-orbit profile-orbit--05" href="/universe/partner-2.html" aria-label="Partner biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Victoria</span>
             </a>
             <a class="profile-orbit profile-orbit--06" href="/universe/partner-3.html" aria-label="Partner biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Partner 3</span>
             </a>
           </section>
           <section class="universe-group" data-group="collaborators" aria-label="Collaborators">
             <a class="profile-orbit profile-orbit--07" href="/universe/collaborator-1.html" aria-label="Collaborator biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Collaborator 1</span>
             </a>
             <a class="profile-orbit profile-orbit--08" href="/universe/collaborator-2.html" aria-label="Collaborator biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Collaborator 2</span>
             </a>
           </section>
         </div>
