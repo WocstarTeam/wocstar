@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Companies | Wocstar Fund</title>
+  <style>
+    :root {
+      --page-bg: #f6f6f2;
+      --text-main: #101010;
+      --text-muted: #4f4f4a;
+      --plate-bg: #ecece6;
+      --plate-border: #dfdfd7;
+      --motion: 180ms ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      background: var(--page-bg);
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text-main);
+    }
+
+    .brand {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      z-index: 10;
+      line-height: 1;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .brand-logo {
+      display: block;
+      height: 42px;
+      width: auto;
+      max-width: 100%;
+    }
+
+    .page {
+      width: min(1320px, calc(100vw - 72px));
+      margin: 0 auto;
+      padding: clamp(116px, 14vh, 160px) 0 clamp(44px, 8vh, 88px);
+    }
+
+    .header {
+      max-width: 880px;
+      margin-bottom: clamp(34px, 7vh, 74px);
+    }
+
+    .title {
+      font-size: clamp(42px, 8vw, 104px);
+      line-height: 0.95;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    .description {
+      margin-top: 18px;
+      max-width: 700px;
+      font-size: clamp(16px, 1.35vw, 22px);
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .company-grid {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: clamp(22px, 2.8vw, 40px) clamp(18px, 2.2vw, 30px);
+      align-items: start;
+    }
+
+    .company-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      transition: transform var(--motion), opacity var(--motion);
+    }
+
+    .company-link:hover,
+    .company-link:focus-visible {
+      transform: scale(1.015);
+      opacity: 0.9;
+      outline: none;
+    }
+
+    .logo-plate {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: var(--plate-bg);
+      border: 1px solid var(--plate-border);
+      border-radius: 6px;
+      padding: clamp(16px, 1.9vw, 24px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-mark {
+      font-size: clamp(13px, 0.92vw, 16px);
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: #1d1d1b;
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    .company-name {
+      margin-top: 12px;
+      font-size: clamp(15px, 1vw, 18px);
+      line-height: 1.3;
+      font-weight: 500;
+      color: #171715;
+    }
+
+    @media (max-width: 1300px) {
+      .company-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .brand {
+        top: 18px;
+        left: 18px;
+      }
+
+      .brand-logo {
+        height: 36px;
+      }
+
+      .page {
+        width: calc(100vw - 48px);
+        padding-top: 98px;
+      }
+
+      .company-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .company-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      .page {
+        width: calc(100vw - 28px);
+      }
+
+      .company-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="brand" href="/index.html" aria-label="Go to Wocstar Fund home">
+    <img class="brand-logo" src="Wocstar logos/wocstar-fund-logo.png" alt="Wocstar Fund" />
+  </a>
+
+  <main class="page">
+    <header class="header">
+      <h1 class="title">Portfolio Companies</h1>
+      <p class="description">
+        Placeholder copy for portfolio storytelling. This section will showcase companies, sectors, and links to deeper founder and investment narratives.
+      </p>
+    </header>
+
+    <ul class="company-grid" aria-label="Portfolio company list">
+      <li>
+        <a class="company-link" href="#" aria-label="Open Atlas Labs profile">
+          <div class="logo-plate"><span class="logo-mark">Atlas</span></div>
+          <p class="company-name">Atlas Labs</p>
+        </a>
+      </li>
+      <li>
+        <a class="company-link" href="#" aria-label="Open Nura Health profile">
+          <div class="logo-plate"><span class="logo-mark">Nura</span></div>
+          <p class="company-name">Nura Health</p>
+        </a>
+      </li>
+      <li>
+        <a class="company-link" href="#" aria-label="Open Kinetic Carbon profile">
+          <div class="logo-plate"><span class="logo-mark">Kinetic</span></div>
+          <p class="company-name">Kinetic Carbon</p>
+        </a>
+      </li>
+      <li>
+        <a class="company-link" href="#" aria-label="Open Foundry Sense profile">
+          <div class="logo-plate"><span class="logo-mark">Foundry</span></div>
+          <p class="company-name">Foundry Sense</p>
+        </a>
+      </li>
+      <li>
+        <a class="company-link" href="#" aria-label="Open Halo Ledger profile">
+          <div class="logo-plate"><span class="logo-mark">Halo</span></div>
+          <p class="company-name">Halo Ledger</p>
+        </a>
+      </li>
+      <li>
+        <a class="company-link" href="#" aria-label="Open Aster Mobility profile">
+          <div class="logo-plate"><span class="logo-mark">Aster</span></div>
+          <p class="company-name">Aster Mobility</p>
+        </a>
+      </li>
+      <li>
+        <a class="company-link" href="#" aria-label="Open FieldBridge profile">
+          <div class="logo-plate"><span class="logo-mark">FieldBridge</span></div>
+          <p class="company-name">FieldBridge</p>
+        </a>
+      </li>
+      <li>
+        <a class="company-link" href="#" aria-label="Open Meridian Grid profile">
+          <div class="logo-plate"><span class="logo-mark">Meridian</span></div>
+          <p class="company-name">Meridian Grid</p>
+        </a>
+      </li>
+      <li>
+        <a class="company-link" href="#" aria-label="Open Northline Systems profile">
+          <div class="logo-plate"><span class="logo-mark">Northline</span></div>
+          <p class="company-name">Northline Systems</p>
+        </a>
+      </li>
+      <li>
+        <a class="company-link" href="#" aria-label="Open Delta Orchard profile">
+          <div class="logo-plate"><span class="logo-mark">Delta Orchard</span></div>
+          <p class="company-name">Delta Orchard</p>
+        </a>
+      </li>
+    </ul>
+  </main>
+</body>
+</html>
