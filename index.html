@@ -1737,7 +1737,7 @@
         <li><a href="/universe/core-team.html">Core team</a></li>
         <li><a href="/universe/partners.html">Partners</a></li>
         <li><a href="/universe/collaborators.html">Collaborators</a></li>
-        <li><a href="/universe/gayle-jennings-obyrne.html">Gayle biography</a></li>
+        <li><a href="#" id="goToGayleBio">Gayle biography</a></li>
       </ul>
     </details>
   </nav>
@@ -1770,6 +1770,7 @@
       const contactForm = document.getElementById('contactForm');
       const contactFormStatus = document.getElementById('contactFormStatus');
       const contactNameInput = document.getElementById('contactName');
+      const goToGayleBio = document.getElementById('goToGayleBio');
       const universeSceneIndex = 3;
       const profileSceneIndex = 4;
       const sceneTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'The Wocstar Universe', 'Gayle Jennings-O\'Byrne'];
@@ -2182,6 +2183,12 @@
       });
       if (contactButton) {
         contactButton.addEventListener('click', openContactModal);
+      }
+      if (goToGayleBio) {
+        goToGayleBio.addEventListener('click', (event) => {
+          event.preventDefault();
+          transitionTo(profileSceneIndex);
+        });
       }
       if (contactModal) {
         contactModal.addEventListener('click', (event) => {
