@@ -565,29 +565,95 @@
       pointer-events: auto;
     }
 
-    .brand {
+    .brand-switcher {
       position: fixed;
       top: 20px;
       left: 20px;
       z-index: 12;
+    }
+
+    .brand {
+      display: inline-block;
+      line-height: 1;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      user-select: none;
+      pointer-events: auto;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .brand.profile-aligned {
       color: rgba(255, 255, 255, 0.94);
       font-size: 14px;
-      letter-spacing: 0.16em;
       text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 800;
       padding: 10px 16px;
       border: 1px solid rgba(255, 255, 255, 0.28);
       border-radius: 999px;
       background: rgba(0, 0, 0, 0.24);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
-      user-select: none;
-      pointer-events: none;
     }
 
-    .brand.profile-aligned {
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      font-weight: 800;
+    .brand-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 14px;
+      margin: 0;
+      padding: 2px 0;
+      min-width: 250px;
+      list-style: none;
+      border-radius: 0;
+      border: 0;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: none;
+    }
+
+    .brand-dropdown__item {
+      width: 100%;
+      display: block;
+      border: 0;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.95);
+      text-align: left;
+      font: inherit;
+      font-size: 14px;
+      padding: 8px 0;
+      cursor: pointer;
+    }
+
+    .brand-dropdown__logo {
+      display: block;
+      height: 28px;
+      width: auto;
+      max-width: 240px;
+      object-fit: contain;
+      object-position: left center;
+      background: transparent;
+    }
+
+    .brand-dropdown__item:hover,
+    .brand-dropdown__item:focus-visible {
+      background: transparent;
+      filter: brightness(1.08);
+      outline: none;
+    }
+
+    .brand-logo {
+      display: block;
+      height: 42px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      background: transparent;
     }
 
     .scene1-menu {
@@ -865,23 +931,6 @@
       text-shadow: 0 8px 30px rgba(0, 0, 0, 0.26);
     }
 
-    .headline-logo-link {
-      display: inline-block;
-      line-height: 1;
-      pointer-events: auto;
-      background: transparent;
-    }
-
-    .headline-logo {
-      display: block;
-      height: 1em;
-      width: auto;
-      max-width: 100%;
-      object-fit: contain;
-      object-position: left center;
-      background: transparent;
-    }
-
     .headline-subtext {
       margin-top: 16px;
       width: 100%;
@@ -949,11 +998,17 @@
         object-position: center 6%;
       }
 
-      .brand {
+      .brand-switcher {
         top: 14px;
         left: 14px;
+      }
+
+      .brand-logo {
+        height: 36px;
+      }
+
+      .brand.profile-aligned {
         font-size: 12px;
-        letter-spacing: 0.12em;
         padding: 8px 12px;
       }
 
@@ -1255,7 +1310,12 @@
     </section>
   </div>
 
-  <div class="brand">Wocstar</div>
+  <div class="brand-switcher">
+    <button class="brand" type="button" aria-label="Wocstar Fund" aria-haspopup="true" aria-expanded="false">
+      <img class="brand-logo" src="Wocstar logos/wocstar-fund-logo.png" alt="Wocstar Fund" />
+    </button>
+    <ul class="brand-dropdown" id="brandDropdown" hidden></ul>
+  </div>
   <nav class="scene1-menu" aria-label="Scene one menu">
     <details>
       <summary aria-label="Open scene one menu"></summary>
@@ -1303,7 +1363,9 @@
   <script>
     (function () {
       const scenes = Array.from(document.querySelectorAll('.scene'));
+      const brandSwitcher = document.querySelector('.brand-switcher');
       const brand = document.querySelector('.brand');
+      const brandDropdown = document.getElementById('brandDropdown');
       const headline = document.getElementById('headline');
       const headlineWrap = document.querySelector('.headline-wrap');
       const headlineSubtext = document.getElementById('headlineSubtext');
@@ -1323,7 +1385,11 @@ We partner with visionary founders building the systems, platforms, and technolo
         'Turning Powerful Stories into Lasting Impact',
         ''
       ];
-      const firstSceneLogoSrc = 'Wocstar logos/wocstar-fund-logo.png';
+      const sceneBrandLogos = [
+        { src: 'Wocstar logos/wocstar-fund-logo.png', alt: 'Wocstar Fund' },
+        { src: 'Wocstar logos/wocstar-academy-logo.png', alt: 'Wocstar Academy' },
+        { src: 'Wocstar logos/wocstar-media-logo.png', alt: 'Wocstar Media' }
+      ];
       const transitionDuration = 900;
       const swipeThreshold = 50;
       const wheelThreshold = 35;
@@ -1336,6 +1402,35 @@ We partner with visionary founders building the systems, platforms, and technolo
       let lastFocusedElement = null;
       let profileExitIntentDirection = 0;
       let profileExitIntentAt = 0;
+
+      function closeBrandDropdown() {
+        if (!brand || !brandDropdown) return;
+        brandDropdown.hidden = true;
+        brand.setAttribute('aria-expanded', 'false');
+      }
+
+      function renderBrandDropdown() {
+        if (!brandDropdown) return;
+        const options = [0, 1, 2]
+          .filter((index) => index !== currentIndex)
+          .map((index) => {
+            const logo = sceneBrandLogos[index];
+            return `<li><button class="brand-dropdown__item" type="button" data-scene-target="${index}" aria-label="${sceneTitles[index]}"><img class="brand-dropdown__logo" src="${logo.src}" alt="${logo.alt}" /></button></li>`;
+          })
+          .join('');
+        brandDropdown.innerHTML = options;
+      }
+
+      function toggleBrandDropdown() {
+        if (!brand || !brandDropdown || currentIndex > 2) return;
+        if (brandDropdown.hidden === false) {
+          closeBrandDropdown();
+          return;
+        }
+        renderBrandDropdown();
+        brandDropdown.hidden = false;
+        brand.setAttribute('aria-expanded', 'true');
+      }
 
       function isContactModalOpen() {
         return Boolean(contactModal && contactModal.classList.contains('is-open'));
@@ -1393,14 +1488,14 @@ We partner with visionary founders building the systems, platforms, and technolo
 
       function alignBrandToProfileHeadshot() {
         const profileImage = document.querySelector('.profile-scene .profile-image');
-        if (!profileImage) return;
+        if (!profileImage || !brandSwitcher) return;
 
         const rect = profileImage.getBoundingClientRect();
         const targetLeft = Math.max(12, Math.round(rect.left));
         const targetTop = window.innerWidth <= 768 ? 14 : 20;
 
-        brand.style.left = `${targetLeft}px`;
-        brand.style.top = `${targetTop}px`;
+        brandSwitcher.style.left = `${targetLeft}px`;
+        brandSwitcher.style.top = `${targetTop}px`;
       }
 
       const videos = Array.from(document.querySelectorAll('video'));
@@ -1426,24 +1521,19 @@ We partner with visionary founders building the systems, platforms, and technolo
         const isFirstScene = currentIndex === 0;
         const isLastScene = currentIndex === scenes.length - 1;
         document.body.setAttribute('data-scene', String(currentIndex));
-        brand.textContent = isProfileScene ? "Gayle Jennings-O'Byrne" : 'Wocstar';
-        brand.classList.toggle('profile-aligned', isProfileScene);
-        if (isFirstScene) {
-          const logoLink = document.createElement('a');
-          const logoImage = document.createElement('img');
-          logoLink.className = 'headline-logo-link';
-          logoLink.href = '#';
-          logoLink.setAttribute('aria-label', 'Wocstar Fund');
-          logoImage.className = 'headline-logo';
-          logoImage.src = firstSceneLogoSrc;
-          logoImage.alt = 'Wocstar Fund';
-          logoImage.decoding = 'async';
-          logoImage.loading = 'eager';
-          logoLink.appendChild(logoImage);
-          headline.replaceChildren(logoLink);
+        closeBrandDropdown();
+        if (isProfileScene) {
+          brand.innerHTML = "Gayle Jennings-O'Byrne";
+          brand.setAttribute('aria-label', "Gayle Jennings-O'Byrne");
+          brand.setAttribute('aria-haspopup', 'false');
         } else {
-          headline.textContent = sceneTitles[currentIndex];
+          const brandLogo = sceneBrandLogos[currentIndex] || sceneBrandLogos[0];
+          brand.innerHTML = `<img class="brand-logo" src="${brandLogo.src}" alt="${brandLogo.alt}" />`;
+          brand.setAttribute('aria-label', brandLogo.alt);
+          brand.setAttribute('aria-haspopup', 'true');
         }
+        brand.classList.toggle('profile-aligned', isProfileScene);
+        headline.textContent = sceneTitles[currentIndex];
         headlineSubtext.textContent = sceneDescriptions[currentIndex];
         headlineWrap.style.opacity = isProfileScene ? '0' : '1';
         nextArrow.style.display = isLastScene ? 'none' : 'inline-block';
@@ -1453,8 +1543,10 @@ We partner with visionary founders building the systems, platforms, and technolo
           alignBrandToProfileHeadshot();
           requestAnimationFrame(fitProfileContentToViewport);
         } else {
-          brand.style.left = '';
-          brand.style.top = '';
+          if (brandSwitcher) {
+            brandSwitcher.style.left = '';
+            brandSwitcher.style.top = '';
+          }
         }
       }
 
@@ -1645,6 +1737,27 @@ We partner with visionary founders building the systems, platforms, and technolo
       window.addEventListener('touchstart', onTouchStart, { passive: true });
       window.addEventListener('touchmove', onTouchMove, { passive: false });
       window.addEventListener('touchend', onTouchEnd, { passive: true });
+      if (brand) {
+        brand.addEventListener('click', (event) => {
+          event.preventDefault();
+          if (currentIndex > 2) return;
+          toggleBrandDropdown();
+        });
+      }
+      if (brandDropdown) {
+        brandDropdown.addEventListener('click', (event) => {
+          const target = event.target instanceof HTMLElement ? event.target.closest('[data-scene-target]') : null;
+          if (!target) return;
+          const nextIndex = Number(target.getAttribute('data-scene-target'));
+          closeBrandDropdown();
+          transitionTo(nextIndex);
+        });
+      }
+      document.addEventListener('click', (event) => {
+        if (!brandSwitcher || !brandDropdown || brandDropdown.hidden) return;
+        if (event.target instanceof Node && brandSwitcher.contains(event.target)) return;
+        closeBrandDropdown();
+      });
       nextArrow.addEventListener('click', (event) => {
         event.preventDefault();
         transitionTo(currentIndex + 1);
@@ -1678,6 +1791,9 @@ We partner with visionary founders building the systems, platforms, and technolo
         });
       }
       document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          closeBrandDropdown();
+        }
         if (event.key === 'Escape' && isContactModalOpen()) {
           closeContactModal();
         }
