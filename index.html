@@ -2148,11 +2148,28 @@
         });
       }
       document.addEventListener('keydown', (event) => {
+        const target = event.target instanceof HTMLElement ? event.target : null;
+        const isTypingTarget = Boolean(
+          target &&
+          (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)
+        );
+
         if (event.key === 'Escape') {
           closeBrandDropdown();
         }
         if (event.key === 'Escape' && isContactModalOpen()) {
           closeContactModal();
+        }
+
+        if (isTypingTarget) return;
+        if (isAnimating || isContactModalOpen()) return;
+
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          transitionTo(getWrappedIndex(-1));
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          transitionTo(getWrappedIndex(1));
         }
       });
       window.addEventListener('resize', () => {
