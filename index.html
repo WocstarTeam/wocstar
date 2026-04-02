@@ -1856,8 +1856,6 @@
       function updateStatus() {
         const isProfileScene = currentIndex === profileSceneIndex;
         const isUniverseScene = currentIndex === universeSceneIndex;
-        const isFirstScene = currentIndex === 0;
-        const isLastScene = currentIndex === scenes.length - 1;
         document.body.setAttribute('data-scene', String(currentIndex));
         closeBrandDropdown();
         if (isProfileScene) {
@@ -1874,8 +1872,8 @@
         headline.textContent = sceneTitles[currentIndex];
         headlineSubtext.textContent = sceneDescriptions[currentIndex];
         headlineWrap.style.opacity = (isProfileScene || isUniverseScene) ? '0' : '1';
-        nextArrow.style.display = isLastScene ? 'none' : 'inline-block';
-        prevArrow.style.display = isFirstScene ? 'none' : 'inline-block';
+        nextArrow.style.display = 'inline-block';
+        prevArrow.style.display = 'inline-block';
 
         if (isProfileScene) {
           alignBrandToProfileHeadshot();
@@ -1950,6 +1948,10 @@
 
           isAnimating = false;
         }, transitionDuration + 30);
+      }
+
+      function getWrappedIndex(step) {
+        return (currentIndex + step + scenes.length) % scenes.length;
       }
 
       function onWheel(event) {
@@ -2098,11 +2100,11 @@
       });
       nextArrow.addEventListener('click', (event) => {
         event.preventDefault();
-        transitionTo(currentIndex + 1);
+        transitionTo(getWrappedIndex(1));
       });
       prevArrow.addEventListener('click', (event) => {
         event.preventDefault();
-        transitionTo(currentIndex - 1);
+        transitionTo(getWrappedIndex(-1));
       });
       if (contactButton) {
         contactButton.addEventListener('click', openContactModal);
