@@ -1518,7 +1518,7 @@
         <div class="universe-collage" aria-label="Wocstar Universe profiles">
           <div class="universe-shape" aria-hidden="true"></div>
           <section class="universe-group" data-group="core-team" aria-label="Core team">
-            <a class="profile-orbit profile-orbit--01" href="/universe/gayle-jennings-obyrne.html" aria-label="Gayle Jennings-O'Byrne biography">
+            <a class="profile-orbit profile-orbit--01" href="#" id="goToGayleFromBubble" aria-label="Gayle Jennings-O'Byrne biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
               <span class="profile-orbit__dialog">Pialy Aditya</span>
             </a>
@@ -1771,6 +1771,7 @@
       const contactFormStatus = document.getElementById('contactFormStatus');
       const contactNameInput = document.getElementById('contactName');
       const goToGayleBio = document.getElementById('goToGayleBio');
+      const goToGayleFromBubble = document.getElementById('goToGayleFromBubble');
       const universeSceneIndex = 3;
       const profileSceneIndex = 4;
       const sceneTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'The Wocstar Universe', 'Gayle Jennings-O\'Byrne'];
@@ -2186,6 +2187,12 @@
       }
       if (goToGayleBio) {
         goToGayleBio.addEventListener('click', (event) => {
+          event.preventDefault();
+          transitionTo(profileSceneIndex);
+        });
+      }
+      if (goToGayleFromBubble) {
+        goToGayleFromBubble.addEventListener('click', (event) => {
           event.preventDefault();
           transitionTo(profileSceneIndex);
         });
