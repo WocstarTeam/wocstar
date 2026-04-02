@@ -865,6 +865,23 @@
       text-shadow: 0 8px 30px rgba(0, 0, 0, 0.26);
     }
 
+    .headline-logo-link {
+      display: inline-block;
+      line-height: 1;
+      pointer-events: auto;
+      background: transparent;
+    }
+
+    .headline-logo {
+      display: block;
+      height: 1em;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      object-position: left center;
+      background: transparent;
+    }
+
     .headline-subtext {
       margin-top: 16px;
       width: 100%;
@@ -1306,6 +1323,7 @@ We partner with visionary founders building the systems, platforms, and technolo
         'Turning Powerful Stories into Lasting Impact',
         ''
       ];
+      const firstSceneLogoSrc = 'Wocstar logos/wocstar-fund-logo.png';
       const transitionDuration = 900;
       const swipeThreshold = 50;
       const wheelThreshold = 35;
@@ -1410,7 +1428,22 @@ We partner with visionary founders building the systems, platforms, and technolo
         document.body.setAttribute('data-scene', String(currentIndex));
         brand.textContent = isProfileScene ? "Gayle Jennings-O'Byrne" : 'Wocstar';
         brand.classList.toggle('profile-aligned', isProfileScene);
-        headline.textContent = sceneTitles[currentIndex];
+        if (isFirstScene) {
+          const logoLink = document.createElement('a');
+          const logoImage = document.createElement('img');
+          logoLink.className = 'headline-logo-link';
+          logoLink.href = '#';
+          logoLink.setAttribute('aria-label', 'Wocstar Fund');
+          logoImage.className = 'headline-logo';
+          logoImage.src = firstSceneLogoSrc;
+          logoImage.alt = 'Wocstar Fund';
+          logoImage.decoding = 'async';
+          logoImage.loading = 'eager';
+          logoLink.appendChild(logoImage);
+          headline.replaceChildren(logoLink);
+        } else {
+          headline.textContent = sceneTitles[currentIndex];
+        }
         headlineSubtext.textContent = sceneDescriptions[currentIndex];
         headlineWrap.style.opacity = isProfileScene ? '0' : '1';
         nextArrow.style.display = isLastScene ? 'none' : 'inline-block';
