@@ -66,7 +66,7 @@
     }
 
     .scene[data-index="0"] video {
-      object-position: center 2%;
+      object-position: center 46%;
     }
 
     .scene[data-index="2"] video {
@@ -124,6 +124,101 @@
       flex: 1;
       min-height: 0;
       overflow: hidden;
+    }
+
+    .universe-partners {
+      position: relative;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      padding-top: 12px;
+    }
+
+    .universe-partners__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .universe-partners__title {
+      color: rgba(255, 255, 255, 0.95);
+      font-size: clamp(14px, 1.05vw, 18px);
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .universe-partners__controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .universe-partners__btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .universe-partners__btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .universe-partners__viewport {
+      overflow: hidden;
+    }
+
+    .universe-partners__track {
+      list-style: none;
+      display: flex;
+      gap: 10px;
+      will-change: transform;
+      transition: transform 280ms ease;
+      padding: 0;
+      margin: 0;
+    }
+
+    .partner-card {
+      flex: 0 0 clamp(150px, 17vw, 210px);
+      min-height: 86px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      padding: 12px 10px;
+      text-align: center;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .partner-card:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .partner-card__logo {
+      color: rgba(255, 255, 255, 0.94);
+      font-size: clamp(12px, 0.95vw, 14px);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .partner-card__name {
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: clamp(12px, 0.88vw, 14px);
+      line-height: 1.25;
     }
 
     .universe-shape {
@@ -756,83 +851,37 @@
 
     .brand-switcher {
       position: fixed;
-      top: 20px;
-      left: 20px;
+      top: clamp(34px, 4.8vh, 52px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1020px, calc(100vw - 40px));
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: center;
       z-index: 12;
     }
 
     .brand {
-      display: inline-block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       line-height: 1;
-      padding: 0;
+      padding: 2px 8px;
       border: 0;
-      border-radius: 0;
       background: transparent;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
       user-select: none;
       pointer-events: auto;
       text-decoration: none;
       cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 160ms ease, transform 160ms ease;
     }
 
-    .brand.profile-aligned {
-      color: rgba(255, 255, 255, 0.94);
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      font-weight: 800;
-      padding: 10px 16px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.24);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-    }
-
-    .brand-dropdown {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 14px;
-      margin: 0;
-      padding: 2px 0;
-      min-width: 250px;
-      list-style: none;
-      border-radius: 0;
-      border: 0;
-      background: transparent;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      box-shadow: none;
-    }
-
-    .brand-dropdown__item {
-      width: 100%;
-      display: block;
-      border: 0;
-      background: transparent;
-      color: rgba(255, 255, 255, 0.95);
-      text-align: left;
-      font: inherit;
-      font-size: 14px;
-      padding: 8px 0;
-      cursor: pointer;
-    }
-
-    .brand-dropdown__logo {
-      display: block;
-      height: 28px;
-      width: auto;
-      max-width: 240px;
-      object-fit: contain;
-      object-position: left center;
-      background: transparent;
-    }
-
-    .brand-dropdown__item:hover,
-    .brand-dropdown__item:focus-visible {
-      background: transparent;
-      filter: brightness(1.08);
+    .brand:hover,
+    .brand:focus-visible,
+    .brand.is-active {
+      opacity: 1;
+      transform: translateY(-1px);
       outline: none;
     }
 
@@ -843,6 +892,147 @@
       max-width: 100%;
       object-fit: contain;
       background: transparent;
+    }
+
+    .brand-fund-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .brand-fund-menu {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top center;
+      animation: dropdownIn 180ms ease;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 180ms ease, visibility 180ms ease;
+      z-index: 14;
+    }
+
+    body[data-scene="0"][data-fund-menu-open="true"] .brand-fund-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .brand-fund-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .brand-fund-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .brand-academy-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .brand-academy-menu {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top center;
+      animation: dropdownIn 180ms ease;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 180ms ease, visibility 180ms ease;
+      z-index: 14;
+    }
+
+    body[data-scene="1"][data-academy-menu-open="true"] .brand-academy-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .brand-academy-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .brand-academy-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .brand-media-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .brand-media-menu {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top center;
+      animation: dropdownIn 180ms ease;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 180ms ease, visibility 180ms ease;
+      z-index: 14;
+    }
+
+    body[data-scene="2"][data-media-menu-open="true"] .brand-media-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .brand-media-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .brand-media-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
     }
 
     .scene1-menu {
@@ -857,10 +1047,9 @@
       transition: opacity 220ms ease;
     }
 
-    body[data-scene="0"] .scene1-menu {
-      opacity: 1;
-      visibility: visible;
-    }
+    body[data-fund-menu-open="true"] .scene1-menu { display: none; }
+    body[data-academy-menu-open="true"] .scene2-menu { display: none; }
+    body[data-media-menu-open="true"] .scene3-menu { display: none; }
 
     .scene2-menu {
       position: fixed;
@@ -1259,7 +1448,7 @@
 
     @media (max-width: 768px) {
       .scene[data-index="0"] video {
-        object-position: center 0%;
+        object-position: center 38%;
       }
 
       .scene[data-index="1"] video {
@@ -1271,17 +1460,13 @@
       }
 
       .brand-switcher {
-        top: 14px;
-        left: 14px;
+        top: 24px;
+        width: calc(100vw - 24px);
       }
+
 
       .brand-logo {
-        height: 36px;
-      }
-
-      .brand.profile-aligned {
-        font-size: 12px;
-        padding: 8px 12px;
+        height: 30px;
       }
 
       .headline-wrap {
@@ -1334,6 +1519,23 @@
         align-content: flex-start;
         gap: 10px;
         padding-right: 2px;
+      }
+
+      .universe-partners {
+        width: 100%;
+        margin-top: 8px;
+      }
+
+      .universe-partners__viewport {
+        overflow-x: auto;
+      }
+
+      .universe-partners__track {
+        width: max-content;
+      }
+
+      .partner-card {
+        flex-basis: clamp(138px, 36vw, 176px);
       }
 
       .universe-shape {
@@ -1556,6 +1758,43 @@
             </a>
           </section>
         </div>
+        <section class="universe-partners" aria-label="Venture partners carousel">
+          <div class="universe-partners__header">
+            <h3 class="universe-partners__title">Venture Partners</h3>
+            <div class="universe-partners__controls" aria-label="Venture partners navigation">
+              <button class="universe-partners__btn" type="button" id="partnersPrevBtn" aria-label="Show previous venture partners">&#8249;</button>
+              <button class="universe-partners__btn" type="button" id="partnersNextBtn" aria-label="Show next venture partners">&#8250;</button>
+            </div>
+          </div>
+          <div class="universe-partners__viewport" id="partnersViewport">
+            <ul class="universe-partners__track" id="partnersTrack">
+              <li class="partner-card">
+                <span class="partner-card__logo">Aster</span>
+                <span class="partner-card__name">Aster Growth Partners</span>
+              </li>
+              <li class="partner-card">
+                <span class="partner-card__logo">Nova</span>
+                <span class="partner-card__name">Nova Catalyst</span>
+              </li>
+              <li class="partner-card">
+                <span class="partner-card__logo">Foundry</span>
+                <span class="partner-card__name">Foundry Collective</span>
+              </li>
+              <li class="partner-card">
+                <span class="partner-card__logo">Meridian</span>
+                <span class="partner-card__name">Meridian Capital Group</span>
+              </li>
+              <li class="partner-card">
+                <span class="partner-card__logo">Summit</span>
+                <span class="partner-card__name">Summit Innovation Fund</span>
+              </li>
+              <li class="partner-card">
+                <span class="partner-card__logo">Atlas</span>
+                <span class="partner-card__name">Atlas Future Ventures</span>
+              </li>
+            </ul>
+          </div>
+        </section>
       </div>
       <div class="overlay"></div>
     </section>
@@ -1694,42 +1933,44 @@
   </div>
 
   <div class="brand-switcher">
-    <button class="brand" type="button" aria-label="Wocstar Fund" aria-haspopup="true" aria-expanded="false">
-      <img class="brand-logo" src="Wocstar logos/wocstar-fund-logo.png" alt="Wocstar Fund" />
+    <button class="brand" type="button" data-scene-target="3" aria-label="Wocstar Capital">
+      <img class="brand-logo" src="Wocstar logos/Wocstar-capital_black_nov5.png" alt="Wocstar Capital" />
     </button>
-    <ul class="brand-dropdown" id="brandDropdown" hidden></ul>
-  </div>
-  <nav class="scene1-menu" aria-label="Scene one menu">
-    <details>
-      <summary aria-label="Open scene one menu"></summary>
-      <ul>
+    <div class="brand-fund-wrap">
+      <button class="brand is-active" type="button" data-scene-target="0" aria-label="Wocstar Fund">
+        <img class="brand-logo" src="Wocstar logos/wocstar-fund-logo.png" alt="Wocstar Fund" />
+      </button>
+      <ul class="brand-fund-menu" id="brandFundMenu" aria-label="Wocstar Fund menu">
         <li><a href="#the-fund">The Fund</a></li>
         <li><a href="https://form.jotform.com/250832645113047" target="_blank" rel="noopener noreferrer">Fund application form</a></li>
         <li><a href="portfolio.html">Portfolio Companies</a></li>
         <li><a href="#success-stories-exits">Success stories &amp; exits</a></li>
       </ul>
-    </details>
-  </nav>
-  <nav class="scene2-menu" aria-label="Scene two menu">
-    <details>
-      <summary aria-label="Open scene two menu"></summary>
-      <ul>
+    </div>
+    <div class="brand-academy-wrap">
+      <button class="brand" type="button" data-scene-target="1" aria-label="Wocstar Academy">
+        <img class="brand-logo" src="Wocstar logos/wocstar-academy-logo.png" alt="Wocstar Academy" />
+      </button>
+      <ul class="brand-academy-menu" id="brandAcademyMenu" aria-label="Wocstar Academy menu">
         <li><a href="#about-the-academy">About the Academy</a></li>
         <li><a href="#upcoming-webinars">Upcoming Webinars</a></li>
       </ul>
-    </details>
-  </nav>
-  <nav class="scene3-menu" aria-label="Scene three menu">
-    <details>
-      <summary aria-label="Open scene three menu"></summary>
-      <ul>
+    </div>
+    <div class="brand-media-wrap">
+      <button class="brand" type="button" data-scene-target="2" aria-label="Wocstar Media">
+        <img class="brand-logo" src="Wocstar logos/wocstar-media-logo.png" alt="Wocstar Media" />
+      </button>
+      <ul class="brand-media-menu" id="brandMediaMenu" aria-label="Wocstar Media menu">
         <li><a href="#about">About</a></li>
         <li><a href="#media-fellows">Media Fellows</a></li>
         <li><a href="#wocstar-media-foundation">Wocstar Media Foundation</a></li>
         <li><a href="#podcasting">Podcasting</a></li>
       </ul>
-    </details>
-  </nav>
+    </div>
+  </div>
+  <nav class="scene1-menu" aria-label="Scene one menu"></nav>
+  <nav class="scene2-menu" aria-label="Scene two menu"></nav>
+  <nav class="scene3-menu" aria-label="Scene three menu"></nav>
   <nav class="scene4-menu" aria-label="Scene four menu">
     <details>
       <summary aria-label="Open scene four menu"></summary>
@@ -1758,8 +1999,13 @@
     (function () {
       const scenes = Array.from(document.querySelectorAll('.scene'));
       const brandSwitcher = document.querySelector('.brand-switcher');
-      const brand = document.querySelector('.brand');
-      const brandDropdown = document.getElementById('brandDropdown');
+      const brandButtons = Array.from(document.querySelectorAll('.brand-switcher .brand[data-scene-target]'));
+      const brandFundWrap = document.querySelector('.brand-fund-wrap');
+      const brandFundMenu = document.getElementById('brandFundMenu');
+      const brandAcademyWrap = document.querySelector('.brand-academy-wrap');
+      const brandAcademyMenu = document.getElementById('brandAcademyMenu');
+      const brandMediaWrap = document.querySelector('.brand-media-wrap');
+      const brandMediaMenu = document.getElementById('brandMediaMenu');
       const headline = document.getElementById('headline');
       const headlineWrap = document.querySelector('.headline-wrap');
       const headlineSubtext = document.getElementById('headlineSubtext');
@@ -1772,6 +2018,10 @@
       const contactNameInput = document.getElementById('contactName');
       const goToGayleBio = document.getElementById('goToGayleBio');
       const goToGayleFromBubble = document.getElementById('goToGayleFromBubble');
+      const partnersTrack = document.getElementById('partnersTrack');
+      const partnersViewport = document.getElementById('partnersViewport');
+      const partnersPrevBtn = document.getElementById('partnersPrevBtn');
+      const partnersNextBtn = document.getElementById('partnersNextBtn');
       const universeSceneIndex = 3;
       const profileSceneIndex = 4;
       const sceneTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'The Wocstar Universe', 'Gayle Jennings-O\'Byrne'];
@@ -1783,12 +2033,6 @@
         'Turning Powerful Stories into Lasting Impact.',
         '',
         ''
-      ];
-      const sceneBrandLogos = [
-        { src: 'Wocstar logos/wocstar-fund-logo.png', alt: 'Wocstar Fund' },
-        { src: 'Wocstar logos/wocstar-academy-logo.png', alt: 'Wocstar Academy' },
-        { src: 'Wocstar logos/wocstar-media-logo.png', alt: 'Wocstar Media' },
-        { src: 'Wocstar logos/wocstar-logo.png', alt: 'The Wocstar Universe' }
       ];
       const transitionDuration = 900;
       const swipeThreshold = 50;
@@ -1802,34 +2046,80 @@
       let lastFocusedElement = null;
       let profileExitIntentDirection = 0;
       let profileExitIntentAt = 0;
+      let partnersIndex = 0;
+      let isFundMenuOpen = false;
+      let isAcademyMenuOpen = false;
+      let isMediaMenuOpen = false;
 
-      function closeBrandDropdown() {
-        if (!brand || !brandDropdown) return;
-        brandDropdown.hidden = true;
-        brand.setAttribute('aria-expanded', 'false');
+      function setFundMenuOpen(isOpen) {
+        isFundMenuOpen = isOpen;
+        if (isOpen) {
+          document.body.setAttribute('data-fund-menu-open', 'true');
+        } else {
+          document.body.removeAttribute('data-fund-menu-open');
+        }
       }
 
-      function renderBrandDropdown() {
-        if (!brandDropdown) return;
-        const options = [0, 1, 2, universeSceneIndex]
-          .filter((index) => index !== currentIndex)
-          .map((index) => {
-            const logo = sceneBrandLogos[index];
-            return `<li><button class="brand-dropdown__item" type="button" data-scene-target="${index}" aria-label="${sceneTitles[index]}"><img class="brand-dropdown__logo" src="${logo.src}" alt="${logo.alt}" /></button></li>`;
-          })
-          .join('');
-        brandDropdown.innerHTML = options;
+      function setAcademyMenuOpen(isOpen) {
+        isAcademyMenuOpen = isOpen;
+        if (isOpen) {
+          document.body.setAttribute('data-academy-menu-open', 'true');
+        } else {
+          document.body.removeAttribute('data-academy-menu-open');
+        }
       }
 
-      function toggleBrandDropdown() {
-        if (!brand || !brandDropdown || currentIndex > universeSceneIndex) return;
-        if (brandDropdown.hidden === false) {
-          closeBrandDropdown();
+      function setMediaMenuOpen(isOpen) {
+        isMediaMenuOpen = isOpen;
+        if (isOpen) {
+          document.body.setAttribute('data-media-menu-open', 'true');
+        } else {
+          document.body.removeAttribute('data-media-menu-open');
+        }
+      }
+
+      function getPartnersPerView() {
+        if (window.innerWidth <= 560) return 1;
+        if (window.innerWidth <= 920) return 2;
+        if (window.innerWidth <= 1280) return 3;
+        return 4;
+      }
+
+      function updatePartnersCarousel(animate = true) {
+        if (!partnersTrack || !partnersViewport) return;
+        const cards = Array.from(partnersTrack.querySelectorAll('.partner-card'));
+        if (!cards.length) return;
+
+        const cardsPerView = getPartnersPerView();
+        const maxIndex = Math.max(0, cards.length - cardsPerView);
+        partnersIndex = Math.min(partnersIndex, maxIndex);
+
+        const cardWidth = cards[0].offsetWidth;
+        const style = window.getComputedStyle(partnersTrack);
+        const gap = parseFloat(style.columnGap || style.gap || '0') || 0;
+        const offset = partnersIndex * (cardWidth + gap);
+
+        partnersTrack.style.transition = animate ? 'transform 280ms ease' : 'none';
+        partnersTrack.style.transform = `translateX(${-offset}px)`;
+      }
+
+      function stepPartnersCarousel(step) {
+        if (!partnersTrack) return;
+        const cards = Array.from(partnersTrack.querySelectorAll('.partner-card'));
+        if (!cards.length) return;
+
+        const cardsPerView = getPartnersPerView();
+        const maxIndex = Math.max(0, cards.length - cardsPerView);
+        if (maxIndex <= 0) {
+          partnersIndex = 0;
+          updatePartnersCarousel();
           return;
         }
-        renderBrandDropdown();
-        brandDropdown.hidden = false;
-        brand.setAttribute('aria-expanded', 'true');
+
+        partnersIndex += step;
+        if (partnersIndex > maxIndex) partnersIndex = 0;
+        if (partnersIndex < 0) partnersIndex = maxIndex;
+        updatePartnersCarousel();
       }
 
       function isContactModalOpen() {
@@ -1886,16 +2176,19 @@
         profileCopy.style.transform = 'none';
       }
 
-      function alignBrandToProfileHeadshot() {
-        const profileImage = document.querySelector('.profile-scene .profile-image');
-        if (!profileImage || !brandSwitcher) return;
+      function updateBrandSwitcher() {
+        if (!brandSwitcher) return;
 
-        const rect = profileImage.getBoundingClientRect();
-        const targetLeft = Math.max(12, Math.round(rect.left));
-        const targetTop = window.innerWidth <= 768 ? 14 : 20;
-
-        brandSwitcher.style.left = `${targetLeft}px`;
-        brandSwitcher.style.top = `${targetTop}px`;
+        brandButtons.forEach((button) => {
+          const sceneTarget = Number(button.getAttribute('data-scene-target'));
+          const isActive = sceneTarget === currentIndex;
+          button.classList.toggle('is-active', isActive);
+          if (isActive) {
+            button.setAttribute('aria-current', 'page');
+          } else {
+            button.removeAttribute('aria-current');
+          }
+        });
       }
 
       const videos = Array.from(document.querySelectorAll('video'));
@@ -1920,32 +2213,35 @@
         const isProfileScene = currentIndex === profileSceneIndex;
         const isUniverseScene = currentIndex === universeSceneIndex;
         document.body.setAttribute('data-scene', String(currentIndex));
-        closeBrandDropdown();
-        if (isProfileScene) {
-          brand.innerHTML = "Gayle Jennings-O'Byrne";
-          brand.setAttribute('aria-label', "Gayle Jennings-O'Byrne");
-          brand.setAttribute('aria-haspopup', 'false');
+        if (currentIndex === 0) {
+          setAcademyMenuOpen(false);
+          setMediaMenuOpen(false);
+        } else if (currentIndex === 1) {
+          setFundMenuOpen(false);
+          setMediaMenuOpen(false);
+        } else if (currentIndex === 2) {
+          setFundMenuOpen(false);
+          setAcademyMenuOpen(false);
         } else {
-          const brandLogo = sceneBrandLogos[currentIndex] || sceneBrandLogos[0];
-          brand.innerHTML = `<img class="brand-logo" src="${brandLogo.src}" alt="${brandLogo.alt}" />`;
-          brand.setAttribute('aria-label', brandLogo.alt);
-          brand.setAttribute('aria-haspopup', 'true');
+          setFundMenuOpen(false);
+          setAcademyMenuOpen(false);
+          setMediaMenuOpen(false);
         }
-        brand.classList.toggle('profile-aligned', isProfileScene);
+        if (currentIndex > universeSceneIndex) {
+          setFundMenuOpen(false);
+          setAcademyMenuOpen(false);
+          setMediaMenuOpen(false);
+        }
+        updateBrandSwitcher();
         headline.textContent = sceneTitles[currentIndex];
-        headlineSubtext.textContent = sceneDescriptions[currentIndex];
+        const rawSubtext = sceneDescriptions[currentIndex] || '';
+        headlineSubtext.textContent = rawSubtext.replace(/\n\s*\n+/g, '\n').trim();
         headlineWrap.style.opacity = (isProfileScene || isUniverseScene) ? '0' : '1';
         nextArrow.style.display = 'inline-block';
         prevArrow.style.display = 'inline-block';
 
         if (isProfileScene) {
-          alignBrandToProfileHeadshot();
           requestAnimationFrame(fitProfileContentToViewport);
-        } else {
-          if (brandSwitcher) {
-            brandSwitcher.style.left = '';
-            brandSwitcher.style.top = '';
-          }
         }
       }
 
@@ -2003,9 +2299,7 @@
           nextScene.style.opacity = '';
           nextScene.style.transform = '';
 
-          // Re-align after transition completes to avoid transform-timing drift.
           if (currentIndex === profileSceneIndex) {
-            requestAnimationFrame(alignBrandToProfileHeadshot);
             requestAnimationFrame(fitProfileContentToViewport);
           }
 
@@ -2153,26 +2447,94 @@
       window.addEventListener('touchstart', onTouchStart, { passive: true });
       window.addEventListener('touchmove', onTouchMove, { passive: false });
       window.addEventListener('touchend', onTouchEnd, { passive: true });
-      if (brand) {
-        brand.addEventListener('click', (event) => {
+      brandButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
           event.preventDefault();
-          if (currentIndex > universeSceneIndex) return;
-          toggleBrandDropdown();
+          const nextIndex = Number(button.getAttribute('data-scene-target'));
+          if (Number.isNaN(nextIndex)) return;
+          if (nextIndex === 0) {
+            if (currentIndex === 0) {
+              setFundMenuOpen(!isFundMenuOpen);
+              setAcademyMenuOpen(false);
+              setMediaMenuOpen(false);
+              updateBrandSwitcher();
+              return;
+            }
+            setAcademyMenuOpen(false);
+            setMediaMenuOpen(false);
+            transitionTo(nextIndex);
+            return;
+          }
+          if (nextIndex === 1) {
+            if (currentIndex === 1) {
+              setAcademyMenuOpen(!isAcademyMenuOpen);
+              setFundMenuOpen(false);
+              setMediaMenuOpen(false);
+              updateBrandSwitcher();
+              return;
+            }
+            setFundMenuOpen(false);
+            setMediaMenuOpen(false);
+            transitionTo(nextIndex);
+            return;
+          }
+          if (nextIndex === 2) {
+            if (currentIndex === 2) {
+              setMediaMenuOpen(!isMediaMenuOpen);
+              setFundMenuOpen(false);
+              setAcademyMenuOpen(false);
+              updateBrandSwitcher();
+              return;
+            }
+            setFundMenuOpen(false);
+            setAcademyMenuOpen(false);
+            setMediaMenuOpen(false);
+            transitionTo(nextIndex);
+            return;
+          }
+          setFundMenuOpen(false);
+          setAcademyMenuOpen(false);
+          setMediaMenuOpen(false);
+          transitionTo(nextIndex);
+        });
+      });
+      if (brandFundMenu) {
+        brandFundMenu.addEventListener('click', (event) => {
+          const target = event.target instanceof HTMLElement ? event.target.closest('a') : null;
+          if (!target) return;
+          setFundMenuOpen(false);
         });
       }
-      if (brandDropdown) {
-        brandDropdown.addEventListener('click', (event) => {
-          const target = event.target instanceof HTMLElement ? event.target.closest('[data-scene-target]') : null;
+      if (brandAcademyMenu) {
+        brandAcademyMenu.addEventListener('click', (event) => {
+          const target = event.target instanceof HTMLElement ? event.target.closest('a') : null;
           if (!target) return;
-          const nextIndex = Number(target.getAttribute('data-scene-target'));
-          closeBrandDropdown();
-          transitionTo(nextIndex);
+          setAcademyMenuOpen(false);
+        });
+      }
+      if (brandMediaMenu) {
+        brandMediaMenu.addEventListener('click', (event) => {
+          const target = event.target instanceof HTMLElement ? event.target.closest('a') : null;
+          if (!target) return;
+          setMediaMenuOpen(false);
         });
       }
       document.addEventListener('click', (event) => {
-        if (!brandSwitcher || !brandDropdown || brandDropdown.hidden) return;
-        if (event.target instanceof Node && brandSwitcher.contains(event.target)) return;
-        closeBrandDropdown();
+        if (isFundMenuOpen && brandFundWrap) {
+          if (!(event.target instanceof Node && brandFundWrap.contains(event.target))) {
+            setFundMenuOpen(false);
+          }
+        }
+        if (isAcademyMenuOpen && brandAcademyWrap) {
+          if (!(event.target instanceof Node && brandAcademyWrap.contains(event.target))) {
+            setAcademyMenuOpen(false);
+          }
+        }
+        if (isMediaMenuOpen && brandMediaWrap) {
+          if (!(event.target instanceof Node && brandMediaWrap.contains(event.target))) {
+            setMediaMenuOpen(false);
+          }
+        }
       });
       nextArrow.addEventListener('click', (event) => {
         event.preventDefault();
@@ -2204,6 +2566,12 @@
           }
         });
       }
+      if (partnersPrevBtn) {
+        partnersPrevBtn.addEventListener('click', () => stepPartnersCarousel(-1));
+      }
+      if (partnersNextBtn) {
+        partnersNextBtn.addEventListener('click', () => stepPartnersCarousel(1));
+      }
       if (contactForm) {
         contactForm.addEventListener('submit', (event) => {
           event.preventDefault();
@@ -2225,8 +2593,14 @@
           (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)
         );
 
-        if (event.key === 'Escape') {
-          closeBrandDropdown();
+        if (event.key === 'Escape' && isFundMenuOpen) {
+          setFundMenuOpen(false);
+        }
+        if (event.key === 'Escape' && isAcademyMenuOpen) {
+          setAcademyMenuOpen(false);
+        }
+        if (event.key === 'Escape' && isMediaMenuOpen) {
+          setMediaMenuOpen(false);
         }
         if (event.key === 'Escape' && isContactModalOpen()) {
           closeContactModal();
@@ -2244,17 +2618,20 @@
         }
       });
       window.addEventListener('resize', () => {
+        updatePartnersCarousel(false);
         if (currentIndex === profileSceneIndex) {
-          alignBrandToProfileHeadshot();
           fitProfileContentToViewport();
         }
       });
 
+      updatePartnersCarousel(false);
       updateStatus();
     })();
   </script>
 </body>
 </html>
+
+
 
 
 
