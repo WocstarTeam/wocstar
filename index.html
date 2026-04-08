@@ -875,6 +875,59 @@
       z-index: 11;
     }
 
+    body[data-scene="1"]::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 82px;
+      background: #e8e8e8;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+      pointer-events: none;
+      z-index: 11;
+    }
+
+    body[data-scene="0"]::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 82px;
+      background:
+        radial-gradient(180px 96px at 18% 28%, rgba(34, 44, 40, 0.16) 0%, rgba(34, 44, 40, 0) 74%),
+        radial-gradient(170px 90px at 74% 66%, rgba(20, 26, 24, 0.16) 0%, rgba(20, 26, 24, 0) 74%),
+        linear-gradient(110deg, #050707 0%, #090c0c 52%, #040505 100%),
+        linear-gradient(180deg, rgba(8, 10, 10, 0.98) 0%, rgba(8, 10, 10, 0.96) 62%, rgba(8, 10, 10, 0.66) 84%, rgba(8, 10, 10, 0) 100%);
+      pointer-events: none;
+      z-index: 11;
+    }
+
+    body[data-scene="0"] .brand-switcher {
+      top: 19px;
+      left: 50%;
+      width: min(1080px, calc(100vw - 56px));
+    }
+
+    body[data-scene="0"] .scene[data-index="0"] video {
+      inset: 82px 0 0 0;
+      height: auto;
+      object-position: center 46%;
+    }
+
+    body[data-scene="1"] .brand-switcher {
+      top: 19px;
+      left: calc(50% - 40px);
+      width: min(1080px, calc(100vw - 56px));
+    }
+
+    body[data-scene="1"] .scene[data-index="1"] video {
+      top: 82px;
+      height: calc(100% - 82px);
+      object-position: center 8%;
+    }
+
     body[data-scene="2"] .brand-switcher {
       top: 19px;
       left: calc(50% - 38px);
@@ -1492,6 +1545,38 @@
 
       body[data-scene="2"]::before {
         height: 72px;
+      }
+
+      body[data-scene="0"]::before {
+        height: 72px;
+      }
+
+      body[data-scene="0"] .brand-switcher {
+        top: 20px;
+        left: 50%;
+        width: calc(100vw - 18px);
+      }
+
+      body[data-scene="0"] .scene[data-index="0"] video {
+        inset: 72px 0 0 0;
+        height: auto;
+        object-position: center 38%;
+      }
+
+      body[data-scene="1"]::before {
+        height: 72px;
+      }
+
+      body[data-scene="1"] .brand-switcher {
+        top: 20px;
+        left: calc(50% - 14px);
+        width: calc(100vw - 18px);
+      }
+
+      body[data-scene="1"] .scene[data-index="1"] video {
+        top: 72px;
+        height: calc(100% - 72px);
+        object-position: center 10%;
       }
 
       body[data-scene="2"] .brand-switcher {
