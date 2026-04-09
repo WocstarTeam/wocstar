@@ -9,20 +9,6 @@
       --duration: 900ms;
       --easing: cubic-bezier(0.22, 1, 0.36, 1);
       --overlay: rgba(0, 0, 0, 0.34);
-      --fund-space-1: 8px;
-      --fund-space-2: 12px;
-      --fund-space-3: 16px;
-      --fund-space-4: 24px;
-      --fund-space-5: 32px;
-      --fund-surface: rgba(255, 255, 255, 0.045);
-      --fund-surface-strong: rgba(255, 255, 255, 0.07);
-      --fund-border: rgba(255, 255, 255, 0.16);
-      --fund-border-strong: rgba(255, 255, 255, 0.24);
-      --fund-meta: rgba(255, 255, 255, 0.7);
-      --fund-hover-lift: translateY(-2px);
-      --fund-motion: 360ms cubic-bezier(0.22, 1, 0.36, 1);
-      --fund-carousel-motion: 820ms cubic-bezier(0.22, 1, 0.36, 1);
-      --fund-focus: 0 0 0 2px rgba(217, 212, 206, 0.9);
     }
 
     * {
@@ -985,10 +971,11 @@
     }
 
     .fund-video-copy__subtext {
-      margin-top: var(--fund-space-3);
+      margin-top: 16px;
+      padding-left: 0.7em;
       color: rgba(255, 255, 255, 0.92);
       font-size: clamp(14px, 1.18vw, 20px);
-      line-height: 1.5;
+      line-height: 1.35;
       font-weight: 500;
       white-space: pre-line;
     }
@@ -996,9 +983,9 @@
     .fund-portfolio {
       position: relative;
       z-index: 5;
-      padding: clamp(var(--fund-space-3), 2.2vw, var(--fund-space-5));
+      padding: clamp(12px, 1.8vw, 20px);
       min-height: calc(100vh - 82px);
-      border-top: 1px solid var(--fund-border);
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
       background:
         radial-gradient(180px 96px at 18% 28%, rgba(34, 44, 40, 0.2) 0%, rgba(34, 44, 40, 0) 74%),
         radial-gradient(170px 90px at 74% 66%, rgba(20, 26, 24, 0.2) 0%, rgba(20, 26, 24, 0) 74%),
@@ -1006,32 +993,19 @@
       overflow: hidden;
     }
 
-    .fund-portfolio::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      height: 26px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
-      pointer-events: none;
-    }
-
     .fund-portfolio__header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--fund-space-3);
-      margin-bottom: var(--fund-space-3);
+      gap: 12px;
+      margin-bottom: 10px;
     }
 
-    .fund-portfolio__title,
-    .fund-exits__title,
-    .fund-prior__title {
+    .fund-portfolio__title {
       color: rgba(255, 255, 255, 0.96);
-      font-size: clamp(14px, 1.05vw, 18px);
+      font-size: clamp(13px, 1vw, 18px);
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
     }
 
@@ -1044,25 +1018,18 @@
       width: 32px;
       height: 32px;
       border-radius: 999px;
-      border: 1px solid var(--fund-border-strong);
-      background: var(--fund-surface);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      background: rgba(255, 255, 255, 0.08);
       color: #fff;
       font-size: 16px;
       line-height: 1;
       cursor: pointer;
-      transition: background var(--fund-motion), transform var(--fund-motion);
+      transition: background 160ms ease, transform 160ms ease;
     }
 
     .fund-portfolio__btn:hover {
-      background: var(--fund-surface-strong);
-      transform: var(--fund-hover-lift);
-    }
-
-    .fund-portfolio__btn:focus-visible,
-    .fund-portco-card__link:focus-visible,
-    .fund-exits-card__link:focus-visible {
-      outline: none;
-      box-shadow: var(--fund-focus);
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-1px);
     }
 
     .fund-portfolio__viewport {
@@ -1072,43 +1039,41 @@
     .fund-portfolio__track {
       list-style: none;
       display: flex;
-      gap: var(--fund-space-2);
+      gap: 12px;
       margin: 0;
       padding: 0;
       will-change: transform;
-      transition: transform var(--fund-carousel-motion);
+      transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .fund-portco-card {
       flex: 0 0 calc((100% - 36px) / 4);
-      min-height: 124px;
+      min-height: 132px;
     }
 
     .fund-portco-card__link {
       display: block;
       height: 100%;
-      border-radius: 10px;
-      border: 1px solid var(--fund-border);
-      background: var(--fund-surface);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.06);
       text-decoration: none;
       padding: 10px;
-      transition: transform var(--fund-motion), background var(--fund-motion), border-color var(--fund-motion), filter var(--fund-motion);
+      transition: transform 180ms ease, background 180ms ease;
     }
 
     .fund-portco-card__link:hover {
-      transform: var(--fund-hover-lift);
-      background: var(--fund-surface-strong);
-      border-color: var(--fund-border-strong);
-      filter: brightness(1.03);
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.12);
     }
 
     .fund-portco-card__plate {
       width: 100%;
       aspect-ratio: 16 / 7;
-      border-radius: 7px;
-      border: 1px solid var(--fund-border);
-      background: rgba(255, 255, 255, 0.045);
-      padding: 6px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1124,7 +1089,6 @@
       height: auto;
       object-fit: contain;
       display: block;
-      max-height: 88px;
     }
 
     .fund-portco-card__logo.is-multiply {
@@ -1141,71 +1105,70 @@
     }
 
     .fund-portco-card__name {
-      margin-top: var(--fund-space-1);
+      margin-top: 8px;
       color: rgba(255, 255, 255, 0.93);
       font-size: clamp(12px, 0.9vw, 14px);
       font-weight: 700;
-      line-height: 1.4;
+      line-height: 1.25;
     }
 
     .fund-portco-card__industry {
       margin-top: 4px;
-      color: var(--fund-meta);
+      color: rgba(255, 255, 255, 0.72);
       font-size: clamp(11px, 0.8vw, 12px);
-      line-height: 1.4;
+      line-height: 1.2;
     }
 
     .fund-exits {
-      margin-top: clamp(var(--fund-space-4), 2.8vh, var(--fund-space-5));
-      padding-top: var(--fund-space-4);
-      position: relative;
+      margin-top: clamp(18px, 2.8vh, 30px);
+      padding-top: 14px;
     }
 
-    .fund-exits::before,
-    .fund-prior::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      height: 18px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0px, rgba(255, 255, 255, 0.03) 1px, rgba(255, 255, 255, 0) 100%),
-        radial-gradient(120% 70% at 50% 0%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 72%);
-      pointer-events: none;
+    .fund-exits__title {
+      color: rgba(255, 255, 255, 0.96);
+      font-size: clamp(13px, 1vw, 18px);
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
     }
 
     .fund-exits__grid {
       list-style: none;
-      margin: var(--fund-space-3) 0 0;
+      margin: 12px 0 0;
       padding: 0;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: var(--fund-space-3);
+      gap: 12px;
     }
 
     .fund-prior {
-      margin-top: clamp(var(--fund-space-4), 2.8vh, var(--fund-space-5));
-      padding-top: var(--fund-space-4);
-      position: relative;
+      margin-top: clamp(18px, 2.8vh, 30px);
+      padding-top: 14px;
+    }
+
+    .fund-prior__title {
+      color: rgba(255, 255, 255, 0.96);
+      font-size: clamp(13px, 1vw, 18px);
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
     }
 
     .fund-prior__grid {
       list-style: none;
-      margin: var(--fund-space-3) 0 0;
+      margin: 12px 0 0;
       padding: 0;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: var(--fund-space-3);
+      gap: 12px;
     }
 
     .fund-exits-card {
-      min-height: 104px;
-      border-radius: 10px;
-      border: 1px solid var(--fund-border);
-      background: var(--fund-surface);
-      padding: 10px;
-      transition: border-color var(--fund-motion), background var(--fund-motion), transform var(--fund-motion), filter var(--fund-motion);
+      min-height: 108px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 9px;
     }
 
     .fund-exits-card__link {
@@ -1213,31 +1176,24 @@
       text-decoration: none;
       color: inherit;
       height: 100%;
-      transition: transform var(--fund-motion);
+      transition: transform 180ms ease;
     }
 
     .fund-exits-card__link:hover {
-      transform: var(--fund-hover-lift);
-    }
-
-    .fund-exits-card:hover {
-      border-color: var(--fund-border-strong);
-      background: var(--fund-surface-strong);
-      transform: var(--fund-hover-lift);
-      filter: brightness(1.03);
+      transform: translateY(-2px);
     }
 
     .fund-exits-card__plate {
       width: 100%;
       aspect-ratio: 16 / 8;
-      border-radius: 7px;
-      border: 1px solid var(--fund-border);
-      background: rgba(255, 255, 255, 0.045);
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 6px;
+      padding: 8px;
     }
 
     .fund-exits-card__wordmark {
@@ -1257,12 +1213,24 @@
       display: block;
     }
 
-    .fund-exits-card__plate--sportslab,
-    .fund-exits-card__plate--uncharted,
-    .fund-exits-card__plate--audigent,
+    .fund-exits-card__plate--sportslab {
+      background: rgba(46, 196, 166, 0.18);
+      border-color: rgba(46, 196, 166, 0.42);
+    }
+
+    .fund-exits-card__plate--uncharted {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: rgba(245, 158, 11, 0.46);
+    }
+
+    .fund-exits-card__plate--audigent {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.44);
+    }
+
     .fund-exits-card__plate--flow {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: var(--fund-border);
+      background: rgba(79, 70, 229, 0.18);
+      border-color: rgba(79, 70, 229, 0.44);
     }
 
     .fund-exits-card__logo--sportslab {
@@ -1282,19 +1250,19 @@
     }
 
     .fund-exits-card__name {
-      margin-top: var(--fund-space-1);
+      margin-top: 8px;
       color: rgba(255, 255, 255, 0.93);
       font-size: clamp(12px, 0.88vw, 14px);
       font-weight: 700;
-      line-height: 1.4;
+      line-height: 1.25;
       text-align: left;
     }
 
     .fund-exits-card__industry {
       margin-top: 4px;
-      color: var(--fund-meta);
+      color: rgba(255, 255, 255, 0.72);
       font-size: clamp(11px, 0.8vw, 12px);
-      line-height: 1.4;
+      line-height: 1.2;
       text-align: left;
     }
 
@@ -2227,14 +2195,14 @@
 
     .scene-global-footer {
       position: relative;
-      padding: 24px 0 0;
-      background: transparent;
+      padding: 16px 10px;
+      background: #000;
       border-top: 1px solid rgba(255, 255, 255, 0.18);
       color: #fff;
     }
 
     .fund-inline-footer {
-      margin-top: var(--fund-space-5);
+      margin-top: 40px;
       background: transparent;
     }
 
@@ -2264,21 +2232,21 @@
     }
 
     .scene-global-footer__title {
-      font-size: clamp(18px, 1.45vw, 24px);
-      line-height: 1.2;
+      font-size: clamp(15px, 1.1vw, 20px);
+      line-height: 1.15;
       font-weight: 700;
-      text-transform: none;
+      text-transform: uppercase;
       letter-spacing: 0.02em;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .scene-global-footer__btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 200px;
-      min-height: 42px;
-      padding: 10px 16px;
+      min-width: 160px;
+      min-height: 40px;
+      padding: 8px 14px;
       border: 1px solid #d9d4ce;
       background: #d9d4ce;
       color: #121212;
@@ -2290,26 +2258,17 @@
       letter-spacing: 0;
       line-height: 1;
       text-transform: none;
-      transition: background var(--fund-motion), transform var(--fund-motion), box-shadow var(--fund-motion);
+      transition: background 160ms ease, transform 160ms ease;
       cursor: pointer;
     }
 
     .scene-global-footer__btn:hover {
       background: #ece8e2;
-      transform: var(--fund-hover-lift);
-    }
-
-    .scene-global-footer__btn:focus-visible,
-    .scene-global-footer__search input:focus-visible,
-    .scene-global-footer__search button:focus-visible,
-    .scene-global-footer__links a:focus-visible,
-    .scene-global-footer__social-row .social-icon:focus-visible {
-      outline: none;
-      box-shadow: var(--fund-focus);
+      transform: translateY(-1px);
     }
 
     .scene-global-footer__links {
-      margin-top: var(--fund-space-3);
+      margin-top: 14px;
       display: grid;
       gap: 7px;
       font-size: 14px;
@@ -2327,10 +2286,10 @@
     }
 
     .scene-global-footer__legal {
-      margin-top: var(--fund-space-4);
-      color: rgba(255, 255, 255, 0.66);
+      margin-top: 18px;
+      color: rgba(255, 255, 255, 0.72);
       font-size: 12px;
-      line-height: 1.5;
+      line-height: 1.45;
     }
 
     .scene-global-footer__search {
@@ -2368,11 +2327,6 @@
       color: #2c2c2c;
       font-size: 18px;
       cursor: pointer;
-      transition: background var(--fund-motion);
-    }
-
-    .scene-global-footer__search button:hover {
-      background: #ece8e2;
     }
 
     .scene-global-footer__actions {
@@ -3130,9 +3084,8 @@ We invest in companies and technology to create a more innovative, equitable and
         const style = window.getComputedStyle(fundPortcoTrack);
         const gap = parseFloat(style.columnGap || style.gap || '0') || 0;
         const offset = fundPortcoIndex * (cardWidth + gap);
-        const rootStyle = window.getComputedStyle(document.documentElement);
-        const carouselMotion = rootStyle.getPropertyValue('--fund-carousel-motion').trim() || '820ms cubic-bezier(0.22, 1, 0.36, 1)';
-        fundPortcoTrack.style.transition = animate ? `transform ${carouselMotion}` : 'none';
+
+        fundPortcoTrack.style.transition = animate ? 'transform 620ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
         fundPortcoTrack.style.transform = `translateX(${-offset}px)`;
       }
 
