@@ -66,7 +66,7 @@
     }
 
     .scene[data-index="0"] video {
-      object-position: center 46%;
+      object-position: center 8%;
     }
 
     .scene[data-index="2"] video {
@@ -910,26 +910,30 @@
       width: min(1080px, calc(100vw - 56px));
     }
 
-    body[data-scene="0"] .headline-wrap {
-      top: 110px;
-      bottom: auto;
+    .fund-scene {
+      overflow-y: auto;
+      overflow-x: hidden;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.42) rgba(255, 255, 255, 0.12);
     }
 
     .fund-scene__layout {
       position: relative;
       width: 100%;
-      height: 100%;
+      min-height: 100%;
       padding-top: 82px;
-      display: grid;
-      grid-template-rows: minmax(260px, 58vh) minmax(220px, 1fr);
+      display: flex;
+      flex-direction: column;
       gap: 0;
       z-index: 4;
     }
 
     .fund-scene__video {
       position: relative;
-      min-height: 0;
+      min-height: calc(100vh - 82px);
       overflow: hidden;
+      flex: 0 0 calc(100vh - 82px);
     }
 
     .fund-scene__video video {
@@ -938,17 +942,48 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 46%;
+      object-position: center 8% !important;
     }
 
     .fund-scene__video .overlay {
       background: rgba(0, 0, 0, 0.34);
     }
 
+    .fund-video-copy {
+      position: absolute;
+      left: clamp(28px, 3.8vw, 66px);
+      right: clamp(16px, 4vw, 56px);
+      bottom: clamp(26px, 5.8vh, 72px);
+      z-index: 6;
+      max-width: min(860px, 92vw);
+      color: #fff;
+      pointer-events: none;
+      text-shadow: 0 8px 30px rgba(0, 0, 0, 0.26);
+    }
+
+    .fund-video-copy__title {
+      font-size: clamp(30px, 5.6vw, 76px);
+      line-height: 0.98;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-transform: none;
+    }
+
+    .fund-video-copy__subtext {
+      margin-top: 16px;
+      padding-left: 0.7em;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: clamp(14px, 1.18vw, 20px);
+      line-height: 1.35;
+      font-weight: 500;
+      white-space: pre-line;
+    }
+
     .fund-portfolio {
       position: relative;
       z-index: 5;
       padding: clamp(12px, 1.8vw, 20px);
+      min-height: calc(100vh - 82px);
       border-top: 1px solid rgba(255, 255, 255, 0.22);
       background:
         radial-gradient(180px 96px at 18% 28%, rgba(34, 44, 40, 0.2) 0%, rgba(34, 44, 40, 0) 74%),
@@ -1003,7 +1038,7 @@
     .fund-portfolio__track {
       list-style: none;
       display: flex;
-      gap: 10px;
+      gap: 12px;
       margin: 0;
       padding: 0;
       will-change: transform;
@@ -1011,8 +1046,8 @@
     }
 
     .fund-portco-card {
-      flex: 0 0 clamp(170px, 18vw, 220px);
-      min-height: 112px;
+      flex: 0 0 calc((100% - 36px) / 4);
+      min-height: 156px;
     }
 
     .fund-portco-card__link {
@@ -1022,7 +1057,7 @@
       border: 1px solid rgba(255, 255, 255, 0.22);
       background: rgba(255, 255, 255, 0.06);
       text-decoration: none;
-      padding: 10px;
+      padding: 12px;
       transition: transform 180ms ease, background 180ms ease;
     }
 
@@ -1033,7 +1068,7 @@
 
     .fund-portco-card__plate {
       width: 100%;
-      aspect-ratio: 16 / 7;
+      aspect-ratio: 16 / 8;
       border-radius: 8px;
       border: 1px solid rgba(255, 255, 255, 0.22);
       background: rgba(255, 255, 255, 0.1);
@@ -1694,7 +1729,7 @@
 
     @media (max-width: 768px) {
       .scene[data-index="0"] video {
-        object-position: center 38%;
+        object-position: center 10%;
       }
 
       .scene[data-index="1"] video {
@@ -1724,26 +1759,43 @@
         width: calc(100vw - 18px);
       }
 
-      body[data-scene="0"] .headline-wrap {
-        top: 88px;
-        bottom: auto;
-      }
-
       body[data-scene="0"] .scene[data-index="0"] video {
-        object-position: center 38%;
+        object-position: center 10%;
       }
 
       .fund-scene__layout {
         padding-top: 72px;
-        grid-template-rows: minmax(220px, 52vh) minmax(220px, 1fr);
+      }
+
+      .fund-scene__video {
+        min-height: calc(100vh - 72px);
+        flex-basis: calc(100vh - 72px);
+      }
+
+      .fund-video-copy {
+        left: 26px;
+        right: 12px;
+        bottom: 24px;
+        max-width: 96vw;
+      }
+
+      .fund-video-copy__title {
+        font-size: clamp(24px, 6.8vw, 38px);
+      }
+
+      .fund-video-copy__subtext {
+        margin-top: 12px;
+        font-size: clamp(13px, 3.7vw, 17px);
+        line-height: 1.42;
       }
 
       .fund-portfolio {
         padding: 10px;
+        min-height: calc(100vh - 72px);
       }
 
       .fund-portco-card {
-        flex-basis: clamp(175px, 46vw, 238px);
+        flex-basis: calc((100% - 12px) / 2);
       }
 
       body[data-scene="1"]::before {
@@ -1901,6 +1953,10 @@
         font-size: 12px;
       }
 
+      .fund-portco-card {
+        flex-basis: 100%;
+      }
+
       .footer-search {
         max-width: 100%;
       }
@@ -2017,6 +2073,11 @@
         <div class="fund-scene__video">
           <video src="depth1.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
           <div class="overlay"></div>
+          <header class="fund-video-copy" aria-label="Wocstar Fund intro">
+            <h1 class="fund-video-copy__title">Wocstar Fund</h1>
+            <p class="fund-video-copy__subtext">Wocstar Fund is an early-stage investment fund focused on tech innovation.
+We invest in companies and technology to create a more innovative, equitable and sustainable world. Working together with Founders to move the world forward.</p>
+          </header>
         </div>
         <section class="fund-portfolio" id="fund-portfolio" aria-label="Wocstar Fund portfolio companies">
           <div class="fund-portfolio__header">
@@ -2352,6 +2413,7 @@
       const partnersViewport = document.getElementById('partnersViewport');
       const partnersPrevBtn = document.getElementById('partnersPrevBtn');
       const partnersNextBtn = document.getElementById('partnersNextBtn');
+      const fundScene = document.querySelector('.fund-scene');
       const fundPortcoTrack = document.getElementById('fundPortcoTrack');
       const fundPortcoViewport = document.getElementById('fundPortcoViewport');
       const fundPortcoPrevBtn = document.getElementById('fundPortcoPrevBtn');
@@ -2378,11 +2440,13 @@
       let isAnimating = false;
       let touchStartY = null;
       let touchStartedInProfileCopy = false;
+      let touchStartedInFundScene = false;
       let lastFocusedElement = null;
       let profileExitIntentDirection = 0;
       let profileExitIntentAt = 0;
       let partnersIndex = 0;
       let fundPortcoIndex = 0;
+      let fundPortcoTimer = null;
       let isFundMenuOpen = false;
       let isAcademyMenuOpen = false;
       let isMediaMenuOpen = false;
@@ -2474,6 +2538,28 @@
         return 4;
       }
 
+      function getFundSceneMaxScrollTop() {
+        if (!fundScene) return 0;
+        return Math.max(0, fundScene.scrollHeight - fundScene.clientHeight);
+      }
+
+      function scrollFundSceneBy(delta) {
+        if (!fundScene) return;
+        fundScene.scrollTop += delta;
+      }
+
+      function scrollFundSceneToPortfolio() {
+        if (!fundScene || !fundPortfolioSection) return;
+        const headerOffset = window.innerWidth <= 768 ? 72 : 82;
+        const top = Math.max(0, fundPortfolioSection.offsetTop - headerOffset);
+        fundScene.scrollTo({ top, behavior: 'smooth' });
+      }
+
+      function scrollFundSceneToTop() {
+        if (!fundScene) return;
+        fundScene.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
       function escapeHtml(value) {
         return String(value)
           .replace(/&/g, '&amp;')
@@ -2509,7 +2595,6 @@
       function getFundPortcoPerView() {
         if (window.innerWidth <= 560) return 1;
         if (window.innerWidth <= 960) return 2;
-        if (window.innerWidth <= 1320) return 3;
         return 4;
       }
 
@@ -2548,6 +2633,20 @@
         if (fundPortcoIndex > maxIndex) fundPortcoIndex = 0;
         if (fundPortcoIndex < 0) fundPortcoIndex = maxIndex;
         updateFundPortfolioCarousel();
+      }
+
+      function stopFundPortfolioAuto() {
+        if (fundPortcoTimer) {
+          window.clearInterval(fundPortcoTimer);
+          fundPortcoTimer = null;
+        }
+      }
+
+      function startFundPortfolioAuto() {
+        stopFundPortfolioAuto();
+        fundPortcoTimer = window.setInterval(() => {
+          stepFundPortfolioCarousel(1);
+        }, 4200);
       }
 
       function updatePartnersCarousel(animate = true) {
@@ -2675,8 +2774,6 @@
       });
 
       function updateStatus() {
-        const isProfileScene = currentIndex === profileSceneIndex;
-        const isUniverseScene = currentIndex === universeSceneIndex;
         document.body.setAttribute('data-scene', String(currentIndex));
         if (currentIndex === 0) {
           setAcademyMenuOpen(false);
@@ -2701,11 +2798,11 @@
         headline.textContent = sceneTitles[currentIndex];
         const rawSubtext = sceneDescriptions[currentIndex] || '';
         headlineSubtext.textContent = rawSubtext.replace(/\n\s*\n+/g, '\n').trim();
-        headlineWrap.style.opacity = (isProfileScene || isUniverseScene) ? '0' : '1';
+        headlineWrap.style.opacity = (currentIndex === 0 || currentIndex === profileSceneIndex || currentIndex === universeSceneIndex) ? '0' : '1';
         nextArrow.style.display = 'inline-block';
         prevArrow.style.display = 'inline-block';
 
-        if (isProfileScene) {
+        if (currentIndex === profileSceneIndex) {
           requestAnimationFrame(fitProfileContentToViewport);
         }
       }
@@ -2738,6 +2835,9 @@
         // Update text immediately so previous scene copy does not linger.
         currentIndex = nextIndex;
         updateStatus();
+        if (nextIndex === 0 && fundScene) {
+          fundScene.scrollTop = 0;
+        }
 
         nextScene.style.transition = 'none';
         nextScene.style.opacity = '0';
@@ -2781,6 +2881,23 @@
         if (isAnimating) return;
         if (isContactModalOpen()) return;
         const primaryDelta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+
+        if (currentIndex === 0 && fundScene) {
+          const maxScrollTop = getFundSceneMaxScrollTop();
+          if (maxScrollTop > 0) {
+            const atBottom = fundScene.scrollTop >= maxScrollTop - 1;
+            const wantsToGoDown = primaryDelta > 0;
+            const shouldNavigateScenes = wantsToGoDown && atBottom && Math.abs(primaryDelta) >= wheelThreshold;
+
+            if (shouldNavigateScenes) {
+              transitionTo(currentIndex + 1);
+              return;
+            }
+
+            scrollFundSceneBy(event.deltaY);
+            return;
+          }
+        }
 
         if (currentIndex === profileSceneIndex) {
           const profileCopy = document.querySelector('.profile-scene .profile-copy');
@@ -2837,6 +2954,9 @@
         touchStartedInProfileCopy = Boolean(
           currentIndex === profileSceneIndex && event.target && event.target.closest('.profile-copy')
         );
+        touchStartedInFundScene = Boolean(
+          currentIndex === 0 && event.target && event.target.closest('.fund-scene')
+        );
       }
 
       function onTouchMove(event) {
@@ -2851,18 +2971,21 @@
         if (touchStartY === null || isAnimating) {
           touchStartY = null;
           touchStartedInProfileCopy = false;
+          touchStartedInFundScene = false;
           return;
         }
 
         if (isContactModalOpen()) {
           touchStartY = null;
           touchStartedInProfileCopy = false;
+          touchStartedInFundScene = false;
           return;
         }
 
         if (!event.changedTouches || !event.changedTouches[0]) {
           touchStartY = null;
           touchStartedInProfileCopy = false;
+          touchStartedInFundScene = false;
           return;
         }
 
@@ -2892,6 +3015,23 @@
           }
           touchStartY = null;
           touchStartedInProfileCopy = false;
+          touchStartedInFundScene = false;
+          return;
+        }
+
+        if (currentIndex === 0 && touchStartedInFundScene && fundScene) {
+          const maxScrollTop = getFundSceneMaxScrollTop();
+          const atBottom = fundScene.scrollTop >= maxScrollTop - 1;
+          if (Math.abs(deltaY) >= swipeThreshold) {
+            if (deltaY > 0 && atBottom) {
+              transitionTo(currentIndex + 1);
+            } else {
+              scrollFundSceneBy(deltaY);
+            }
+          }
+          touchStartY = null;
+          touchStartedInProfileCopy = false;
+          touchStartedInFundScene = false;
           return;
         }
 
@@ -2905,6 +3045,7 @@
 
         touchStartY = null;
         touchStartedInProfileCopy = false;
+        touchStartedInFundScene = false;
       }
 
       window.addEventListener('wheel', onWheel, { passive: false });
@@ -2972,9 +3113,17 @@
             event.preventDefault();
             if (currentIndex !== 0) {
               transitionTo(0);
+              window.setTimeout(scrollFundSceneToPortfolio, transitionDuration + 40);
+            } else {
+              scrollFundSceneToPortfolio();
             }
-            if (fundPortfolioSection && typeof fundPortfolioSection.scrollIntoView === 'function') {
-              fundPortfolioSection.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+          } else if (href === '#the-fund') {
+            event.preventDefault();
+            if (currentIndex !== 0) {
+              transitionTo(0);
+              window.setTimeout(scrollFundSceneToTop, transitionDuration + 40);
+            } else {
+              scrollFundSceneToTop();
             }
           }
           setFundMenuOpen(false);
@@ -3048,10 +3197,16 @@
         partnersNextBtn.addEventListener('click', () => stepPartnersCarousel(1));
       }
       if (fundPortcoPrevBtn) {
-        fundPortcoPrevBtn.addEventListener('click', () => stepFundPortfolioCarousel(-1));
+        fundPortcoPrevBtn.addEventListener('click', () => {
+          stepFundPortfolioCarousel(-1);
+          startFundPortfolioAuto();
+        });
       }
       if (fundPortcoNextBtn) {
-        fundPortcoNextBtn.addEventListener('click', () => stepFundPortfolioCarousel(1));
+        fundPortcoNextBtn.addEventListener('click', () => {
+          stepFundPortfolioCarousel(1);
+          startFundPortfolioAuto();
+        });
       }
       if (contactForm) {
         contactForm.addEventListener('submit', (event) => {
@@ -3105,9 +3260,14 @@
           fitProfileContentToViewport();
         }
       });
+      if (fundPortcoViewport) {
+        fundPortcoViewport.addEventListener('mouseenter', stopFundPortfolioAuto);
+        fundPortcoViewport.addEventListener('mouseleave', startFundPortfolioAuto);
+      }
 
       renderFundPortfolioCards();
       updateFundPortfolioCarousel(false);
+      startFundPortfolioAuto();
       updatePartnersCarousel(false);
       updateStatus();
     })();
