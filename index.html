@@ -1047,7 +1047,7 @@
 
     .fund-portco-card {
       flex: 0 0 calc((100% - 36px) / 4);
-      min-height: 156px;
+      min-height: 132px;
     }
 
     .fund-portco-card__link {
@@ -1057,7 +1057,7 @@
       border: 1px solid rgba(255, 255, 255, 0.22);
       background: rgba(255, 255, 255, 0.06);
       text-decoration: none;
-      padding: 12px;
+      padding: 10px;
       transition: transform 180ms ease, background 180ms ease;
     }
 
@@ -1068,7 +1068,7 @@
 
     .fund-portco-card__plate {
       width: 100%;
-      aspect-ratio: 16 / 8;
+      aspect-ratio: 16 / 7;
       border-radius: 8px;
       border: 1px solid rgba(255, 255, 255, 0.22);
       background: rgba(255, 255, 255, 0.1);
@@ -1140,12 +1140,34 @@
       gap: 12px;
     }
 
+    .fund-prior {
+      margin-top: clamp(18px, 2.8vh, 30px);
+      padding-top: 14px;
+    }
+
+    .fund-prior__title {
+      color: rgba(255, 255, 255, 0.96);
+      font-size: clamp(13px, 1vw, 18px);
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .fund-prior__grid {
+      list-style: none;
+      margin: 12px 0 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
     .fund-exits-card {
-      min-height: 124px;
+      min-height: 108px;
       border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.22);
       background: rgba(255, 255, 255, 0.06);
-      padding: 10px;
+      padding: 9px;
     }
 
     .fund-exits-card__link {
@@ -1927,6 +1949,10 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
+      .fund-prior__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       body[data-scene="1"]::before {
         height: 72px;
       }
@@ -2087,6 +2113,10 @@
       }
 
       .fund-exits__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .fund-prior__grid {
         grid-template-columns: 1fr;
       }
 
@@ -2261,6 +2291,17 @@ We invest in companies and technology to create a more innovative, equitable and
                   <p class="fund-exits-card__name">Flow</p>
                   <p class="fund-exits-card__industry">FinTech</p>
                 </a>
+              </li>
+            </ul>
+          </section>
+          <section class="fund-prior" id="prior-investment" aria-label="Wocstar Fund prior investment">
+            <h3 class="fund-prior__title">Prior Investment</h3>
+            <ul class="fund-prior__grid">
+              <li class="fund-exits-card">
+                <div class="fund-exits-card__plate">
+                  <img class="fund-exits-card__logo" src="exits/zerogrocery.png" alt="Zero Grocery logo" />
+                </div>
+                <p class="fund-exits-card__name">Zero Grocery</p>
               </li>
             </ul>
           </section>
@@ -2640,7 +2681,7 @@ We invest in companies and technology to create a more innovative, equitable and
         {
           name: 'Hemster',
           industry: 'Retail Technology',
-          logoSrc: 'portco logo/hemster.jpg',
+          logoSrc: 'portco logo/hemsterlogohighres.jpg',
           logoAlt: 'Hemster logo',
           url: 'https://www.hemster.co',
           plateClass: 'is-dark',
@@ -2661,10 +2702,10 @@ We invest in companies and technology to create a more innovative, equitable and
           url: 'https://www.filmhedge.com'
         },
         {
-          name: 'Infinite Object',
+          name: 'Infinite Objects',
           industry: 'Consumer Media Hardware',
           logoSrc: 'portco logo/infiniteobjects.png',
-          logoAlt: 'Infinite Object logo',
+          logoAlt: 'Infinite Objects logo',
           url: 'https://www.infiniteobjects.com'
         },
         {
