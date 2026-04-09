@@ -964,6 +964,268 @@
       background: rgba(0, 0, 0, 0.34);
     }
 
+    .academy-scene {
+      overflow-y: auto;
+      overflow-x: hidden;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.42) rgba(255, 255, 255, 0.12);
+    }
+
+    .academy-scene__layout {
+      position: relative;
+      width: 100%;
+      min-height: 100%;
+      padding-top: 0;
+      padding-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      z-index: 4;
+    }
+
+    .academy-scene__video {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      flex: 0 0 100vh;
+    }
+
+    .academy-scene__video video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 12% !important;
+    }
+
+    .academy-scene__video .overlay {
+      background:
+        linear-gradient(180deg, rgba(248, 248, 248, 0.08) 0%, rgba(8, 12, 18, 0.24) 100%);
+    }
+
+    .academy-video-copy {
+      position: absolute;
+      left: clamp(24px, 3.5vw, 60px);
+      right: clamp(16px, 4vw, 56px);
+      bottom: clamp(26px, 5.8vh, 72px);
+      z-index: 6;
+      max-width: min(780px, 92vw);
+      color: #fff;
+      pointer-events: none;
+      text-shadow: 0 8px 30px rgba(0, 0, 0, 0.26);
+    }
+
+    .academy-video-copy__title {
+      font-size: clamp(30px, 5.4vw, 76px);
+      line-height: 0.95;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      text-wrap: balance;
+    }
+
+    .academy-video-copy__subtext {
+      margin-top: var(--fund-space-3);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: clamp(14px, 1.08vw, 18px);
+      line-height: 1.42;
+      font-weight: 500;
+      max-width: min(700px, 92vw);
+      text-wrap: pretty;
+    }
+
+    .academy-story {
+      position: relative;
+      padding: clamp(22px, 3.8vh, 42px) clamp(20px, 4vw, 56px);
+      background:
+        radial-gradient(120% 130% at 12% 0%, rgba(232, 140, 34, 0.16) 0%, rgba(232, 140, 34, 0) 52%),
+        radial-gradient(110% 140% at 100% 0%, rgba(93, 114, 136, 0.1) 0%, rgba(93, 114, 136, 0) 58%),
+        linear-gradient(180deg, #f7f6f4 0%, #f2eee8 100%);
+      border-top: 1px solid rgba(201, 147, 88, 0.36);
+      border-bottom: 0;
+    }
+
+    .academy-story::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 28px;
+      background:
+        linear-gradient(180deg, rgba(16, 22, 30, 0.25) 0%, rgba(16, 22, 30, 0.06) 45%, rgba(16, 22, 30, 0) 100%),
+        linear-gradient(90deg, rgba(231, 143, 39, 0.2) 0%, rgba(231, 143, 39, 0) 55%);
+      pointer-events: none;
+    }
+
+    .academy-story__inner {
+      width: min(1320px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 0.8fr 1.4fr;
+      align-items: start;
+      column-gap: clamp(14px, 1.8vw, 24px);
+    }
+
+    .academy-story__lead {
+      margin: 34px 0 0;
+      margin-left: 56px;
+      color: #b56717;
+      font-size: clamp(23px, 2.15vw, 34px);
+      line-height: 1.08;
+      letter-spacing: 0;
+      font-weight: 700;
+      text-wrap: balance;
+      max-width: 11ch;
+      text-shadow: none;
+    }
+
+    .academy-story__text {
+      margin: 0;
+      color: #30343a;
+      font-size: clamp(14px, 1.18vw, 20px);
+      line-height: 1.68;
+      max-width: 72ch;
+      text-wrap: pretty;
+    }
+
+    .academy-quote {
+      position: relative;
+      padding: clamp(8px, 1.8vh, 18px) clamp(20px, 4vw, 56px) clamp(22px, 3.8vh, 38px);
+      background:
+        radial-gradient(120% 120% at 12% 0%, rgba(232, 140, 34, 0.08) 0%, rgba(232, 140, 34, 0) 56%),
+        linear-gradient(180deg, #f3f0eb 0%, #f4f1ec 100%);
+      border-top: 0;
+      border-bottom: 1px solid rgba(169, 133, 90, 0.14);
+    }
+
+    .academy-quote__inner {
+      width: min(1460px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: clamp(220px, 20vw, 280px) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(34px, 4.4vw, 74px);
+    }
+
+    .academy-quote__inner > div:last-child {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .academy-quote__portrait-wrap {
+      width: clamp(210px, 22vw, 300px);
+      aspect-ratio: 1 / 1;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 2px solid rgba(181, 103, 23, 0.18);
+      box-shadow: 0 10px 24px rgba(24, 30, 40, 0.1);
+      background: #ddd7ce;
+      margin-left: -42px;
+    }
+
+    .academy-quote__portrait {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 24%;
+      display: block;
+    }
+
+    .academy-quote__text {
+      margin: 0;
+      color: #30343a;
+      font-size: clamp(14px, 1.18vw, 20px);
+      line-height: 1.5;
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+      text-wrap: pretty;
+      max-width: 92ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .academy-quote__author {
+      margin-top: clamp(10px, 1.6vh, 18px);
+      color: #2f343a;
+      font-size: clamp(15px, 0.95vw, 18px);
+      line-height: 1.3;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .academy-quote__author em {
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .academy-scene .scene-global-footer {
+      border-top-color: rgba(186, 135, 76, 0.36);
+      background:
+        radial-gradient(120% 140% at 8% 0%, rgba(232, 140, 34, 0.14) 0%, rgba(232, 140, 34, 0) 56%),
+        radial-gradient(120% 160% at 100% 0%, rgba(102, 121, 142, 0.09) 0%, rgba(102, 121, 142, 0) 66%),
+        linear-gradient(180deg, #f5f3ef 0%, #efebe5 100%);
+      color: #23262b;
+    }
+
+    .academy-scene .scene-global-footer__title {
+      color: #9a5610;
+    }
+
+    .academy-scene .scene-global-footer__left {
+      margin-left: 96px;
+    }
+
+    .academy-scene .scene-global-footer__right {
+      margin-left: auto;
+      margin-right: 44px;
+    }
+
+    .academy-scene .scene-global-footer__links a,
+    .academy-scene .scene-global-footer__social-title {
+      color: #2f343a;
+    }
+
+    .academy-scene .scene-global-footer__legal {
+      color: rgba(36, 40, 45, 0.72);
+    }
+
+    .academy-scene .scene-global-footer__search {
+      border-color: rgba(142, 121, 100, 0.42);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .academy-scene .scene-global-footer__search input {
+      background: rgba(255, 255, 255, 0.88);
+      color: #23262b;
+    }
+
+    .academy-scene .scene-global-footer__search input::placeholder {
+      color: rgba(46, 51, 57, 0.56);
+    }
+
+    .academy-scene .scene-global-footer__search button {
+      background: #f0dfc8;
+      color: #7a4209;
+    }
+
+    .academy-scene .scene-global-footer__search button:hover {
+      background: #ecd6b9;
+    }
+
+    .academy-scene .scene-global-footer__btn {
+      border-color: rgba(184, 139, 92, 0.52);
+      background: #f2e1ca;
+      color: #6d3d0c;
+    }
+
+    .academy-scene .scene-global-footer__btn:hover {
+      background: #ecd6b9;
+    }
+
     .fund-video-copy {
       position: absolute;
       left: clamp(28px, 3.8vw, 66px);
@@ -2238,6 +2500,11 @@
       background: transparent;
     }
 
+    .academy-inline-footer {
+      margin-top: 0;
+      background: transparent;
+    }
+
     .scene-global-footer__inner {
       width: 100%;
       margin: 0;
@@ -2403,6 +2670,27 @@
     }
 
     @media (max-width: 900px) {
+      .academy-story__inner {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .academy-story__lead {
+        max-width: 100%;
+      }
+
+      .academy-quote__inner {
+        grid-template-columns: 1fr;
+        justify-items: start;
+        gap: 16px;
+      }
+
+      .academy-quote__text {
+        max-width: 100%;
+        font-size: clamp(20px, 4.8vw, 28px);
+        line-height: 1.2;
+      }
+
       .scene-global-footer__inner {
         flex-direction: column;
         justify-content: flex-start;
@@ -2590,9 +2878,85 @@ We invest in companies and technology to create a more innovative, equitable and
       </div>
     </section>
 
-    <section class="scene" data-index="1">
-      <video src="istockphoto-1397154176-640_adpp_is.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
-      <div class="overlay"></div>
+    <section class="scene academy-scene" data-index="1">
+      <div class="academy-scene__layout">
+        <div class="academy-scene__video">
+          <video src="istockphoto-1397154176-640_adpp_is.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+          <div class="overlay"></div>
+          <header class="academy-video-copy" aria-label="Wocstar Academy intro">
+            <h1 class="academy-video-copy__title">Wocstar Academy</h1>
+            <p class="academy-video-copy__subtext">The Wocstar Entrepreneur Academy helps you unlock capital, grow your business, and build lasting success.</p>
+          </header>
+        </div>
+        <section class="academy-story" aria-label="Wocstar Academy program details">
+          <div class="academy-story__inner">
+            <h2 class="academy-story__lead">Empowering Entrepreneurs</h2>
+            <p class="academy-story__text">Wocstar Academy&rsquo;s program gives entrepreneurs direct insights from active funders, expert guidance to sharpen their storytelling, and tailored strategies for investor pitches, grants, and loan proposals. This nationally recognized experience includes curated workshops, one-on-one mentorship with industry leaders, and a supportive community of peers. The support continues after the program through networking opportunities and curated introductions that help accelerate each founder&rsquo;s journey.</p>
+          </div>
+        </section>
+        <section class="academy-quote" aria-label="Wocstar Academy founder quote">
+          <div class="academy-quote__inner">
+            <div class="academy-quote__portrait-wrap">
+              <img class="academy-quote__portrait" src="Gayle.png" alt="Gayle Jennings O’Byrne portrait" />
+            </div>
+            <div>
+              <p class="academy-quote__text">&ldquo;Wocstar Academy was built to give entrepreneurs the tools, support, and access they deserve. When you join, you are stepping into a powerful network that believes in your vision and helps you move it forward.&rdquo;</p>
+              <p class="academy-quote__author">Gayle Jennings O&rsquo;Byrne, <em>CEO Wocstar Capital</em></p>
+            </div>
+          </div>
+        </section>
+        <footer class="scene-global-footer academy-inline-footer" aria-label="Academy page footer">
+          <div class="scene-global-footer__inner">
+            <div class="scene-global-footer__left">
+              <h2 class="scene-global-footer__title">Interested in pitching to the Fund?</h2>
+              <a class="scene-global-footer__btn" href="https://form.jotform.com/Wocstar/wocstar-fund-application" target="_blank" rel="noopener noreferrer">Join the Waitlist</a>
+              <div class="scene-global-footer__links">
+                <a href="#">Wocstar Capital Commitment</a>
+                <a href="#">SMS Terms &amp; Conditions</a>
+                <a href="#">Privacy Policy</a>
+              </div>
+              <p class="scene-global-footer__legal">
+                Copyright &copy; 2026 Wocstar Capital, LLC. All rights reserved.<br />
+                Wocstar&reg; is a registered trademark of Wocstar Capital, LLC.<br />
+                NYC, New York
+              </p>
+            </div>
+            <div class="scene-global-footer__right">
+              <form class="scene-global-footer__search" role="search" aria-label="Academy search" onsubmit="return false;">
+                <input type="search" placeholder="Search" aria-label="Search" />
+                <button type="submit" aria-label="Submit search">&#9906;</button>
+              </form>
+              <div class="scene-global-footer__actions">
+                <button class="scene-global-footer__btn" type="button" id="academyInlineContactButton">Contact</button>
+                <a class="scene-global-footer__btn" href="#">News</a>
+              </div>
+              <div class="scene-global-footer__social">
+                <p class="scene-global-footer__social-title">Follow Us On Social</p>
+                <div class="scene-global-footer__social-row" aria-label="Academy social links">
+                  <a class="social-icon social-youtube" href="https://www.youtube.com/channel/UCcpzz0ps3xDkmWyl4nvGxiQ" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 12s0-3.2-.4-4.7c-.2-.8-.8-1.4-1.6-1.6C19.4 5.3 12 5.3 12 5.3s-7.4 0-9 .4c-.8.2-1.4.8-1.6 1.6C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.8 1.4 1.6 1.6 1.6.4 9 .4 9 .4s7.4 0 9-.4c.8-.2 1.4-.8 1.6-1.6.4-1.5.4-4.7.4-4.7zM10 15.5V8.5L16 12l-6 3.5z"/></svg>
+                  </a>
+                  <a class="social-icon social-apple" href="https://podcasts.apple.com/py/podcast/vcs-off-the-record-with-gayle-jennings-obyrne/id1515746108" target="_blank" rel="noopener noreferrer" aria-label="Apple Podcast">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 12.6c0-2.4 2-3.5 2.1-3.6-1.2-1.7-3-1.9-3.6-1.9-1.5-.2-2.9.9-3.6.9-.8 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.9 2.3-1.7 2.9-.4 7.2 1.2 9.5.8 1.1 1.8 2.3 3.1 2.2 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.1-1.1 2.9-2.2.9-1.3 1.3-2.7 1.3-2.8-.1 0-2.8-1.1-2.8-3.6zM14.2 5.6c.7-.8 1.2-1.9 1.1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1 .1 2-.5 2.7-1.3z"/></svg>
+                  </a>
+                  <a class="social-icon social-spotify" href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C6.2 1.5 1.5 6.2 1.5 12S6.2 22.5 12 22.5 22.5 17.8 22.5 12 17.8 1.5 12 1.5zm4.8 14.9c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.9-9.4-1.1-.3.1-.7-.1-.8-.5-.1-.3.1-.7.5-.8 4-.9 7.5-.5 10.3 1.2.4.1.5.6.3 1zm1.2-2.7c-.3.4-.8.5-1.2.3-2.8-1.7-7.2-2.2-10.5-1.2-.5.1-1-.1-1.1-.6-.1-.5.1-1 .6-1.1 3.8-1.1 8.6-.6 11.9 1.4.4.2.5.8.3 1.2zm.1-2.8C14.8 9 9.7 8.9 6.6 9.9c-.6.2-1.2-.1-1.4-.7-.2-.6.1-1.2.7-1.4 3.6-1.1 9.2-1 13.4 1.4.5.3.7 1 .4 1.5-.2.5-.9.7-1.4.4z"/></svg>
+                  </a>
+                  <a class="social-icon social-instagram" href="https://www.instagram.com/wocstarfund/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm0 1.8c-2.2 0-4 1.8-4 4v8.4c0 2.2 1.8 4 4 4h8.4c2.2 0 4-1.8 4-4V7.8c0-2.2-1.8-4-4-4H7.8zm9.1 1.4a1.3 1.3 0 110 2.6 1.3 1.3 0 010-2.6zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.8a3.2 3.2 0 100 6.4 3.2 3.2 0 000-6.4z"/></svg>
+                  </a>
+                  <a class="social-icon social-linkedin" href="https://www.linkedin.com/company/wocstar/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.7 3.5a2.1 2.1 0 100 4.2 2.1 2.1 0 000-4.2zM3 9h3.4v12H3V9zm6 0h3.2v1.6h.1c.4-.8 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5V21h-3.4v-5.8c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H9V9z"/></svg>
+                  </a>
+                  <a class="social-icon social-facebook" href="https://web.facebook.com/Wocstar?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.2V11H8v3h2.4v8h3.1z"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
     </section>
 
     <section class="scene" data-index="2">
@@ -2900,6 +3264,7 @@ We invest in companies and technology to create a more innovative, equitable and
       const prevArrow = document.querySelector('.scene-prev-arrow');
       const contactButton = document.getElementById('contactButton');
       const fundInlineContactButton = document.getElementById('fundInlineContactButton');
+      const academyInlineContactButton = document.getElementById('academyInlineContactButton');
       const contactModal = document.getElementById('contactModal');
       const contactForm = document.getElementById('contactForm');
       const contactFormStatus = document.getElementById('contactFormStatus');
@@ -2911,6 +3276,7 @@ We invest in companies and technology to create a more innovative, equitable and
       const partnersPrevBtn = document.getElementById('partnersPrevBtn');
       const partnersNextBtn = document.getElementById('partnersNextBtn');
       const fundScene = document.querySelector('.fund-scene');
+      const academyScene = document.querySelector('.academy-scene');
       const fundPortcoTrack = document.getElementById('fundPortcoTrack');
       const fundPortcoViewport = document.getElementById('fundPortcoViewport');
       const fundPortcoPrevBtn = document.getElementById('fundPortcoPrevBtn');
@@ -2934,16 +3300,19 @@ We invest in companies and technology to create a more innovative, equitable and
       const wheelThreshold = 35;
       const profileExitDelay = 520;
       const fundExitDelay = 720;
+      const academyExitDelay = 1600;
 
       let currentIndex = 0;
       let isAnimating = false;
       let touchStartY = null;
       let touchStartedInProfileCopy = false;
       let touchStartedInFundScene = false;
+      let touchStartedInAcademyScene = false;
       let lastFocusedElement = null;
       let profileExitIntentDirection = 0;
       let profileExitIntentAt = 0;
       let fundExitIntentAt = 0;
+      let academyExitIntentAt = 0;
       let partnersIndex = 0;
       let fundPortcoIndex = 0;
       let fundPortcoBaseCount = 0;
@@ -3047,6 +3416,16 @@ We invest in companies and technology to create a more innovative, equitable and
       function scrollFundSceneBy(delta) {
         if (!fundScene) return;
         fundScene.scrollTop += delta;
+      }
+
+      function getAcademySceneMaxScrollTop() {
+        if (!academyScene) return 0;
+        return Math.max(0, academyScene.scrollHeight - academyScene.clientHeight);
+      }
+
+      function scrollAcademySceneBy(delta) {
+        if (!academyScene) return;
+        academyScene.scrollTop += delta;
       }
 
       function scrollFundSceneToPortfolio() {
@@ -3263,6 +3642,10 @@ We invest in companies and technology to create a more innovative, equitable and
         fundExitIntentAt = 0;
       }
 
+      function clearAcademyExitIntent() {
+        academyExitIntentAt = 0;
+      }
+
       function shouldTransitionFromFundBottom() {
         const now = Date.now();
         if (!fundExitIntentAt) {
@@ -3273,6 +3656,19 @@ We invest in companies and technology to create a more innovative, equitable and
           return false;
         }
         clearFundExitIntent();
+        return true;
+      }
+
+      function shouldTransitionFromAcademyBottom() {
+        const now = Date.now();
+        if (!academyExitIntentAt) {
+          academyExitIntentAt = now;
+          return false;
+        }
+        if (now - academyExitIntentAt < academyExitDelay) {
+          return false;
+        }
+        clearAcademyExitIntent();
         return true;
       }
 
@@ -3356,7 +3752,7 @@ We invest in companies and technology to create a more innovative, equitable and
         headline.textContent = sceneTitles[currentIndex];
         const rawSubtext = sceneDescriptions[currentIndex] || '';
         headlineSubtext.textContent = rawSubtext.replace(/\n\s*\n+/g, '\n').trim();
-        headlineWrap.style.opacity = (currentIndex === 0 || currentIndex === profileSceneIndex || currentIndex === universeSceneIndex) ? '0' : '1';
+        headlineWrap.style.opacity = (currentIndex === 0 || currentIndex === 1 || currentIndex === profileSceneIndex || currentIndex === universeSceneIndex) ? '0' : '1';
         nextArrow.style.display = 'inline-block';
         prevArrow.style.display = 'inline-block';
 
@@ -3384,6 +3780,7 @@ We invest in companies and technology to create a more innovative, equitable and
         isAnimating = true;
         clearProfileExitIntent();
         clearFundExitIntent();
+        clearAcademyExitIntent();
 
         const fromIndex = currentIndex;
         const currentScene = scenes[fromIndex];
@@ -3396,6 +3793,9 @@ We invest in companies and technology to create a more innovative, equitable and
         updateStatus();
         if (nextIndex === 0 && fundScene) {
           fundScene.scrollTop = 0;
+        }
+        if (nextIndex === 1 && academyScene) {
+          academyScene.scrollTop = 0;
         }
 
         nextScene.style.transition = 'none';
@@ -3460,6 +3860,25 @@ We invest in companies and technology to create a more innovative, equitable and
           }
         }
 
+        if (currentIndex === 1 && academyScene) {
+          const maxScrollTop = getAcademySceneMaxScrollTop();
+          if (maxScrollTop > 0) {
+            const atBottom = academyScene.scrollTop >= maxScrollTop - 1;
+            const wantsToGoDown = primaryDelta > 0;
+
+            if (wantsToGoDown && atBottom) {
+              if (shouldTransitionFromAcademyBottom()) {
+                transitionTo(currentIndex + 1);
+              }
+              return;
+            }
+
+            clearAcademyExitIntent();
+            scrollAcademySceneBy(event.deltaY);
+            return;
+          }
+        }
+
         if (currentIndex === profileSceneIndex) {
           const profileCopy = document.querySelector('.profile-scene .profile-copy');
           if (profileCopy) {
@@ -3488,6 +3907,8 @@ We invest in companies and technology to create a more innovative, equitable and
         }
 
         clearProfileExitIntent();
+        clearFundExitIntent();
+        clearAcademyExitIntent();
 
         if (Math.abs(primaryDelta) < wheelThreshold) return;
 
@@ -3518,6 +3939,9 @@ We invest in companies and technology to create a more innovative, equitable and
         touchStartedInFundScene = Boolean(
           currentIndex === 0 && event.target && event.target.closest('.fund-scene')
         );
+        touchStartedInAcademyScene = Boolean(
+          currentIndex === 1 && event.target && event.target.closest('.academy-scene')
+        );
       }
 
       function onTouchMove(event) {
@@ -3533,6 +3957,7 @@ We invest in companies and technology to create a more innovative, equitable and
           touchStartY = null;
           touchStartedInProfileCopy = false;
           touchStartedInFundScene = false;
+          touchStartedInAcademyScene = false;
           return;
         }
 
@@ -3540,6 +3965,7 @@ We invest in companies and technology to create a more innovative, equitable and
           touchStartY = null;
           touchStartedInProfileCopy = false;
           touchStartedInFundScene = false;
+          touchStartedInAcademyScene = false;
           return;
         }
 
@@ -3547,6 +3973,7 @@ We invest in companies and technology to create a more innovative, equitable and
           touchStartY = null;
           touchStartedInProfileCopy = false;
           touchStartedInFundScene = false;
+          touchStartedInAcademyScene = false;
           return;
         }
 
@@ -3577,6 +4004,7 @@ We invest in companies and technology to create a more innovative, equitable and
           touchStartY = null;
           touchStartedInProfileCopy = false;
           touchStartedInFundScene = false;
+          touchStartedInAcademyScene = false;
           return;
         }
 
@@ -3598,6 +4026,29 @@ We invest in companies and technology to create a more innovative, equitable and
           touchStartY = null;
           touchStartedInProfileCopy = false;
           touchStartedInFundScene = false;
+          touchStartedInAcademyScene = false;
+          return;
+        }
+
+        if (currentIndex === 1 && touchStartedInAcademyScene && academyScene) {
+          const maxScrollTop = getAcademySceneMaxScrollTop();
+          const atBottom = academyScene.scrollTop >= maxScrollTop - 1;
+          if (Math.abs(deltaY) >= swipeThreshold) {
+            if (deltaY > 0 && atBottom) {
+              if (shouldTransitionFromAcademyBottom()) {
+                transitionTo(currentIndex + 1);
+              }
+            } else {
+              clearAcademyExitIntent();
+              scrollAcademySceneBy(deltaY);
+            }
+          } else {
+            clearAcademyExitIntent();
+          }
+          touchStartY = null;
+          touchStartedInProfileCopy = false;
+          touchStartedInFundScene = false;
+          touchStartedInAcademyScene = false;
           return;
         }
 
@@ -3612,6 +4063,7 @@ We invest in companies and technology to create a more innovative, equitable and
         touchStartY = null;
         touchStartedInProfileCopy = false;
         touchStartedInFundScene = false;
+        touchStartedInAcademyScene = false;
       }
 
       window.addEventListener('wheel', onWheel, { passive: false });
@@ -3747,6 +4199,9 @@ We invest in companies and technology to create a more innovative, equitable and
       }
       if (fundInlineContactButton) {
         fundInlineContactButton.addEventListener('click', openContactModal);
+      }
+      if (academyInlineContactButton) {
+        academyInlineContactButton.addEventListener('click', openContactModal);
       }
       if (goToGayleBio) {
         goToGayleBio.addEventListener('click', (event) => {
