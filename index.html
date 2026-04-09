@@ -2610,6 +2610,7 @@ We invest in companies and technology to create a more innovative, equitable and
       const swipeThreshold = 50;
       const wheelThreshold = 35;
       const profileExitDelay = 520;
+      const fundExitDelay = 720;
 
       let currentIndex = 0;
       let isAnimating = false;
@@ -2619,6 +2620,7 @@ We invest in companies and technology to create a more innovative, equitable and
       let lastFocusedElement = null;
       let profileExitIntentDirection = 0;
       let profileExitIntentAt = 0;
+      let fundExitIntentAt = 0;
       let partnersIndex = 0;
       let fundPortcoIndex = 0;
       let fundPortcoBaseCount = 0;
@@ -2933,6 +2935,23 @@ We invest in companies and technology to create a more innovative, equitable and
         profileExitIntentAt = 0;
       }
 
+      function clearFundExitIntent() {
+        fundExitIntentAt = 0;
+      }
+
+      function shouldTransitionFromFundBottom() {
+        const now = Date.now();
+        if (!fundExitIntentAt) {
+          fundExitIntentAt = now;
+          return false;
+        }
+        if (now - fundExitIntentAt < fundExitDelay) {
+          return false;
+        }
+        clearFundExitIntent();
+        return true;
+      }
+
       function shouldTransitionFromProfile(direction) {
         const now = Date.now();
         if (profileExitIntentDirection !== direction) {
@@ -3040,6 +3059,7 @@ We invest in companies and technology to create a more innovative, equitable and
 
         isAnimating = true;
         clearProfileExitIntent();
+        clearFundExitIntent();
 
         const fromIndex = currentIndex;
         const currentScene = scenes[fromIndex];
@@ -3102,13 +3122,15 @@ We invest in companies and technology to create a more innovative, equitable and
           if (maxScrollTop > 0) {
             const atBottom = fundScene.scrollTop >= maxScrollTop - 1;
             const wantsToGoDown = primaryDelta > 0;
-            const shouldNavigateScenes = wantsToGoDown && atBottom && Math.abs(primaryDelta) >= wheelThreshold;
 
-            if (shouldNavigateScenes) {
-              transitionTo(currentIndex + 1);
+            if (wantsToGoDown && atBottom) {
+              if (shouldTransitionFromFundBottom()) {
+                transitionTo(currentIndex + 1);
+              }
               return;
             }
 
+            clearFundExitIntent();
             scrollFundSceneBy(event.deltaY);
             return;
           }
@@ -3239,10 +3261,15 @@ We invest in companies and technology to create a more innovative, equitable and
           const atBottom = fundScene.scrollTop >= maxScrollTop - 1;
           if (Math.abs(deltaY) >= swipeThreshold) {
             if (deltaY > 0 && atBottom) {
-              transitionTo(currentIndex + 1);
+              if (shouldTransitionFromFundBottom()) {
+                transitionTo(currentIndex + 1);
+              }
             } else {
+              clearFundExitIntent();
               scrollFundSceneBy(deltaY);
             }
+          } else {
+            clearFundExitIntent();
           }
           touchStartY = null;
           touchStartedInProfileCopy = false;
