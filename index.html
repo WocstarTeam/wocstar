@@ -1042,7 +1042,7 @@
       margin: 0;
       padding: 0;
       will-change: transform;
-      transition: transform 280ms ease;
+      transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .fund-portco-card {
@@ -1116,6 +1116,131 @@
       color: rgba(255, 255, 255, 0.72);
       font-size: clamp(11px, 0.8vw, 12px);
       line-height: 1.2;
+    }
+
+    .fund-exits {
+      margin-top: clamp(18px, 2.8vh, 30px);
+      padding-top: 14px;
+    }
+
+    .fund-exits__title {
+      color: rgba(255, 255, 255, 0.96);
+      font-size: clamp(13px, 1vw, 18px);
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .fund-exits__grid {
+      list-style: none;
+      margin: 12px 0 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .fund-exits-card {
+      min-height: 124px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 10px;
+    }
+
+    .fund-exits-card__link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      height: 100%;
+      transition: transform 180ms ease;
+    }
+
+    .fund-exits-card__link:hover {
+      transform: translateY(-2px);
+    }
+
+    .fund-exits-card__plate {
+      width: 100%;
+      aspect-ratio: 16 / 8;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px;
+    }
+
+    .fund-exits-card__wordmark {
+      color: rgba(255, 255, 255, 0.94);
+      font-size: clamp(12px, 0.9vw, 14px);
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .fund-exits-card__logo {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .fund-exits-card__plate--sportslab {
+      background: rgba(46, 196, 166, 0.18);
+      border-color: rgba(46, 196, 166, 0.42);
+    }
+
+    .fund-exits-card__plate--uncharted {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: rgba(245, 158, 11, 0.46);
+    }
+
+    .fund-exits-card__plate--audigent {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.44);
+    }
+
+    .fund-exits-card__plate--flow {
+      background: rgba(79, 70, 229, 0.18);
+      border-color: rgba(79, 70, 229, 0.44);
+    }
+
+    .fund-exits-card__logo--sportslab {
+      filter: brightness(0) saturate(100%) invert(58%) sepia(59%) saturate(482%) hue-rotate(116deg) brightness(92%) contrast(91%);
+    }
+
+    .fund-exits-card__logo--uncharted {
+      filter: brightness(0) saturate(100%) invert(73%) sepia(76%) saturate(2166%) hue-rotate(356deg) brightness(101%) contrast(92%);
+    }
+
+    .fund-exits-card__logo--audigent {
+      filter: brightness(0) saturate(100%) invert(52%) sepia(92%) saturate(1597%) hue-rotate(201deg) brightness(96%) contrast(94%);
+    }
+
+    .fund-exits-card__logo--flow {
+      filter: brightness(0) saturate(100%) invert(40%) sepia(86%) saturate(947%) hue-rotate(226deg) brightness(92%) contrast(99%);
+    }
+
+    .fund-exits-card__name {
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.93);
+      font-size: clamp(12px, 0.88vw, 14px);
+      font-weight: 700;
+      line-height: 1.25;
+      text-align: left;
+    }
+
+    .fund-exits-card__industry {
+      margin-top: 4px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: clamp(11px, 0.8vw, 12px);
+      line-height: 1.2;
+      text-align: left;
     }
 
     body[data-scene="1"] .brand-switcher {
@@ -1798,6 +1923,10 @@
         flex-basis: calc((100% - 12px) / 2);
       }
 
+      .fund-exits__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       body[data-scene="1"]::before {
         height: 72px;
       }
@@ -1957,6 +2086,10 @@
         flex-basis: 100%;
       }
 
+      .fund-exits__grid {
+        grid-template-columns: 1fr;
+      }
+
       .footer-search {
         max-width: 100%;
       }
@@ -2090,6 +2223,47 @@ We invest in companies and technology to create a more innovative, equitable and
           <div class="fund-portfolio__viewport" id="fundPortcoViewport">
             <ul class="fund-portfolio__track" id="fundPortcoTrack"></ul>
           </div>
+          <section class="fund-exits" id="success-stories-exits" aria-label="Wocstar Fund exits">
+            <h3 class="fund-exits__title">Exits</h3>
+            <ul class="fund-exits__grid">
+              <li class="fund-exits-card">
+                <a class="fund-exits-card__link" href="https://www.sportsilab.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Sports Innovation Lab">
+                  <div class="fund-exits-card__plate fund-exits-card__plate--sportslab">
+                    <img class="fund-exits-card__logo fund-exits-card__logo--sportslab" src="exits/sportslablogo.png" alt="Sports Innovation Lab logo" />
+                  </div>
+                  <p class="fund-exits-card__name">Sports Innovation Lab</p>
+                  <p class="fund-exits-card__industry">Sports Intelligence</p>
+                </a>
+              </li>
+              <li class="fund-exits-card">
+                <a class="fund-exits-card__link" href="https://www.forbes.com/sites/tanyaklich/2018/11/12/uncharted-power-founder-jessica-o-matthews-on-building-the-anti-silicon-valley-energy-startup/" target="_blank" rel="noopener noreferrer" aria-label="Read about Uncharted Power">
+                  <div class="fund-exits-card__plate fund-exits-card__plate--uncharted">
+                    <img class="fund-exits-card__logo fund-exits-card__logo--uncharted" src="exits/unchartedpowerlogo.png" alt="Uncharted Power logo" />
+                  </div>
+                  <p class="fund-exits-card__name">Uncharted Power</p>
+                  <p class="fund-exits-card__industry">Energy Infrastructure</p>
+                </a>
+              </li>
+              <li class="fund-exits-card">
+                <a class="fund-exits-card__link" href="https://audigent.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Audigent">
+                  <div class="fund-exits-card__plate fund-exits-card__plate--audigent">
+                    <img class="fund-exits-card__logo fund-exits-card__logo--audigent" src="exits/audigentlogo.png" alt="Audigent logo" />
+                  </div>
+                  <p class="fund-exits-card__name">Audigent</p>
+                  <p class="fund-exits-card__industry">AdTech</p>
+                </a>
+              </li>
+              <li class="fund-exits-card">
+                <a class="fund-exits-card__link" href="https://flowinc.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Flow">
+                  <div class="fund-exits-card__plate fund-exits-card__plate--flow">
+                    <img class="fund-exits-card__logo fund-exits-card__logo--flow" src="exits/flowinclogo.png" alt="Flow logo" />
+                  </div>
+                  <p class="fund-exits-card__name">Flow</p>
+                  <p class="fund-exits-card__industry">FinTech</p>
+                </a>
+              </li>
+            </ul>
+          </section>
         </section>
       </div>
     </section>
@@ -2419,6 +2593,7 @@ We invest in companies and technology to create a more innovative, equitable and
       const fundPortcoPrevBtn = document.getElementById('fundPortcoPrevBtn');
       const fundPortcoNextBtn = document.getElementById('fundPortcoNextBtn');
       const fundPortfolioSection = document.getElementById('fund-portfolio');
+      const fundExitsSection = document.getElementById('success-stories-exits');
       const universeSceneIndex = 3;
       const profileSceneIndex = 4;
       const sceneTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'The Wocstar Universe', 'Gayle Jennings-O\'Byrne'];
@@ -2446,6 +2621,7 @@ We invest in companies and technology to create a more innovative, equitable and
       let profileExitIntentAt = 0;
       let partnersIndex = 0;
       let fundPortcoIndex = 0;
+      let fundPortcoBaseCount = 0;
       let fundPortcoTimer = null;
       let isFundMenuOpen = false;
       let isAcademyMenuOpen = false;
@@ -2560,6 +2736,13 @@ We invest in companies and technology to create a more innovative, equitable and
         fundScene.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
+      function scrollFundSceneToExits() {
+        if (!fundScene || !fundExitsSection) return;
+        const headerOffset = window.innerWidth <= 768 ? 72 : 82;
+        const top = Math.max(0, fundExitsSection.offsetTop - headerOffset);
+        fundScene.scrollTo({ top, behavior: 'smooth' });
+      }
+
       function escapeHtml(value) {
         return String(value)
           .replace(/&/g, '&amp;')
@@ -2571,7 +2754,7 @@ We invest in companies and technology to create a more innovative, equitable and
 
       function renderFundPortfolioCards() {
         if (!fundPortcoTrack) return;
-        fundPortcoTrack.innerHTML = fundPortfolioCompanies.map((company) => {
+        const buildCardMarkup = (company) => {
           const plateClass = company.plateClass ? ` ${company.plateClass}` : '';
           const logoClass = company.logoClass ? ` ${company.logoClass}` : '';
           const logoContent = company.logoSrc
@@ -2589,7 +2772,18 @@ We invest in companies and technology to create a more innovative, equitable and
               </a>
             </li>
           `;
-        }).join('');
+        };
+
+        const cardsPerView = getFundPortcoPerView();
+        const cloneCount = Math.min(cardsPerView, fundPortfolioCompanies.length);
+        const baseMarkup = fundPortfolioCompanies.map((company) => buildCardMarkup(company)).join('');
+        const cloneMarkup = fundPortfolioCompanies.slice(0, cloneCount).map((company) => buildCardMarkup(company)).join('');
+
+        fundPortcoTrack.innerHTML = `${baseMarkup}${cloneMarkup}`;
+        fundPortcoBaseCount = fundPortfolioCompanies.length;
+        if (fundPortcoBaseCount > 0) {
+          fundPortcoIndex = fundPortcoIndex % fundPortcoBaseCount;
+        }
       }
 
       function getFundPortcoPerView() {
@@ -2612,7 +2806,7 @@ We invest in companies and technology to create a more innovative, equitable and
         const gap = parseFloat(style.columnGap || style.gap || '0') || 0;
         const offset = fundPortcoIndex * (cardWidth + gap);
 
-        fundPortcoTrack.style.transition = animate ? 'transform 280ms ease' : 'none';
+        fundPortcoTrack.style.transition = animate ? 'transform 620ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
         fundPortcoTrack.style.transform = `translateX(${-offset}px)`;
       }
 
@@ -2620,19 +2814,40 @@ We invest in companies and technology to create a more innovative, equitable and
         if (!fundPortcoTrack) return;
         const cards = Array.from(fundPortcoTrack.querySelectorAll('.fund-portco-card'));
         if (!cards.length) return;
+        if (fundPortcoBaseCount <= 0) return;
 
         const cardsPerView = getFundPortcoPerView();
         const maxIndex = Math.max(0, cards.length - cardsPerView);
-        if (maxIndex <= 0) {
+        if (maxIndex <= 0 || fundPortcoBaseCount <= cardsPerView) {
           fundPortcoIndex = 0;
           updateFundPortfolioCarousel();
           return;
         }
 
-        fundPortcoIndex += step;
-        if (fundPortcoIndex > maxIndex) fundPortcoIndex = 0;
-        if (fundPortcoIndex < 0) fundPortcoIndex = maxIndex;
-        updateFundPortfolioCarousel();
+        if (step > 0) {
+          fundPortcoIndex += 1;
+          updateFundPortfolioCarousel();
+
+          if (fundPortcoIndex >= fundPortcoBaseCount) {
+            const onLoopTransitionEnd = (event) => {
+              if (event && typeof event.propertyName === 'string' && event.propertyName !== 'transform') return;
+              fundPortcoTrack.removeEventListener('transitionend', onLoopTransitionEnd);
+              fundPortcoIndex = 0;
+              updateFundPortfolioCarousel(false);
+            };
+            fundPortcoTrack.addEventListener('transitionend', onLoopTransitionEnd);
+          }
+          return;
+        }
+
+        if (fundPortcoIndex <= 0) {
+          fundPortcoIndex = fundPortcoBaseCount;
+          updateFundPortfolioCarousel(false);
+          // Force reflow so the next animated step is seamless.
+          void fundPortcoTrack.offsetWidth;
+        }
+        fundPortcoIndex -= 1;
+        updateFundPortfolioCarousel(true);
       }
 
       function stopFundPortfolioAuto() {
@@ -2645,8 +2860,8 @@ We invest in companies and technology to create a more innovative, equitable and
       function startFundPortfolioAuto() {
         stopFundPortfolioAuto();
         fundPortcoTimer = window.setInterval(() => {
-          stepFundPortfolioCarousel(1);
-        }, 4200);
+          stepFundPortfolioCarousel(-1);
+        }, 3000);
       }
 
       function updatePartnersCarousel(animate = true) {
@@ -3125,6 +3340,14 @@ We invest in companies and technology to create a more innovative, equitable and
             } else {
               scrollFundSceneToTop();
             }
+          } else if (href === '#success-stories-exits') {
+            event.preventDefault();
+            if (currentIndex !== 0) {
+              transitionTo(0);
+              window.setTimeout(scrollFundSceneToExits, transitionDuration + 40);
+            } else {
+              scrollFundSceneToExits();
+            }
           }
           setFundMenuOpen(false);
         });
@@ -3254,6 +3477,9 @@ We invest in companies and technology to create a more innovative, equitable and
         }
       });
       window.addEventListener('resize', () => {
+        const baseCount = Math.max(1, fundPortcoBaseCount);
+        fundPortcoIndex = fundPortcoIndex % baseCount;
+        renderFundPortfolioCards();
         updateFundPortfolioCarousel(false);
         updatePartnersCarousel(false);
         if (currentIndex === profileSceneIndex) {
