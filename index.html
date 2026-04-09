@@ -910,10 +910,177 @@
       width: min(1080px, calc(100vw - 56px));
     }
 
-    body[data-scene="0"] .scene[data-index="0"] video {
-      inset: 82px 0 0 0;
-      height: auto;
+    body[data-scene="0"] .headline-wrap {
+      top: 110px;
+      bottom: auto;
+    }
+
+    .fund-scene__layout {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding-top: 82px;
+      display: grid;
+      grid-template-rows: minmax(260px, 58vh) minmax(220px, 1fr);
+      gap: 0;
+      z-index: 4;
+    }
+
+    .fund-scene__video {
+      position: relative;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .fund-scene__video video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       object-position: center 46%;
+    }
+
+    .fund-scene__video .overlay {
+      background: rgba(0, 0, 0, 0.34);
+    }
+
+    .fund-portfolio {
+      position: relative;
+      z-index: 5;
+      padding: clamp(12px, 1.8vw, 20px);
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+      background:
+        radial-gradient(180px 96px at 18% 28%, rgba(34, 44, 40, 0.2) 0%, rgba(34, 44, 40, 0) 74%),
+        radial-gradient(170px 90px at 74% 66%, rgba(20, 26, 24, 0.2) 0%, rgba(20, 26, 24, 0) 74%),
+        linear-gradient(110deg, #050707 0%, #090c0c 52%, #040505 100%);
+      overflow: hidden;
+    }
+
+    .fund-portfolio__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .fund-portfolio__title {
+      color: rgba(255, 255, 255, 0.96);
+      font-size: clamp(13px, 1vw, 18px);
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .fund-portfolio__controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .fund-portfolio__btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .fund-portfolio__btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .fund-portfolio__viewport {
+      overflow: hidden;
+    }
+
+    .fund-portfolio__track {
+      list-style: none;
+      display: flex;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      will-change: transform;
+      transition: transform 280ms ease;
+    }
+
+    .fund-portco-card {
+      flex: 0 0 clamp(170px, 18vw, 220px);
+      min-height: 112px;
+    }
+
+    .fund-portco-card__link {
+      display: block;
+      height: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.06);
+      text-decoration: none;
+      padding: 10px;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .fund-portco-card__link:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .fund-portco-card__plate {
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .fund-portco-card__plate.is-dark {
+      background: rgba(10, 10, 10, 0.72);
+    }
+
+    .fund-portco-card__logo {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .fund-portco-card__logo.is-multiply {
+      mix-blend-mode: multiply;
+      filter: contrast(1.2) brightness(1.04);
+    }
+
+    .fund-portco-card__wordmark {
+      color: rgba(255, 255, 255, 0.94);
+      font-size: clamp(12px, 0.95vw, 15px);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .fund-portco-card__name {
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.93);
+      font-size: clamp(12px, 0.9vw, 14px);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .fund-portco-card__industry {
+      margin-top: 4px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: clamp(11px, 0.8vw, 12px);
+      line-height: 1.2;
     }
 
     body[data-scene="1"] .brand-switcher {
@@ -1557,10 +1724,26 @@
         width: calc(100vw - 18px);
       }
 
+      body[data-scene="0"] .headline-wrap {
+        top: 88px;
+        bottom: auto;
+      }
+
       body[data-scene="0"] .scene[data-index="0"] video {
-        inset: 72px 0 0 0;
-        height: auto;
         object-position: center 38%;
+      }
+
+      .fund-scene__layout {
+        padding-top: 72px;
+        grid-template-rows: minmax(220px, 52vh) minmax(220px, 1fr);
+      }
+
+      .fund-portfolio {
+        padding: 10px;
+      }
+
+      .fund-portco-card {
+        flex-basis: clamp(175px, 46vw, 238px);
       }
 
       body[data-scene="1"]::before {
@@ -1714,6 +1897,10 @@
         gap: 8px;
       }
 
+      .fund-portfolio__title {
+        font-size: 12px;
+      }
+
       .footer-search {
         max-width: 100%;
       }
@@ -1825,9 +2012,25 @@
 </head>
 <body>
   <main class="viewport" id="viewport">
-    <section class="scene active" data-index="0">
-      <video src="depth1.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
-      <div class="overlay"></div>
+    <section class="scene active fund-scene" data-index="0">
+      <div class="fund-scene__layout">
+        <div class="fund-scene__video">
+          <video src="depth1.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+          <div class="overlay"></div>
+        </div>
+        <section class="fund-portfolio" id="fund-portfolio" aria-label="Wocstar Fund portfolio companies">
+          <div class="fund-portfolio__header">
+            <h2 class="fund-portfolio__title">Portfolio Companies</h2>
+            <div class="fund-portfolio__controls" aria-label="Portfolio navigation">
+              <button class="fund-portfolio__btn" type="button" id="fundPortcoPrevBtn" aria-label="Show previous portfolio companies">&#8249;</button>
+              <button class="fund-portfolio__btn" type="button" id="fundPortcoNextBtn" aria-label="Show next portfolio companies">&#8250;</button>
+            </div>
+          </div>
+          <div class="fund-portfolio__viewport" id="fundPortcoViewport">
+            <ul class="fund-portfolio__track" id="fundPortcoTrack"></ul>
+          </div>
+        </section>
+      </div>
     </section>
 
     <section class="scene" data-index="1">
@@ -2070,7 +2273,7 @@
       <ul class="brand-fund-menu" id="brandFundMenu" aria-label="Wocstar Fund menu">
         <li><a href="#the-fund">The Fund</a></li>
         <li><a href="https://form.jotform.com/250832645113047" target="_blank" rel="noopener noreferrer">Fund application form</a></li>
-        <li><a href="portfolio.html">Portfolio Companies</a></li>
+        <li><a href="#fund-portfolio">Portfolio Companies</a></li>
         <li><a href="#success-stories-exits">Success stories &amp; exits</a></li>
       </ul>
     </div>
@@ -2149,6 +2352,11 @@
       const partnersViewport = document.getElementById('partnersViewport');
       const partnersPrevBtn = document.getElementById('partnersPrevBtn');
       const partnersNextBtn = document.getElementById('partnersNextBtn');
+      const fundPortcoTrack = document.getElementById('fundPortcoTrack');
+      const fundPortcoViewport = document.getElementById('fundPortcoViewport');
+      const fundPortcoPrevBtn = document.getElementById('fundPortcoPrevBtn');
+      const fundPortcoNextBtn = document.getElementById('fundPortcoNextBtn');
+      const fundPortfolioSection = document.getElementById('fund-portfolio');
       const universeSceneIndex = 3;
       const profileSceneIndex = 4;
       const sceneTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'The Wocstar Universe', 'Gayle Jennings-O\'Byrne'];
@@ -2174,9 +2382,63 @@
       let profileExitIntentDirection = 0;
       let profileExitIntentAt = 0;
       let partnersIndex = 0;
+      let fundPortcoIndex = 0;
       let isFundMenuOpen = false;
       let isAcademyMenuOpen = false;
       let isMediaMenuOpen = false;
+
+      const fundPortfolioCompanies = [
+        {
+          name: 'Samba TV',
+          industry: 'Media Technology',
+          logoSrc: 'portco logo/sambatvlogo.png',
+          logoAlt: 'Samba TV logo',
+          url: 'https://www.samba.tv'
+        },
+        {
+          name: 'Hemster',
+          industry: 'Retail Technology',
+          logoSrc: 'portco logo/hemster.jpg',
+          logoAlt: 'Hemster logo',
+          url: 'https://www.hemster.co',
+          plateClass: 'is-dark',
+          logoClass: 'is-multiply'
+        },
+        {
+          name: 'Re-Nuble',
+          industry: 'AgriTech',
+          logoSrc: 'portco logo/renuble.png',
+          logoAlt: 'Re-Nuble logo',
+          url: 'https://www.re-nuble.com'
+        },
+        {
+          name: 'FilmHedge',
+          industry: 'FinTech for Film',
+          logoSrc: 'portco logo/filmhedge.jpg',
+          logoAlt: 'FilmHedge logo',
+          url: 'https://www.filmhedge.com'
+        },
+        {
+          name: 'Infinite Object',
+          industry: 'Consumer Media Hardware',
+          logoSrc: 'portco logo/infiniteobjects.png',
+          logoAlt: 'Infinite Object logo',
+          url: 'https://www.infiniteobjects.com'
+        },
+        {
+          name: 'Possip',
+          industry: 'EdTech',
+          logoSrc: 'portco logo/possip.png',
+          logoAlt: 'Possip logo',
+          url: 'https://www.possip.com'
+        },
+        {
+          name: 'Moment.ai',
+          industry: 'Applied AI',
+          wordmark: 'Moment.ai',
+          url: 'https://www.moment.ai'
+        }
+      ];
 
       function setFundMenuOpen(isOpen) {
         isFundMenuOpen = isOpen;
@@ -2210,6 +2472,82 @@
         if (window.innerWidth <= 920) return 2;
         if (window.innerWidth <= 1280) return 3;
         return 4;
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function renderFundPortfolioCards() {
+        if (!fundPortcoTrack) return;
+        fundPortcoTrack.innerHTML = fundPortfolioCompanies.map((company) => {
+          const plateClass = company.plateClass ? ` ${company.plateClass}` : '';
+          const logoClass = company.logoClass ? ` ${company.logoClass}` : '';
+          const logoContent = company.logoSrc
+            ? `<img class="fund-portco-card__logo${logoClass}" src="${escapeHtml(company.logoSrc)}" alt="${escapeHtml(company.logoAlt || company.name)}" />`
+            : `<span class="fund-portco-card__wordmark">${escapeHtml(company.wordmark || company.name)}</span>`;
+
+          return `
+            <li class="fund-portco-card">
+              <a class="fund-portco-card__link" href="${escapeHtml(company.url || '#')}" target="_blank" rel="noopener noreferrer" aria-label="Visit ${escapeHtml(company.name)} website">
+                <div class="fund-portco-card__plate${plateClass}">
+                  ${logoContent}
+                </div>
+                <p class="fund-portco-card__name">${escapeHtml(company.name)}</p>
+                <p class="fund-portco-card__industry">${escapeHtml(company.industry || '')}</p>
+              </a>
+            </li>
+          `;
+        }).join('');
+      }
+
+      function getFundPortcoPerView() {
+        if (window.innerWidth <= 560) return 1;
+        if (window.innerWidth <= 960) return 2;
+        if (window.innerWidth <= 1320) return 3;
+        return 4;
+      }
+
+      function updateFundPortfolioCarousel(animate = true) {
+        if (!fundPortcoTrack || !fundPortcoViewport) return;
+        const cards = Array.from(fundPortcoTrack.querySelectorAll('.fund-portco-card'));
+        if (!cards.length) return;
+
+        const cardsPerView = getFundPortcoPerView();
+        const maxIndex = Math.max(0, cards.length - cardsPerView);
+        fundPortcoIndex = Math.min(fundPortcoIndex, maxIndex);
+
+        const cardWidth = cards[0].offsetWidth;
+        const style = window.getComputedStyle(fundPortcoTrack);
+        const gap = parseFloat(style.columnGap || style.gap || '0') || 0;
+        const offset = fundPortcoIndex * (cardWidth + gap);
+
+        fundPortcoTrack.style.transition = animate ? 'transform 280ms ease' : 'none';
+        fundPortcoTrack.style.transform = `translateX(${-offset}px)`;
+      }
+
+      function stepFundPortfolioCarousel(step) {
+        if (!fundPortcoTrack) return;
+        const cards = Array.from(fundPortcoTrack.querySelectorAll('.fund-portco-card'));
+        if (!cards.length) return;
+
+        const cardsPerView = getFundPortcoPerView();
+        const maxIndex = Math.max(0, cards.length - cardsPerView);
+        if (maxIndex <= 0) {
+          fundPortcoIndex = 0;
+          updateFundPortfolioCarousel();
+          return;
+        }
+
+        fundPortcoIndex += step;
+        if (fundPortcoIndex > maxIndex) fundPortcoIndex = 0;
+        if (fundPortcoIndex < 0) fundPortcoIndex = maxIndex;
+        updateFundPortfolioCarousel();
       }
 
       function updatePartnersCarousel(animate = true) {
@@ -2629,6 +2967,16 @@
         brandFundMenu.addEventListener('click', (event) => {
           const target = event.target instanceof HTMLElement ? event.target.closest('a') : null;
           if (!target) return;
+          const href = target.getAttribute('href') || '';
+          if (href === '#fund-portfolio') {
+            event.preventDefault();
+            if (currentIndex !== 0) {
+              transitionTo(0);
+            }
+            if (fundPortfolioSection && typeof fundPortfolioSection.scrollIntoView === 'function') {
+              fundPortfolioSection.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+            }
+          }
           setFundMenuOpen(false);
         });
       }
@@ -2699,6 +3047,12 @@
       if (partnersNextBtn) {
         partnersNextBtn.addEventListener('click', () => stepPartnersCarousel(1));
       }
+      if (fundPortcoPrevBtn) {
+        fundPortcoPrevBtn.addEventListener('click', () => stepFundPortfolioCarousel(-1));
+      }
+      if (fundPortcoNextBtn) {
+        fundPortcoNextBtn.addEventListener('click', () => stepFundPortfolioCarousel(1));
+      }
       if (contactForm) {
         contactForm.addEventListener('submit', (event) => {
           event.preventDefault();
@@ -2745,12 +3099,15 @@
         }
       });
       window.addEventListener('resize', () => {
+        updateFundPortfolioCarousel(false);
         updatePartnersCarousel(false);
         if (currentIndex === profileSceneIndex) {
           fitProfileContentToViewport();
         }
       });
 
+      renderFundPortfolioCards();
+      updateFundPortfolioCarousel(false);
       updatePartnersCarousel(false);
       updateStatus();
     })();
