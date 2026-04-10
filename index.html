@@ -2786,11 +2786,11 @@
 
     .scene-arrow {
       position: fixed;
-      bottom: clamp(18px, 2.8vh, 34px);
+      bottom: clamp(6px, 1.2vh, 14px);
       display: inline-block;
       color: #ffffff;
       text-decoration: none;
-      font-size: clamp(44px, 5.4vw, 58px);
+      font-size: clamp(34px, 4.2vw, 46px);
       line-height: 1;
       z-index: 16;
       text-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
@@ -3058,7 +3058,7 @@ We invest in companies and technology to create a more innovative, equitable and
             <a class="profile-orbit profile-orbit--03" href="/universe/core-team-member-3.html" aria-label="Core team member biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
               <span class="profile-orbit__dialog">Gayle Jennings-O'Byrne</span>
-              <span class="profile-orbit__cta">Read bio</span>
+              <span class="profile-orbit__cta" id="goToGayleReadBio">Read bio</span>
             </a>
           </section>
           <section class="universe-group" data-group="partners" aria-label="Partners">
@@ -3335,6 +3335,7 @@ We invest in companies and technology to create a more innovative, equitable and
       const contactNameInput = document.getElementById('contactName');
       const goToGayleBio = document.getElementById('goToGayleBio');
       const goToGayleFromBubble = document.getElementById('goToGayleFromBubble');
+      const goToGayleReadBio = document.getElementById('goToGayleReadBio');
       const partnersTrack = document.getElementById('partnersTrack');
       const partnersViewport = document.getElementById('partnersViewport');
       const partnersPrevBtn = document.getElementById('partnersPrevBtn');
@@ -3349,6 +3350,7 @@ We invest in companies and technology to create a more innovative, equitable and
       const fundExitsSection = document.getElementById('success-stories-exits');
       const universeSceneIndex = 3;
       const profileSceneIndex = 4;
+      const mainSceneSequence = [3, 0, 1, 2];
       const sceneTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'The Wocstar Universe', 'Gayle Jennings-O\'Byrne'];
       const sceneDescriptions = [
         `Wocstar Fund is an early-stage investment fund focused on tech innovation.
@@ -3364,7 +3366,7 @@ We invest in companies and technology to create a more innovative, equitable and
       const wheelThreshold = 35;
       const profileExitDelay = 520;
       const fundExitDelay = 720;
-      const academyExitDelay = 1600;
+      const academyExitDelay = 900;
 
       let currentIndex = 3;
       let isAnimating = false;
@@ -3836,8 +3838,14 @@ We invest in companies and technology to create a more innovative, equitable and
         const rawSubtext = sceneDescriptions[currentIndex] || '';
         headlineSubtext.textContent = rawSubtext.replace(/\n\s*\n+/g, '\n').trim();
         headlineWrap.style.opacity = (currentIndex === 0 || currentIndex === 1 || currentIndex === profileSceneIndex || currentIndex === universeSceneIndex) ? '0' : '1';
-        nextArrow.style.display = 'inline-block';
-        prevArrow.style.display = 'inline-block';
+        const mainPosition = getMainScenePosition(currentIndex);
+        if (mainPosition !== -1) {
+          prevArrow.style.display = mainPosition === 0 ? 'none' : 'inline-block';
+          nextArrow.style.display = mainPosition === mainSceneSequence.length - 1 ? 'none' : 'inline-block';
+        } else {
+          prevArrow.style.display = 'inline-block';
+          nextArrow.style.display = 'inline-block';
+        }
 
         if (currentIndex === profileSceneIndex) {
           requestAnimationFrame(fitProfileContentToViewport);
@@ -3914,8 +3922,27 @@ We invest in companies and technology to create a more innovative, equitable and
         }, transitionDuration + 30);
       }
 
+      function getMainScenePosition(sceneIndex) {
+        return mainSceneSequence.indexOf(sceneIndex);
+      }
+
+      function getMainLinearIndex(step) {
+        const position = getMainScenePosition(currentIndex);
+        if (position === -1) {
+          return step < 0 ? universeSceneIndex : null;
+        }
+        const nextPosition = position + (step > 0 ? 1 : -1);
+        if (nextPosition < 0 || nextPosition >= mainSceneSequence.length) return null;
+        return mainSceneSequence[nextPosition];
+      }
+
       function getWrappedIndex(step) {
-        return (currentIndex + step + scenes.length) % scenes.length;
+        const position = getMainScenePosition(currentIndex);
+        if (position === -1) {
+          return step > 0 ? mainSceneSequence[0] : mainSceneSequence[mainSceneSequence.length - 1];
+        }
+        const nextPosition = (position + (step > 0 ? 1 : -1) + mainSceneSequence.length) % mainSceneSequence.length;
+        return mainSceneSequence[nextPosition];
       }
 
       function onWheel(event) {
@@ -3927,12 +3954,22 @@ We invest in companies and technology to create a more innovative, equitable and
         if (currentIndex === 0 && fundScene) {
           const maxScrollTop = getFundSceneMaxScrollTop();
           if (maxScrollTop > 0) {
+            const atTop = fundScene.scrollTop <= 1;
             const atBottom = fundScene.scrollTop >= maxScrollTop - 1;
             const wantsToGoDown = primaryDelta > 0;
+            const wantsToGoUp = primaryDelta < 0;
+
+            if (wantsToGoUp && atTop) {
+              clearFundExitIntent();
+              const prevIndex = getMainLinearIndex(-1);
+              if (prevIndex !== null) transitionTo(prevIndex);
+              return;
+            }
 
             if (wantsToGoDown && atBottom) {
               if (shouldTransitionFromFundBottom()) {
-                transitionTo(currentIndex + 1);
+                const nextIndex = getMainLinearIndex(1);
+                if (nextIndex !== null) transitionTo(nextIndex);
               }
               return;
             }
@@ -3946,12 +3983,22 @@ We invest in companies and technology to create a more innovative, equitable and
         if (currentIndex === 1 && academyScene) {
           const maxScrollTop = getAcademySceneMaxScrollTop();
           if (maxScrollTop > 0) {
+            const atTop = academyScene.scrollTop <= 1;
             const atBottom = academyScene.scrollTop >= maxScrollTop - 1;
             const wantsToGoDown = primaryDelta > 0;
+            const wantsToGoUp = primaryDelta < 0;
+
+            if (wantsToGoUp && atTop) {
+              clearAcademyExitIntent();
+              const prevIndex = getMainLinearIndex(-1);
+              if (prevIndex !== null) transitionTo(prevIndex);
+              return;
+            }
 
             if (wantsToGoDown && atBottom) {
               if (shouldTransitionFromAcademyBottom()) {
-                transitionTo(currentIndex + 1);
+                const nextIndex = getMainLinearIndex(1);
+                if (nextIndex !== null) transitionTo(nextIndex);
               }
               return;
             }
@@ -3996,9 +4043,11 @@ We invest in companies and technology to create a more innovative, equitable and
         if (Math.abs(primaryDelta) < wheelThreshold) return;
 
         if (primaryDelta > 0) {
-          transitionTo(currentIndex + 1);
+          const nextIndex = getMainLinearIndex(1);
+          if (nextIndex !== null) transitionTo(nextIndex);
         } else {
-          transitionTo(currentIndex - 1);
+          const prevIndex = getMainLinearIndex(-1);
+          if (prevIndex !== null) transitionTo(prevIndex);
         }
       }
 
@@ -4093,12 +4142,17 @@ We invest in companies and technology to create a more innovative, equitable and
 
         if (currentIndex === 0 && touchStartedInFundScene && fundScene) {
           const maxScrollTop = getFundSceneMaxScrollTop();
+          const atTop = fundScene.scrollTop <= 1;
           const atBottom = fundScene.scrollTop >= maxScrollTop - 1;
           if (Math.abs(deltaY) >= swipeThreshold) {
-            if (deltaY > 0 && atBottom) {
-              if (shouldTransitionFromFundBottom()) {
-                transitionTo(currentIndex + 1);
-              }
+            if (deltaY < 0 && atTop) {
+              clearFundExitIntent();
+              const prevIndex = getMainLinearIndex(-1);
+              if (prevIndex !== null) transitionTo(prevIndex);
+            } else if (deltaY > 0 && atBottom) {
+              clearFundExitIntent();
+              const nextIndex = getMainLinearIndex(1);
+              if (nextIndex !== null) transitionTo(nextIndex);
             } else {
               clearFundExitIntent();
               scrollFundSceneBy(deltaY);
@@ -4115,12 +4169,17 @@ We invest in companies and technology to create a more innovative, equitable and
 
         if (currentIndex === 1 && touchStartedInAcademyScene && academyScene) {
           const maxScrollTop = getAcademySceneMaxScrollTop();
+          const atTop = academyScene.scrollTop <= 1;
           const atBottom = academyScene.scrollTop >= maxScrollTop - 1;
           if (Math.abs(deltaY) >= swipeThreshold) {
-            if (deltaY > 0 && atBottom) {
-              if (shouldTransitionFromAcademyBottom()) {
-                transitionTo(currentIndex + 1);
-              }
+            if (deltaY < 0 && atTop) {
+              clearAcademyExitIntent();
+              const prevIndex = getMainLinearIndex(-1);
+              if (prevIndex !== null) transitionTo(prevIndex);
+            } else if (deltaY > 0 && atBottom) {
+              clearAcademyExitIntent();
+              const nextIndex = getMainLinearIndex(1);
+              if (nextIndex !== null) transitionTo(nextIndex);
             } else {
               clearAcademyExitIntent();
               scrollAcademySceneBy(deltaY);
@@ -4137,9 +4196,11 @@ We invest in companies and technology to create a more innovative, equitable and
 
         if (Math.abs(deltaY) >= swipeThreshold) {
           if (deltaY > 0) {
-            transitionTo(currentIndex + 1);
+            const nextIndex = getMainLinearIndex(1);
+            if (nextIndex !== null) transitionTo(nextIndex);
           } else {
-            transitionTo(currentIndex - 1);
+            const prevIndex = getMainLinearIndex(-1);
+            if (prevIndex !== null) transitionTo(prevIndex);
           }
         }
 
@@ -4328,6 +4389,12 @@ We invest in companies and technology to create a more innovative, equitable and
       }
       if (goToGayleFromBubble) {
         goToGayleFromBubble.addEventListener('click', (event) => {
+          event.preventDefault();
+          transitionTo(profileSceneIndex);
+        });
+      }
+      if (goToGayleReadBio) {
+        goToGayleReadBio.addEventListener('click', (event) => {
           event.preventDefault();
           transitionTo(profileSceneIndex);
         });
