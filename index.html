@@ -463,6 +463,18 @@
       transform: none !important;
     }
 
+    .universe-showcase__slide[data-showcase-index="3"] .universe-partners__viewport {
+      overflow: visible;
+    }
+
+    .universe-showcase__slide[data-showcase-index="3"] .universe-partners__track {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+      width: 100%;
+      transform: none !important;
+    }
+
     @keyframes showcaseIn {
       from {
         opacity: 0;
@@ -563,10 +575,10 @@
       flex: initial;
       min-height: 232px;
       border-radius: 16px;
-      border: 1px solid rgba(119, 166, 255, 0.32);
+      border: 1px solid rgba(139, 183, 255, 0.38);
       background:
-        linear-gradient(180deg, rgba(22, 48, 96, 0.38) 0%, rgba(8, 18, 42, 0.72) 100%),
-        radial-gradient(circle at 20% 14%, rgba(110, 160, 255, 0.16), transparent 58%);
+        linear-gradient(180deg, rgba(24, 56, 112, 0.33) 0%, rgba(10, 22, 52, 0.72) 100%),
+        radial-gradient(circle at 26% 16%, rgba(171, 205, 255, 0.18), transparent 60%);
       display: grid;
       justify-items: center;
       align-content: start;
@@ -612,6 +624,19 @@
       color: rgba(211, 227, 255, 0.9);
       font-size: clamp(13px, 0.98vw, 15px);
       line-height: 1.24;
+    }
+
+    .allies-card {
+      min-height: 222px;
+      border-color: rgba(227, 186, 110, 0.42);
+      background:
+        linear-gradient(180deg, rgba(108, 74, 26, 0.32) 0%, rgba(56, 36, 12, 0.76) 100%),
+        radial-gradient(circle at 24% 14%, rgba(244, 205, 139, 0.22), transparent 62%);
+    }
+
+    .allies-card .advisory-card__avatar {
+      border-color: rgba(236, 197, 122, 0.9);
+      box-shadow: 0 0 0 1px rgba(107, 73, 24, 0.78) inset;
     }
 
     .universe-shape {
@@ -2836,6 +2861,12 @@
         width: 100%;
       }
 
+      .universe-showcase__slide[data-showcase-index="3"] .universe-partners__track {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        width: 100%;
+      }
+
       .universe-shape {
         width: min(64vw, 340px);
         height: min(64vw, 340px);
@@ -3477,7 +3508,7 @@ We invest in companies and technology to create a more innovative, equitable and
             </div>
           </article>
         </section>
-        <section class="universe-showcase" aria-label="Wocstar team, venture partners, and advisory board showcase">
+        <section class="universe-showcase" aria-label="Wocstar team, venture partners, advisory board, and allies showcase">
           <div class="universe-partners__header">
             <h3 class="universe-partners__title universe-team-title" id="universeShowcaseTitle">The Wocstar Team</h3>
             <div class="universe-partners__controls" aria-label="Showcase navigation">
@@ -3579,6 +3610,49 @@ We invest in companies and technology to create a more innovative, equitable and
                     </span>
                     <span class="advisory-card__name">JOEL SOLOMON</span>
                     <span class="advisory-card__firm">Renewal Funds</span>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </div>
+          <div class="universe-showcase__slide" data-showcase-index="3" data-showcase-title="The Allies">
+            <section class="universe-partners" aria-label="The allies">
+              <div class="universe-partners__viewport">
+                <ul class="universe-partners__track">
+                  <li class="partner-card advisory-card allies-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="allies/DALILA.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">DALILA WILSON-SCOTT</span>
+                    <span class="advisory-card__firm">Comcast NBCUniversal</span>
+                  </li>
+                  <li class="partner-card advisory-card allies-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="allies/JACKI.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">JACKI ZEHNER</span>
+                    <span class="advisory-card__firm">ShePlace and Women Moving Millions</span>
+                  </li>
+                  <li class="partner-card advisory-card allies-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="allies/JILL.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">JILL KARP</span>
+                    <span class="advisory-card__firm">Karp Foundation</span>
+                  </li>
+                  <li class="partner-card advisory-card allies-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="allies/TILICIA.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">TILCIA TOLEDO</span>
+                    <span class="advisory-card__firm">FTI Consulting</span>
+                  </li>
+                  <li class="partner-card advisory-card allies-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="allies/LEANNE.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">LEANNE HUEBNER</span>
+                    <span class="advisory-card__firm">Minds Matter National</span>
                   </li>
                 </ul>
               </div>
