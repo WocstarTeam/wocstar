@@ -437,7 +437,7 @@
 
     .universe-showcase__slide[data-showcase-index="1"] .universe-partners__track {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 20px;
       width: 100%;
       transform: none !important;
@@ -449,6 +449,18 @@
       padding: 26px 22px 24px;
       align-content: start;
       gap: 12px;
+    }
+
+    .universe-showcase__slide[data-showcase-index="2"] .universe-partners__viewport {
+      overflow: visible;
+    }
+
+    .universe-showcase__slide[data-showcase-index="2"] .universe-partners__track {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      width: 100%;
+      transform: none !important;
     }
 
     @keyframes showcaseIn {
@@ -544,6 +556,61 @@
     .partner-card__firm {
       color: rgba(208, 225, 255, 0.9);
       font-size: clamp(14px, 1.08vw, 20px);
+      line-height: 1.24;
+    }
+
+    .advisory-card {
+      flex: initial;
+      min-height: 232px;
+      border-radius: 16px;
+      border: 1px solid rgba(119, 166, 255, 0.32);
+      background:
+        linear-gradient(180deg, rgba(22, 48, 96, 0.38) 0%, rgba(8, 18, 42, 0.72) 100%),
+        radial-gradient(circle at 20% 14%, rgba(110, 160, 255, 0.16), transparent 58%);
+      display: grid;
+      justify-items: center;
+      align-content: start;
+      gap: 10px;
+      padding: 18px 14px 16px;
+      text-align: center;
+    }
+
+    .advisory-card__avatar {
+      width: clamp(106px, 8.2vw, 132px);
+      height: clamp(106px, 8.2vw, 132px);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1.5px solid rgba(226, 193, 133, 0.86);
+      background: radial-gradient(circle at 36% 30%, rgba(255, 255, 255, 0.36), rgba(37, 58, 99, 0.9));
+      display: grid;
+      place-items: center;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: clamp(24px, 1.9vw, 30px);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .advisory-card__avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%);
+    }
+
+    .advisory-card__name {
+      color: rgba(255, 255, 255, 0.98);
+      font-size: clamp(15px, 1.16vw, 18px);
+      font-weight: 700;
+      letter-spacing: 0.015em;
+      line-height: 1.14;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .advisory-card__firm {
+      color: rgba(211, 227, 255, 0.9);
+      font-size: clamp(13px, 0.98vw, 15px);
       line-height: 1.24;
     }
 
@@ -2763,6 +2830,12 @@
         width: 100%;
       }
 
+      .universe-showcase__slide[data-showcase-index="2"] .universe-partners__track {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        width: 100%;
+      }
+
       .universe-shape {
         width: min(64vw, 340px);
         height: min(64vw, 340px);
@@ -3404,15 +3477,15 @@ We invest in companies and technology to create a more innovative, equitable and
             </div>
           </article>
         </section>
-        <section class="universe-showcase" aria-label="Wocstar team and venture partners showcase">
+        <section class="universe-showcase" aria-label="Wocstar team, venture partners, and advisory board showcase">
           <div class="universe-partners__header">
             <h3 class="universe-partners__title universe-team-title" id="universeShowcaseTitle">The Wocstar Team</h3>
-            <div class="universe-partners__controls" aria-label="Team and venture partners navigation">
+            <div class="universe-partners__controls" aria-label="Showcase navigation">
               <button class="universe-partners__btn" type="button" id="partnersPrevBtn" aria-label="Show previous showcase scene">&#8249;</button>
               <button class="universe-partners__btn" type="button" id="partnersNextBtn" aria-label="Show next showcase scene">&#8250;</button>
             </div>
           </div>
-          <div class="universe-showcase__slide is-active" data-showcase-index="0">
+          <div class="universe-showcase__slide is-active" data-showcase-index="0" data-showcase-title="The Wocstar Team">
             <div class="universe-collage" aria-label="Wocstar Team profiles">
               <div class="universe-shape" aria-hidden="true"></div>
               <section class="universe-group" data-group="core-team" aria-label="Core team">
@@ -3446,7 +3519,7 @@ We invest in companies and technology to create a more innovative, equitable and
               </section>
             </div>
           </div>
-          <div class="universe-showcase__slide" data-showcase-index="1">
+          <div class="universe-showcase__slide" data-showcase-index="1" data-showcase-title="Our Venture Partners">
             <section class="universe-partners" aria-label="Our venture partners">
               <div class="universe-partners__viewport" id="partnersViewport">
                 <ul class="universe-partners__track" id="partnersTrack">
@@ -3459,10 +3532,45 @@ We invest in companies and technology to create a more innovative, equitable and
                   </li>
                   <li class="partner-card partner-card--blue">
                     <span class="partner-card__avatar" aria-hidden="true">
-                      <img class="partner-card__avatar-image" src="erica.png" alt="" loading="lazy" />
+                      <img class="partner-card__avatar-image" src="Erica.png" alt="" loading="lazy" />
                     </span>
                     <span class="partner-card__name">ERICA MINNIHAN</span>
                     <span class="partner-card__firm">Reign Ventures</span>
+                  </li>
+                  <li class="partner-card partner-card--gold">
+                    <span class="partner-card__avatar" aria-hidden="true">
+                      <img class="partner-card__avatar-image" src="MONIKA.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="partner-card__name">MONIKA MANTILLA</span>
+                    <span class="partner-card__firm">Altura Capital</span>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </div>
+          <div class="universe-showcase__slide" data-showcase-index="2" data-showcase-title="The Advisory Board">
+            <section class="universe-partners" aria-label="The advisory board">
+              <div class="universe-partners__viewport">
+                <ul class="universe-partners__track">
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">BC</span>
+                    <span class="advisory-card__name">BETSEY COHEN</span>
+                    <span class="advisory-card__firm">Teneo Ventures</span>
+                  </li>
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">SB</span>
+                    <span class="advisory-card__name">SCOTT BAKER</span>
+                    <span class="advisory-card__firm">New England Development</span>
+                  </li>
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">CM</span>
+                    <span class="advisory-card__name">CARTER MCCLELLAND</span>
+                    <span class="advisory-card__firm">Union Square Advisors</span>
+                  </li>
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">JS</span>
+                    <span class="advisory-card__name">JOEL SOLOMON</span>
+                    <span class="advisory-card__firm">Renewal Funds</span>
                   </li>
                 </ul>
               </div>
@@ -4078,12 +4186,17 @@ We invest in companies and technology to create a more innovative, equitable and
         if (!universeShowcaseSlides.length) return;
         const count = universeShowcaseSlides.length;
         const nextIndex = (index + count) % count;
+        let nextTitle = 'The Wocstar Team';
         universeShowcaseSlides.forEach((slide, slideIndex) => {
-          slide.classList.toggle('is-active', slideIndex === nextIndex);
+          const isActive = slideIndex === nextIndex;
+          slide.classList.toggle('is-active', isActive);
+          if (isActive) {
+            nextTitle = slide.getAttribute('data-showcase-title') || nextTitle;
+          }
         });
         universeShowcaseIndex = nextIndex;
         if (universeShowcaseTitle) {
-          universeShowcaseTitle.textContent = nextIndex === 0 ? 'The Wocstar Team' : 'Our Venture Partners';
+          universeShowcaseTitle.textContent = nextTitle;
         }
       }
 
