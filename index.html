@@ -345,17 +345,28 @@
       transform: translate(-50%, 0);
     }
 
-    .profile-orbit--01 { --orbit-size: clamp(110px, 16.5vw, 198px); --orbit-left: 7%; --orbit-top: 34%; --orbit-layer: 4; --orbit-ring: #5f9dff; }
-    .profile-orbit--02 { --orbit-size: clamp(92px, 13.2vw, 164px); --orbit-left: 24%; --orbit-top: 20%; --orbit-layer: 3; --orbit-ring: #f1c98d; }
-    .profile-orbit--03 { --orbit-size: clamp(104px, 14vw, 178px); --orbit-left: 40%; --orbit-top: 36%; --orbit-layer: 5; --orbit-ring: #5f9dff; }
-    .profile-orbit--04 { --orbit-size: clamp(88px, 12.3vw, 150px); --orbit-left: 56%; --orbit-top: 18%; --orbit-layer: 2; --orbit-ring: #d6ad67; }
-    .profile-orbit--05 { --orbit-size: clamp(116px, 15.6vw, 190px); --orbit-left: 66%; --orbit-top: 43%; --orbit-layer: 4; --orbit-ring: #5f9dff; }
-    .profile-orbit--06 { --orbit-size: clamp(82px, 11.5vw, 138px); --orbit-left: 79%; --orbit-top: 27%; --orbit-layer: 3; --orbit-ring: #e8be7a; }
-    .profile-orbit--07 { --orbit-size: clamp(96px, 13.5vw, 166px); --orbit-left: 28%; --orbit-top: 56%; --orbit-layer: 3; --orbit-ring: #6ca7ff; }
-    .profile-orbit--08 { --orbit-size: clamp(86px, 11.8vw, 142px); --orbit-left: 52%; --orbit-top: 62%; --orbit-layer: 2; --orbit-ring: #f0c684; }
+    .profile-orbit--01 { --orbit-size: clamp(92px, 12.8vw, 162px); --orbit-left: 8%; --orbit-top: 48%; --orbit-layer: 3; --orbit-ring: #5f9dff; }
+    .profile-orbit--02 { --orbit-size: clamp(92px, 12.8vw, 162px); --orbit-left: 26%; --orbit-top: 16%; --orbit-layer: 2; --orbit-ring: #f1c98d; }
+    .profile-orbit--03 { --orbit-size: clamp(112px, 15.5vw, 196px); --orbit-left: 42%; --orbit-top: 42%; --orbit-layer: 6; --orbit-ring: #d71920; }
+    .profile-orbit--04 { --orbit-size: clamp(92px, 12.8vw, 162px); --orbit-left: 80%; --orbit-top: 48%; --orbit-layer: 2; --orbit-ring: #d6ad67; }
+    .profile-orbit--05 { --orbit-size: clamp(92px, 12.8vw, 162px); --orbit-left: 62%; --orbit-top: 16%; --orbit-layer: 3; --orbit-ring: #5f9dff; }
 
     .profile-orbit--03 .profile-orbit__photo {
+      position: relative;
+      overflow: hidden;
+      background: none;
+      border-color: #d71920;
+      border-width: 2px;
+      box-shadow: 0 0 0 1px rgba(215, 25, 32, 0.35), 0 0 10px rgba(215, 25, 32, 0.28);
+    }
+
+    .profile-orbit--03 .profile-orbit__photo::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
       background: url('Gayle.png') center 20% / cover no-repeat;
+      filter: grayscale(1);
     }
 
     .profile-orbit--02 .profile-orbit__photo {
@@ -370,16 +381,8 @@
       background: url('laurel.png') center 24% / cover no-repeat;
     }
 
-    .profile-orbit--05 {
-      --orbit-layer: 6;
-    }
-
     .profile-orbit--05 .profile-orbit__photo {
       background: url('VICTORIA.png') center 24% / cover no-repeat;
-    }
-
-    .profile-orbit--06 .profile-orbit__photo {
-      background: url('jessica.png') center 24% / cover no-repeat;
     }
 
     .profile-layout {
@@ -1615,6 +1618,53 @@
       max-width: 100%;
       object-fit: contain;
       background: transparent;
+    }
+
+    .brand-capital-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .brand-capital-menu {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top center;
+      animation: dropdownIn 180ms ease;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 180ms ease, visibility 180ms ease;
+      z-index: 14;
+    }
+
+    body[data-scene="3"][data-capital-menu-open="true"] .brand-capital-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .brand-capital-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .brand-capital-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
     }
 
     .brand-fund-wrap {
@@ -2993,20 +3043,6 @@ We invest in companies and technology to create a more innovative, equitable and
               <span class="profile-orbit__photo" aria-hidden="true"></span>
               <span class="profile-orbit__dialog">Victoria Bert</span>
             </a>
-            <a class="profile-orbit profile-orbit--06" href="/universe/partner-3.html" aria-label="Partner biography">
-              <span class="profile-orbit__photo" aria-hidden="true"></span>
-              <span class="profile-orbit__dialog">Jessica Ndrianasy</span>
-            </a>
-          </section>
-          <section class="universe-group" data-group="collaborators" aria-label="Collaborators">
-            <a class="profile-orbit profile-orbit--07" href="/universe/collaborator-1.html" aria-label="Collaborator biography">
-              <span class="profile-orbit__photo" aria-hidden="true"></span>
-              <span class="profile-orbit__dialog">Collaborator 1</span>
-            </a>
-            <a class="profile-orbit profile-orbit--08" href="/universe/collaborator-2.html" aria-label="Collaborator biography">
-              <span class="profile-orbit__photo" aria-hidden="true"></span>
-              <span class="profile-orbit__dialog">Collaborator 2</span>
-            </a>
           </section>
         </div>
         <section class="universe-partners" aria-label="Venture partners carousel">
@@ -3184,9 +3220,17 @@ We invest in companies and technology to create a more innovative, equitable and
   </div>
 
   <div class="brand-switcher">
-    <button class="brand" type="button" data-scene-target="3" aria-label="Wocstar Capital">
-      <img class="brand-logo" src="Wocstar logos/wocstarshadow.png" alt="Wocstar Capital" />
-    </button>
+    <div class="brand-capital-wrap">
+      <button class="brand" type="button" data-scene-target="3" aria-label="Wocstar Capital">
+        <img class="brand-logo" src="Wocstar logos/wocstarshadow.png" alt="Wocstar Capital" />
+      </button>
+      <ul class="brand-capital-menu" id="brandCapitalMenu" aria-label="Wocstar Capital menu">
+        <li><a href="/universe/core-team.html">Core team</a></li>
+        <li><a href="/universe/partners.html">Partners</a></li>
+        <li><a href="/universe/collaborators.html">Collaborators</a></li>
+        <li><a href="#" id="goToGayleBio">Gayle Jennings-O'Byrne</a></li>
+      </ul>
+    </div>
     <div class="brand-fund-wrap">
       <button class="brand is-active" type="button" data-scene-target="0" aria-label="Wocstar Fund">
         <img class="brand-logo" src="Wocstar logos/wocstar-fund-logo.png" alt="Wocstar Fund" />
@@ -3222,17 +3266,6 @@ We invest in companies and technology to create a more innovative, equitable and
   <nav class="scene1-menu" aria-label="Scene one menu"></nav>
   <nav class="scene2-menu" aria-label="Scene two menu"></nav>
   <nav class="scene3-menu" aria-label="Scene three menu"></nav>
-  <nav class="scene4-menu" aria-label="Scene four menu">
-    <details>
-      <summary aria-label="Open scene four menu"></summary>
-      <ul>
-        <li><a href="/universe/core-team.html">Core team</a></li>
-        <li><a href="/universe/partners.html">Partners</a></li>
-        <li><a href="/universe/collaborators.html">Collaborators</a></li>
-        <li><a href="#" id="goToGayleBio">Gayle biography</a></li>
-      </ul>
-    </details>
-  </nav>
   <div class="headline-wrap">
     <h1 class="headline" id="headline">Wocstar Fund</h1>
     <p class="headline-subtext" id="headlineSubtext"></p>
@@ -3251,6 +3284,8 @@ We invest in companies and technology to create a more innovative, equitable and
       const scenes = Array.from(document.querySelectorAll('.scene'));
       const brandSwitcher = document.querySelector('.brand-switcher');
       const brandButtons = Array.from(document.querySelectorAll('.brand-switcher .brand[data-scene-target]'));
+      const brandCapitalWrap = document.querySelector('.brand-capital-wrap');
+      const brandCapitalMenu = document.getElementById('brandCapitalMenu');
       const brandFundWrap = document.querySelector('.brand-fund-wrap');
       const brandFundMenu = document.getElementById('brandFundMenu');
       const brandAcademyWrap = document.querySelector('.brand-academy-wrap');
@@ -3317,6 +3352,7 @@ We invest in companies and technology to create a more innovative, equitable and
       let fundPortcoIndex = 0;
       let fundPortcoBaseCount = 0;
       let fundPortcoTimer = null;
+      let isCapitalMenuOpen = false;
       let isFundMenuOpen = false;
       let isAcademyMenuOpen = false;
       let isMediaMenuOpen = false;
@@ -3373,6 +3409,15 @@ We invest in companies and technology to create a more innovative, equitable and
           url: 'https://www.moment.ai'
         }
       ];
+
+      function setCapitalMenuOpen(isOpen) {
+        isCapitalMenuOpen = isOpen;
+        if (isOpen) {
+          document.body.setAttribute('data-capital-menu-open', 'true');
+        } else {
+          document.body.removeAttribute('data-capital-menu-open');
+        }
+      }
 
       function setFundMenuOpen(isOpen) {
         isFundMenuOpen = isOpen;
@@ -3730,20 +3775,29 @@ We invest in companies and technology to create a more innovative, equitable and
       function updateStatus() {
         document.body.setAttribute('data-scene', String(currentIndex));
         if (currentIndex === 0) {
+          setCapitalMenuOpen(false);
           setAcademyMenuOpen(false);
           setMediaMenuOpen(false);
         } else if (currentIndex === 1) {
+          setCapitalMenuOpen(false);
           setFundMenuOpen(false);
           setMediaMenuOpen(false);
         } else if (currentIndex === 2) {
+          setCapitalMenuOpen(false);
           setFundMenuOpen(false);
           setAcademyMenuOpen(false);
+        } else if (currentIndex === 3) {
+          setFundMenuOpen(false);
+          setAcademyMenuOpen(false);
+          setMediaMenuOpen(false);
         } else {
+          setCapitalMenuOpen(false);
           setFundMenuOpen(false);
           setAcademyMenuOpen(false);
           setMediaMenuOpen(false);
         }
         if (currentIndex > universeSceneIndex) {
+          setCapitalMenuOpen(false);
           setFundMenuOpen(false);
           setAcademyMenuOpen(false);
           setMediaMenuOpen(false);
@@ -4079,11 +4133,13 @@ We invest in companies and technology to create a more innovative, equitable and
           if (nextIndex === 0) {
             if (currentIndex === 0) {
               setFundMenuOpen(!isFundMenuOpen);
+              setCapitalMenuOpen(false);
               setAcademyMenuOpen(false);
               setMediaMenuOpen(false);
               updateBrandSwitcher();
               return;
             }
+            setCapitalMenuOpen(false);
             setAcademyMenuOpen(false);
             setMediaMenuOpen(false);
             transitionTo(nextIndex);
@@ -4092,11 +4148,13 @@ We invest in companies and technology to create a more innovative, equitable and
           if (nextIndex === 1) {
             if (currentIndex === 1) {
               setAcademyMenuOpen(!isAcademyMenuOpen);
+              setCapitalMenuOpen(false);
               setFundMenuOpen(false);
               setMediaMenuOpen(false);
               updateBrandSwitcher();
               return;
             }
+            setCapitalMenuOpen(false);
             setFundMenuOpen(false);
             setMediaMenuOpen(false);
             transitionTo(nextIndex);
@@ -4105,8 +4163,25 @@ We invest in companies and technology to create a more innovative, equitable and
           if (nextIndex === 2) {
             if (currentIndex === 2) {
               setMediaMenuOpen(!isMediaMenuOpen);
+              setCapitalMenuOpen(false);
               setFundMenuOpen(false);
               setAcademyMenuOpen(false);
+              updateBrandSwitcher();
+              return;
+            }
+            setCapitalMenuOpen(false);
+            setFundMenuOpen(false);
+            setAcademyMenuOpen(false);
+            setMediaMenuOpen(false);
+            transitionTo(nextIndex);
+            return;
+          }
+          if (nextIndex === 3) {
+            if (currentIndex === 3) {
+              setCapitalMenuOpen(!isCapitalMenuOpen);
+              setFundMenuOpen(false);
+              setAcademyMenuOpen(false);
+              setMediaMenuOpen(false);
               updateBrandSwitcher();
               return;
             }
@@ -4116,12 +4191,20 @@ We invest in companies and technology to create a more innovative, equitable and
             transitionTo(nextIndex);
             return;
           }
+          setCapitalMenuOpen(false);
           setFundMenuOpen(false);
           setAcademyMenuOpen(false);
           setMediaMenuOpen(false);
           transitionTo(nextIndex);
         });
       });
+      if (brandCapitalMenu) {
+        brandCapitalMenu.addEventListener('click', (event) => {
+          const target = event.target instanceof HTMLElement ? event.target.closest('a') : null;
+          if (!target) return;
+          setCapitalMenuOpen(false);
+        });
+      }
       if (brandFundMenu) {
         brandFundMenu.addEventListener('click', (event) => {
           const target = event.target instanceof HTMLElement ? event.target.closest('a') : null;
@@ -4170,6 +4253,11 @@ We invest in companies and technology to create a more innovative, equitable and
         });
       }
       document.addEventListener('click', (event) => {
+        if (isCapitalMenuOpen && brandCapitalWrap) {
+          if (!(event.target instanceof Node && brandCapitalWrap.contains(event.target))) {
+            setCapitalMenuOpen(false);
+          }
+        }
         if (isFundMenuOpen && brandFundWrap) {
           if (!(event.target instanceof Node && brandFundWrap.contains(event.target))) {
             setFundMenuOpen(false);
@@ -4281,6 +4369,9 @@ We invest in companies and technology to create a more innovative, equitable and
 
         if (event.key === 'Escape' && isFundMenuOpen) {
           setFundMenuOpen(false);
+        }
+        if (event.key === 'Escape' && isCapitalMenuOpen) {
+          setCapitalMenuOpen(false);
         }
         if (event.key === 'Escape' && isAcademyMenuOpen) {
           setAcademyMenuOpen(false);
