@@ -2018,10 +2018,111 @@
       width: min(1080px, calc(100vw - 56px));
     }
 
-    body[data-scene="2"] .scene[data-index="2"] video {
-      top: 82px;
-      height: calc(100% - 82px);
-      object-position: center 6%;
+    .media-scene {
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: #000;
+    }
+
+    .media-scene__video {
+      position: relative;
+      min-height: clamp(360px, 62vh, 640px);
+      margin-top: 82px;
+      overflow: hidden;
+    }
+
+    .media-scene .media-scene__video video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 8%;
+      top: 0;
+    }
+
+    .media-layout {
+      position: relative;
+      z-index: 4;
+      min-height: 0;
+      padding: clamp(26px, 3.2vh, 42px) clamp(20px, 4vw, 58px) clamp(26px, 6vh, 64px);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background: #000;
+    }
+
+    .media-letter {
+      width: min(1040px, 100%);
+      border-radius: 18px;
+      border: 1px solid rgba(235, 207, 161, 0.3);
+      background: #000;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.44), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      padding: clamp(24px, 3vw, 38px) clamp(20px, 3.4vw, 48px) clamp(28px, 3.8vw, 44px);
+    }
+
+    .media-letter__eyebrow {
+      margin: 0 0 8px;
+      color: rgba(230, 203, 158, 0.95);
+      font-size: clamp(12px, 0.95vw, 14px);
+      letter-spacing: 0.16em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .media-letter__title {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.98);
+      font-size: clamp(28px, 2.9vw, 44px);
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .media-letter__body {
+      margin-top: clamp(16px, 2.2vw, 24px);
+      display: grid;
+      gap: clamp(12px, 1.6vw, 18px);
+    }
+
+    .media-letter__paragraph {
+      margin: 0;
+      opacity: 0;
+      transform: translateY(8px);
+      color: rgba(243, 247, 255, 0.96);
+      font-family: "Segoe Print", "Bradley Hand", "Lucida Handwriting", "Comic Sans MS", cursive;
+      font-size: clamp(17px, 1.3vw, 22px);
+      line-height: 1.66;
+      letter-spacing: 0.01em;
+      text-wrap: pretty;
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+
+    .media-letter__paragraph.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .media-letter__paragraph.is-typing::after {
+      content: "";
+      display: inline-block;
+      width: 0.08em;
+      height: 1.05em;
+      margin-left: 0.16em;
+      vertical-align: -0.11em;
+      background: rgba(241, 214, 170, 0.95);
+      animation: mediaCaretBlink 820ms steps(1, end) infinite;
+    }
+
+    @keyframes mediaCaretBlink {
+      0%, 48% {
+        opacity: 1;
+      }
+      49%, 100% {
+        opacity: 0;
+      }
     }
 
     .brand {
@@ -2762,13 +2863,6 @@
         width: calc(100vw - 18px);
       }
 
-      body[data-scene="2"] .scene[data-index="2"] video {
-        top: 72px;
-        height: calc(100% - 72px);
-        object-position: center 8%;
-      }
-
-
       .brand-logo {
         height: 30px;
       }
@@ -2804,6 +2898,29 @@
       .universe-layout {
         padding: 84px 14px 22px;
         gap: 12px;
+      }
+
+      .media-layout {
+        padding: 16px 12px 20px;
+      }
+
+      .media-scene__video {
+        margin-top: 72px;
+        min-height: clamp(270px, 44vh, 420px);
+      }
+
+      .media-letter {
+        border-radius: 14px;
+        padding: 18px 14px 22px;
+      }
+
+      .media-letter__title {
+        font-size: clamp(24px, 7.4vw, 34px);
+      }
+
+      .media-letter__paragraph {
+        font-size: clamp(15px, 4.2vw, 18px);
+        line-height: 1.58;
       }
 
       .universe-title {
@@ -3475,9 +3592,25 @@ We invest in companies and technology to create a more innovative, equitable and
       </div>
     </section>
 
-    <section class="scene" data-index="2">
-      <video src="istockphoto-1733016928-640_adpp_is.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
-      <div class="overlay"></div>
+    <section class="scene media-scene" data-index="2">
+      <div class="media-scene__video">
+        <video src="istockphoto-1733016928-640_adpp_is.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+        <div class="overlay"></div>
+      </div>
+      <div class="media-layout">
+        <article class="media-letter" aria-label="Wocstar Media letter">
+          <p class="media-letter__eyebrow" id="about">Wocstar Media</p>
+          <h2 class="media-letter__title">Stories That Shift Culture</h2>
+          <div class="media-letter__body">
+            <p class="media-letter__paragraph" data-media-type>Wocstar Media is a storytelling and media production initiative under Wocstar Capital, dedicated to amplifying diverse voices and narratives that drive social impact. Through the Wocstar Media Foundation, it empowers artists and entrepreneurs to create stories that inspire and foster positive change, particularly in finance, entrepreneurship, media, and entertainment.</p>
+            <p class="media-letter__paragraph" data-media-type id="wocstar-media-foundation">Wocstar Media has supported Broadway productions like &ldquo;For Colored Girls Who Have Considered Suicide When the Rainbow is Enuf,&rdquo; which received seven Tony&reg; Award nominations in 2022, and &ldquo;Thoughts of a Colored Man.&rdquo;</p>
+            <p class="media-letter__paragraph" data-media-type id="media-fellows">The organization offers programs like Wocstar Media Fellows, supporting creators such as Nicki Micheaux and the late Dr. Ron Simons, both recognized for impactful storytelling. Wocstar Media also hosts the Lunch n&rsquo; Learn webinar series to explore challenges and growth opportunities for diverse artists and storytellers.</p>
+            <p class="media-letter__paragraph" data-media-type id="podcasting">VC&rsquo;s Off the Record is Wocstar Media&rsquo;s flagship podcast, a behind-the-scenes look at the real conversations shaping capital, culture, and creativity. Hosted by Wocstar Capital leaders and special guests, the show dives into untold stories of venture, media, and entrepreneurship from perspectives often left out of the mainstream narrative.</p>
+            <p class="media-letter__paragraph" data-media-type>Each episode explores what it really takes to build, invest, and thrive as a creator or founder of color. From hard-won lessons to candid takes on power, access, and ownership, VC&rsquo;s Off the Record delivers insights you won&rsquo;t hear anywhere else, available wherever you get your podcasts.</p>
+            <p class="media-letter__paragraph" data-media-type>Our goal is to empower artists to create stories that inspire and make a positive impact. Our work amplifies the diverse voices and stories that are changing the future of finance, entrepreneurship, media, and entertainment.</p>
+          </div>
+        </article>
+      </div>
     </section>
 
     <section class="scene active universe-scene" data-index="3">
@@ -3962,6 +4095,8 @@ We invest in companies and technology to create a more innovative, equitable and
       const universeScene = document.querySelector('.universe-scene');
       const fundScene = document.querySelector('.fund-scene');
       const academyScene = document.querySelector('.academy-scene');
+      const mediaScene = document.querySelector('.media-scene');
+      const mediaTypedParagraphs = Array.from(document.querySelectorAll('.media-letter__paragraph[data-media-type]'));
       const fundPortcoTrack = document.getElementById('fundPortcoTrack');
       const fundPortcoViewport = document.getElementById('fundPortcoViewport');
       const fundPortcoPrevBtn = document.getElementById('fundPortcoPrevBtn');
@@ -3977,7 +4112,7 @@ We invest in companies and technology to create a more innovative, equitable and
 
         We invest in companies and technology to create a more innovative, equitable and sustainable world. Working together with Founders to move the world forward.`,
         'The Wocstar Entrepreneur Academy helps you unlock capital, grow your business, and build lasting success.',
-        'Turning Powerful Stories into Lasting Impact.',
+        '',
         '',
         ''
       ];
@@ -3988,6 +4123,7 @@ We invest in companies and technology to create a more innovative, equitable and
       const universeExitDelay = 900;
       const fundExitDelay = 720;
       const academyExitDelay = 900;
+      const mediaExitDelay = 900;
 
       let currentIndex = 3;
       let isAnimating = false;
@@ -4002,6 +4138,7 @@ We invest in companies and technology to create a more innovative, equitable and
       let universeExitIntentAt = 0;
       let fundExitIntentAt = 0;
       let academyExitIntentAt = 0;
+      let mediaExitIntentAt = 0;
       let universeShowcaseIndex = 0;
       let universeShowcaseTimer = null;
       let capitalInterviewIndex = 0;
@@ -4009,10 +4146,14 @@ We invest in companies and technology to create a more innovative, equitable and
       let fundPortcoIndex = 0;
       let fundPortcoBaseCount = 0;
       let fundPortcoTimer = null;
+      let mediaTypingTimer = null;
+      let mediaTypingStarted = false;
+      let mediaTypingCompleted = false;
       let isCapitalMenuOpen = false;
       let isFundMenuOpen = false;
       let isAcademyMenuOpen = false;
       let isMediaMenuOpen = false;
+      let touchStartedInMediaScene = false;
 
       const fundPortfolioCompanies = [
         {
@@ -4121,6 +4262,91 @@ We invest in companies and technology to create a more innovative, equitable and
       function scrollAcademySceneBy(delta) {
         if (!academyScene) return;
         academyScene.scrollTop += delta;
+      }
+
+      function getMediaSceneMaxScrollTop() {
+        if (!mediaScene) return 0;
+        return Math.max(0, mediaScene.scrollHeight - mediaScene.clientHeight);
+      }
+
+      function scrollMediaSceneBy(delta) {
+        if (!mediaScene) return;
+        mediaScene.scrollTop += delta;
+      }
+
+      function scrollMediaSceneToAnchor(hash) {
+        if (!mediaScene || !hash || hash.charAt(0) !== '#') return;
+        const target = mediaScene.querySelector(hash);
+        if (!target) return;
+        const headerOffset = window.innerWidth <= 768 ? 72 : 82;
+        const top = Math.max(0, target.offsetTop - headerOffset);
+        mediaScene.scrollTo({ top, behavior: 'smooth' });
+      }
+
+      function stopMediaTyping() {
+        if (mediaTypingTimer) {
+          window.clearTimeout(mediaTypingTimer);
+          mediaTypingTimer = null;
+        }
+      }
+
+      function resetMediaTyping() {
+        stopMediaTyping();
+        mediaTypedParagraphs.forEach((paragraph) => {
+          if (!paragraph.dataset.fullText) {
+            paragraph.dataset.fullText = (paragraph.textContent || '').trim();
+          }
+          paragraph.textContent = '';
+          paragraph.classList.remove('is-visible', 'is-typing');
+        });
+        mediaTypingStarted = false;
+        mediaTypingCompleted = false;
+      }
+
+      function getMediaTypingDelay(character) {
+        if (/[.!?]/.test(character)) return 260;
+        if (/[,:;]/.test(character)) return 185;
+        if (character === ' ') return 42;
+        return 64;
+      }
+
+      function startMediaTyping() {
+        if (!mediaTypedParagraphs.length || mediaTypingCompleted || mediaTypingStarted) return;
+        mediaTypingStarted = true;
+
+        let paragraphIndex = 0;
+
+        const typeNextParagraph = () => {
+          if (paragraphIndex >= mediaTypedParagraphs.length) {
+            mediaTypingCompleted = true;
+            stopMediaTyping();
+            return;
+          }
+
+          const paragraph = mediaTypedParagraphs[paragraphIndex];
+          const fullText = paragraph.dataset.fullText || '';
+          let characterIndex = 0;
+
+          paragraph.classList.add('is-visible', 'is-typing');
+
+          const typeCharacter = () => {
+            if (characterIndex >= fullText.length) {
+              paragraph.classList.remove('is-typing');
+              paragraphIndex += 1;
+              mediaTypingTimer = window.setTimeout(typeNextParagraph, 460);
+              return;
+            }
+
+            const character = fullText.charAt(characterIndex);
+            paragraph.textContent += character;
+            characterIndex += 1;
+            mediaTypingTimer = window.setTimeout(typeCharacter, getMediaTypingDelay(character));
+          };
+
+          typeCharacter();
+        };
+
+        typeNextParagraph();
       }
 
       function scrollFundSceneToPortfolio() {
@@ -4390,6 +4616,10 @@ We invest in companies and technology to create a more innovative, equitable and
         academyExitIntentAt = 0;
       }
 
+      function clearMediaExitIntent() {
+        mediaExitIntentAt = 0;
+      }
+
       function shouldTransitionFromFundBottom() {
         const now = Date.now();
         if (!fundExitIntentAt) {
@@ -4426,6 +4656,19 @@ We invest in companies and technology to create a more innovative, equitable and
           return false;
         }
         clearAcademyExitIntent();
+        return true;
+      }
+
+      function shouldTransitionFromMediaBottom() {
+        const now = Date.now();
+        if (!mediaExitIntentAt) {
+          mediaExitIntentAt = now;
+          return false;
+        }
+        if (now - mediaExitIntentAt < mediaExitDelay) {
+          return false;
+        }
+        clearMediaExitIntent();
         return true;
       }
 
@@ -4518,7 +4761,7 @@ We invest in companies and technology to create a more innovative, equitable and
         headline.textContent = sceneTitles[currentIndex];
         const rawSubtext = sceneDescriptions[currentIndex] || '';
         headlineSubtext.textContent = rawSubtext.replace(/\n\s*\n+/g, '\n').trim();
-        headlineWrap.style.opacity = (currentIndex === 0 || currentIndex === 1 || currentIndex === profileSceneIndex || currentIndex === universeSceneIndex) ? '0' : '1';
+        headlineWrap.style.opacity = (currentIndex === 0 || currentIndex === 1 || currentIndex === 2 || currentIndex === profileSceneIndex || currentIndex === universeSceneIndex) ? '0' : '1';
         const mainPosition = getMainScenePosition(currentIndex);
         if (mainPosition !== -1) {
           prevArrow.style.display = mainPosition === 0 ? 'none' : 'inline-block';
@@ -4530,6 +4773,9 @@ We invest in companies and technology to create a more innovative, equitable and
 
         if (currentIndex === profileSceneIndex) {
           requestAnimationFrame(fitProfileContentToViewport);
+        }
+        if (currentIndex === 2) {
+          startMediaTyping();
         }
       }
 
@@ -4554,6 +4800,7 @@ We invest in companies and technology to create a more innovative, equitable and
         clearUniverseExitIntent();
         clearFundExitIntent();
         clearAcademyExitIntent();
+        clearMediaExitIntent();
 
         const fromIndex = currentIndex;
         const currentScene = scenes[fromIndex];
@@ -4692,6 +4939,35 @@ We invest in companies and technology to create a more innovative, equitable and
           }
         }
 
+        if (currentIndex === 2 && mediaScene) {
+          const maxScrollTop = getMediaSceneMaxScrollTop();
+          if (maxScrollTop > 0) {
+            const atTop = mediaScene.scrollTop <= 1;
+            const atBottom = mediaScene.scrollTop >= maxScrollTop - 1;
+            const wantsToGoDown = primaryDelta > 0;
+            const wantsToGoUp = primaryDelta < 0;
+
+            if (wantsToGoUp && atTop) {
+              clearMediaExitIntent();
+              const prevIndex = getMainLinearIndex(-1);
+              if (prevIndex !== null) transitionTo(prevIndex);
+              return;
+            }
+
+            if (wantsToGoDown && atBottom) {
+              if (shouldTransitionFromMediaBottom()) {
+                const nextIndex = getMainLinearIndex(1);
+                if (nextIndex !== null) transitionTo(nextIndex);
+              }
+              return;
+            }
+
+            clearMediaExitIntent();
+            scrollMediaSceneBy(event.deltaY);
+            return;
+          }
+        }
+
         if (currentIndex === universeSceneIndex && universeScene) {
           const maxScrollTop = Math.max(0, universeScene.scrollHeight - universeScene.clientHeight);
           if (maxScrollTop > 0) {
@@ -4790,6 +5066,9 @@ We invest in companies and technology to create a more innovative, equitable and
         touchStartedInAcademyScene = Boolean(
           currentIndex === 1 && event.target && event.target.closest('.academy-scene')
         );
+        touchStartedInMediaScene = Boolean(
+          currentIndex === 2 && event.target && event.target.closest('.media-scene')
+        );
       }
 
       function onTouchMove(event) {
@@ -4810,6 +5089,7 @@ We invest in companies and technology to create a more innovative, equitable and
           touchStartedInUniverseScene = false;
           touchStartedInFundScene = false;
           touchStartedInAcademyScene = false;
+          touchStartedInMediaScene = false;
           return;
         }
 
@@ -4819,6 +5099,7 @@ We invest in companies and technology to create a more innovative, equitable and
           touchStartedInUniverseScene = false;
           touchStartedInFundScene = false;
           touchStartedInAcademyScene = false;
+          touchStartedInMediaScene = false;
           return;
         }
 
@@ -4828,6 +5109,7 @@ We invest in companies and technology to create a more innovative, equitable and
           touchStartedInUniverseScene = false;
           touchStartedInFundScene = false;
           touchStartedInAcademyScene = false;
+          touchStartedInMediaScene = false;
           return;
         }
 
@@ -4837,6 +5119,7 @@ We invest in companies and technology to create a more innovative, equitable and
           touchStartedInUniverseScene = false;
           touchStartedInFundScene = false;
           touchStartedInAcademyScene = false;
+          touchStartedInMediaScene = false;
           return;
         }
 
@@ -4869,6 +5152,7 @@ We invest in companies and technology to create a more innovative, equitable and
           touchStartedInUniverseScene = false;
           touchStartedInFundScene = false;
           touchStartedInAcademyScene = false;
+          touchStartedInMediaScene = false;
           return;
         }
 
@@ -4898,6 +5182,37 @@ We invest in companies and technology to create a more innovative, equitable and
           touchStartedInUniverseScene = false;
           touchStartedInFundScene = false;
           touchStartedInAcademyScene = false;
+          touchStartedInMediaScene = false;
+          return;
+        }
+
+        if (currentIndex === 2 && touchStartedInMediaScene && mediaScene) {
+          const maxScrollTop = getMediaSceneMaxScrollTop();
+          const atTop = mediaScene.scrollTop <= 1;
+          const atBottom = mediaScene.scrollTop >= maxScrollTop - 1;
+          if (Math.abs(deltaY) >= swipeThreshold) {
+            if (deltaY < 0 && atTop) {
+              clearMediaExitIntent();
+              const prevIndex = getMainLinearIndex(-1);
+              if (prevIndex !== null) transitionTo(prevIndex);
+            } else if (deltaY > 0 && atBottom) {
+              if (shouldTransitionFromMediaBottom()) {
+                const nextIndex = getMainLinearIndex(1);
+                if (nextIndex !== null) transitionTo(nextIndex);
+              }
+            } else {
+              clearMediaExitIntent();
+              scrollMediaSceneBy(deltaY);
+            }
+          } else {
+            clearMediaExitIntent();
+          }
+          touchStartY = null;
+          touchStartedInProfileCopy = false;
+          touchStartedInUniverseScene = false;
+          touchStartedInFundScene = false;
+          touchStartedInAcademyScene = false;
+          touchStartedInMediaScene = false;
           return;
         }
 
@@ -4972,6 +5287,7 @@ We invest in companies and technology to create a more innovative, equitable and
         touchStartedInUniverseScene = false;
         touchStartedInFundScene = false;
         touchStartedInAcademyScene = false;
+        touchStartedInMediaScene = false;
       }
 
       window.addEventListener('wheel', onWheel, { passive: false });
@@ -5103,6 +5419,18 @@ We invest in companies and technology to create a more innovative, equitable and
         brandMediaMenu.addEventListener('click', (event) => {
           const target = event.target instanceof HTMLElement ? event.target.closest('a') : null;
           if (!target) return;
+          const href = target.getAttribute('href') || '';
+          if (href.startsWith('#')) {
+            event.preventDefault();
+            if (currentIndex !== 2) {
+              transitionTo(2);
+              window.setTimeout(() => {
+                scrollMediaSceneToAnchor(href);
+              }, transitionDuration + 40);
+            } else {
+              scrollMediaSceneToAnchor(href);
+            }
+          }
           setMediaMenuOpen(false);
         });
       }
@@ -5299,6 +5627,7 @@ We invest in companies and technology to create a more innovative, equitable and
         capitalInterview.addEventListener('mouseleave', startCapitalInterviewAuto);
       }
 
+      resetMediaTyping();
       renderFundPortfolioCards();
       updateFundPortfolioCarousel(false);
       startFundPortfolioAuto();
