@@ -3496,7 +3496,7 @@ We invest in companies and technology to create a more innovative, equitable and
             </div>
           </article>
           <article class="capital-interview__item" data-interview-index="1" aria-live="polite">
-            <a class="capital-interview__media" href="https://www.cbsnews.com/video/entrepreneurship-risks-realities/#x" target="_blank" rel="noopener noreferrer" aria-label="Watch Gayle Jennings-O'Byrne CBS News segment" data-embed-url="https://www.youtube-nocookie.com/embed/2MLWgDO9EPw?autoplay=1&playsinline=1&rel=0&modestbranding=1" data-fallback-url="https://www.youtube.com/watch?v=2MLWgDO9EPw">
+            <a class="capital-interview__media" href="https://www.youtube.com/watch?v=2MLWgDO9EPw" target="_blank" rel="noopener noreferrer" aria-label="Watch Gayle Jennings-O'Byrne CBS News segment" data-embed-url="https://www.youtube-nocookie.com/embed/2MLWgDO9EPw?autoplay=1&playsinline=1&rel=0&modestbranding=1" data-fallback-url="https://www.youtube.com/watch?v=2MLWgDO9EPw">
               <img src="https://i.ytimg.com/vi/2MLWgDO9EPw/hqdefault.jpg" alt="Gayle Jennings-O'Byrne speaking with interviewer on CBS News" loading="lazy" />
               <span class="capital-interview__play" aria-hidden="true"></span>
             </a>
@@ -3504,7 +3504,7 @@ We invest in companies and technology to create a more innovative, equitable and
               <p class="capital-interview__kicker">In The Press</p>
               <h3 class="capital-interview__title">Gayle Featured on CBS News</h3>
               <p class="capital-interview__text">In this CBS News conversation, Gayle dives into the real risks and realities of entrepreneurship and what founders need to build resilient, scalable businesses in today's market.</p>
-              <a class="capital-interview__cta" href="https://www.cbsnews.com/video/entrepreneurship-risks-realities/#x" target="_blank" rel="noopener noreferrer">Read More On CBS News</a>
+              <a class="capital-interview__cta" href="https://www.youtube.com/watch?v=2MLWgDO9EPw" target="_blank" rel="noopener noreferrer">Listen To The Full Interview</a>
             </div>
           </article>
         </section>
@@ -5180,15 +5180,7 @@ We invest in companies and technology to create a more innovative, equitable and
           }
         });
       }
-      capitalInterviewMediaLinks.forEach((link) => {
-        link.addEventListener('click', (event) => {
-          const embedUrl = link.getAttribute('data-embed-url') || '';
-          if (!embedUrl) return;
-          const fallbackUrl = link.getAttribute('data-fallback-url') || link.getAttribute('href') || embedUrl;
-          event.preventDefault();
-          openInterviewModal(embedUrl, fallbackUrl);
-        });
-      });
+      // Temporary fallback: allow direct navigation to interview links.
       if (partnersPrevBtn) {
         partnersPrevBtn.addEventListener('click', () => {
           stepUniverseShowcase(-1);
