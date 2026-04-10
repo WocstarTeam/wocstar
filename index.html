@@ -112,8 +112,12 @@
       gap: clamp(16px, 2.4vh, 28px);
     }
 
-    .universe-header {
-      max-width: min(760px, 92vw);
+    .universe-team-title {
+      position: absolute;
+      top: clamp(12px, 1.8vh, 18px);
+      left: 0;
+      margin: 0;
+      z-index: 5;
     }
 
     .universe-title {
@@ -307,7 +311,7 @@
       bottom: calc(100% + 10px);
       transform: translate(-50%, 6px);
       min-width: 120px;
-      max-width: min(180px, 42vw);
+      max-width: min(300px, 78vw);
       padding: 8px 12px;
       color: rgba(255, 255, 255, 0.95);
       font-size: clamp(11px, 0.85vw, 13px);
@@ -327,16 +331,30 @@
       white-space: nowrap;
     }
 
-    .profile-orbit__dialog::after {
-      content: "";
+    .profile-orbit__cta {
       position: absolute;
-      right: 8px;
-      bottom: 8px;
-      width: 8px;
-      height: 3px;
-      background: rgba(177, 196, 227, 0.95);
-      box-shadow: -3px 3px 0 rgba(177, 196, 227, 0.95);
-      opacity: 0.8;
+      left: 50%;
+      top: calc(100% + 8px);
+      transform: translate(-50%, -6px);
+      min-width: 120px;
+      padding: 8px 12px;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: clamp(11px, 0.85vw, 13px);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.2;
+      background: rgba(8, 18, 36, 0.38);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px);
+      box-shadow: inset 0 0 0 1px rgba(177, 196, 227, 0.85);
+      opacity: 0;
+      pointer-events: auto;
+      transition: opacity 170ms ease 220ms, transform 170ms ease 220ms;
+      white-space: nowrap;
+      cursor: pointer;
     }
 
     .profile-orbit:hover .profile-orbit__dialog,
@@ -345,10 +363,17 @@
       transform: translate(-50%, 0);
     }
 
-    .profile-orbit--01 { --orbit-size: clamp(92px, 12.8vw, 162px); --orbit-left: 8%; --orbit-top: 48%; --orbit-layer: 3; --orbit-ring: #5f9dff; }
+    .profile-orbit:hover .profile-orbit__cta,
+    .profile-orbit:focus-visible .profile-orbit__cta {
+      opacity: 1;
+      transform: translate(-50%, 0);
+      transition-delay: 0s;
+    }
+
+    .profile-orbit--01 { --orbit-size: clamp(92px, 12.8vw, 162px); --orbit-left: 8%; --orbit-top: 45%; --orbit-layer: 3; --orbit-ring: #5f9dff; }
     .profile-orbit--02 { --orbit-size: clamp(92px, 12.8vw, 162px); --orbit-left: 26%; --orbit-top: 16%; --orbit-layer: 2; --orbit-ring: #f1c98d; }
     .profile-orbit--03 { --orbit-size: clamp(112px, 15.5vw, 196px); --orbit-left: 42%; --orbit-top: 42%; --orbit-layer: 6; --orbit-ring: #d71920; }
-    .profile-orbit--04 { --orbit-size: clamp(92px, 12.8vw, 162px); --orbit-left: 80%; --orbit-top: 48%; --orbit-layer: 2; --orbit-ring: #d6ad67; }
+    .profile-orbit--04 { --orbit-size: clamp(92px, 12.8vw, 162px); --orbit-left: 80%; --orbit-top: 45%; --orbit-layer: 2; --orbit-ring: #d6ad67; }
     .profile-orbit--05 { --orbit-size: clamp(92px, 12.8vw, 162px); --orbit-left: 62%; --orbit-top: 16%; --orbit-layer: 3; --orbit-ring: #5f9dff; }
 
     .profile-orbit--03 .profile-orbit__photo {
@@ -2799,7 +2824,7 @@
 </head>
 <body>
   <main class="viewport" id="viewport">
-    <section class="scene active fund-scene" data-index="0">
+    <section class="scene fund-scene" data-index="0">
       <div class="fund-scene__layout">
         <div class="fund-scene__video">
           <video src="depth1.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
@@ -3014,34 +3039,38 @@ We invest in companies and technology to create a more innovative, equitable and
       <div class="overlay"></div>
     </section>
 
-    <section class="scene universe-scene" data-index="3">
+    <section class="scene active universe-scene" data-index="3">
       <div class="universe-layout">
-        <header class="universe-header">
-        </header>
         <div class="universe-collage" aria-label="Wocstar Universe profiles">
+          <h2 class="universe-partners__title universe-team-title">The Wocstar Team</h2>
           <div class="universe-shape" aria-hidden="true"></div>
           <section class="universe-group" data-group="core-team" aria-label="Core team">
             <a class="profile-orbit profile-orbit--01" href="#" id="goToGayleFromBubble" aria-label="Gayle Jennings-O'Byrne biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
               <span class="profile-orbit__dialog">Pialy Aditya</span>
+              <span class="profile-orbit__cta">Read bio</span>
             </a>
             <a class="profile-orbit profile-orbit--02" href="/universe/core-team-member-2.html" aria-label="Core team member biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
               <span class="profile-orbit__dialog">Colleen Bataille</span>
+              <span class="profile-orbit__cta">Read bio</span>
             </a>
             <a class="profile-orbit profile-orbit--03" href="/universe/core-team-member-3.html" aria-label="Core team member biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
               <span class="profile-orbit__dialog">Gayle Jennings-O'Byrne</span>
+              <span class="profile-orbit__cta">Read bio</span>
             </a>
           </section>
           <section class="universe-group" data-group="partners" aria-label="Partners">
             <a class="profile-orbit profile-orbit--04" href="/universe/partner-1.html" aria-label="Partner biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
               <span class="profile-orbit__dialog">Laurel Lefebvre</span>
+              <span class="profile-orbit__cta">Read bio</span>
             </a>
             <a class="profile-orbit profile-orbit--05" href="/universe/partner-2.html" aria-label="Partner biography">
               <span class="profile-orbit__photo" aria-hidden="true"></span>
               <span class="profile-orbit__dialog">Victoria Bert</span>
+              <span class="profile-orbit__cta">Read bio</span>
             </a>
           </section>
         </div>
@@ -3221,7 +3250,7 @@ We invest in companies and technology to create a more innovative, equitable and
 
   <div class="brand-switcher">
     <div class="brand-capital-wrap">
-      <button class="brand" type="button" data-scene-target="3" aria-label="Wocstar Capital">
+      <button class="brand is-active" type="button" data-scene-target="3" aria-label="Wocstar Capital">
         <img class="brand-logo" src="Wocstar logos/wocstarshadow.png" alt="Wocstar Capital" />
       </button>
       <ul class="brand-capital-menu" id="brandCapitalMenu" aria-label="Wocstar Capital menu">
@@ -3232,7 +3261,7 @@ We invest in companies and technology to create a more innovative, equitable and
       </ul>
     </div>
     <div class="brand-fund-wrap">
-      <button class="brand is-active" type="button" data-scene-target="0" aria-label="Wocstar Fund">
+      <button class="brand" type="button" data-scene-target="0" aria-label="Wocstar Fund">
         <img class="brand-logo" src="Wocstar logos/wocstar-fund-logo.png" alt="Wocstar Fund" />
       </button>
       <ul class="brand-fund-menu" id="brandFundMenu" aria-label="Wocstar Fund menu">
@@ -3267,7 +3296,7 @@ We invest in companies and technology to create a more innovative, equitable and
   <nav class="scene2-menu" aria-label="Scene two menu"></nav>
   <nav class="scene3-menu" aria-label="Scene three menu"></nav>
   <div class="headline-wrap">
-    <h1 class="headline" id="headline">Wocstar Fund</h1>
+    <h1 class="headline" id="headline">The Wocstar Universe</h1>
     <p class="headline-subtext" id="headlineSubtext"></p>
   </div>
 
@@ -3337,7 +3366,7 @@ We invest in companies and technology to create a more innovative, equitable and
       const fundExitDelay = 720;
       const academyExitDelay = 1600;
 
-      let currentIndex = 0;
+      let currentIndex = 3;
       let isAnimating = false;
       let touchStartY = null;
       let touchStartedInProfileCopy = false;
