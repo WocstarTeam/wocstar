@@ -2026,7 +2026,8 @@
 
     .media-scene__video {
       position: relative;
-      min-height: clamp(360px, 62vh, 640px);
+      height: calc(100vh - 82px);
+      min-height: calc(100vh - 82px);
       margin-top: 82px;
       overflow: hidden;
     }
@@ -2039,6 +2040,36 @@
       object-fit: cover;
       object-position: center 8%;
       top: 0;
+    }
+
+    .media-video-copy {
+      position: absolute;
+      left: clamp(28px, 3.8vw, 66px);
+      right: clamp(16px, 4vw, 56px);
+      bottom: clamp(26px, 5.8vh, 72px);
+      z-index: 6;
+      max-width: min(860px, 92vw);
+      color: #fff;
+      pointer-events: none;
+      text-shadow: 0 8px 30px rgba(0, 0, 0, 0.26);
+    }
+
+    .media-video-copy__title {
+      margin: 0;
+      font-size: clamp(30px, 5.6vw, 76px);
+      line-height: 0.98;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-transform: none;
+    }
+
+    .media-video-copy__subtext {
+      margin-top: 14px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: clamp(14px, 1.18vw, 20px);
+      line-height: 1.5;
+      font-weight: 500;
+      white-space: pre-line;
     }
 
     .media-layout {
@@ -2093,7 +2124,7 @@
       transform: translateY(8px);
       color: rgba(243, 247, 255, 0.96);
       font-family: "Segoe Print", "Bradley Hand", "Lucida Handwriting", "Comic Sans MS", cursive;
-      font-size: clamp(17px, 1.3vw, 22px);
+      font-size: clamp(14px, 1.02vw, 17px);
       line-height: 1.66;
       letter-spacing: 0.01em;
       text-wrap: pretty;
@@ -2906,7 +2937,24 @@
 
       .media-scene__video {
         margin-top: 72px;
-        min-height: clamp(270px, 44vh, 420px);
+        height: calc(100vh - 72px);
+        min-height: calc(100vh - 72px);
+      }
+
+      .media-video-copy {
+        left: 24px;
+        right: 16px;
+        bottom: 20px;
+      }
+
+      .media-video-copy__title {
+        font-size: clamp(24px, 7.2vw, 42px);
+      }
+
+      .media-video-copy__subtext {
+        margin-top: 10px;
+        font-size: clamp(13px, 3.7vw, 17px);
+        line-height: 1.42;
       }
 
       .media-letter {
@@ -2919,7 +2967,7 @@
       }
 
       .media-letter__paragraph {
-        font-size: clamp(15px, 4.2vw, 18px);
+        font-size: clamp(13px, 3.7vw, 16px);
         line-height: 1.58;
       }
 
@@ -3596,10 +3644,14 @@ We invest in companies and technology to create a more innovative, equitable and
       <div class="media-scene__video">
         <video src="istockphoto-1733016928-640_adpp_is.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
         <div class="overlay"></div>
+        <header class="media-video-copy" aria-label="Wocstar Media intro" id="about">
+          <h1 class="media-video-copy__title">Wocstar Media</h1>
+          <p class="media-video-copy__subtext">Turning Powerful Stories into Lasting Impact.</p>
+        </header>
       </div>
       <div class="media-layout">
         <article class="media-letter" aria-label="Wocstar Media letter">
-          <p class="media-letter__eyebrow" id="about">Wocstar Media</p>
+          <p class="media-letter__eyebrow">Wocstar Media</p>
           <h2 class="media-letter__title">Stories That Shift Culture</h2>
           <div class="media-letter__body">
             <p class="media-letter__paragraph" data-media-type>Wocstar Media is a storytelling and media production initiative under Wocstar Capital, dedicated to amplifying diverse voices and narratives that drive social impact. Through the Wocstar Media Foundation, it empowers artists and entrepreneurs to create stories that inspire and foster positive change, particularly in finance, entrepreneurship, media, and entertainment.</p>
