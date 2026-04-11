@@ -2653,7 +2653,7 @@
       margin: 0;
       width: max-content;
       white-space: nowrap;
-      color: #d6455f;
+      color: #ffffff;
       font-family: "Segoe UI", Arial, sans-serif;
       font-size: clamp(16px, 1.24vw, 22px);
       line-height: 1.2;
@@ -2672,11 +2672,11 @@
         0 -1px 0 rgba(73, 5, 16, 0.56) inset,
         0 7px 16px rgba(0, 0, 0, 0.38),
         0 2px 0 rgba(86, 8, 21, 0.84);
-      -webkit-text-stroke: 0.55px rgba(255, 255, 255, 0.42);
+      -webkit-text-stroke: 0.2px rgba(0, 0, 0, 0.18);
       text-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.62),
-        0 2px 0 rgba(74, 16, 28, 0.62),
-        0 3px 6px rgba(0, 0, 0, 0.34);
+        0 0.5px 0 rgba(255, 255, 255, 0.18),
+        0 1px 0 rgba(74, 16, 28, 0.42),
+        0 2px 4px rgba(0, 0, 0, 0.26);
       opacity: 0;
       animation: mediaArrowLabelIn 320ms ease forwards;
       animation-delay: 1.2s;
@@ -2684,17 +2684,21 @@
 
     .media-arrows__label--left {
       left: calc((126 / 1040) * 100% + 20px) !important;
-      bottom: 8px;
-      transform: translate(-50%, 12px) !important;
+      bottom: -3px !important;
+      transform: translate(-50%, 14px) !important;
     }
 
     .media-arrows__label--mid {
       left: 50%;
+      bottom: -9px !important;
+      transform: translate(-50%, 18px) !important;
       animation-delay: 2.2s;
     }
 
     .media-arrows__label--right {
       left: calc((914 / 1040) * 100%);
+      bottom: -3px !important;
+      transform: translate(-50%, 14px) !important;
       animation-delay: 3s;
     }
 
