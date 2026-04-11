@@ -2584,13 +2584,19 @@
     .brand-fund-menu a {
       display: block;
       padding: 9px 12px;
-      color: rgba(255, 255, 255, 0.92);
+      color: #1f2731;
       font-size: 15px;
       text-decoration: none;
     }
 
     .brand-fund-menu a:hover {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    body[data-scene="0"] .brand-fund-menu {
+      border-top: 1px solid rgba(93, 74, 48, 0.24);
+      background: rgba(249, 245, 236, 0.97);
+      box-shadow: 0 10px 24px rgba(16, 20, 28, 0.22);
     }
 
     .brand-academy-wrap {
@@ -2632,13 +2638,19 @@
     .brand-academy-menu a {
       display: block;
       padding: 9px 12px;
-      color: rgba(255, 255, 255, 0.92);
+      color: #1f2731;
       font-size: 15px;
       text-decoration: none;
     }
 
     .brand-academy-menu a:hover {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    body[data-scene="1"] .brand-academy-menu {
+      border-top: 1px solid rgba(93, 74, 48, 0.24);
+      background: rgba(249, 245, 236, 0.97);
+      box-shadow: 0 10px 24px rgba(16, 20, 28, 0.22);
     }
 
     .brand-media-wrap {
@@ -2680,13 +2692,23 @@
     .brand-media-menu a {
       display: block;
       padding: 9px 12px;
-      color: rgba(255, 255, 255, 0.92);
+      color: rgba(255, 255, 255, 0.94);
       font-size: 15px;
       text-decoration: none;
     }
 
     .brand-media-menu a:hover {
       background: rgba(255, 255, 255, 0.12);
+    }
+
+    body[data-scene="2"] .brand-media-menu {
+      background: rgba(9, 16, 22, 0.92);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.32);
+    }
+
+    body[data-scene="3"] .brand-capital-menu {
+      background: rgba(9, 12, 20, 0.92);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.34);
     }
 
     .scene1-menu {
@@ -3823,7 +3845,7 @@ We invest in companies and technology to create a more innovative, equitable and
               </li>
             </ul>
           </section>
-          <div class="fund-portfolio__header">
+          <div class="fund-portfolio__header" id="portfolio-companies">
             <h2 class="fund-portfolio__title">Portfolio Companies</h2>
             <div class="fund-portfolio__controls" aria-label="Portfolio navigation">
               <button class="fund-portfolio__btn" type="button" id="fundPortcoPrevBtn" aria-label="Show previous portfolio companies">&#8249;</button>
@@ -3865,7 +3887,7 @@ We invest in companies and technology to create a more innovative, equitable and
                   <button type="submit" aria-label="Submit search">&#9906;</button>
                 </form>
                 <div class="scene-global-footer__actions">
-                  <button class="scene-global-footer__btn" type="button" id="fundInlineContactButton">Contact</button>
+                  <button class="scene-global-footer__btn" type="button" id="fundInlineContactButton">Contact Us</button>
                 </div>
                 <div class="scene-global-footer__social">
                   <p class="scene-global-footer__social-title">Follow Us On Social</p>
@@ -3945,7 +3967,7 @@ We invest in companies and technology to create a more innovative, equitable and
                 <button type="submit" aria-label="Submit search">&#9906;</button>
               </form>
               <div class="scene-global-footer__actions">
-                <button class="scene-global-footer__btn" type="button" id="academyInlineContactButton">Contact</button>
+                <button class="scene-global-footer__btn" type="button" id="academyInlineContactButton">Contact Us</button>
               </div>
               <div class="scene-global-footer__social">
                 <p class="scene-global-footer__social-title">Follow Us On Social</p>
@@ -4010,7 +4032,7 @@ We invest in companies and technology to create a more innovative, equitable and
         </header>
       </div>
       <div class="universe-layout">
-        <section class="capital-interview" aria-label="Featured PIX11 interview with Gayle Jennings-O'Byrne">
+        <section class="capital-interview" id="featured-news" aria-label="Featured PIX11 interview with Gayle Jennings-O'Byrne">
           <article class="capital-interview__item is-active" data-interview-index="0" aria-live="polite">
             <a class="capital-interview__media" href="https://www.youtube.com/watch?v=DOVWZRc-OFA&autoplay=1" target="_blank" rel="noopener noreferrer" aria-label="Watch Gayle Jennings-O'Byrne PIX11 interview on YouTube" data-embed-url="https://www.youtube-nocookie.com/embed/DOVWZRc-OFA?autoplay=1&playsinline=1&rel=0&modestbranding=1" data-fallback-url="https://www.youtube.com/watch?v=DOVWZRc-OFA">
               <img src="https://i.ytimg.com/vi/DOVWZRc-OFA/hqdefault.jpg" alt="Gayle Jennings-O'Byrne interview thumbnail" loading="lazy" />
@@ -4036,7 +4058,7 @@ We invest in companies and technology to create a more innovative, equitable and
             </div>
           </article>
         </section>
-        <section class="universe-showcase" aria-label="Wocstar team, venture partners, advisory board, and allies showcase">
+        <section class="universe-showcase" id="the-wocstar-universe" aria-label="Wocstar team, venture partners, advisory board, and allies showcase">
           <div class="universe-partners__header">
             <h3 class="universe-partners__title universe-team-title" id="universeShowcaseTitle">The Wocstar Team</h3>
             <div class="universe-partners__controls" aria-label="Showcase navigation">
@@ -4201,7 +4223,7 @@ We invest in companies and technology to create a more innovative, equitable and
                 <button type="submit" aria-label="Submit search">&#9906;</button>
               </form>
               <div class="scene-global-footer__actions">
-                <button class="scene-global-footer__btn" type="button" id="capitalInlineContactButton">Contact</button>
+                <button class="scene-global-footer__btn" type="button" id="capitalInlineContactButton">Contact Us</button>
               </div>
               <div class="scene-global-footer__social">
                 <p class="scene-global-footer__social-title">Follow Us On Social</p>
@@ -4280,7 +4302,7 @@ We invest in companies and technology to create a more innovative, equitable and
               <div>
                 <input class="footer-search" type="search" name="footer-search" placeholder="Search" aria-label="Search" />
                 <div class="footer-action-stack">
-                  <a class="footer-btn" id="contactButton" href="#">Contact</a>
+                  <a class="footer-btn" id="contactButton" href="#">Contact Us</a>
                 </div>
                 <div class="footer-social">
                   <p class="footer-social-title">Follow Gayle on social media</p>
@@ -4381,10 +4403,9 @@ We invest in companies and technology to create a more innovative, equitable and
         <img class="brand-logo" src="Wocstar logos/wocstarshadow.png" alt="Wocstar Capital" />
       </button>
       <ul class="brand-capital-menu" id="brandCapitalMenu" aria-label="Wocstar Capital menu">
-        <li><a href="/universe/core-team.html">Core team</a></li>
-        <li><a href="/universe/partners.html">Partners</a></li>
-        <li><a href="/universe/collaborators.html">Collaborators</a></li>
-        <li><a href="#" id="goToGayleBio">Gayle Jennings-O'Byrne</a></li>
+        <li><a href="#featured-news">Featured News</a></li>
+        <li><a href="#the-wocstar-universe">The Wocstar Universe</a></li>
+        <li><a href="https://form.jotform.com/250832645113047" target="_blank" rel="noopener noreferrer">Pitch to the Fund</a></li>
       </ul>
     </div>
     <div class="brand-fund-wrap">
@@ -4392,9 +4413,9 @@ We invest in companies and technology to create a more innovative, equitable and
         <img class="brand-logo" src="Wocstar logos/wocstar-fund-logo.png" alt="Wocstar Fund" />
       </button>
       <ul class="brand-fund-menu" id="brandFundMenu" aria-label="Wocstar Fund menu">
-        <li><a href="#the-fund">The Fund</a></li>
-        <li><a href="https://form.jotform.com/250832645113047" target="_blank" rel="noopener noreferrer">Fund application form</a></li>
-        <li><a href="#fund-portfolio">Portfolio Companies</a></li>
+        <li><a href="#success-stories-exits">Exits</a></li>
+        <li><a href="#portfolio-companies">Portfolio Companies</a></li>
+        <li><a href="https://form.jotform.com/250832645113047" target="_blank" rel="noopener noreferrer">Investment Inquiry Form</a></li>
       </ul>
     </div>
     <div class="brand-academy-wrap">
@@ -4485,6 +4506,7 @@ We invest in companies and technology to create a more innovative, equitable and
       const fundPortcoPrevBtn = document.getElementById('fundPortcoPrevBtn');
       const fundPortcoNextBtn = document.getElementById('fundPortcoNextBtn');
       const fundPortfolioSection = document.getElementById('fund-portfolio');
+      const fundPortfolioCompaniesSection = document.getElementById('portfolio-companies');
       const fundExitsSection = document.getElementById('success-stories-exits');
       const universeSceneIndex = 3;
       const profileSceneIndex = 4;
@@ -4673,6 +4695,20 @@ We invest in companies and technology to create a more innovative, equitable and
         mediaScene.scrollTo({ top, behavior: 'smooth' });
       }
 
+      function scrollUniverseSceneToAnchor(hash) {
+        if (!universeScene || !hash || hash.charAt(0) !== '#') return;
+        const target = universeScene.querySelector(hash);
+        if (!target) return;
+        const containerRect = universeScene.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const headerOffset = window.innerWidth <= 768 ? 72 : 82;
+        const top = Math.max(
+          0,
+          universeScene.scrollTop + (targetRect.top - containerRect.top) - headerOffset
+        );
+        universeScene.scrollTo({ top, behavior: 'smooth' });
+      }
+
       function stopMediaTyping() {
         if (mediaTypingTimer) {
           window.clearTimeout(mediaTypingTimer);
@@ -4740,9 +4776,16 @@ We invest in companies and technology to create a more innovative, equitable and
       }
 
       function scrollFundSceneToPortfolio() {
-        if (!fundScene || !fundPortfolioSection) return;
+        if (!fundScene) return;
+        const target = fundPortfolioCompaniesSection || fundPortfolioSection;
+        if (!target) return;
+        const containerRect = fundScene.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
         const headerOffset = window.innerWidth <= 768 ? 72 : 82;
-        const top = Math.max(0, fundPortfolioSection.offsetTop - headerOffset);
+        const top = Math.max(
+          0,
+          fundScene.scrollTop + (targetRect.top - containerRect.top) - headerOffset
+        );
         fundScene.scrollTo({ top, behavior: 'smooth' });
       }
 
@@ -4753,8 +4796,27 @@ We invest in companies and technology to create a more innovative, equitable and
 
       function scrollFundSceneToExits() {
         if (!fundScene || !fundExitsSection) return;
+        const containerRect = fundScene.getBoundingClientRect();
+        const targetRect = fundExitsSection.getBoundingClientRect();
         const headerOffset = window.innerWidth <= 768 ? 72 : 82;
-        const top = Math.max(0, fundExitsSection.offsetTop - headerOffset);
+        const top = Math.max(
+          0,
+          fundScene.scrollTop + (targetRect.top - containerRect.top) - headerOffset
+        );
+        fundScene.scrollTo({ top, behavior: 'smooth' });
+      }
+
+      function scrollFundSceneToAnchor(hash) {
+        if (!fundScene || !hash || hash.charAt(0) !== '#') return;
+        const target = fundScene.querySelector(hash);
+        if (!target) return;
+        const containerRect = fundScene.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const headerOffset = window.innerWidth <= 768 ? 72 : 82;
+        const top = Math.max(
+          0,
+          fundScene.scrollTop + (targetRect.top - containerRect.top) - headerOffset
+        );
         fundScene.scrollTo({ top, behavior: 'smooth' });
       }
 
@@ -5776,6 +5838,18 @@ We invest in companies and technology to create a more innovative, equitable and
         brandCapitalMenu.addEventListener('click', (event) => {
           const target = event.target instanceof HTMLElement ? event.target.closest('a') : null;
           if (!target) return;
+          const href = target.getAttribute('href') || '';
+          if (href.startsWith('#')) {
+            event.preventDefault();
+            if (currentIndex !== 3) {
+              transitionTo(3);
+              window.setTimeout(() => {
+                scrollUniverseSceneToAnchor(href);
+              }, transitionDuration + 40);
+            } else {
+              scrollUniverseSceneToAnchor(href);
+            }
+          }
           setCapitalMenuOpen(false);
         });
       }
@@ -5784,29 +5858,15 @@ We invest in companies and technology to create a more innovative, equitable and
           const target = event.target instanceof HTMLElement ? event.target.closest('a') : null;
           if (!target) return;
           const href = target.getAttribute('href') || '';
-          if (href === '#fund-portfolio') {
+          if (href.startsWith('#')) {
             event.preventDefault();
             if (currentIndex !== 0) {
               transitionTo(0);
-              window.setTimeout(scrollFundSceneToPortfolio, transitionDuration + 40);
+              window.setTimeout(() => {
+                scrollFundSceneToAnchor(href);
+              }, transitionDuration + 40);
             } else {
-              scrollFundSceneToPortfolio();
-            }
-          } else if (href === '#the-fund') {
-            event.preventDefault();
-            if (currentIndex !== 0) {
-              transitionTo(0);
-              window.setTimeout(scrollFundSceneToTop, transitionDuration + 40);
-            } else {
-              scrollFundSceneToTop();
-            }
-          } else if (href === '#success-stories-exits') {
-            event.preventDefault();
-            if (currentIndex !== 0) {
-              transitionTo(0);
-              window.setTimeout(scrollFundSceneToExits, transitionDuration + 40);
-            } else {
-              scrollFundSceneToExits();
+              scrollFundSceneToAnchor(href);
             }
           }
           setFundMenuOpen(false);
