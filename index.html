@@ -110,11 +110,67 @@
     .universe-layout {
       position: relative;
       z-index: 4;
-      padding: clamp(86px, 10vh, 130px) clamp(20px, 4vw, 54px) clamp(24px, 5vh, 56px);
+      padding: clamp(24px, 3.4vh, 42px) clamp(20px, 4vw, 54px) clamp(24px, 5vh, 56px);
       display: flex;
       flex-direction: column;
       gap: clamp(16px, 2.4vh, 28px);
       min-height: 100%;
+    }
+
+    .capital-scene__video {
+      position: relative;
+      min-height: calc(100vh - 82px);
+      margin-top: 82px;
+      overflow: hidden;
+    }
+
+    .capital-scene__video video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: brightness(1.3) contrast(1.03) !important;
+    }
+
+    .capital-scene__video .overlay {
+      position: absolute;
+      inset: 0;
+      background: transparent !important;
+      pointer-events: none;
+    }
+
+    .capital-video-copy {
+      position: absolute;
+      left: clamp(28px, 3.8vw, 66px);
+      right: clamp(16px, 4vw, 56px);
+      bottom: clamp(26px, 5.8vh, 72px);
+      z-index: 6;
+      max-width: min(860px, 92vw);
+      color: #fff;
+      pointer-events: none;
+      text-shadow: 0 8px 30px rgba(0, 0, 0, 0.26);
+    }
+
+    .capital-video-copy__title {
+      margin: 0;
+      font-size: clamp(30px, 5.6vw, 76px);
+      line-height: 0.98;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-transform: none;
+    }
+
+    .capital-video-copy__subtext {
+      margin-top: 14px;
+      margin-left: 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: clamp(14px, 1.18vw, 20px);
+      line-height: 1.5;
+      font-weight: 500;
+      white-space: pre-line;
     }
 
     .universe-team-title {
@@ -3191,8 +3247,29 @@
       }
 
       .universe-layout {
-        padding: 84px 14px 22px;
+        padding: 16px 14px 22px;
         gap: 12px;
+      }
+
+      .capital-scene__video {
+        margin-top: 72px;
+        min-height: calc(100vh - 72px);
+      }
+
+      .capital-video-copy {
+        left: 24px;
+        right: 16px;
+        bottom: 20px;
+      }
+
+      .capital-video-copy__title {
+        font-size: clamp(24px, 7.2vw, 42px);
+      }
+
+      .capital-video-copy__subtext {
+        margin-top: 10px;
+        font-size: clamp(13px, 3.7vw, 17px);
+        line-height: 1.42;
       }
 
       .media-layout {
@@ -3926,6 +4003,13 @@ We invest in companies and technology to create a more innovative, equitable and
     </section>
 
     <section class="scene universe-scene" data-index="3">
+      <div class="capital-scene__video">
+        <video src="wocstarcapitalvideo.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+        <header class="capital-video-copy" aria-label="Wocstar Capital intro">
+          <h1 class="capital-video-copy__title">Wocstar Capital</h1>
+          <p class="capital-video-copy__subtext">Championing visionary founders through investment, acceleration, and strategic support.</p>
+        </header>
+      </div>
       <div class="universe-layout">
         <section class="capital-interview" aria-label="Featured PIX11 interview with Gayle Jennings-O'Byrne">
           <article class="capital-interview__item is-active" data-interview-index="0" aria-live="polite">
