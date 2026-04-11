@@ -2895,6 +2895,196 @@
       text-wrap: pretty;
     }
 
+    .foundation-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 73;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 220ms ease, visibility 220ms ease;
+    }
+
+    .foundation-modal.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .foundation-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 7, 11, 0.78);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .foundation-modal__panel {
+      position: relative;
+      width: min(94vw, 1240px);
+      max-height: min(88vh, 940px);
+      margin: clamp(26px, 5.2vh, 52px) auto 0;
+      border-radius: 18px;
+      border: 1px solid rgba(181, 24, 47, 0.44);
+      background:
+        radial-gradient(120% 120% at 8% 0%, rgba(181, 24, 47, 0.18) 0%, rgba(181, 24, 47, 0) 52%),
+        linear-gradient(180deg, rgba(14, 18, 28, 0.94) 0%, rgba(10, 13, 20, 0.94) 100%);
+      box-shadow: 0 28px 68px rgba(0, 0, 0, 0.66);
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    .foundation-modal__close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      cursor: pointer;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+    }
+
+    .foundation-modal__hero {
+      padding: clamp(20px, 2.4vh, 28px) clamp(18px, 2.4vw, 30px) clamp(14px, 1.8vh, 20px);
+      border-bottom: 1px solid rgba(181, 24, 47, 0.26);
+    }
+
+    .foundation-modal__kicker {
+      color: rgba(244, 247, 255, 0.7);
+      font-size: clamp(12px, 0.82vw, 14px);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .foundation-modal__title {
+      margin-top: 6px;
+      color: #ffffff;
+      font-size: clamp(36px, 4vw, 70px);
+      line-height: 0.95;
+      letter-spacing: 0.01em;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .foundation-modal__intro {
+      margin-top: 12px;
+      color: rgba(241, 246, 255, 0.9);
+      font-size: clamp(14px, 1.04vw, 19px);
+      line-height: 1.62;
+      max-width: 90ch;
+    }
+
+    .foundation-modal__body {
+      padding: clamp(14px, 1.8vh, 20px) clamp(14px, 1.8vw, 26px) clamp(18px, 2.4vh, 28px);
+      overflow-y: auto;
+      display: grid;
+      gap: 14px;
+    }
+
+    .foundation-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: clamp(12px, 1.4vw, 20px);
+      align-items: start;
+    }
+
+    .foundation-card {
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background:
+        linear-gradient(180deg, rgba(23, 29, 42, 0.9) 0%, rgba(16, 20, 30, 0.92) 100%);
+      padding: clamp(14px, 1.5vw, 20px);
+    }
+
+    .foundation-card__title {
+      color: #ffffff;
+      font-size: clamp(18px, 1.3vw, 24px);
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+
+    .foundation-card__text {
+      margin-top: 8px;
+      color: rgba(238, 244, 255, 0.9);
+      font-size: clamp(14px, 0.98vw, 17px);
+      line-height: 1.62;
+      text-wrap: pretty;
+    }
+
+    .foundation-actions {
+      display: grid;
+      gap: 12px;
+    }
+
+    .foundation-tier {
+      border-radius: 14px;
+      border: 1px solid rgba(181, 24, 47, 0.34);
+      background:
+        radial-gradient(120% 140% at 16% 0%, rgba(181, 24, 47, 0.2) 0%, rgba(181, 24, 47, 0) 60%),
+        linear-gradient(180deg, rgba(21, 23, 31, 0.92) 0%, rgba(14, 16, 23, 0.94) 100%);
+      padding: clamp(14px, 1.6vw, 20px);
+    }
+
+    .foundation-tier__name {
+      color: rgba(255, 255, 255, 0.96);
+      font-size: clamp(16px, 1.08vw, 20px);
+      line-height: 1.2;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .foundation-tier__amount {
+      margin-top: 8px;
+      color: #f6a145;
+      font-size: clamp(26px, 2.2vw, 40px);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .foundation-tier__meta {
+      margin-top: 6px;
+      color: rgba(236, 242, 255, 0.86);
+      font-size: clamp(13px, 0.9vw, 15px);
+      line-height: 1.45;
+    }
+
+    .foundation-tier__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 12px;
+      min-height: 40px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(181, 24, 47, 0.62);
+      color: #fff;
+      background: linear-gradient(180deg, rgba(181, 24, 47, 0.7) 0%, rgba(121, 10, 29, 0.84) 100%);
+      text-decoration: none;
+      font-size: clamp(13px, 0.9vw, 15px);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: transform 180ms ease, filter 180ms ease;
+    }
+
+    .foundation-tier__btn:hover,
+    .foundation-tier__btn:focus-visible {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
     .brand {
       display: flex;
       justify-content: center;
@@ -3912,6 +4102,20 @@
         padding: 12px 10px 14px;
       }
 
+      .foundation-modal__panel {
+        width: min(96vw, 760px);
+        max-height: 88vh;
+        margin-top: 18px;
+      }
+
+      .foundation-modal__hero {
+        padding: 16px 14px 10px;
+      }
+
+      .foundation-modal__body {
+        padding: 12px 10px 14px;
+      }
+
       .footer-search {
         max-width: 100%;
       }
@@ -4201,6 +4405,10 @@
 
       .fellow-card__avatar {
         width: min(220px, 48vw);
+      }
+
+      .foundation-grid {
+        grid-template-columns: 1fr;
       }
 
       .scene-global-footer__inner {
@@ -4548,7 +4756,7 @@ We invest in companies and technology to create a more innovative, equitable and
             <path class="media-arrows__path media-arrows__path--right" d="M700 0 C 772 52, 850 124, 914 220" />
           </svg>
           <button class="media-arrows__label media-arrows__label--left media-arrows__label--interactive" type="button" id="openMediaFellowsButton">Fellowships</button>
-          <span class="media-arrows__label media-arrows__label--mid">Foundation</span>
+          <button class="media-arrows__label media-arrows__label--mid media-arrows__label--interactive" type="button" id="openMediaFoundationButton">Foundation</button>
           <span class="media-arrows__label media-arrows__label--right">Podcasting</span>
         </section>
       </div>
@@ -4889,6 +5097,41 @@ We invest in companies and technology to create a more innovative, equitable and
     </section>
   </main>
 
+  <div class="foundation-modal" id="foundationModal" aria-hidden="true">
+    <div class="foundation-modal__backdrop" data-close-foundation="true"></div>
+    <section class="foundation-modal__panel" role="dialog" aria-modal="true" aria-label="Wocstar Media Foundation">
+      <button type="button" class="foundation-modal__close" data-close-foundation="true" aria-label="Close foundation panel">X</button>
+      <header class="foundation-modal__hero">
+        <p class="foundation-modal__kicker">Wocstar</p>
+        <h2 class="foundation-modal__title">Media Foundation</h2>
+        <p class="foundation-modal__intro">Wocstar Media Foundation supports entrepreneurs and creators who use innovation, imagination, and human experiences to take society on a powerful journey. Our work amplifies diverse voices changing the future of finance, entrepreneurship, media, and entertainment.</p>
+      </header>
+      <div class="foundation-modal__body">
+        <section class="foundation-grid">
+          <article class="foundation-card">
+            <h3 class="foundation-card__title">Why It Matters</h3>
+            <p class="foundation-card__text">Your contribution directly supports artists and media entrepreneurs building meaningful stories, broadening representation, and creating cultural momentum that reaches far beyond a single project.</p>
+            <p class="foundation-card__text">Each gift helps power Wocstar Media Fellows and related initiatives designed to expand access, unlock opportunity, and champion long-term creative impact.</p>
+          </article>
+          <aside class="foundation-actions" aria-label="Ways to donate">
+            <article class="foundation-tier">
+              <p class="foundation-tier__name">Monthly Support</p>
+              <p class="foundation-tier__amount">From $20</p>
+              <p class="foundation-tier__meta">Sustain fellowship programming and year-round creator support.</p>
+              <a class="foundation-tier__btn" href="https://www.wocstarfund.com/media-foundation" target="_blank" rel="noopener noreferrer">Donate Monthly</a>
+            </article>
+            <article class="foundation-tier">
+              <p class="foundation-tier__name">One-Time Gift</p>
+              <p class="foundation-tier__amount">From $100</p>
+              <p class="foundation-tier__meta">Fund high-impact storytelling projects and new creative pathways.</p>
+              <a class="foundation-tier__btn" href="https://www.wocstarfund.com/media-foundation" target="_blank" rel="noopener noreferrer">Give Once</a>
+            </article>
+          </aside>
+        </section>
+      </div>
+    </section>
+  </div>
+
   <div class="fellows-modal" id="fellowsModal" aria-hidden="true">
     <div class="fellows-modal__backdrop" data-close-fellows="true"></div>
     <section class="fellows-modal__panel" role="dialog" aria-modal="true" aria-label="Wocstar Media Fellows">
@@ -5044,6 +5287,7 @@ We invest in companies and technology to create a more innovative, equitable and
       const nextArrow = document.querySelector('.scene-next-arrow');
       const prevArrow = document.querySelector('.scene-prev-arrow');
       const openMediaFellowsButton = document.getElementById('openMediaFellowsButton');
+      const openMediaFoundationButton = document.getElementById('openMediaFoundationButton');
       const contactButton = document.getElementById('contactButton');
       const fundInlineContactButton = document.getElementById('fundInlineContactButton');
       const academyInlineContactButton = document.getElementById('academyInlineContactButton');
@@ -5065,6 +5309,8 @@ We invest in companies and technology to create a more innovative, equitable and
       const capitalInterviewItems = Array.from(document.querySelectorAll('.capital-interview__item'));
       const capitalInterviewMediaLinks = Array.from(document.querySelectorAll('.capital-interview__media[data-embed-url]'));
       const interviewModal = document.getElementById('interviewModal');
+      const foundationModal = document.getElementById('foundationModal');
+      const foundationModalBody = foundationModal ? foundationModal.querySelector('.foundation-modal__body') : null;
       const fellowsModal = document.getElementById('fellowsModal');
       const fellowsModalBody = fellowsModal ? fellowsModal.querySelector('.fellows-modal__body') : null;
       const interviewModalFrame = document.getElementById('interviewModalFrame');
@@ -5671,6 +5917,10 @@ We invest in companies and technology to create a more innovative, equitable and
         return Boolean(interviewModal && interviewModal.classList.contains('is-open'));
       }
 
+      function isFoundationModalOpen() {
+        return Boolean(foundationModal && foundationModal.classList.contains('is-open'));
+      }
+
       function isFellowsModalOpen() {
         return Boolean(fellowsModal && fellowsModal.classList.contains('is-open'));
       }
@@ -5690,6 +5940,19 @@ We invest in companies and technology to create a more innovative, equitable and
         interviewModal.classList.remove('is-open');
         interviewModal.setAttribute('aria-hidden', 'true');
         interviewModalFrame.src = '';
+      }
+
+      function openFoundationModal(event) {
+        if (event) event.preventDefault();
+        if (!foundationModal) return;
+        foundationModal.classList.add('is-open');
+        foundationModal.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeFoundationModal() {
+        if (!foundationModal) return;
+        foundationModal.classList.remove('is-open');
+        foundationModal.setAttribute('aria-hidden', 'true');
       }
 
       function openFellowsModal(event) {
@@ -6013,6 +6276,12 @@ We invest in companies and technology to create a more innovative, equitable and
         if (isAnimating) return;
         if (isContactModalOpen()) return;
         if (isInterviewModalOpen()) return;
+        if (isFoundationModalOpen()) {
+          if (foundationModalBody) {
+            foundationModalBody.scrollTop += event.deltaY;
+          }
+          return;
+        }
         if (isFellowsModalOpen()) {
           if (fellowsModalBody) {
             fellowsModalBody.scrollTop += event.deltaY;
@@ -6181,7 +6450,7 @@ We invest in companies and technology to create a more innovative, equitable and
       }
 
       function onMouseButtonNavigate(event) {
-        if (isAnimating || isContactModalOpen() || isInterviewModalOpen() || isFellowsModalOpen()) return;
+        if (isAnimating || isContactModalOpen() || isInterviewModalOpen() || isFoundationModalOpen() || isFellowsModalOpen()) return;
         if (event.button === 3) {
           event.preventDefault();
           transitionTo(getWrappedIndex(-1));
@@ -6212,7 +6481,7 @@ We invest in companies and technology to create a more innovative, equitable and
       }
 
       function onTouchMove(event) {
-        if (isContactModalOpen() || isInterviewModalOpen() || isFellowsModalOpen()) return;
+        if (isContactModalOpen() || isInterviewModalOpen() || isFoundationModalOpen() || isFellowsModalOpen()) return;
         if (currentIndex === profileSceneIndex && event.target && event.target.closest('.profile-copy')) {
           return;
         }
@@ -6244,6 +6513,16 @@ We invest in companies and technology to create a more innovative, equitable and
         }
 
         if (isInterviewModalOpen()) {
+          touchStartY = null;
+          touchStartedInProfileCopy = false;
+          touchStartedInUniverseScene = false;
+          touchStartedInFundScene = false;
+          touchStartedInAcademyScene = false;
+          touchStartedInMediaScene = false;
+          return;
+        }
+
+        if (isFoundationModalOpen()) {
           touchStartY = null;
           touchStartedInProfileCopy = false;
           touchStartedInUniverseScene = false;
@@ -6639,6 +6918,9 @@ We invest in companies and technology to create a more innovative, equitable and
       if (openMediaFellowsButton) {
         openMediaFellowsButton.addEventListener('click', openFellowsModal);
       }
+      if (openMediaFoundationButton) {
+        openMediaFoundationButton.addEventListener('click', openFoundationModal);
+      }
       if (goToGayleBio) {
         goToGayleBio.addEventListener('click', (event) => {
           event.preventDefault();
@@ -6668,6 +6950,13 @@ We invest in companies and technology to create a more innovative, equitable and
         interviewModal.addEventListener('click', (event) => {
           if (event.target instanceof HTMLElement && event.target.matches('[data-close-interview="true"]')) {
             closeInterviewModal();
+          }
+        });
+      }
+      if (foundationModal) {
+        foundationModal.addEventListener('click', (event) => {
+          if (event.target instanceof HTMLElement && event.target.matches('[data-close-foundation="true"]')) {
+            closeFoundationModal();
           }
         });
       }
@@ -6775,12 +7064,15 @@ We invest in companies and technology to create a more innovative, equitable and
         if (event.key === 'Escape' && isInterviewModalOpen()) {
           closeInterviewModal();
         }
+        if (event.key === 'Escape' && isFoundationModalOpen()) {
+          closeFoundationModal();
+        }
         if (event.key === 'Escape' && isFellowsModalOpen()) {
           closeFellowsModal();
         }
 
         if (isTypingTarget) return;
-        if (isAnimating || isContactModalOpen() || isInterviewModalOpen() || isFellowsModalOpen()) return;
+        if (isAnimating || isContactModalOpen() || isInterviewModalOpen() || isFoundationModalOpen() || isFellowsModalOpen()) return;
 
         if (event.key === 'ArrowLeft') {
           event.preventDefault();
