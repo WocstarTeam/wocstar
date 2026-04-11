@@ -2327,6 +2327,13 @@
       width: min(1080px, calc(100vw - 56px));
     }
 
+    body[data-scene="3"] .brand-switcher {
+      top: 19px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1080px, calc(100vw - 56px));
+    }
+
     .media-scene {
       overflow-y: auto;
       overflow-x: hidden;
@@ -3211,6 +3218,13 @@
       body[data-scene="2"] .brand-switcher {
         top: 20px;
         left: calc(50% - 18px);
+        width: calc(100vw - 18px);
+      }
+
+      body[data-scene="3"] .brand-switcher {
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
         width: calc(100vw - 18px);
       }
 
