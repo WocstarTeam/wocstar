@@ -3430,7 +3430,7 @@
 </head>
 <body>
   <main class="viewport" id="viewport">
-    <section class="scene fund-scene" data-index="0">
+    <section class="scene active fund-scene" data-index="0">
       <div class="fund-scene__layout">
         <div class="fund-scene__video">
           <video src="depth1.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
@@ -3665,7 +3665,7 @@ We invest in companies and technology to create a more innovative, equitable and
       </div>
     </section>
 
-    <section class="scene active universe-scene" data-index="3">
+    <section class="scene universe-scene" data-index="3">
       <div class="universe-layout">
         <section class="capital-interview" aria-label="Featured PIX11 interview with Gayle Jennings-O'Byrne">
           <article class="capital-interview__item is-active" data-interview-index="0" aria-live="polite">
@@ -4045,7 +4045,7 @@ We invest in companies and technology to create a more innovative, equitable and
 
   <div class="brand-switcher">
     <div class="brand-capital-wrap">
-      <button class="brand is-active" type="button" data-scene-target="3" aria-label="Wocstar Capital">
+      <button class="brand" type="button" data-scene-target="3" aria-label="Wocstar Capital">
         <img class="brand-logo" src="Wocstar logos/wocstarshadow.png" alt="Wocstar Capital" />
       </button>
       <ul class="brand-capital-menu" id="brandCapitalMenu" aria-label="Wocstar Capital menu">
@@ -4056,7 +4056,7 @@ We invest in companies and technology to create a more innovative, equitable and
       </ul>
     </div>
     <div class="brand-fund-wrap">
-      <button class="brand" type="button" data-scene-target="0" aria-label="Wocstar Fund">
+      <button class="brand is-active" type="button" data-scene-target="0" aria-label="Wocstar Fund">
         <img class="brand-logo" src="Wocstar logos/wocstar-fund-logo.png" alt="Wocstar Fund" />
       </button>
       <ul class="brand-fund-menu" id="brandFundMenu" aria-label="Wocstar Fund menu">
@@ -4177,7 +4177,7 @@ We invest in companies and technology to create a more innovative, equitable and
       const academyExitDelay = 900;
       const mediaExitDelay = 900;
 
-      let currentIndex = 3;
+      let currentIndex = 0;
       let isAnimating = false;
       let touchStartY = null;
       let touchStartedInProfileCopy = false;
