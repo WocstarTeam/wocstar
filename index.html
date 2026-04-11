@@ -1786,34 +1786,33 @@
 
     .fund-portco-card {
       flex: 0 0 calc((100% - 36px) / 4);
-      min-height: 124px;
+      min-height: 206px;
     }
 
     .fund-portco-card__link {
-      display: block;
+      display: grid;
+      justify-items: center;
+      align-content: start;
       height: 100%;
-      border-radius: 10px;
-      border: 1px solid var(--fund-border);
-      background: var(--fund-surface);
       text-decoration: none;
-      padding: 10px;
-      transition: transform var(--fund-motion), background var(--fund-motion), border-color var(--fund-motion), filter var(--fund-motion);
+      padding: 6px 4px;
+      border: 0;
+      background: transparent;
+      transition: transform var(--fund-motion);
     }
 
     .fund-portco-card__link:hover {
-      transform: var(--fund-hover-lift);
-      background: var(--fund-surface-strong);
-      border-color: var(--fund-border-strong);
-      filter: brightness(1.03);
+      transform: translateY(-2px);
     }
 
     .fund-portco-card__plate {
-      width: 100%;
-      aspect-ratio: 16 / 7;
-      border-radius: 7px;
+      width: clamp(124px, 10.8vw, 172px);
+      aspect-ratio: 1 / 1;
+      border-radius: 999px;
       border: 1px solid var(--fund-border);
       background: rgba(255, 255, 255, 0.045);
-      padding: 6px;
+      margin: 0 auto;
+      padding: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1825,11 +1824,12 @@
     }
 
     .fund-portco-card__logo {
-      width: 100%;
-      height: auto;
+      width: 82%;
+      height: 82%;
       object-fit: contain;
       display: block;
-      max-height: 88px;
+      max-width: 82%;
+      max-height: 82%;
     }
 
     .fund-portco-card__logo.is-multiply {
@@ -1851,6 +1851,7 @@
       font-size: clamp(12px, 0.9vw, 14px);
       font-weight: 700;
       line-height: 1.4;
+      text-align: center;
     }
 
     .fund-portco-card__industry {
@@ -1858,6 +1859,7 @@
       color: var(--fund-meta);
       font-size: clamp(11px, 0.8vw, 12px);
       line-height: 1.4;
+      text-align: center;
     }
 
     .fund-exits {
@@ -1905,16 +1907,17 @@
     }
 
     .fund-exits-card {
-      min-height: 104px;
-      border-radius: 10px;
-      border: 1px solid var(--fund-border);
-      background: var(--fund-surface);
-      padding: 10px;
-      transition: border-color var(--fund-motion), background var(--fund-motion), transform var(--fund-motion), filter var(--fund-motion);
+      min-height: 202px;
+      border: 0;
+      background: transparent;
+      padding: 6px 4px;
+      transition: transform var(--fund-motion);
     }
 
     .fund-exits-card__link {
-      display: block;
+      display: grid;
+      justify-items: center;
+      align-content: start;
       text-decoration: none;
       color: inherit;
       height: 100%;
@@ -1926,23 +1929,22 @@
     }
 
     .fund-exits-card:hover {
-      border-color: var(--fund-border-strong);
-      background: var(--fund-surface-strong);
-      transform: var(--fund-hover-lift);
-      filter: brightness(1.03);
+      transform: translateY(-2px);
     }
 
     .fund-exits-card__plate {
-      width: 100%;
-      aspect-ratio: 16 / 8;
-      border-radius: 7px;
+      width: clamp(126px, 11vw, 174px);
+      aspect-ratio: 1 / 1;
+      border-radius: 999px;
       border: 1px solid var(--fund-border);
       background: rgba(255, 255, 255, 0.045);
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 6px;
+      margin: 0 auto;
+      padding: 14px;
+      overflow: hidden;
     }
 
     .fund-exits-card__wordmark {
@@ -1955,9 +1957,10 @@
     }
 
     .fund-exits-card__logo {
-      width: 100%;
-      height: auto;
-      max-height: 100%;
+      width: 82%;
+      height: 82%;
+      max-width: 82%;
+      max-height: 82%;
       object-fit: contain;
       display: block;
     }
@@ -1992,7 +1995,7 @@
       font-size: clamp(12px, 0.88vw, 14px);
       font-weight: 700;
       line-height: 1.4;
-      text-align: left;
+      text-align: center;
     }
 
     .fund-exits-card__industry {
@@ -2000,7 +2003,7 @@
       color: var(--fund-meta);
       font-size: clamp(11px, 0.8vw, 12px);
       line-height: 1.4;
-      text-align: left;
+      text-align: center;
     }
 
     /* Fund page palette aligned with Academy's light background treatment */
@@ -2036,15 +2039,8 @@
 
     .fund-scene .fund-portco-card__link,
     .fund-scene .fund-exits-card {
-      border-color: rgba(142, 121, 100, 0.34);
-      background: rgba(255, 255, 255, 0.9);
-    }
-
-    .fund-scene .fund-portco-card__link:hover,
-    .fund-scene .fund-exits-card:hover {
-      background: rgba(255, 255, 255, 0.98);
-      border-color: rgba(142, 121, 100, 0.5);
-      filter: none;
+      border: 0;
+      background: transparent;
     }
 
     .fund-scene .fund-portco-card__plate,
@@ -2128,6 +2124,47 @@
 
     .fund-scene .scene-global-footer__btn:hover {
       background: #ecd6b9;
+    }
+
+    /* Fund premium spacing + visual polish */
+    .fund-exits {
+      margin-bottom: clamp(30px, 4vh, 52px);
+    }
+
+    .fund-portfolio__header {
+      padding-top: clamp(10px, 1.4vh, 18px);
+      border-top: 1px solid rgba(145, 115, 77, 0.24);
+    }
+
+    .fund-scene .fund-portfolio__title,
+    .fund-scene .fund-exits__title,
+    .fund-scene .fund-prior__title {
+      font-size: clamp(15px, 1.08vw, 19px);
+      letter-spacing: 0.075em;
+      font-weight: 700;
+    }
+
+    .fund-scene .fund-portco-card__plate,
+    .fund-scene .fund-exits-card__plate,
+    .fund-scene .fund-exits-card__plate--sportslab,
+    .fund-scene .fund-exits-card__plate--uncharted,
+    .fund-scene .fund-exits-card__plate--audigent,
+    .fund-scene .fund-exits-card__plate--flow {
+      box-shadow:
+        0 12px 28px rgba(70, 45, 16, 0.11),
+        inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    }
+
+    .fund-scene .fund-portco-card__name,
+    .fund-scene .fund-exits-card__name {
+      font-size: clamp(13px, 0.94vw, 16px);
+      letter-spacing: 0.015em;
+    }
+
+    .fund-scene .fund-portco-card__industry,
+    .fund-scene .fund-exits-card__industry {
+      font-size: clamp(12px, 0.84vw, 13px);
+      letter-spacing: 0.01em;
     }
 
     body[data-scene="1"] .brand-switcher {
@@ -2992,6 +3029,17 @@
 
       .fund-portco-card {
         flex-basis: calc((100% - 12px) / 2);
+        min-height: 186px;
+      }
+
+      .fund-portco-card__plate,
+      .fund-exits-card__plate {
+        width: clamp(108px, 28vw, 142px);
+        padding: 12px;
+      }
+
+      .fund-exits-card {
+        min-height: 182px;
       }
 
       .fund-exits__grid {
