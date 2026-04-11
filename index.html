@@ -1592,6 +1592,168 @@
       text-wrap: pretty;
     }
 
+    .academy-alumni {
+      position: relative;
+      padding: clamp(16px, 2.6vh, 30px) clamp(20px, 4vw, 56px) clamp(16px, 2.8vh, 30px);
+      background:
+        radial-gradient(120% 120% at 10% 0%, rgba(202, 144, 70, 0.11) 0%, rgba(202, 144, 70, 0) 58%),
+        linear-gradient(180deg, #f4f1eb 0%, #f1ece4 100%);
+      border-top: 1px solid rgba(169, 133, 90, 0.14);
+      border-bottom: 0;
+    }
+
+    .academy-alumni__header {
+      width: min(1460px, 100%);
+      margin: 0 auto clamp(12px, 1.6vh, 20px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .academy-alumni__title {
+      margin: 0;
+      color: #9a5610;
+      font-size: clamp(17px, 1.22vw, 22px);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .academy-alumni__controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .academy-alumni__btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(142, 121, 100, 0.46);
+      background: rgba(255, 255, 255, 0.88);
+      color: #2f343a;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 180ms ease, transform 180ms ease, opacity 180ms ease;
+    }
+
+    .academy-alumni__btn:hover {
+      background: #fff;
+      transform: translateY(-1px);
+    }
+
+    .academy-alumni__btn:disabled {
+      opacity: 0.45;
+      cursor: default;
+      transform: none;
+    }
+
+    .academy-alumni__viewport {
+      width: min(1460px, 100%);
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .academy-alumni__track {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: clamp(14px, 1.2vw, 18px);
+      will-change: transform;
+      transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .academy-alumni__card {
+      flex: 0 0 calc((100% - 2 * clamp(14px, 1.2vw, 18px)) / 3);
+      min-height: 100%;
+      border-radius: 16px;
+      padding: clamp(14px, 1.8vw, 20px);
+      border: 1px solid rgba(143, 108, 57, 0.22);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(247, 241, 230, 0.92) 100%);
+      box-shadow:
+        0 10px 26px rgba(42, 35, 24, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      text-align: center;
+      display: grid;
+      align-content: start;
+      justify-items: center;
+      gap: 8px;
+    }
+
+    .academy-alumni__avatar {
+      width: clamp(128px, 9.8vw, 170px);
+      height: clamp(128px, 9.8vw, 170px);
+      border-radius: 999px;
+      border: 1px solid rgba(164, 121, 58, 0.28);
+      background:
+        radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.9) 0%, rgba(231, 220, 204, 0.95) 60%, rgba(216, 197, 171, 0.95) 100%);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 8px 18px rgba(33, 28, 22, 0.1);
+    }
+
+    .academy-alumni__avatar::after {
+      content: attr(data-initials);
+      color: #6b461c;
+      font-size: clamp(20px, 1.65vw, 28px);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .academy-alumni__avatar-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: grayscale(100%);
+      display: none;
+    }
+
+    .academy-alumni__avatar.has-image .academy-alumni__avatar-image {
+      display: block;
+    }
+
+    .academy-alumni__avatar.has-image::after {
+      opacity: 0;
+    }
+
+    .academy-alumni__name {
+      margin-top: 2px;
+      color: #1f2731;
+      font-size: clamp(17px, 1.22vw, 24px);
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+    }
+
+    .academy-alumni__quote {
+      margin: 2px 0 0;
+      color: #2f343a;
+      font-size: clamp(16px, 1.06vw, 20px);
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .academy-alumni__company {
+      margin-top: 4px;
+      color: #4e2f0f;
+      font-size: clamp(15px, 0.98vw, 19px);
+      line-height: 1.3;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+    }
+
     .academy-quote {
       position: relative;
       padding: clamp(8px, 1.8vh, 18px) clamp(20px, 4vw, 56px) clamp(22px, 3.8vh, 38px);
@@ -3459,6 +3621,10 @@
         grid-template-columns: 1fr;
       }
 
+      .academy-alumni__card {
+        flex-basis: 100%;
+      }
+
       .footer-search {
         max-width: 100%;
       }
@@ -3734,6 +3900,10 @@
         line-height: 1.2;
       }
 
+      .academy-alumni__card {
+        flex-basis: calc((100% - clamp(14px, 1.2vw, 18px)) / 2);
+      }
+
       .scene-global-footer__inner {
         flex-direction: column;
         justify-content: flex-start;
@@ -3929,10 +4099,55 @@ We invest in companies and technology to create a more innovative, equitable and
             <p class="academy-video-copy__subtext">The Wocstar Entrepreneur Academy helps you unlock capital, grow your business, and build lasting success.</p>
           </header>
         </div>
-        <section class="academy-story" aria-label="Wocstar Academy program details">
+        <section class="academy-story" id="about-the-academy" aria-label="Wocstar Academy program details">
           <div class="academy-story__inner">
             <h2 class="academy-story__lead">Empowering Entrepreneurs</h2>
             <p class="academy-story__text">Wocstar Academy&rsquo;s program gives entrepreneurs direct insights from active funders, expert guidance to sharpen their storytelling, and tailored strategies for investor pitches, grants, and loan proposals. This nationally recognized experience includes curated workshops, one-on-one mentorship with industry leaders, and a supportive community of peers. The support continues after the program through networking opportunities and curated introductions that help accelerate each founder&rsquo;s journey.</p>
+          </div>
+        </section>
+        <section class="academy-alumni" id="academy-alumni-testimonials" aria-label="Past academy alumni testimonials">
+          <div class="academy-alumni__header">
+            <h3 class="academy-alumni__title">Past Academy Alumni</h3>
+            <div class="academy-alumni__controls" aria-label="Alumni testimonial navigation">
+              <button class="academy-alumni__btn" type="button" id="academyAlumniPrevBtn" aria-label="Show previous alumni testimonials">&#8249;</button>
+              <button class="academy-alumni__btn" type="button" id="academyAlumniNextBtn" aria-label="Show next alumni testimonials">&#8250;</button>
+            </div>
+          </div>
+          <div class="academy-alumni__viewport" id="academyAlumniViewport">
+            <ul class="academy-alumni__track" id="academyAlumniTrack">
+              <li class="academy-alumni__card">
+                <span class="academy-alumni__avatar" data-initials="KB">
+                  <img class="academy-alumni__avatar-image" src="academy/kaelin.png" alt="Kaelin Bass portrait" loading="lazy" />
+                </span>
+                <h4 class="academy-alumni__name">Kaelin Bass</h4>
+                <p class="academy-alumni__quote">&ldquo;Wocstar Academy changed my life. The one-on-one mentorship alone is priceless. I encourage any entrepreneur to take this workshop if you want a stronger grasp of how to run a startup and raise capital. Ten out of ten.&rdquo;</p>
+                <p class="academy-alumni__company">KMBoobies</p>
+              </li>
+              <li class="academy-alumni__card">
+                <span class="academy-alumni__avatar" data-initials="DK">
+                  <img class="academy-alumni__avatar-image" src="academy/dawn.png" alt="Dawn Kelly portrait" loading="lazy" />
+                </span>
+                <h4 class="academy-alumni__name">Dawn Kelly</h4>
+                <p class="academy-alumni__quote">&ldquo;Wocstar gave me the capital-raising blueprint and storytelling framework that turned The Nourish Spot from a community juice bar into a thriving multi-location business. I gained the tools to raise capital, shape my story, and scale beyond what I ever imagined.&rdquo;</p>
+                <p class="academy-alumni__company">The Nourish Spot</p>
+              </li>
+              <li class="academy-alumni__card">
+                <span class="academy-alumni__avatar" data-initials="SC">
+                  <img class="academy-alumni__avatar-image" src="academy/sirobe.png" alt="Sirobe Carstafhnur portrait" loading="lazy" />
+                </span>
+                <h4 class="academy-alumni__name">Sirob&egrave; Carstafhnur</h4>
+                <p class="academy-alumni__quote">&ldquo;What I love about Wocstar Academy is the immediacy of the tools they give you. These are solutions you can put into action today. It was an amazing powerful experience, and learning from everyone&rsquo;s unique approach expanded my own.&rdquo;</p>
+                <p class="academy-alumni__company">Sirob&egrave;</p>
+              </li>
+              <li class="academy-alumni__card">
+                <span class="academy-alumni__avatar" data-initials="AC">
+                  <img class="academy-alumni__avatar-image" src="academy/ameka.png" alt="Ameka Coleman portrait" loading="lazy" />
+                </span>
+                <h4 class="academy-alumni__name">Ameka Coleman</h4>
+                <p class="academy-alumni__quote">&ldquo;The Academy elevated my pitch and confidence. It took me to the next level. I now speak confidently about my vision, as well as my financial needs, when talking to potential partners and investors. The entire program was incredible.&rdquo;</p>
+                <p class="academy-alumni__company">Strands of Faith</p>
+              </li>
+            </ul>
           </div>
         </section>
         <section class="academy-quote" aria-label="Wocstar Academy founder quote">
@@ -4424,7 +4639,7 @@ We invest in companies and technology to create a more innovative, equitable and
       </button>
       <ul class="brand-academy-menu" id="brandAcademyMenu" aria-label="Wocstar Academy menu">
         <li><a href="#about-the-academy">About the Academy</a></li>
-        <li><a href="#upcoming-webinars">Upcoming Webinars</a></li>
+        <li><a href="#academy-alumni-testimonials">Alumni Testimonials</a></li>
       </ul>
     </div>
     <div class="brand-media-wrap">
@@ -4505,6 +4720,12 @@ We invest in companies and technology to create a more innovative, equitable and
       const fundPortcoViewport = document.getElementById('fundPortcoViewport');
       const fundPortcoPrevBtn = document.getElementById('fundPortcoPrevBtn');
       const fundPortcoNextBtn = document.getElementById('fundPortcoNextBtn');
+      const academyAlumniViewport = document.getElementById('academyAlumniViewport');
+      const academyAlumniTrack = document.getElementById('academyAlumniTrack');
+      const academyAlumniPrevBtn = document.getElementById('academyAlumniPrevBtn');
+      const academyAlumniNextBtn = document.getElementById('academyAlumniNextBtn');
+      const academyAlumniCards = Array.from(document.querySelectorAll('.academy-alumni__card'));
+      const academyAlumniImages = Array.from(document.querySelectorAll('.academy-alumni__avatar-image'));
       const fundPortfolioSection = document.getElementById('fund-portfolio');
       const fundPortfolioCompaniesSection = document.getElementById('portfolio-companies');
       const fundExitsSection = document.getElementById('success-stories-exits');
@@ -4554,6 +4775,8 @@ We invest in companies and technology to create a more innovative, equitable and
       let mediaTypingTimer = null;
       let mediaTypingStarted = false;
       let mediaTypingCompleted = false;
+      let academyAlumniIndex = 0;
+      let academyAlumniTimer = null;
       let isCapitalMenuOpen = false;
       let isFundMenuOpen = false;
       let isAcademyMenuOpen = false;
@@ -4944,6 +5167,61 @@ We invest in companies and technology to create a more innovative, equitable and
         }, 3000);
       }
 
+      function getAcademyAlumniVisibleCount() {
+        if (window.innerWidth <= 768) return 1;
+        if (window.innerWidth <= 1100) return 2;
+        return 3;
+      }
+
+      function getAcademyAlumniMaxIndex() {
+        const visibleCount = getAcademyAlumniVisibleCount();
+        return Math.max(0, academyAlumniCards.length - visibleCount);
+      }
+
+      function updateAcademyAlumniCarousel(animate = true) {
+        if (!academyAlumniTrack || !academyAlumniCards.length) return;
+        const firstCard = academyAlumniCards[0];
+        if (!firstCard) return;
+        const gapValue = window.getComputedStyle(academyAlumniTrack).columnGap || window.getComputedStyle(academyAlumniTrack).gap || '0px';
+        const gap = Number.parseFloat(gapValue) || 0;
+        const cardWidth = firstCard.getBoundingClientRect().width;
+        const maxIndex = getAcademyAlumniMaxIndex();
+        academyAlumniIndex = Math.max(0, Math.min(academyAlumniIndex, maxIndex));
+        academyAlumniTrack.style.transition = animate ? 'transform 420ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+        academyAlumniTrack.style.transform = `translateX(${-academyAlumniIndex * (cardWidth + gap)}px)`;
+        if (academyAlumniPrevBtn) {
+          academyAlumniPrevBtn.disabled = academyAlumniIndex <= 0;
+        }
+        if (academyAlumniNextBtn) {
+          academyAlumniNextBtn.disabled = academyAlumniIndex >= maxIndex;
+        }
+      }
+
+      function stopAcademyAlumniAuto() {
+        if (academyAlumniTimer) {
+          window.clearInterval(academyAlumniTimer);
+          academyAlumniTimer = null;
+        }
+      }
+
+      function startAcademyAlumniAuto() {
+        stopAcademyAlumniAuto();
+        if (!academyAlumniCards.length || academyAlumniCards.length <= getAcademyAlumniVisibleCount()) return;
+        academyAlumniTimer = window.setInterval(() => {
+          const maxIndex = getAcademyAlumniMaxIndex();
+          academyAlumniIndex = academyAlumniIndex >= maxIndex ? 0 : academyAlumniIndex + 1;
+          updateAcademyAlumniCarousel(true);
+        }, 4000);
+      }
+
+      function syncAcademyAlumniAuto() {
+        if (currentIndex === 1) {
+          startAcademyAlumniAuto();
+          return;
+        }
+        stopAcademyAlumniAuto();
+      }
+
       function updateUniverseShowcase(index) {
         if (!universeShowcaseSlides.length) return;
         const count = universeShowcaseSlides.length;
@@ -5242,6 +5520,7 @@ We invest in companies and technology to create a more innovative, equitable and
         if (currentIndex === universeSceneIndex) {
           updateUniverseShowcase(0);
         }
+        syncAcademyAlumniAuto();
         syncUniverseShowcaseAuto();
       }
 
@@ -5997,6 +6276,21 @@ We invest in companies and technology to create a more innovative, equitable and
           startFundPortfolioAuto();
         });
       }
+      if (academyAlumniPrevBtn) {
+        academyAlumniPrevBtn.addEventListener('click', () => {
+          academyAlumniIndex = Math.max(0, academyAlumniIndex - 1);
+          updateAcademyAlumniCarousel(true);
+          syncAcademyAlumniAuto();
+        });
+      }
+      if (academyAlumniNextBtn) {
+        academyAlumniNextBtn.addEventListener('click', () => {
+          const maxIndex = getAcademyAlumniMaxIndex();
+          academyAlumniIndex = Math.min(maxIndex, academyAlumniIndex + 1);
+          updateAcademyAlumniCarousel(true);
+          syncAcademyAlumniAuto();
+        });
+      }
       if (contactForm) {
         contactForm.addEventListener('submit', (event) => {
           event.preventDefault();
@@ -6071,6 +6365,8 @@ We invest in companies and technology to create a more innovative, equitable and
         fundPortcoIndex = fundPortcoIndex % baseCount;
         renderFundPortfolioCards();
         updateFundPortfolioCarousel(false);
+        updateAcademyAlumniCarousel(false);
+        syncAcademyAlumniAuto();
         if (currentIndex === profileSceneIndex) {
           fitProfileContentToViewport();
         }
@@ -6078,6 +6374,10 @@ We invest in companies and technology to create a more innovative, equitable and
       if (fundPortcoViewport) {
         fundPortcoViewport.addEventListener('mouseenter', stopFundPortfolioAuto);
         fundPortcoViewport.addEventListener('mouseleave', startFundPortfolioAuto);
+      }
+      if (academyAlumniViewport) {
+        academyAlumniViewport.addEventListener('mouseenter', stopAcademyAlumniAuto);
+        academyAlumniViewport.addEventListener('mouseleave', syncAcademyAlumniAuto);
       }
       if (universeShowcaseSlides.length) {
         const universeShowcase = document.querySelector('.universe-showcase');
@@ -6091,10 +6391,27 @@ We invest in companies and technology to create a more innovative, equitable and
         capitalInterview.addEventListener('mouseleave', startCapitalInterviewAuto);
       }
 
+      academyAlumniImages.forEach((image) => {
+        const avatar = image.closest('.academy-alumni__avatar');
+        if (!avatar) return;
+        const handleLoad = () => {
+          avatar.classList.add('has-image');
+        };
+        const handleError = () => {
+          avatar.classList.remove('has-image');
+        };
+        image.addEventListener('load', handleLoad);
+        image.addEventListener('error', handleError);
+        if (image.complete && image.naturalWidth > 0) {
+          handleLoad();
+        }
+      });
+
       resetMediaTyping();
       renderFundPortfolioCards();
       updateFundPortfolioCarousel(false);
       startFundPortfolioAuto();
+      updateAcademyAlumniCarousel(false);
       updateUniverseShowcase(0);
       showCapitalInterview(0);
       startCapitalInterviewAuto();
