@@ -23,6 +23,8 @@
       --fund-motion: 360ms cubic-bezier(0.22, 1, 0.36, 1);
       --fund-carousel-motion: 820ms cubic-bezier(0.22, 1, 0.36, 1);
       --fund-focus: 0 0 0 2px rgba(217, 212, 206, 0.9);
+      --media-frame-accent: rgba(235, 207, 161, 0.65);
+      --media-logo-red: #b5182f;
     }
 
     * {
@@ -1697,32 +1699,31 @@
       box-shadow: 0 8px 18px rgba(33, 28, 22, 0.1);
     }
 
-    .academy-alumni__avatar::after {
-      content: attr(data-initials);
-      color: #6b461c;
-      font-size: clamp(20px, 1.65vw, 28px);
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
     .academy-alumni__avatar-image {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: center 22%;
       filter: grayscale(100%);
-      display: none;
-    }
-
-    .academy-alumni__avatar.has-image .academy-alumni__avatar-image {
       display: block;
     }
 
-    .academy-alumni__avatar.has-image::after {
-      opacity: 0;
+    .academy-alumni__avatar-image--kaelin {
+      object-position: center 18%;
+    }
+
+    .academy-alumni__avatar-image--dawn {
+      object-position: center 16%;
+    }
+
+    .academy-alumni__avatar-image--sirobe {
+      object-position: center 20%;
+    }
+
+    .academy-alumni__avatar-image--ameka {
+      object-position: center 14%;
     }
 
     .academy-alumni__name {
@@ -2548,15 +2549,17 @@
       min-height: 0;
       padding: clamp(26px, 3.2vh, 42px) clamp(20px, 4vw, 58px) clamp(26px, 6vh, 64px);
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0;
       background: #000;
     }
 
     .media-letter {
       width: min(1040px, 100%);
       border-radius: 18px;
-      border: 1px solid rgba(235, 207, 161, 0.3);
+      border: 1px solid var(--media-frame-accent);
       background: #000;
       box-shadow: 0 22px 60px rgba(0, 0, 0, 0.44), inset 0 1px 0 rgba(255, 255, 255, 0.06);
       backdrop-filter: blur(4px);
@@ -2593,7 +2596,7 @@
       opacity: 0;
       transform: translateY(8px);
       color: rgba(243, 247, 255, 0.96);
-      font-family: "Segoe Print", "Bradley Hand", "Lucida Handwriting", "Comic Sans MS", cursive;
+      font-family: "Segoe UI", Arial, sans-serif;
       font-size: clamp(14px, 1.02vw, 17px);
       line-height: 1.66;
       letter-spacing: 0.01em;
@@ -2615,6 +2618,105 @@
       vertical-align: -0.11em;
       background: rgba(241, 214, 170, 0.95);
       animation: mediaCaretBlink 820ms steps(1, end) infinite;
+    }
+
+    .media-arrows {
+      width: min(1040px, 100%);
+      margin-top: -1px;
+      padding: 0 0 8px;
+      position: relative;
+      height: clamp(190px, 20vw, 250px);
+    }
+
+    .media-arrows__svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .media-arrows__path {
+      fill: none;
+      stroke: var(--media-frame-accent);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 520;
+      stroke-dashoffset: 520;
+      marker-end: url(#mediaArrowHeadMarker);
+      animation: mediaArrowDraw 1.25s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .media-arrows__label {
+      position: absolute;
+      bottom: -8px;
+      transform: translate(-54%, 12px);
+      margin: 0;
+      width: max-content;
+      white-space: nowrap;
+      color: #d6455f;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: clamp(16px, 1.24vw, 22px);
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 10px 16px 9px;
+      border-radius: 6px;
+      border: 1px solid rgba(181, 24, 47, 0.72);
+      background:
+        linear-gradient(180deg, rgba(236, 223, 227, 0.2) 0%, rgba(96, 35, 47, 0.24) 100%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.24) inset,
+        0 -1px 0 rgba(73, 5, 16, 0.56) inset,
+        0 7px 16px rgba(0, 0, 0, 0.38),
+        0 2px 0 rgba(86, 8, 21, 0.84);
+      -webkit-text-stroke: 0.55px rgba(255, 255, 255, 0.42);
+      text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.62),
+        0 2px 0 rgba(74, 16, 28, 0.62),
+        0 3px 6px rgba(0, 0, 0, 0.34);
+      opacity: 0;
+      animation: mediaArrowLabelIn 320ms ease forwards;
+      animation-delay: 1.2s;
+    }
+
+    .media-arrows__label--left {
+      left: calc((126 / 1040) * 100% + 20px) !important;
+      bottom: 8px;
+      transform: translate(-50%, 12px) !important;
+    }
+
+    .media-arrows__label--mid {
+      left: 50%;
+      animation-delay: 2.2s;
+    }
+
+    .media-arrows__label--right {
+      left: calc((914 / 1040) * 100%);
+      animation-delay: 3s;
+    }
+
+    .media-arrows__path--mid {
+      animation-delay: 0.8s;
+    }
+
+    .media-arrows__path--right {
+      animation-delay: 1.6s;
+    }
+
+    @keyframes mediaArrowDraw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes mediaArrowLabelIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @keyframes mediaCaretBlink {
@@ -3495,6 +3597,10 @@
         line-height: 1.58;
       }
 
+      .media-arrows {
+        height: 220px;
+      }
+
       .universe-title {
         font-size: clamp(28px, 8.5vw, 44px);
       }
@@ -4107,7 +4213,7 @@ We invest in companies and technology to create a more innovative, equitable and
         </section>
         <section class="academy-alumni" id="academy-alumni-testimonials" aria-label="Past academy alumni testimonials">
           <div class="academy-alumni__header">
-            <h3 class="academy-alumni__title">Past Academy Alumni</h3>
+            <h3 class="academy-alumni__title">Alumni Testimonial</h3>
             <div class="academy-alumni__controls" aria-label="Alumni testimonial navigation">
               <button class="academy-alumni__btn" type="button" id="academyAlumniPrevBtn" aria-label="Show previous alumni testimonials">&#8249;</button>
               <button class="academy-alumni__btn" type="button" id="academyAlumniNextBtn" aria-label="Show next alumni testimonials">&#8250;</button>
@@ -4117,7 +4223,7 @@ We invest in companies and technology to create a more innovative, equitable and
             <ul class="academy-alumni__track" id="academyAlumniTrack">
               <li class="academy-alumni__card">
                 <span class="academy-alumni__avatar" data-initials="KB">
-                  <img class="academy-alumni__avatar-image" src="academy/kaelin.png" alt="Kaelin Bass portrait" loading="lazy" />
+                  <img class="academy-alumni__avatar-image academy-alumni__avatar-image--kaelin" src="academy/kaelin.png" alt="Kaelin Bass portrait" loading="lazy" />
                 </span>
                 <h4 class="academy-alumni__name">Kaelin Bass</h4>
                 <p class="academy-alumni__quote">&ldquo;Wocstar Academy changed my life. The one-on-one mentorship alone is priceless. I encourage any entrepreneur to take this workshop if you want a stronger grasp of how to run a startup and raise capital. Ten out of ten.&rdquo;</p>
@@ -4125,7 +4231,7 @@ We invest in companies and technology to create a more innovative, equitable and
               </li>
               <li class="academy-alumni__card">
                 <span class="academy-alumni__avatar" data-initials="DK">
-                  <img class="academy-alumni__avatar-image" src="academy/dawn.png" alt="Dawn Kelly portrait" loading="lazy" />
+                  <img class="academy-alumni__avatar-image academy-alumni__avatar-image--dawn" src="academy/dawn.png" alt="Dawn Kelly portrait" loading="lazy" />
                 </span>
                 <h4 class="academy-alumni__name">Dawn Kelly</h4>
                 <p class="academy-alumni__quote">&ldquo;Wocstar gave me the capital-raising blueprint and storytelling framework that turned The Nourish Spot from a community juice bar into a thriving multi-location business. I gained the tools to raise capital, shape my story, and scale beyond what I ever imagined.&rdquo;</p>
@@ -4133,7 +4239,7 @@ We invest in companies and technology to create a more innovative, equitable and
               </li>
               <li class="academy-alumni__card">
                 <span class="academy-alumni__avatar" data-initials="SC">
-                  <img class="academy-alumni__avatar-image" src="academy/sirobe.png" alt="Sirobe Carstafhnur portrait" loading="lazy" />
+                  <img class="academy-alumni__avatar-image academy-alumni__avatar-image--sirobe" src="academy/sirobe.png" alt="Sirobe Carstafhnur portrait" loading="lazy" />
                 </span>
                 <h4 class="academy-alumni__name">Sirob&egrave; Carstafhnur</h4>
                 <p class="academy-alumni__quote">&ldquo;What I love about Wocstar Academy is the immediacy of the tools they give you. These are solutions you can put into action today. It was an amazing powerful experience, and learning from everyone&rsquo;s unique approach expanded my own.&rdquo;</p>
@@ -4141,7 +4247,7 @@ We invest in companies and technology to create a more innovative, equitable and
               </li>
               <li class="academy-alumni__card">
                 <span class="academy-alumni__avatar" data-initials="AC">
-                  <img class="academy-alumni__avatar-image" src="academy/ameka.png" alt="Ameka Coleman portrait" loading="lazy" />
+                  <img class="academy-alumni__avatar-image academy-alumni__avatar-image--ameka" src="academy/ameka.png" alt="Ameka Coleman portrait" loading="lazy" />
                 </span>
                 <h4 class="academy-alumni__name">Ameka Coleman</h4>
                 <p class="academy-alumni__quote">&ldquo;The Academy elevated my pitch and confidence. It took me to the next level. I now speak confidently about my vision, as well as my financial needs, when talking to potential partners and investors. The entire program was incredible.&rdquo;</p>
@@ -4235,6 +4341,23 @@ We invest in companies and technology to create a more innovative, equitable and
             <p class="media-letter__paragraph" data-media-type>Our goal is to empower artists to create stories that inspire and make a positive impact. Our work amplifies the diverse voices and stories that are changing the future of finance, entrepreneurship, media, and entertainment.</p>
           </div>
         </article>
+        <section class="media-arrows" aria-label="Wocstar Media pathways">
+          <svg class="media-arrows__svg" viewBox="0 0 1040 260" aria-hidden="true">
+            <defs>
+              <marker id="mediaArrowHeadMarker" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L10,5 L0,10" fill="none" stroke="var(--media-frame-accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </marker>
+            </defs>
+            <path class="media-arrows__path media-arrows__path--left" d="M340 0 C 268 52, 190 124, 126 220" />
+
+            <path class="media-arrows__path media-arrows__path--mid" d="M520 0 C 522 84, 522 154, 520 234" />
+
+            <path class="media-arrows__path media-arrows__path--right" d="M700 0 C 772 52, 850 124, 914 220" />
+          </svg>
+          <span class="media-arrows__label media-arrows__label--left">Fellowships</span>
+          <span class="media-arrows__label media-arrows__label--mid">Foundation</span>
+          <span class="media-arrows__label media-arrows__label--right">Podcasting</span>
+        </section>
       </div>
     </section>
 
@@ -4897,6 +5020,20 @@ We invest in companies and technology to create a more innovative, equitable and
       function scrollAcademySceneBy(delta) {
         if (!academyScene) return;
         academyScene.scrollTop += delta;
+      }
+
+      function scrollAcademySceneToAnchor(hash) {
+        if (!academyScene || !hash || hash.charAt(0) !== '#') return;
+        const target = academyScene.querySelector(hash);
+        if (!target) return;
+        const containerRect = academyScene.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const headerOffset = window.innerWidth <= 768 ? 72 : 82;
+        const top = Math.max(
+          0,
+          academyScene.scrollTop + (targetRect.top - containerRect.top) - headerOffset
+        );
+        academyScene.scrollTo({ top, behavior: 'smooth' });
       }
 
       function getMediaSceneMaxScrollTop() {
@@ -6155,6 +6292,18 @@ We invest in companies and technology to create a more innovative, equitable and
         brandAcademyMenu.addEventListener('click', (event) => {
           const target = event.target instanceof HTMLElement ? event.target.closest('a') : null;
           if (!target) return;
+          const href = target.getAttribute('href') || '';
+          if (href.startsWith('#')) {
+            event.preventDefault();
+            if (currentIndex !== 1) {
+              transitionTo(1);
+              window.setTimeout(() => {
+                scrollAcademySceneToAnchor(href);
+              }, transitionDuration + 40);
+            } else {
+              scrollAcademySceneToAnchor(href);
+            }
+          }
           setAcademyMenuOpen(false);
         });
       }
@@ -6390,22 +6539,6 @@ We invest in companies and technology to create a more innovative, equitable and
         capitalInterview.addEventListener('mouseenter', stopCapitalInterviewAuto);
         capitalInterview.addEventListener('mouseleave', startCapitalInterviewAuto);
       }
-
-      academyAlumniImages.forEach((image) => {
-        const avatar = image.closest('.academy-alumni__avatar');
-        if (!avatar) return;
-        const handleLoad = () => {
-          avatar.classList.add('has-image');
-        };
-        const handleError = () => {
-          avatar.classList.remove('has-image');
-        };
-        image.addEventListener('load', handleLoad);
-        image.addEventListener('error', handleError);
-        if (image.complete && image.naturalWidth > 0) {
-          handleLoad();
-        }
-      });
 
       resetMediaTyping();
       renderFundPortfolioCards();
