@@ -1763,6 +1763,41 @@
         radial-gradient(120% 130% at 100% 0%, rgba(102, 121, 142, 0.06) 0%, rgba(102, 121, 142, 0) 66%),
         linear-gradient(180deg, #f3efe8 0%, #efeae2 100%);
       border-top: 1px solid rgba(169, 133, 90, 0.16);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .academy-curriculum::before,
+    .academy-curriculum::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(1px);
+      animation: academyCurriculumGlowDrift 16s ease-in-out infinite alternate;
+    }
+
+    .academy-curriculum::before {
+      width: clamp(260px, 28vw, 440px);
+      height: clamp(260px, 28vw, 440px);
+      top: -18%;
+      right: -7%;
+      background: radial-gradient(circle, rgba(203, 152, 82, 0.22) 0%, rgba(203, 152, 82, 0) 68%);
+    }
+
+    .academy-curriculum::after {
+      width: clamp(220px, 24vw, 380px);
+      height: clamp(220px, 24vw, 380px);
+      bottom: -26%;
+      left: -8%;
+      background: radial-gradient(circle, rgba(104, 122, 145, 0.16) 0%, rgba(104, 122, 145, 0) 72%);
+      animation-delay: -6s;
+    }
+
+    @keyframes academyCurriculumGlowDrift {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(0, -14px, 0) scale(1.05); }
     }
 
     .academy-curriculum__inner {
@@ -1770,10 +1805,14 @@
       margin: 0 auto;
       display: grid;
       gap: clamp(10px, 1.4vh, 16px);
+      position: relative;
+      z-index: 1;
     }
 
     .academy-curriculum__header {
       display: grid;
+      grid-template-columns: 1fr;
+      align-items: start;
       gap: 6px;
       max-width: 100%;
       text-align: left;
@@ -1815,32 +1854,72 @@
       flex-wrap: wrap;
       gap: 8px;
       margin-top: 6px;
+      align-self: start;
+    }
+
+    .academy-curriculum__kicker,
+    .academy-curriculum__title,
+    .academy-curriculum__intro,
+    .academy-curriculum__chips {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .academy-curriculum.is-visible .academy-curriculum__kicker {
+      animation: academyCurriculumHeadIn 420ms ease forwards;
+    }
+
+    .academy-curriculum.is-visible .academy-curriculum__title {
+      animation: academyCurriculumHeadIn 520ms ease 80ms forwards;
+    }
+
+    .academy-curriculum.is-visible .academy-curriculum__intro {
+      animation: academyCurriculumHeadIn 520ms ease 150ms forwards;
+    }
+
+    .academy-curriculum.is-visible .academy-curriculum__chips {
+      animation: academyCurriculumHeadIn 520ms ease 210ms forwards;
+    }
+
+    @keyframes academyCurriculumHeadIn {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .academy-curriculum__scene-btn {
       border-radius: 999px;
       border: 1px solid rgba(156, 108, 53, 0.28);
-      padding: 6px 12px;
+      padding: 7px 14px;
       color: #7f4811;
       font-size: clamp(11px, 0.78vw, 13px);
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      background: rgba(255, 255, 255, 0.58);
+      background: rgba(255, 255, 255, 0.66);
+      backdrop-filter: blur(3px);
       cursor: pointer;
-      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease;
+      box-shadow: 0 2px 8px rgba(56, 43, 29, 0.06);
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
     }
 
     .academy-curriculum__scene-btn:hover {
       transform: translateY(-1px);
-      background: rgba(255, 255, 255, 0.78);
+      background: rgba(255, 255, 255, 0.9);
       border-color: rgba(156, 108, 53, 0.44);
+      box-shadow: 0 6px 14px rgba(56, 43, 29, 0.14);
     }
 
     .academy-curriculum__scene-btn.is-active {
       background: linear-gradient(145deg, #f4dfc0 0%, #ecd2ac 100%);
       border-color: rgba(156, 108, 53, 0.54);
       color: #6d3d0c;
+      box-shadow: 0 8px 18px rgba(128, 90, 43, 0.2);
     }
 
     .academy-curriculum__tracks {
@@ -1853,21 +1932,41 @@
       border-radius: 14px;
       border: 1px solid rgba(143, 108, 57, 0.22);
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(247, 241, 230, 0.92) 100%);
+        linear-gradient(160deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 241, 230, 0.93) 70%, rgba(243, 236, 222, 0.93) 100%);
       box-shadow:
-        0 6px 16px rgba(42, 35, 24, 0.06),
+        0 10px 24px rgba(42, 35, 24, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.74);
       padding: clamp(13px, 1.35vw, 18px);
       display: none;
       flex-direction: column;
       gap: 6px;
       opacity: 0;
+      overflow: hidden;
+      position: relative;
     }
 
     .academy-curriculum__card.is-active {
       display: flex;
       opacity: 1;
       animation: academyCurriculumScenePop 460ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .academy-curriculum__card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.24) 48%, rgba(255, 255, 255, 0) 64%);
+      transform: translateX(-120%);
+      pointer-events: none;
+    }
+
+    .academy-curriculum__card.is-active::after {
+      animation: academyCurriculumCardSheen 900ms ease 120ms;
+    }
+
+    @keyframes academyCurriculumCardSheen {
+      0% { transform: translateX(-120%); }
+      100% { transform: translateX(120%); }
     }
 
     @keyframes academyCurriculumScenePop {
@@ -1904,6 +2003,8 @@
       margin: 0;
       padding: 0;
       display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 14px;
       gap: 7px;
     }
 
@@ -2012,7 +2113,24 @@
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
       transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .academy-curriculum__cta::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0) 35%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 65%);
+      transform: translateX(-140%);
+      animation: academyCurriculumCtaShimmer 3.6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes academyCurriculumCtaShimmer {
+      0%, 82% { transform: translateX(-140%); }
+      100% { transform: translateX(140%); }
     }
 
     .academy-curriculum__cta:hover {
@@ -2053,7 +2171,7 @@
       border: 2px solid rgba(181, 103, 23, 0.18);
       box-shadow: 0 10px 24px rgba(24, 30, 40, 0.1);
       background: #ddd7ce;
-      margin-left: -42px;
+      margin-left: 72px;
     }
 
     .academy-quote__portrait {
@@ -4686,6 +4804,19 @@
         grid-template-columns: 1fr;
       }
 
+      .academy-curriculum__header {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .academy-curriculum__chips {
+        flex-wrap: wrap;
+      }
+
+      .academy-curriculum__list {
+        grid-template-columns: 1fr;
+      }
+
       .academy-curriculum__meta {
         flex-direction: column;
         align-items: flex-start;
@@ -4910,7 +5041,7 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
         </section>
         <section class="academy-alumni" id="academy-alumni-testimonials" aria-label="Past academy alumni testimonials">
           <div class="academy-alumni__header">
-            <h3 class="academy-alumni__title">Alumni Testimonial</h3>
+            <h3 class="academy-alumni__title">Alumni Testimonials</h3>
             <div class="academy-alumni__controls" aria-label="Alumni testimonial navigation">
               <button class="academy-alumni__btn" type="button" id="academyAlumniPrevBtn" aria-label="Show previous alumni testimonials">&#8249;</button>
               <button class="academy-alumni__btn" type="button" id="academyAlumniNextBtn" aria-label="Show next alumni testimonials">&#8250;</button>
@@ -5727,6 +5858,8 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
       let mediaTypingCompleted = false;
       let academyAlumniIndex = 0;
       let academyAlumniTimer = null;
+      let academyCurriculumAutoTimer = null;
+      let academyCurriculumInView = false;
       let isCapitalMenuOpen = false;
       let isFundMenuOpen = false;
       let isAcademyMenuOpen = false;
@@ -5966,18 +6099,32 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
         if (!academyCurriculumSection) return;
         if (!('IntersectionObserver' in window)) {
           academyCurriculumSection.classList.add('is-visible');
+          academyCurriculumInView = true;
           return;
         }
 
-        const observer = new IntersectionObserver((entries) => {
+        const revealObserver = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
             academyCurriculumSection.classList.add('is-visible');
-            observer.disconnect();
+            revealObserver.disconnect();
           });
         }, { threshold: 0.24 });
 
-        observer.observe(academyCurriculumSection);
+        revealObserver.observe(academyCurriculumSection);
+
+        const visibilityObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            academyCurriculumInView = entry.isIntersecting && entry.intersectionRatio > 0.12;
+            if (academyCurriculumInView) {
+              startAcademyCurriculumAuto();
+            } else {
+              stopAcademyCurriculumAuto();
+            }
+          });
+        }, { threshold: [0, 0.12, 0.3, 0.6] });
+
+        visibilityObserver.observe(academyCurriculumSection);
       }
 
       function setAcademyCurriculumScene(sceneKey, scrollToScene = false) {
@@ -5985,9 +6132,13 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
 
         const targetPanel = academyCurriculumPanels.find((panel) => panel.dataset.academyScenePanel === sceneKey) || academyCurriculumPanels[0];
         if (!targetPanel) return;
+        const targetSceneKey = targetPanel.dataset.academyScenePanel || 'founder';
+        if (academyCurriculumSection) {
+          academyCurriculumSection.dataset.activeScene = targetSceneKey;
+        }
 
         academyCurriculumSceneButtons.forEach((button) => {
-          const isTarget = button.dataset.academyScene === targetPanel.dataset.academyScenePanel;
+          const isTarget = button.dataset.academyScene === targetSceneKey;
           button.classList.toggle('is-active', isTarget);
           button.setAttribute('aria-pressed', isTarget ? 'true' : 'false');
         });
@@ -5999,6 +6150,32 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
         if (scrollToScene) {
           targetPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
+      }
+
+      function stopAcademyCurriculumAuto() {
+        if (academyCurriculumAutoTimer) {
+          window.clearInterval(academyCurriculumAutoTimer);
+          academyCurriculumAutoTimer = null;
+        }
+      }
+
+      function startAcademyCurriculumAuto() {
+        if (!academyCurriculumSection || academyCurriculumPanels.length <= 1) return;
+        stopAcademyCurriculumAuto();
+        academyCurriculumAutoTimer = window.setInterval(() => {
+          if (currentIndex !== 1 || !academyCurriculumInView) return;
+          const currentScene = academyCurriculumSection.dataset.activeScene === 'investor' ? 'investor' : 'founder';
+          const nextScene = currentScene === 'founder' ? 'investor' : 'founder';
+          setAcademyCurriculumScene(nextScene, false);
+        }, 3600);
+      }
+
+      function syncAcademyCurriculumAuto() {
+        if (currentIndex === 1 && academyCurriculumInView) {
+          startAcademyCurriculumAuto();
+          return;
+        }
+        stopAcademyCurriculumAuto();
       }
 
       function scrollFundSceneToPortfolio() {
@@ -6558,6 +6735,7 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
           updateUniverseShowcase(0);
         }
         syncAcademyAlumniAuto();
+        syncAcademyCurriculumAuto();
         syncUniverseShowcaseAuto();
       }
 
@@ -7493,6 +7671,14 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
       if (academyAlumniViewport) {
         academyAlumniViewport.addEventListener('mouseenter', stopAcademyAlumniAuto);
         academyAlumniViewport.addEventListener('mouseleave', syncAcademyAlumniAuto);
+      }
+      if (academyCurriculumSection) {
+        academyCurriculumSection.addEventListener('mouseenter', stopAcademyCurriculumAuto);
+        academyCurriculumSection.addEventListener('mouseleave', () => {
+          if (academyCurriculumInView && currentIndex === 1) {
+            startAcademyCurriculumAuto();
+          }
+        });
       }
       if (universeShowcaseSlides.length) {
         const universeShowcase = document.querySelector('.universe-showcase');
