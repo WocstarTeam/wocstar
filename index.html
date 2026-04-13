@@ -1755,6 +1755,272 @@
       text-decoration-thickness: 1px;
     }
 
+    .academy-curriculum {
+      position: relative;
+      padding: clamp(16px, 2.6vh, 28px) clamp(20px, 4vw, 56px) clamp(18px, 3.2vh, 30px);
+      background:
+        radial-gradient(130% 140% at 8% 0%, rgba(206, 138, 42, 0.11) 0%, rgba(206, 138, 42, 0) 58%),
+        radial-gradient(120% 130% at 100% 0%, rgba(102, 121, 142, 0.06) 0%, rgba(102, 121, 142, 0) 66%),
+        linear-gradient(180deg, #f3efe8 0%, #efeae2 100%);
+      border-top: 1px solid rgba(169, 133, 90, 0.16);
+    }
+
+    .academy-curriculum__inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: clamp(10px, 1.4vh, 16px);
+    }
+
+    .academy-curriculum__header {
+      display: grid;
+      gap: 6px;
+      max-width: 100%;
+      text-align: left;
+      justify-items: start;
+    }
+
+    .academy-curriculum__kicker {
+      margin: 0;
+      color: #9a5610;
+      font-size: clamp(12px, 0.9vw, 14px);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .academy-curriculum__title {
+      margin: 0;
+      color: #262d35;
+      font-size: clamp(21px, 2vw, 31px);
+      line-height: 1.2;
+      font-weight: 700;
+      text-wrap: balance;
+      max-width: 34ch;
+      text-align: left;
+    }
+
+    .academy-curriculum__intro {
+      margin: 0;
+      color: #2f343a;
+      font-size: clamp(14px, 1.02vw, 18px);
+      line-height: 1.56;
+      text-wrap: pretty;
+      max-width: 58ch;
+      text-align: left;
+    }
+
+    .academy-curriculum__chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .academy-curriculum__scene-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(156, 108, 53, 0.28);
+      padding: 6px 12px;
+      color: #7f4811;
+      font-size: clamp(11px, 0.78vw, 13px);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.58);
+      cursor: pointer;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+
+    .academy-curriculum__scene-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.78);
+      border-color: rgba(156, 108, 53, 0.44);
+    }
+
+    .academy-curriculum__scene-btn.is-active {
+      background: linear-gradient(145deg, #f4dfc0 0%, #ecd2ac 100%);
+      border-color: rgba(156, 108, 53, 0.54);
+      color: #6d3d0c;
+    }
+
+    .academy-curriculum__tracks {
+      position: relative;
+      display: grid;
+      margin-top: 2px;
+    }
+
+    .academy-curriculum__card {
+      border-radius: 14px;
+      border: 1px solid rgba(143, 108, 57, 0.22);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(247, 241, 230, 0.92) 100%);
+      box-shadow:
+        0 6px 16px rgba(42, 35, 24, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.74);
+      padding: clamp(13px, 1.35vw, 18px);
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      opacity: 0;
+    }
+
+    .academy-curriculum__card.is-active {
+      display: flex;
+      opacity: 1;
+      animation: academyCurriculumScenePop 460ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes academyCurriculumScenePop {
+      0% {
+        transform: translateY(16px) scale(0.985);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .academy-curriculum__card-title {
+      margin: 0;
+      color: #8c4f12;
+      font-size: clamp(16px, 1.12vw, 21px);
+      line-height: 1.25;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .academy-curriculum__card-subtitle {
+      margin: -2px 0 2px;
+      color: #1f2731;
+      font-size: clamp(13px, 0.96vw, 17px);
+      line-height: 1.35;
+      font-weight: 600;
+    }
+
+    .academy-curriculum__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 7px;
+    }
+
+    .academy-curriculum__list li {
+      color: #2d333a;
+      font-size: clamp(13px, 0.9vw, 15px);
+      line-height: 1.4;
+      padding-left: 14px;
+      position: relative;
+      opacity: 0;
+      transform: translateY(10px);
+      filter: blur(1.4px);
+    }
+
+    .academy-curriculum__list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.64em;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(160deg, #b56717 0%, #c9872f 100%);
+      box-shadow: 0 0 0 3px rgba(197, 133, 52, 0.14);
+    }
+
+    .academy-curriculum__card.is-active .academy-curriculum__list li {
+      animation: academyCurriculumItemIn 440ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .academy-curriculum__card.is-active .academy-curriculum__list li:nth-child(1) { animation-delay: 80ms; }
+    .academy-curriculum__card.is-active .academy-curriculum__list li:nth-child(2) { animation-delay: 140ms; }
+    .academy-curriculum__card.is-active .academy-curriculum__list li:nth-child(3) { animation-delay: 200ms; }
+    .academy-curriculum__card.is-active .academy-curriculum__list li:nth-child(4) { animation-delay: 260ms; }
+
+    @keyframes academyCurriculumItemIn {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+        filter: blur(1.4px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    .academy-curriculum__meta {
+      border-radius: 14px;
+      border: 1px solid rgba(132, 102, 66, 0.22);
+      background:
+        linear-gradient(180deg, rgba(251, 248, 242, 0.96) 0%, rgba(244, 236, 224, 0.96) 100%);
+      padding: clamp(13px, 1.3vw, 18px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      opacity: 1;
+      transform: none;
+      transition: box-shadow 200ms ease;
+      margin-top: 2px;
+    }
+
+    .academy-curriculum__meta-title {
+      margin: 0;
+      color: #8c4f12;
+      font-size: clamp(16px, 1.12vw, 21px);
+      line-height: 1.25;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .academy-curriculum__meta-copy {
+      margin: 0;
+      color: #2f343a;
+      font-size: clamp(13px, 0.9vw, 15px);
+      line-height: 1.45;
+      text-wrap: pretty;
+    }
+
+    .academy-curriculum__meta-copy strong {
+      color: #1f2731;
+      font-weight: 700;
+    }
+
+    .academy-curriculum__meta-body {
+      display: grid;
+      gap: 6px;
+      max-width: 80ch;
+    }
+
+    .academy-curriculum__cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      border-radius: 999px;
+      border: 1px solid rgba(156, 108, 53, 0.44);
+      background: linear-gradient(145deg, #f4dfc0 0%, #ecd2ac 100%);
+      color: #6d3d0c;
+      text-decoration: none;
+      padding: 11px 18px;
+      font-size: clamp(12px, 0.84vw, 14px);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .academy-curriculum__cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(83, 51, 18, 0.18);
+      background: linear-gradient(145deg, #f6e5cc 0%, #efd6b1 100%);
+    }
+
     .academy-quote {
       position: relative;
       padding: clamp(8px, 1.8vh, 18px) clamp(20px, 4vw, 56px) clamp(22px, 3.8vh, 38px);
@@ -4100,6 +4366,15 @@
         flex-basis: 100%;
       }
 
+      .academy-curriculum__title {
+        font-size: clamp(22px, 7.2vw, 30px);
+      }
+
+      .academy-curriculum__card,
+      .academy-curriculum__meta {
+        border-radius: 14px;
+      }
+
       .fellows-modal__panel {
         width: min(96vw, 720px);
         max-height: 88vh;
@@ -4407,6 +4682,15 @@
         flex-basis: calc((100% - clamp(14px, 1.2vw, 18px)) / 2);
       }
 
+      .academy-curriculum__tracks {
+        grid-template-columns: 1fr;
+      }
+
+      .academy-curriculum__meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
       .fellows-modal__panel {
         width: min(95vw, 980px);
       }
@@ -4620,7 +4904,7 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
         </div>
         <section class="academy-story" id="about-the-academy" aria-label="Wocstar Academy program details">
           <div class="academy-story__inner">
-            <h2 class="academy-story__lead">Empowering Entrepreneurs</h2>
+            <h2 class="academy-story__lead">Empowering Founders and Investors</h2>
             <p class="academy-story__text">Wocstar Academy&rsquo;s program gives entrepreneurs direct insights from active funders, expert guidance to sharpen their storytelling, and tailored strategies for investor pitches, grants, and loan proposals. This nationally recognized experience includes curated workshops, one-on-one mentorship with industry leaders, and a supportive community of peers. The support continues after the program through networking opportunities and curated introductions that help accelerate each founder&rsquo;s journey.</p>
           </div>
         </section>
@@ -4667,6 +4951,52 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
                 <p class="academy-alumni__company">Strands of Faith</p>
               </li>
             </ul>
+          </div>
+        </section>
+        <section class="academy-curriculum" id="academy-curriculum" aria-label="Wocstar Academy founder and investor curriculum">
+          <div class="academy-curriculum__inner">
+            <header class="academy-curriculum__header">
+              <p class="academy-curriculum__kicker">Curriculum Blueprint</p>
+              <h3 class="academy-curriculum__title">The playbook that turns ambition<br />into investable momentum</h3>
+              <p class="academy-curriculum__intro">Built for founders raising with precision and allies investing with confidence. Practical, high-caliber training designed for real outcomes.</p>
+              <div class="academy-curriculum__chips" aria-label="Academy learning pillars">
+                <button class="academy-curriculum__scene-btn is-active" type="button" data-academy-scene="founder" aria-pressed="true">Founder Track</button>
+                <button class="academy-curriculum__scene-btn" type="button" data-academy-scene="investor" aria-pressed="false">Investor Track</button>
+              </div>
+            </header>
+
+            <div class="academy-curriculum__tracks">
+              <article class="academy-curriculum__card is-active" id="academy-founder-track" data-academy-scene-panel="founder">
+                <h4 class="academy-curriculum__card-title">Founder Curriculum</h4>
+                <p class="academy-curriculum__card-subtitle">Insider intelligence for the raise</p>
+                <ul class="academy-curriculum__list">
+                  <li><strong>Strategic Capitalization:</strong> Identify the right capital for your stage, from seed to scale.</li>
+                  <li><strong>Valuation &amp; Terms:</strong> Master the math and mechanics of negotiating fair, growth-oriented deals.</li>
+                  <li><strong>Campaign Execution:</strong> Build and run a professional fundraising engine that closes rounds.</li>
+                  <li><strong>Investor Cultivation:</strong> Move beyond the pitch to build lasting, high-value investor alliances.</li>
+                </ul>
+              </article>
+
+              <article class="academy-curriculum__card" id="academy-investor-track" data-academy-scene-panel="investor">
+                <h4 class="academy-curriculum__card-title">Investor Curriculum</h4>
+                <p class="academy-curriculum__card-subtitle">Mastering the asset class</p>
+                <ul class="academy-curriculum__list">
+                  <li><strong>Asset Class Mastery:</strong> Deep-dive into venture capital fundamentals and early-stage equity mechanics.</li>
+                  <li><strong>The Diligence Framework:</strong> Evaluate tech innovation and spot the edge others miss.</li>
+                  <li><strong>Portfolio Strategy:</strong> Understand risk management, diversification, and long-term return design.</li>
+                  <li><strong>Inclusive Sourcing:</strong> Use a female-forward lens to find and fuel high-potential, under-tapped talent.</li>
+                </ul>
+              </article>
+            </div>
+
+            <article class="academy-curriculum__meta">
+              <div class="academy-curriculum__meta-body">
+                <h4 class="academy-curriculum__meta-title">How We Learn: Community &amp; Flexibility</h4>
+                <p class="academy-curriculum__meta-copy"><strong>Collaborative Power:</strong> Group coursework with founders and investors, powered by collective intelligence and shared networks.</p>
+                <p class="academy-curriculum__meta-copy"><strong>Wocstar Online Academy (Coming Soon):</strong> Self-paced modules for leaders who want world-class training on their own schedule.</p>
+              </div>
+              <a class="academy-curriculum__cta" href="https://form.jotform.com/Wocstar/wocstar-fund-application" target="_blank" rel="noopener noreferrer">Apply to Academy</a>
+            </article>
           </div>
         </section>
         <section class="academy-quote" aria-label="Wocstar Academy founder quote">
@@ -5343,6 +5673,9 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
       const academyAlumniNextBtn = document.getElementById('academyAlumniNextBtn');
       const academyAlumniCards = Array.from(document.querySelectorAll('.academy-alumni__card'));
       const academyAlumniImages = Array.from(document.querySelectorAll('.academy-alumni__avatar-image'));
+      const academyCurriculumSection = document.getElementById('academy-curriculum');
+      const academyCurriculumSceneButtons = Array.from(document.querySelectorAll('[data-academy-scene]'));
+      const academyCurriculumPanels = Array.from(document.querySelectorAll('[data-academy-scene-panel]'));
       const fundPortfolioSection = document.getElementById('fund-portfolio');
       const fundPortfolioCompaniesSection = document.getElementById('portfolio-companies');
       const fundExitsSection = document.getElementById('success-stories-exits');
@@ -5627,6 +5960,45 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
         };
 
         typeNextParagraph();
+      }
+
+      function initAcademyCurriculumReveal() {
+        if (!academyCurriculumSection) return;
+        if (!('IntersectionObserver' in window)) {
+          academyCurriculumSection.classList.add('is-visible');
+          return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            academyCurriculumSection.classList.add('is-visible');
+            observer.disconnect();
+          });
+        }, { threshold: 0.24 });
+
+        observer.observe(academyCurriculumSection);
+      }
+
+      function setAcademyCurriculumScene(sceneKey, scrollToScene = false) {
+        if (!academyCurriculumPanels.length) return;
+
+        const targetPanel = academyCurriculumPanels.find((panel) => panel.dataset.academyScenePanel === sceneKey) || academyCurriculumPanels[0];
+        if (!targetPanel) return;
+
+        academyCurriculumSceneButtons.forEach((button) => {
+          const isTarget = button.dataset.academyScene === targetPanel.dataset.academyScenePanel;
+          button.classList.toggle('is-active', isTarget);
+          button.setAttribute('aria-pressed', isTarget ? 'true' : 'false');
+        });
+
+        academyCurriculumPanels.forEach((panel) => {
+          panel.classList.toggle('is-active', panel === targetPanel);
+        });
+
+        if (scrollToScene) {
+          targetPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
       }
 
       function scrollFundSceneToPortfolio() {
@@ -7020,6 +7392,14 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
           syncAcademyAlumniAuto();
         });
       }
+      if (academyCurriculumSceneButtons.length) {
+        academyCurriculumSceneButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const sceneKey = button.dataset.academyScene || 'founder';
+            setAcademyCurriculumScene(sceneKey, false);
+          });
+        });
+      }
       if (contactForm) {
         contactForm.addEventListener('submit', (event) => {
           event.preventDefault();
@@ -7134,6 +7514,8 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
       updateUniverseShowcase(0);
       showCapitalInterview(0);
       startCapitalInterviewAuto();
+      initAcademyCurriculumReveal();
+      setAcademyCurriculumScene('founder', false);
       updateStatus();
     })();
   </script>
