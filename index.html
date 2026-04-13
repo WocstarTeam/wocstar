@@ -9,6 +9,35 @@
       --duration: 900ms;
       --easing: cubic-bezier(0.22, 1, 0.36, 1);
       --overlay: rgba(0, 0, 0, 0.34);
+      --font-family-base: "Segoe UI", Arial, sans-serif;
+      --type-kicker-size: clamp(12px, 0.9vw, 14px);
+      --type-kicker-lh: 1.2;
+      --type-kicker-weight: 700;
+      --type-kicker-track: 0.08em;
+      --type-hero-title-size: clamp(30px, 5.6vw, 76px);
+      --type-hero-title-lh: 0.98;
+      --type-hero-title-weight: 700;
+      --type-hero-title-track: 0.01em;
+      --type-hero-sub-size: clamp(14px, 1.18vw, 20px);
+      --type-hero-sub-lh: 1.5;
+      --type-hero-sub-weight: 500;
+      --type-section-title-size: clamp(23px, 2.15vw, 34px);
+      --type-section-title-lh: 1.12;
+      --type-section-title-weight: 700;
+      --type-body-size: clamp(14px, 1.18vw, 20px);
+      --type-body-lh: 1.5;
+      --type-body-weight: 400;
+      --type-button-size: 14px;
+      --type-button-lh: 1.2;
+      --type-button-weight: 700;
+      --type-button-track: 0.04em;
+      --type-footer-title-size: clamp(18px, 1.45vw, 24px);
+      --type-footer-title-lh: 1.2;
+      --type-footer-title-weight: 700;
+      --type-footer-body-size: 14px;
+      --type-footer-body-lh: 1.4;
+      --type-footer-legal-size: 12px;
+      --type-footer-legal-lh: 1.5;
       --fund-space-1: 8px;
       --fund-space-2: 12px;
       --fund-space-3: 16px;
@@ -43,7 +72,7 @@
     }
 
     body {
-      font-family: "Segoe UI", Arial, sans-serif;
+      font-family: var(--font-family-base);
     }
 
     .viewport {
@@ -4784,6 +4813,104 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+    }
+
+    /* Global typography consistency layer */
+    .capital-video-copy__title,
+    .fund-video-copy__title,
+    .academy-video-copy__title,
+    .media-video-copy__title {
+      font-family: var(--font-family-base);
+      font-size: var(--type-hero-title-size);
+      line-height: var(--type-hero-title-lh);
+      font-weight: var(--type-hero-title-weight);
+      letter-spacing: var(--type-hero-title-track);
+      text-transform: none;
+    }
+
+    .capital-video-copy__subtext,
+    .fund-video-copy__subtext,
+    .academy-video-copy__subtext,
+    .media-video-copy__subtext {
+      font-family: var(--font-family-base);
+      font-size: var(--type-hero-sub-size);
+      line-height: var(--type-hero-sub-lh);
+      font-weight: var(--type-hero-sub-weight);
+    }
+
+    .academy-story__lead,
+    .academy-curriculum__title,
+    .media-letter__title,
+    .capital-interview__title {
+      font-family: var(--font-family-base);
+      font-size: var(--type-section-title-size);
+      line-height: var(--type-section-title-lh);
+      font-weight: var(--type-section-title-weight);
+    }
+
+    .academy-story__text,
+    .academy-curriculum__intro,
+    .academy-curriculum__list li,
+    .academy-curriculum__meta-copy,
+    .academy-quote__text,
+    .capital-interview__text,
+    .media-letter__paragraph,
+    .foundation-card__text,
+    .fellow-card__text {
+      font-family: var(--font-family-base);
+      font-size: var(--type-body-size);
+      line-height: var(--type-body-lh);
+      font-weight: var(--type-body-weight);
+    }
+
+    .academy-curriculum__kicker,
+    .academy-alumni__title,
+    .fund-portfolio__title,
+    .fund-exits__title,
+    .fund-prior__title,
+    .media-letter__eyebrow,
+    .capital-interview__kicker {
+      font-family: var(--font-family-base);
+      font-size: var(--type-kicker-size);
+      line-height: var(--type-kicker-lh);
+      font-weight: var(--type-kicker-weight);
+      letter-spacing: var(--type-kicker-track);
+      text-transform: uppercase;
+    }
+
+    .scene-global-footer__btn,
+    .academy-curriculum__scene-btn,
+    .academy-curriculum__cta,
+    .footer-btn,
+    .foundation-tier__btn {
+      font-family: var(--font-family-base);
+      font-size: var(--type-button-size) !important;
+      line-height: var(--type-button-lh);
+      font-weight: var(--type-button-weight);
+      letter-spacing: var(--type-button-track);
+    }
+
+    .scene-global-footer__title,
+    .footer-heading {
+      font-family: var(--font-family-base);
+      font-size: var(--type-footer-title-size);
+      line-height: var(--type-footer-title-lh);
+      font-weight: var(--type-footer-title-weight);
+    }
+
+    .scene-global-footer__links,
+    .scene-global-footer__social-title,
+    .footer-social-title {
+      font-family: var(--font-family-base);
+      font-size: var(--type-footer-body-size);
+      line-height: var(--type-footer-body-lh);
+    }
+
+    .scene-global-footer__legal,
+    .footer-legal {
+      font-family: var(--font-family-base);
+      font-size: var(--type-footer-legal-size);
+      line-height: var(--type-footer-legal-lh);
     }
 
     @media (max-width: 900px) {
