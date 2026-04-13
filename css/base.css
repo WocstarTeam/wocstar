@@ -1,0 +1,70 @@
+:root {
+      --duration: var(--tok-motion-duration-scene);
+      --easing: var(--tok-motion-easing-standard);
+      --overlay: var(--tok-color-overlay);
+      --font-family-base: var(--tok-font-family-base);
+      --type-kicker-size: var(--tok-type-kicker-size);
+      --type-kicker-lh: var(--tok-type-kicker-lh);
+      --type-kicker-weight: var(--tok-type-kicker-weight);
+      --type-kicker-track: var(--tok-type-kicker-track);
+      --type-hero-title-size: var(--tok-type-hero-title-size);
+      --type-hero-title-lh: var(--tok-type-hero-title-lh);
+      --type-hero-title-weight: var(--tok-type-hero-title-weight);
+      --type-hero-title-track: var(--tok-type-hero-title-track);
+      --type-hero-sub-size: var(--tok-type-hero-sub-size);
+      --type-hero-sub-lh: var(--tok-type-hero-sub-lh);
+      --type-hero-sub-weight: var(--tok-type-hero-sub-weight);
+      --type-section-title-size: var(--tok-type-section-title-size);
+      --type-section-title-lh: var(--tok-type-section-title-lh);
+      --type-section-title-weight: var(--tok-type-section-title-weight);
+      --type-body-size: var(--tok-type-body-size);
+      --type-body-lh: var(--tok-type-body-lh);
+      --type-body-weight: var(--tok-type-body-weight);
+      --type-button-size: var(--tok-type-button-size);
+      --type-button-lh: var(--tok-type-button-lh);
+      --type-button-weight: var(--tok-type-button-weight);
+      --type-button-track: var(--tok-type-button-track);
+      --type-footer-title-size: var(--tok-type-footer-title-size);
+      --type-footer-title-lh: var(--tok-type-footer-title-lh);
+      --type-footer-title-weight: var(--tok-type-footer-title-weight);
+      --type-footer-body-size: var(--tok-type-footer-body-size);
+      --type-footer-body-lh: var(--tok-type-footer-body-lh);
+      --type-footer-legal-size: var(--tok-type-footer-legal-size);
+      --type-footer-legal-lh: var(--tok-type-footer-legal-lh);
+      --fund-space-1: var(--tok-space-1);
+      --fund-space-2: var(--tok-space-2);
+      --fund-space-3: var(--tok-space-3);
+      --fund-space-4: var(--tok-space-4);
+      --fund-space-5: var(--tok-space-5);
+      --fund-surface: var(--tok-color-fund-surface);
+      --fund-surface-strong: var(--tok-color-fund-surface-strong);
+      --fund-border: var(--tok-color-fund-border);
+      --fund-border-strong: var(--tok-color-fund-border-strong);
+      --fund-meta: var(--tok-color-fund-meta);
+      --fund-hover-lift: var(--tok-motion-hover-lift);
+      --fund-motion: var(--tok-motion-duration-ui) var(--tok-motion-easing-standard);
+      --fund-carousel-motion: var(--tok-motion-duration-carousel) var(--tok-motion-easing-standard);
+      --fund-focus: var(--tok-shadow-focus-ring);
+      --media-frame-accent: var(--tok-color-media-frame-accent);
+      --media-logo-red: var(--tok-color-media-logo-red);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      touch-action: none;
+    }
+
+    body {
+      font-family: var(--font-family-base);
+    }
+

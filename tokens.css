@@ -1,0 +1,63 @@
+:root {
+  /* Colors */
+  --tok-color-overlay: rgba(0, 0, 0, 0.34);
+  --tok-color-media-frame-accent: rgba(235, 207, 161, 0.65);
+  --tok-color-media-logo-red: #b5182f;
+  --tok-color-fund-surface: rgba(255, 255, 255, 0.045);
+  --tok-color-fund-surface-strong: rgba(255, 255, 255, 0.07);
+  --tok-color-fund-border: rgba(255, 255, 255, 0.16);
+  --tok-color-fund-border-strong: rgba(255, 255, 255, 0.24);
+  --tok-color-fund-meta: rgba(255, 255, 255, 0.7);
+
+  /* Typography */
+  --tok-font-family-base: "Segoe UI", Arial, sans-serif;
+  --tok-type-kicker-size: clamp(12px, 0.9vw, 14px);
+  --tok-type-kicker-lh: 1.2;
+  --tok-type-kicker-weight: 700;
+  --tok-type-kicker-track: 0.08em;
+  --tok-type-hero-title-size: clamp(30px, 5.6vw, 76px);
+  --tok-type-hero-title-lh: 0.98;
+  --tok-type-hero-title-weight: 700;
+  --tok-type-hero-title-track: 0.01em;
+  --tok-type-hero-sub-size: clamp(14px, 1.18vw, 20px);
+  --tok-type-hero-sub-lh: 1.5;
+  --tok-type-hero-sub-weight: 500;
+  --tok-type-section-title-size: clamp(23px, 2.15vw, 34px);
+  --tok-type-section-title-lh: 1.12;
+  --tok-type-section-title-weight: 700;
+  --tok-type-body-size: clamp(14px, 1.18vw, 20px);
+  --tok-type-body-lh: 1.5;
+  --tok-type-body-weight: 400;
+  --tok-type-button-size: 14px;
+  --tok-type-button-lh: 1.2;
+  --tok-type-button-weight: 700;
+  --tok-type-button-track: 0.04em;
+  --tok-type-footer-title-size: clamp(18px, 1.45vw, 24px);
+  --tok-type-footer-title-lh: 1.2;
+  --tok-type-footer-title-weight: 700;
+  --tok-type-footer-body-size: 14px;
+  --tok-type-footer-body-lh: 1.4;
+  --tok-type-footer-legal-size: 12px;
+  --tok-type-footer-legal-lh: 1.5;
+
+  /* Spacing */
+  --tok-space-1: 8px;
+  --tok-space-2: 12px;
+  --tok-space-3: 16px;
+  --tok-space-4: 24px;
+  --tok-space-5: 32px;
+
+  /* Radius */
+  --tok-radius-pill: 999px;
+  --tok-radius-input: 2px;
+
+  /* Motion */
+  --tok-motion-duration-scene: 900ms;
+  --tok-motion-easing-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --tok-motion-duration-ui: 360ms;
+  --tok-motion-duration-carousel: 820ms;
+  --tok-motion-hover-lift: translateY(-2px);
+
+  /* Shadows */
+  --tok-shadow-focus-ring: 0 0 0 2px rgba(217, 212, 206, 0.9);
+}

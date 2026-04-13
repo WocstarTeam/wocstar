@@ -1,0 +1,575 @@
+@media (max-width: 1100px), (max-height: 760px) {
+      .profile-layout {
+        grid-template-columns: minmax(220px, 32vw) minmax(0, 1fr);
+        gap: clamp(14px, 2vw, 26px);
+        padding: clamp(14px, 2vw, 26px);
+        padding-top: clamp(92px, 11vh, 124px);
+      }
+
+      .profile-image {
+        height: min(72vh, 700px);
+        object-fit: cover;
+        object-position: center 14%;
+        background: none;
+      }
+
+      .profile-copy {
+        margin-top: -18px;
+        max-height: 72vh;
+      }
+    }
+
+@media (max-height: 640px) {
+      .profile-layout {
+        gap: 12px;
+        padding: 12px;
+        padding-top: 78px;
+      }
+
+      .profile-image {
+        height: min(62vh, 520px);
+      }
+
+      .profile-copy {
+        max-height: 62vh;
+        font-size: 11px;
+        line-height: 1.42;
+      }
+    }
+
+@media (max-width: 768px) {
+      .scene[data-index="0"] video {
+        object-position: center 10%;
+      }
+
+      .scene[data-index="1"] video {
+        object-position: center 8%;
+      }
+
+      .scene[data-index="2"] video {
+        object-position: center 6%;
+      }
+
+      .brand-switcher {
+        top: 0;
+        height: 72px;
+        width: calc(100vw - 24px);
+      }
+
+      body[data-scene="2"]::before {
+        height: 72px;
+      }
+
+      body[data-scene="3"]::before {
+        height: 72px;
+      }
+
+      body[data-scene="0"]::before {
+        height: 72px;
+      }
+
+      body[data-scene="0"] .brand-switcher {
+        width: calc(100vw - 18px);
+      }
+
+      body[data-scene="0"] .scene[data-index="0"] video {
+        object-position: center 10%;
+      }
+
+      .fund-scene__layout {
+        padding-top: 72px;
+        padding-bottom: 14px;
+      }
+
+      .fund-scene__video {
+        min-height: calc(100vh - 72px);
+        flex-basis: calc(100vh - 72px);
+      }
+
+      .fund-video-copy {
+        left: 26px;
+        right: 12px;
+        bottom: 24px;
+        max-width: 96vw;
+      }
+
+      .fund-video-copy__title {
+        font-size: clamp(24px, 6.8vw, 38px);
+      }
+
+      .fund-video-copy__subtext {
+        margin-top: 12px;
+        font-size: clamp(13px, 3.7vw, 17px);
+        line-height: 1.42;
+      }
+
+      .fund-portfolio {
+        padding: 10px;
+        min-height: calc(100vh - 72px);
+      }
+
+      .fund-portco-card {
+        flex-basis: calc((100% - 12px) / 2);
+        min-height: 248px;
+      }
+
+      .fund-portco-card__plate,
+      .fund-exits-card__plate {
+        width: min(100%, 340px);
+        min-height: 124px;
+        padding: 16px;
+      }
+
+      .fund-exits-card {
+        min-height: 244px;
+      }
+
+      .fund-exits__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .fund-prior__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      body[data-scene="1"]::before {
+        height: 72px;
+      }
+
+      body[data-scene="1"] .brand-switcher {
+        width: calc(100vw - 18px);
+      }
+
+      body[data-scene="1"] .scene[data-index="1"] video {
+        top: 72px;
+        height: calc(100% - 72px);
+        object-position: center 10%;
+      }
+
+      body[data-scene="2"] .brand-switcher {
+        width: calc(100vw - 18px);
+      }
+
+
+      .brand-logo {
+        height: 30px;
+      }
+
+      .headline-wrap {
+        left: 26px;
+        right: auto;
+        width: calc(100vw - 28px);
+        bottom: 86px;
+      }
+
+      .headline {
+        font-size: clamp(24px, 6.8vw, 38px);
+        max-width: none;
+      }
+
+      .headline-subtext {
+        margin-top: 12px;
+        font-size: clamp(13px, 3.7vw, 17px);
+        line-height: 1.42;
+        max-width: 96vw;
+      }
+
+      .profile-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(0, 1fr);
+        align-items: start;
+        padding: 14px;
+        padding-top: 92px;
+        gap: 12px;
+      }
+
+      .universe-layout {
+        padding: 16px 14px 22px;
+        gap: 12px;
+      }
+
+      .capital-scene__video {
+        margin-top: 72px;
+        min-height: calc(100vh - 72px);
+      }
+
+      .capital-video-copy {
+        left: 24px;
+        right: 16px;
+        bottom: 20px;
+      }
+
+      .capital-video-copy__title {
+        font-size: clamp(24px, 7.2vw, 42px);
+      }
+
+      .capital-video-copy__subtext {
+        margin-top: 10px;
+        font-size: clamp(13px, 3.7vw, 17px);
+        line-height: 1.42;
+      }
+
+      .media-layout {
+        padding: 16px 12px 20px;
+      }
+
+      .media-scene__video {
+        margin-top: 72px;
+        height: calc(100vh - 72px);
+        min-height: calc(100vh - 72px);
+      }
+
+      .media-video-copy {
+        left: 24px;
+        right: 16px;
+        bottom: 20px;
+      }
+
+      .media-video-copy__title {
+        font-size: clamp(24px, 7.2vw, 42px);
+      }
+
+      .media-video-copy__subtext {
+        margin-top: 10px;
+        font-size: clamp(13px, 3.7vw, 17px);
+        line-height: 1.42;
+      }
+
+      .media-letter {
+        border-radius: 14px;
+        padding: 18px 14px 22px;
+      }
+
+      .media-letter__title {
+        font-size: clamp(24px, 7.4vw, 34px);
+      }
+
+      .media-letter__paragraph {
+        font-size: clamp(13px, 3.7vw, 16px);
+        line-height: 1.58;
+      }
+
+      .media-arrows {
+        height: 220px;
+      }
+
+      .universe-title {
+        font-size: clamp(28px, 8.5vw, 44px);
+      }
+
+      .universe-subtitle {
+        font-size: clamp(13px, 3.6vw, 17px);
+        margin-top: 8px;
+      }
+
+      .universe-collage {
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        gap: 10px;
+        padding-right: 2px;
+        min-height: clamp(300px, 46vh, 460px);
+      }
+
+      .capital-interview__item {
+        grid-template-columns: 1fr;
+        align-items: start;
+        padding: 0;
+      }
+
+      .universe-partners {
+        width: 100%;
+        margin-top: 8px;
+      }
+
+      .universe-partners__viewport {
+        overflow-x: auto;
+      }
+
+      .universe-partners__track {
+        width: max-content;
+      }
+
+      .partner-card {
+        flex-basis: clamp(138px, 36vw, 176px);
+      }
+
+      .universe-showcase__slide[data-showcase-index="1"] .universe-partners__track {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        width: 100%;
+      }
+
+      .universe-showcase__slide[data-showcase-index="2"] .universe-partners__track {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        width: 100%;
+      }
+
+      .universe-showcase__slide[data-showcase-index="3"] .universe-partners__track {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        width: 100%;
+      }
+
+      .universe-shape {
+        width: min(64vw, 340px);
+        height: min(64vw, 340px);
+        top: 12%;
+        left: 18%;
+      }
+
+      .universe-group {
+        display: contents;
+      }
+
+      .profile-orbit {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: clamp(80px, 22vw, 118px);
+        height: clamp(80px, 22vw, 118px);
+      }
+
+      .profile-orbit__photo {
+        font-size: clamp(11px, 3vw, 14px);
+      }
+
+      .profile-image {
+        height: min(38vh, 380px);
+        object-fit: cover;
+        object-position: center 10%;
+        background: none;
+        margin-top: 0;
+        margin-left: 0;
+      }
+
+      .profile-copy {
+        margin-top: 0;
+        max-height: 46vh;
+        font-size: 11px;
+        line-height: 1.45;
+        padding: 10px;
+      }
+
+      .press-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .profile-footer-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .fund-portfolio__title {
+        font-size: 12px;
+      }
+
+      .fund-portco-card {
+        flex-basis: 100%;
+      }
+
+      .fund-exits__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .fund-prior__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .academy-alumni__card {
+        flex-basis: 100%;
+      }
+
+      .academy-curriculum__title {
+        font-size: clamp(22px, 7.2vw, 30px);
+      }
+
+      .academy-curriculum__card,
+      .academy-curriculum__meta {
+        border-radius: 14px;
+      }
+
+      .fellows-modal__panel {
+        width: min(96vw, 720px);
+        max-height: 88vh;
+        margin-top: 18px;
+      }
+
+      .fellows-modal__header {
+        padding: 16px 14px 10px;
+      }
+
+      .fellows-modal__body {
+        padding: 12px 10px 14px;
+      }
+
+      .foundation-modal__panel {
+        width: min(96vw, 760px);
+        max-height: 88vh;
+        margin-top: 18px;
+      }
+
+      .foundation-modal__hero {
+        padding: 16px 14px 10px;
+      }
+
+      .foundation-modal__body {
+        padding: 12px 10px 14px;
+      }
+
+      .footer-search {
+        max-width: 100%;
+      }
+
+      .contact-modal__panel {
+        width: min(94vw, 520px);
+        margin-top: 20px;
+      }
+
+      .scene1-menu {
+        right: 10px;
+        top: 14px;
+        bottom: auto;
+        transform: none;
+      }
+
+      .scene2-menu {
+        right: 10px;
+        top: 14px;
+        bottom: auto;
+        transform: none;
+      }
+
+      .scene3-menu {
+        right: 10px;
+        top: 14px;
+        bottom: auto;
+        transform: none;
+      }
+
+      .scene4-menu {
+        right: 10px;
+        top: 14px;
+        bottom: auto;
+        transform: none;
+      }
+
+      .scene1-menu details {
+        width: 44px;
+      }
+
+      .scene1-menu ul {
+        min-width: 190px;
+      }
+
+      .scene2-menu details {
+        width: 44px;
+      }
+
+      .scene2-menu ul {
+        min-width: 190px;
+      }
+
+      .scene3-menu details {
+        width: 44px;
+      }
+
+      .scene3-menu ul {
+        min-width: 190px;
+      }
+
+      .scene4-menu details {
+        width: 44px;
+      }
+
+      .scene4-menu ul {
+        min-width: 190px;
+      }
+
+    }
+
+@media (max-width: 900px) {
+      .academy-story__inner {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .academy-story__lead {
+        max-width: 100%;
+      }
+
+      .academy-quote__inner {
+        grid-template-columns: 1fr;
+        justify-items: start;
+        gap: 16px;
+      }
+
+      .academy-quote__text {
+        max-width: 100%;
+        font-size: clamp(20px, 4.8vw, 28px);
+        line-height: 1.2;
+      }
+
+      .academy-alumni__card {
+        flex-basis: calc((100% - clamp(14px, 1.2vw, 18px)) / 2);
+      }
+
+      .academy-curriculum__tracks {
+        grid-template-columns: 1fr;
+      }
+
+      .academy-curriculum__header {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .academy-curriculum__chips {
+        flex-wrap: wrap;
+      }
+
+      .academy-curriculum__list {
+        grid-template-columns: 1fr;
+      }
+
+      .academy-curriculum__meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .fellows-modal__panel {
+        width: min(95vw, 980px);
+      }
+
+      .fellow-card {
+        grid-template-columns: 1fr;
+      }
+
+      .fellow-card__avatar {
+        width: min(220px, 48vw);
+      }
+
+      .foundation-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .scene-global-footer__inner {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .scene-global-footer__left,
+      .scene-global-footer__right {
+        width: 100%;
+        flex: 0 0 auto;
+      }
+
+      .scene-global-footer__actions {
+        width: min(100%, 190px);
+      }
+    }
+
