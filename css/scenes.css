@@ -2983,115 +2983,107 @@
 
     .media-arrows {
       width: min(1040px, 100%);
-      margin-top: -1px;
-      padding: 0 0 8px;
+      margin-top: 18px;
+      padding: 8px 0 22px;
       position: relative;
-      height: clamp(190px, 20vw, 250px);
+      min-height: clamp(220px, 24vw, 300px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .media-arrows__svg {
-      width: 100%;
-      height: 100%;
-      display: block;
+    .media-pathways {
+      width: min(980px, 100%);
+      min-height: clamp(220px, 24vw, 300px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      position: relative;
     }
 
-    .media-arrows__path {
-      fill: none;
-      stroke: var(--media-frame-accent);
-      stroke-width: 3;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 520;
-      stroke-dashoffset: 520;
-      marker-end: url(#mediaArrowHeadMarker);
-      animation: mediaArrowDraw 1.25s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    .media-pathway {
+      position: relative;
+      width: clamp(210px, 24vw, 280px);
+      aspect-ratio: 1 / 1;
+      appearance: none;
+      background-color: transparent;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      text-decoration: none;
+      cursor: pointer;
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+      animation: mediaPathwayIn 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      opacity: 0;
+      transform: translateY(14px) scale(0.96);
     }
 
-    .media-arrows__label {
+    .media-pathway + .media-pathway {
+      margin-left: clamp(-28px, -3vw, -20px);
+    }
+
+    .media-pathway::before {
+      content: "";
       position: absolute;
-      bottom: -8px;
-      transform: translate(-54%, 12px);
-      margin: 0;
-      width: max-content;
-      white-space: nowrap;
+      inset: 0;
+      background: radial-gradient(circle at 26% 18%, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.02) 44%),
+        linear-gradient(165deg, rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.5));
+      z-index: 1;
+    }
+
+    .media-pathway__label {
+      position: relative;
+      z-index: 2;
       color: #ffffff;
       font-family: "Segoe UI", Arial, sans-serif;
-      font-size: clamp(16px, 1.24vw, 22px);
-      line-height: 1.2;
+      font-size: clamp(15px, 1.2vw, 21px);
       font-weight: 800;
       letter-spacing: 0.05em;
-      text-transform: uppercase;
+      line-height: 1.2;
       text-align: center;
-      padding: 10px 16px 9px;
-      border-radius: 6px;
-      border: 1px solid rgba(181, 24, 47, 0.72);
-      background:
-        linear-gradient(180deg, rgba(236, 223, 227, 0.2) 0%, rgba(96, 35, 47, 0.24) 100%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.24) inset,
-        0 -1px 0 rgba(73, 5, 16, 0.56) inset,
-        0 7px 16px rgba(0, 0, 0, 0.38),
-        0 2px 0 rgba(86, 8, 21, 0.84);
-      -webkit-text-stroke: 0.2px rgba(0, 0, 0, 0.18);
-      text-shadow:
-        0 0.5px 0 rgba(255, 255, 255, 0.18),
-        0 1px 0 rgba(74, 16, 28, 0.42),
-        0 2px 4px rgba(0, 0, 0, 0.26);
-      opacity: 0;
-      animation: mediaArrowLabelIn 320ms ease forwards;
-      animation-delay: 1.2s;
+      text-transform: uppercase;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.48);
+      max-width: 80%;
     }
 
-    .media-arrows__label--interactive {
-      cursor: pointer;
-      border: 0;
+    .media-pathway--fellows {
+      z-index: 3;
+      background-image: url('../fellows/nicki.png');
+      animation-delay: 120ms;
     }
 
-    .media-arrows__label--interactive:hover,
-    .media-arrows__label--interactive:focus-visible {
-      filter: brightness(1.08);
+    .media-pathway--foundation {
+      z-index: 4;
+      background-image: url('../fellows/randy.png');
+      animation-delay: 230ms;
+    }
+
+    .media-pathway--podcast {
+      z-index: 2;
+      background-image: url('../CBS_News_id1klAFr7p_1.jpeg');
+      animation-delay: 340ms;
+    }
+
+    .media-pathway:hover,
+    .media-pathway:focus-visible {
+      transform: translateY(-4px) scale(1.02);
+      border-color: rgba(255, 255, 255, 0.46);
+      box-shadow: 0 24px 52px rgba(0, 0, 0, 0.46), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
       outline: none;
     }
 
-    .media-arrows__label--left {
-      left: calc((126 / 1040) * 100% + 20px) !important;
-      bottom: -3px !important;
-      transform: translate(-50%, 14px) !important;
-    }
-
-    .media-arrows__label--mid {
-      left: 50%;
-      bottom: -9px !important;
-      transform: translate(-50%, 18px) !important;
-      animation-delay: 2.2s;
-    }
-
-    .media-arrows__label--right {
-      left: calc((914 / 1040) * 100%);
-      bottom: -3px !important;
-      transform: translate(-50%, 14px) !important;
-      animation-delay: 3s;
-    }
-
-    .media-arrows__path--mid {
-      animation-delay: 0.8s;
-    }
-
-    .media-arrows__path--right {
-      animation-delay: 1.6s;
-    }
-
-    @keyframes mediaArrowDraw {
-      to {
-        stroke-dashoffset: 0;
-      }
-    }
-
-    @keyframes mediaArrowLabelIn {
+    @keyframes mediaPathwayIn {
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
       }
     }
 

@@ -250,7 +250,25 @@
       }
 
       .media-arrows {
-        height: 220px;
+        min-height: 200px;
+        padding-bottom: 8px;
+      }
+
+      .media-pathways {
+        min-height: 200px;
+      }
+
+      .media-pathway {
+        width: clamp(140px, 34vw, 190px);
+      }
+
+      .media-pathway + .media-pathway {
+        margin-left: clamp(-22px, -5vw, -12px);
+      }
+
+      .media-pathway__label {
+        font-size: clamp(12px, 2.8vw, 15px);
+        max-width: 86%;
       }
 
       .universe-title {

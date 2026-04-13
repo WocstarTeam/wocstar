@@ -330,21 +330,17 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
           </div>
         </article>
         <section class="media-arrows" aria-label="Wocstar Media pathways">
-          <svg class="media-arrows__svg" viewBox="0 0 1040 260" aria-hidden="true">
-            <defs>
-              <marker id="mediaArrowHeadMarker" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
-                <path d="M0,0 L10,5 L0,10" fill="none" stroke="var(--media-frame-accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-              </marker>
-            </defs>
-            <path class="media-arrows__path media-arrows__path--left" d="M340 0 C 268 52, 190 124, 126 220" />
-
-            <path class="media-arrows__path media-arrows__path--mid" d="M520 0 C 522 84, 522 154, 520 234" />
-
-            <path class="media-arrows__path media-arrows__path--right" d="M700 0 C 772 52, 850 124, 914 220" />
-          </svg>
-          <button class="media-arrows__label media-arrows__label--left media-arrows__label--interactive" type="button" id="media-fellows">Fellowships</button>
-          <button class="media-arrows__label media-arrows__label--mid media-arrows__label--interactive" type="button" id="wocstar-media-foundation">Foundation</button>
-          <span class="media-arrows__label media-arrows__label--right" id="podcasting">Podcasting</span>
+          <div class="media-pathways" aria-label="Interlocking media pathways">
+            <button class="media-pathway media-pathway--fellows" type="button" id="media-fellows" aria-label="Open Media Fellows">
+              <span class="media-pathway__label">MEDIA FELLOWS</span>
+            </button>
+            <button class="media-pathway media-pathway--foundation" type="button" id="wocstar-media-foundation" aria-label="Open Media Foundation">
+              <span class="media-pathway__label">MEDIA FOUNDATION</span>
+            </button>
+            <a class="media-pathway media-pathway--podcast" id="podcasting" href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer" aria-label="Open VC's Off the Record Podcast">
+              <span class="media-pathway__label">VC'S OFF THE RECORD</span>
+            </a>
+          </div>
         </section>
       </div>
     </section>
