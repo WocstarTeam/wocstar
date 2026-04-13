@@ -2006,8 +2006,8 @@
     }
 
     .fund-portco-card {
-      flex: 0 0 calc((100% - 36px) / 4);
-      min-height: 248px;
+      flex: 0 0 calc((100% - 32px) / 3);
+      min-height: 258px;
     }
 
     .fund-portco-card__link {
@@ -2027,13 +2027,13 @@
     }
 
     .fund-portco-card__plate {
-      width: clamp(156px, 13.4vw, 214px);
-      aspect-ratio: 1 / 1;
-      border-radius: 999px;
+      width: min(100%, 320px);
+      min-height: clamp(132px, 13.6vw, 170px);
+      border-radius: 22px;
       border: 1px solid var(--fund-border);
       background: rgba(255, 255, 255, 0.045);
       margin: 0 auto;
-      padding: 16px;
+      padding: clamp(18px, 2vw, 24px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2047,13 +2047,13 @@
     }
 
     .fund-portco-card__logo {
-      width: 84%;
-      height: 84%;
+      width: 96%;
+      height: clamp(84px, 8.4vw, 118px);
       object-fit: contain;
       display: block;
-      max-width: 84%;
-      max-height: 84%;
-      border-radius: 999px;
+      max-width: 96%;
+      max-height: 100%;
+      border-radius: 0;
     }
 
     .fund-portco-card__logo.is-photo,
@@ -2062,8 +2062,8 @@
       height: 100%;
       max-width: none;
       max-height: none;
-      object-fit: cover;
-      border-radius: inherit;
+      object-fit: contain;
+      border-radius: 0;
     }
 
     .fund-portco-card__logo.is-multiply {
@@ -2080,18 +2080,18 @@
     }
 
     .fund-portco-card__name {
-      margin-top: var(--fund-space-1);
-      color: rgba(255, 255, 255, 0.93);
-      font-size: clamp(12px, 0.9vw, 14px);
-      font-weight: 700;
+      margin-top: 12px;
+      color: rgba(255, 255, 255, 0.97);
+      font-size: clamp(15px, 1.08vw, 19px);
+      font-weight: 800;
       line-height: 1.4;
       text-align: center;
     }
 
     .fund-portco-card__industry {
-      margin-top: 4px;
+      margin-top: 6px;
       color: var(--fund-meta);
-      font-size: clamp(11px, 0.8vw, 12px);
+      font-size: clamp(12px, 0.86vw, 14px);
       line-height: 1.4;
       text-align: center;
     }
@@ -2121,7 +2121,7 @@
       margin: var(--fund-space-3) 0 0;
       padding: 0;
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: var(--fund-space-3);
     }
 
@@ -2136,12 +2136,12 @@
       margin: var(--fund-space-3) 0 0;
       padding: 0;
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: var(--fund-space-3);
     }
 
     .fund-exits-card {
-      min-height: 244px;
+      min-height: 258px;
       border: 0;
       background: transparent;
       padding: 6px 4px;
@@ -2167,9 +2167,9 @@
     }
 
     .fund-exits-card__plate {
-      width: clamp(158px, 13.6vw, 216px);
-      aspect-ratio: 1 / 1;
-      border-radius: 999px;
+      width: min(100%, 320px);
+      min-height: clamp(132px, 13.6vw, 170px);
+      border-radius: 22px;
       border: 1px solid var(--fund-border);
       background: rgba(255, 255, 255, 0.045);
       display: flex;
@@ -2177,7 +2177,7 @@
       justify-content: center;
       text-align: center;
       margin: 0 auto;
-      padding: 16px;
+      padding: clamp(18px, 2vw, 24px);
       position: relative;
       overflow: hidden;
       transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease, background 260ms ease;
@@ -2193,13 +2193,13 @@
     }
 
     .fund-exits-card__logo {
-      width: 84%;
-      height: 84%;
-      max-width: 84%;
-      max-height: 84%;
+      width: 96%;
+      height: clamp(84px, 8.4vw, 118px);
+      max-width: 96%;
+      max-height: 100%;
       object-fit: contain;
       display: block;
-      border-radius: 999px;
+      border-radius: 0;
     }
 
     .fund-portco-card__link:hover .fund-portco-card__plate,
@@ -2216,34 +2216,39 @@
     }
 
     .fund-exits-card__logo--sportslab {
-      filter: brightness(0) saturate(100%) invert(58%) sepia(59%) saturate(482%) hue-rotate(116deg) brightness(92%) contrast(91%);
+      filter: none;
     }
 
     .fund-exits-card__logo--uncharted {
-      filter: brightness(0) saturate(100%) invert(73%) sepia(76%) saturate(2166%) hue-rotate(356deg) brightness(101%) contrast(92%);
+      filter: none;
     }
 
     .fund-exits-card__logo--audigent {
-      filter: brightness(0) saturate(100%) invert(52%) sepia(92%) saturate(1597%) hue-rotate(201deg) brightness(96%) contrast(94%);
+      filter: none;
     }
 
     .fund-exits-card__logo--flow {
-      filter: brightness(0) saturate(100%) invert(40%) sepia(86%) saturate(947%) hue-rotate(226deg) brightness(92%) contrast(99%);
+      filter: none;
+    }
+
+    .fund-exits-card__logo--zerogrocery {
+      mix-blend-mode: multiply;
+      filter: contrast(1.08) brightness(0.96);
     }
 
     .fund-exits-card__name {
-      margin-top: var(--fund-space-1);
-      color: rgba(255, 255, 255, 0.93);
-      font-size: clamp(12px, 0.88vw, 14px);
-      font-weight: 700;
+      margin-top: 12px;
+      color: rgba(255, 255, 255, 0.97);
+      font-size: clamp(15px, 1.08vw, 19px);
+      font-weight: 800;
       line-height: 1.4;
       text-align: center;
     }
 
     .fund-exits-card__industry {
-      margin-top: 4px;
+      margin-top: 6px;
       color: var(--fund-meta);
-      font-size: clamp(11px, 0.8vw, 12px);
+      font-size: clamp(12px, 0.86vw, 14px);
       line-height: 1.4;
       text-align: center;
     }
@@ -2332,8 +2337,8 @@
     }
 
     .fund-scene .fund-exits-card__plate--sportslab {
-      border-color: rgba(44, 136, 127, 0.36);
-      background: radial-gradient(circle at 28% 24%, #ffffff 0%, #f0fbf8 56%, #dceeea 100%);
+      border-color: rgba(30, 112, 103, 0.5);
+      background: linear-gradient(165deg, #2f9d92 0%, #1f766f 100%);
     }
 
     .fund-scene .fund-exits-card__plate--uncharted {
@@ -2342,13 +2347,13 @@
     }
 
     .fund-scene .fund-exits-card__plate--audigent {
-      border-color: rgba(49, 102, 181, 0.36);
-      background: radial-gradient(circle at 28% 24%, #ffffff 0%, #f1f7ff 56%, #dde8f4 100%);
+      border-color: rgba(57, 96, 165, 0.5);
+      background: linear-gradient(165deg, #7f9fd7 0%, #4a6fb0 100%);
     }
 
     .fund-scene .fund-exits-card__plate--flow {
-      border-color: rgba(79, 73, 170, 0.36);
-      background: radial-gradient(circle at 28% 24%, #ffffff 0%, #f4f3ff 56%, #e3e0f5 100%);
+      border-color: rgba(88, 82, 168, 0.52);
+      background: linear-gradient(165deg, #8f8bd8 0%, #5e59b8 100%);
     }
 
     .fund-scene .fund-exits-card__plate--zerogrocery {
@@ -2360,6 +2365,12 @@
     .fund-scene .fund-portco-card__name,
     .fund-scene .fund-exits-card__name {
       color: #2f343a;
+    }
+
+    .fund-scene .fund-exits-card__logo--sportslab,
+    .fund-scene .fund-exits-card__logo--audigent,
+    .fund-scene .fund-exits-card__logo--flow {
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.28));
     }
 
     .fund-scene .fund-portco-card__industry,
@@ -2461,15 +2472,15 @@
 
     .fund-scene .fund-portco-card__name,
     .fund-scene .fund-exits-card__name {
-      font-size: clamp(14px, 1.02vw, 17px);
-      font-weight: 700;
+      font-size: clamp(16px, 1.14vw, 21px);
+      font-weight: 800;
       letter-spacing: 0.01em;
       color: #1f2731;
     }
 
     .fund-scene .fund-portco-card__industry,
     .fund-scene .fund-exits-card__industry {
-      font-size: clamp(11px, 0.78vw, 12px);
+      font-size: clamp(13px, 0.9vw, 15px);
       letter-spacing: 0.01em;
       color: rgba(31, 39, 49, 0.64);
     }
@@ -3816,17 +3827,18 @@
 
       .fund-portco-card {
         flex-basis: calc((100% - 12px) / 2);
-        min-height: 216px;
+        min-height: 248px;
       }
 
       .fund-portco-card__plate,
       .fund-exits-card__plate {
-        width: clamp(132px, 34vw, 176px);
-        padding: 14px;
+        width: min(100%, 340px);
+        min-height: 124px;
+        padding: 16px;
       }
 
       .fund-exits-card {
-        min-height: 214px;
+        min-height: 244px;
       }
 
       .fund-exits__grid {
@@ -4537,7 +4549,7 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
             <ul class="fund-prior__grid">
               <li class="fund-exits-card">
                 <div class="fund-exits-card__plate fund-exits-card__plate--zerogrocery">
-                  <img class="fund-exits-card__logo is-photo" src="exits/zerogrocery.png" alt="Zero Grocery logo" />
+                  <img class="fund-exits-card__logo fund-exits-card__logo--zerogrocery" src="portco logo/zero-grocery-inc-logo-vector.png" alt="Zero Grocery logo" />
                 </div>
                 <p class="fund-exits-card__name">Zero Grocery</p>
               </li>
@@ -4603,7 +4615,7 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
           <div class="overlay"></div>
           <header class="academy-video-copy" aria-label="Wocstar Academy intro">
             <h1 class="academy-video-copy__title">Wocstar Academy</h1>
-            <p class="academy-video-copy__subtext">The Wocstar Entrepreneur Academy helps you unlock capital, grow your business, and build lasting success.</p>
+            <p class="academy-video-copy__subtext">The Wocstar Academy isn&rsquo;t just a program&mdash;it&rsquo;s a deep-dive into the mechanics that move you from founder to master of the raise by providing the definitive, insider playbook for securing the capital you deserve. Likewise, allies learn to move from occasional supporters to savvy, successful investors.</p>
           </header>
         </div>
         <section class="academy-story" id="about-the-academy" aria-label="Wocstar Academy program details">
@@ -5342,7 +5354,7 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
         `Wocstar Fund is an early-stage investment fund focused on tech innovation.
 
         We invest in companies and technology to create a more innovative, equitable and sustainable world. Working together with Founders to move the world forward.`,
-        'The Wocstar Entrepreneur Academy helps you unlock capital, grow your business, and build lasting success.',
+        'The Wocstar Academy isn\'t just a program-it\'s a deep-dive into the mechanics that move you from founder to master of the raise by providing the definitive, insider playbook for securing the capital you deserve. Likewise, allies learn to move from occasional supporters to savvy, successful investors.',
         '',
         '',
         ''
