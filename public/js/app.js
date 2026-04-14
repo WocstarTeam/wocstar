@@ -1910,7 +1910,7 @@
         });
       }
       if (contactForm) {
-        contactForm.addEventListener('submit', (event) => {
+        contactForm.addEventListener('submit', async (event) => {
           event.preventDefault();
           if (!contactForm.checkValidity()) {
             contactForm.reportValidity();
@@ -1922,23 +1922,51 @@
           const email = String(formData.get('email') || '').trim();
           const message = String(formData.get('message') || '').trim();
 
-          const subject = encodeURIComponent(`Website Contact: ${name || 'New message'}`);
-          const body = encodeURIComponent(
-            `Name: ${name}\n` +
-            `Company: ${company || 'N/A'}\n` +
-            `Email: ${email}\n\n` +
-            `Message:\n${message}`
-          );
-          const mailtoUrl = `mailto:info@wocstar.com?subject=${subject}&body=${body}`;
+          const submitButton = contactForm.querySelector('button[type="submit"]');
 
           if (contactFormStatus) {
-            contactFormStatus.textContent = 'Opening your email client...';
+            contactFormStatus.textContent = 'Sending your message...';
           }
-          window.location.href = mailtoUrl;
-          window.setTimeout(() => {
+          if (submitButton) {
+            submitButton.disabled = true;
+          }
+
+          try {
+            const response = await fetch('/api/contact', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+              },
+              body: JSON.stringify({
+                name,
+                company_name: company,
+                email,
+                message,
+                scene: sceneDocumentTitles[currentIndex] || 'Wocstar Capital'
+              })
+            });
+
+            if (!response.ok) {
+              throw new Error('Contact request failed');
+            }
+
+            if (contactFormStatus) {
+              contactFormStatus.textContent = 'Message sent. Thank you.';
+            }
             contactForm.reset();
-            closeContactModal();
-          }, 500);
+            window.setTimeout(() => {
+              closeContactModal();
+            }, 600);
+          } catch (error) {
+            if (contactFormStatus) {
+              contactFormStatus.textContent = 'Unable to send right now. Please try again in a moment.';
+            }
+          } finally {
+            if (submitButton) {
+              submitButton.disabled = false;
+            }
+          }
         });
       }
       if (academyWaitlistForm) {
