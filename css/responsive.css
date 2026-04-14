@@ -727,3 +727,37 @@
       }
     }
 
+@media (max-width: 900px), (pointer: coarse) {
+      .interview-modal__backdrop,
+      .contact-modal__backdrop,
+      .fellows-modal__backdrop,
+      .foundation-modal__backdrop,
+      .sms-terms-modal__backdrop,
+      .brand-capital-menu,
+      .brand-fund-menu,
+      .brand-academy-menu,
+      .brand-media-menu {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+
+      .interview-modal__panel,
+      .contact-modal__panel,
+      .fellows-modal__panel,
+      .foundation-modal__panel,
+      .sms-terms-modal__panel {
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45) !important;
+      }
+    }
+
+@media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+

@@ -68,7 +68,7 @@
       height: 100%;
       overflow: hidden;
       background: #000;
-      touch-action: none;
+      touch-action: pan-y pinch-zoom;
     }
 
     body {

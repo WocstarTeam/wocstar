@@ -88,7 +88,11 @@
         '',
         ''
       ];
-      const transitionDuration = 900;
+      const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
+      const isSmallViewport = window.matchMedia('(max-width: 900px)').matches;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isPerformanceMode = isTouchDevice || isSmallViewport || prefersReducedMotion;
+      const transitionDuration = isPerformanceMode ? 620 : 900;
       const swipeThreshold = 50;
       const wheelThreshold = 35;
       const profileExitDelay = 520;
@@ -121,6 +125,7 @@
       let mediaTypingTimer = null;
       let mediaTypingStarted = false;
       let mediaTypingCompleted = false;
+      let resizeTimer = null;
       let academyAlumniIndex = 0;
       let academyAlumniTimer = null;
       let academyCurriculumAutoTimer = null;
@@ -960,24 +965,32 @@
       const videos = Array.from(document.querySelectorAll('video'));
       videos.forEach((video) => {
         video.muted = true;
-
-        const tryPlay = () => {
-          const playPromise = video.play();
-          if (playPromise && typeof playPromise.catch === 'function') {
-            playPromise.catch(() => {});
-          }
-        };
-
-        if (video.readyState >= 2) {
-          tryPlay();
-        } else {
-          video.addEventListener('canplay', tryPlay, { once: true });
+        if (isPerformanceMode) {
+          video.preload = 'metadata';
         }
       });
+
+      function syncSceneVideoPlayback() {
+        videos.forEach((video) => {
+          const parentScene = video.closest('.scene');
+          const sceneIndex = parentScene ? Number(parentScene.getAttribute('data-index')) : NaN;
+          const isCurrentSceneVideo = Number.isFinite(sceneIndex) && sceneIndex === currentIndex;
+
+          if (isCurrentSceneVideo) {
+            const playPromise = video.play();
+            if (playPromise && typeof playPromise.catch === 'function') {
+              playPromise.catch(() => {});
+            }
+          } else {
+            video.pause();
+          }
+        });
+      }
 
       function updateStatus() {
         document.body.setAttribute('data-scene', String(currentIndex));
         document.title = sceneDocumentTitles[currentIndex] || 'Wocstar Capital';
+        syncSceneVideoPlayback();
         if (currentIndex === 0) {
           setCapitalMenuOpen(false);
           setAcademyMenuOpen(false);
@@ -1347,7 +1360,6 @@
         if (currentIndex === universeSceneIndex && event.target && event.target.closest('.universe-scene')) {
           return;
         }
-        event.preventDefault();
       }
 
       function onTouchEnd(event) {
@@ -1591,7 +1603,7 @@
       window.addEventListener('wheel', onWheel, { passive: false });
       window.addEventListener('mouseup', onMouseButtonNavigate);
       window.addEventListener('touchstart', onTouchStart, { passive: true });
-      window.addEventListener('touchmove', onTouchMove, { passive: false });
+      window.addEventListener('touchmove', onTouchMove, { passive: true });
       window.addEventListener('touchend', onTouchEnd, { passive: true });
       brandButtons.forEach((button) => {
         button.addEventListener('click', (event) => {
@@ -2093,7 +2105,7 @@
           transitionTo(getWrappedIndex(1));
         }
       });
-      window.addEventListener('resize', () => {
+      function handleWindowResize() {
         syncAppViewportHeight();
         const baseCount = Math.max(1, fundPortcoBaseCount);
         fundPortcoIndex = fundPortcoIndex % baseCount;
@@ -2104,8 +2116,20 @@
         if (currentIndex === profileSceneIndex) {
           fitProfileContentToViewport();
         }
-      });
-      window.addEventListener('orientationchange', syncAppViewportHeight);
+      }
+
+      window.addEventListener('resize', () => {
+        if (resizeTimer) {
+          window.clearTimeout(resizeTimer);
+        }
+        resizeTimer = window.setTimeout(() => {
+          handleWindowResize();
+        }, isPerformanceMode ? 140 : 60);
+      }, { passive: true });
+      window.addEventListener('orientationchange', () => {
+        syncAppViewportHeight();
+        handleWindowResize();
+      }, { passive: true });
       if (fundPortcoViewport) {
         fundPortcoViewport.addEventListener('mouseenter', stopFundPortfolioAuto);
         fundPortcoViewport.addEventListener('mouseleave', startFundPortfolioAuto);
@@ -2136,6 +2160,7 @@
 
       resetMediaTyping();
       syncAppViewportHeight();
+      syncSceneVideoPlayback();
       renderFundPortfolioCards();
       updateFundPortfolioCarousel(false);
       startFundPortfolioAuto();
