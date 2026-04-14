@@ -2434,7 +2434,7 @@
     .fund-portco-card__name {
       margin-top: 12px;
       color: rgba(255, 255, 255, 0.97);
-      font-size: clamp(15px, 1.08vw, 19px);
+      font-size: clamp(13px, 0.92vw, 16px);
       font-weight: 800;
       line-height: 1.4;
       text-align: center;
@@ -2591,7 +2591,7 @@
     .fund-exits-card__name {
       margin-top: 12px;
       color: rgba(255, 255, 255, 0.97);
-      font-size: clamp(15px, 1.08vw, 19px);
+      font-size: clamp(13px, 0.92vw, 16px);
       font-weight: 800;
       line-height: 1.4;
       text-align: center;
@@ -2810,7 +2810,7 @@
       font-weight: 700;
     }
 
-    .fund-scene .fund-portco-card__plate,
+.fund-scene .fund-portco-card__plate,
     .fund-scene .fund-exits-card__plate,
     .fund-scene .fund-exits-card__plate--sportslab,
     .fund-scene .fund-exits-card__plate--uncharted,
@@ -2822,9 +2822,103 @@
         0 -5px 10px rgba(133, 111, 78, 0.12) inset;
     }
 
+.fund-scene .fund-portco-card__plate,
+    .fund-scene .fund-portco-card__plate.is-samba,
+    .fund-scene .fund-portco-card__plate.is-renuble,
+    .fund-scene .fund-portco-card__plate.is-filmhedge,
+    .fund-scene .fund-portco-card__plate.is-infinite,
+    .fund-scene .fund-portco-card__plate.is-possip,
+    .fund-scene .fund-portco-card__plate.is-moment,
+    .fund-scene .fund-exits-card__plate,
+    .fund-scene .fund-exits-card__plate--sportslab,
+    .fund-scene .fund-exits-card__plate--uncharted,
+    .fund-scene .fund-exits-card__plate--audigent,
+    .fund-scene .fund-exits-card__plate--flow,
+    .fund-scene .fund-exits-card__plate--zerogrocery {
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      width: min(100%, 320px);
+      min-height: clamp(108px, 10.8vw, 132px);
+    }
+
+.fund-scene .fund-portco-card__logo,
+    .fund-scene .fund-exits-card__logo {
+      width: auto;
+      height: clamp(64px, 6.6vw, 86px);
+      max-width: 92%;
+      object-fit: contain;
+      transform-origin: center;
+    }
+
+.fund-scene .fund-portco-card__logo.is-photo,
+    .fund-scene .fund-exits-card__logo.is-photo {
+      width: auto;
+      height: clamp(64px, 6.6vw, 86px);
+      max-width: 92%;
+      max-height: none;
+      object-fit: contain;
+    }
+
+.fund-scene .fund-portco-card__logo {
+      transform: scale(1.02);
+    }
+
+.fund-scene .fund-portco-card__plate.is-renuble .fund-portco-card__logo {
+      transform: scale(1.08);
+    }
+
+.fund-scene .fund-portco-card__plate.is-filmhedge .fund-portco-card__logo {
+      transform: scale(1.04);
+    }
+
+.fund-scene .fund-portco-card__plate.is-infinite .fund-portco-card__logo {
+      transform: scale(1);
+    }
+
+.fund-scene .fund-portco-card__plate.is-possip .fund-portco-card__logo {
+      transform: scale(1.04);
+    }
+
+.fund-scene .fund-exits-card__logo--sportslab {
+      filter: brightness(0) saturate(100%) invert(40%) sepia(44%) saturate(834%) hue-rotate(132deg) brightness(93%) contrast(93%);
+      transform: scale(0.98);
+    }
+
+.fund-scene .fund-exits-card__logo--uncharted {
+      filter: brightness(0) saturate(100%) invert(15%) sepia(2%) saturate(2589%) hue-rotate(314deg) brightness(92%) contrast(82%);
+      transform: scale(1.72);
+    }
+
+.fund-scene .fund-exits-card__logo--audigent {
+      filter: brightness(0) saturate(100%) invert(49%) sepia(20%) saturate(1260%) hue-rotate(181deg) brightness(88%) contrast(89%);
+      transform: scale(1.08);
+    }
+
+.fund-scene .fund-exits-card__logo--flow {
+      filter: brightness(0) saturate(100%) invert(41%) sepia(28%) saturate(1059%) hue-rotate(212deg) brightness(95%) contrast(90%);
+      transform: scale(1.1);
+    }
+
+.fund-scene .fund-exits-card__logo--zerogrocery {
+      transform: scale(1.04);
+    }
+
+.fund-scene .fund-portco-card__name,
+    .fund-scene .fund-exits-card__name {
+      margin-top: 24px;
+    }
+
+.fund-scene .fund-portco-card__industry,
+    .fund-scene .fund-exits-card__industry {
+      margin-top: 10px;
+    }
+
     .fund-scene .fund-portco-card__name,
     .fund-scene .fund-exits-card__name {
-      font-size: clamp(16px, 1.14vw, 21px);
+      font-size: clamp(13px, 0.92vw, 16px);
       font-weight: 800;
       letter-spacing: 0.01em;
       color: #1f2731;

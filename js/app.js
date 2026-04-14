@@ -139,7 +139,7 @@
         {
           name: 'Hemster',
           industry: 'Retail Technology',
-          logoSrc: 'portco logo/hemsterlogohighres.jpg',
+          logoSrc: 'portco logo/hemster-transparent.png',
           logoAlt: 'Hemster logo',
           url: 'https://www.hemster.co',
           plateClass: 'is-dark',
