@@ -127,6 +127,10 @@
       let isMediaMenuOpen = false;
       let touchStartedInMediaScene = false;
 
+      function syncAppViewportHeight() {
+        document.documentElement.style.setProperty('--app-vh', `${window.innerHeight}px`);
+      }
+
       const fundPortfolioCompanies = [
         {
           name: 'Samba TV',
@@ -2003,6 +2007,7 @@
         }
       });
       window.addEventListener('resize', () => {
+        syncAppViewportHeight();
         const baseCount = Math.max(1, fundPortcoBaseCount);
         fundPortcoIndex = fundPortcoIndex % baseCount;
         renderFundPortfolioCards();
@@ -2013,6 +2018,7 @@
           fitProfileContentToViewport();
         }
       });
+      window.addEventListener('orientationchange', syncAppViewportHeight);
       if (fundPortcoViewport) {
         fundPortcoViewport.addEventListener('mouseenter', stopFundPortfolioAuto);
         fundPortcoViewport.addEventListener('mouseleave', startFundPortfolioAuto);
@@ -2042,6 +2048,7 @@
       }
 
       resetMediaTyping();
+      syncAppViewportHeight();
       renderFundPortfolioCards();
       updateFundPortfolioCarousel(false);
       startFundPortfolioAuto();
