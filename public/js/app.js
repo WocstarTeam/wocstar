@@ -49,6 +49,8 @@
       const foundationModalBody = foundationModal ? foundationModal.querySelector('.foundation-modal__body') : null;
       const fellowsModal = document.getElementById('fellowsModal');
       const fellowsModalBody = fellowsModal ? fellowsModal.querySelector('.fellows-modal__body') : null;
+      const smsTermsModal = document.getElementById('smsTermsModal');
+      const smsTermsLinks = Array.from(document.querySelectorAll('[data-open-sms-terms="true"]'));
       const interviewModalFrame = document.getElementById('interviewModalFrame');
       const interviewModalFallbackLink = document.getElementById('interviewModalFallbackLink');
       const universeScene = document.querySelector('.universe-scene');
@@ -735,6 +737,10 @@
         return Boolean(fellowsModal && fellowsModal.classList.contains('is-open'));
       }
 
+      function isSmsTermsModalOpen() {
+        return Boolean(smsTermsModal && smsTermsModal.classList.contains('is-open'));
+      }
+
       function openInterviewModal(embedUrl, fallbackUrl) {
         if (!interviewModal || !interviewModalFrame || !embedUrl) return;
         interviewModal.classList.add('is-open');
@@ -776,6 +782,23 @@
         if (!fellowsModal) return;
         fellowsModal.classList.remove('is-open');
         fellowsModal.setAttribute('aria-hidden', 'true');
+      }
+
+      function openSmsTermsModal(event) {
+        if (event) event.preventDefault();
+        if (!smsTermsModal) return;
+        lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+        smsTermsModal.classList.add('is-open');
+        smsTermsModal.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeSmsTermsModal() {
+        if (!smsTermsModal) return;
+        smsTermsModal.classList.remove('is-open');
+        smsTermsModal.setAttribute('aria-hidden', 'true');
+        if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+          lastFocusedElement.focus();
+        }
       }
 
       function openContactModal(event) {
@@ -1773,6 +1796,11 @@
       if (openMediaFoundationButton) {
         openMediaFoundationButton.addEventListener('click', openFoundationModal);
       }
+      if (smsTermsLinks.length) {
+        smsTermsLinks.forEach((link) => {
+          link.addEventListener('click', openSmsTermsModal);
+        });
+      }
       if (goToGayleBio) {
         goToGayleBio.addEventListener('click', (event) => {
           event.preventDefault();
@@ -1823,6 +1851,13 @@
         fellowsModal.addEventListener('click', (event) => {
           if (event.target instanceof HTMLElement && event.target.matches('[data-close-fellows="true"]')) {
             closeFellowsModal();
+          }
+        });
+      }
+      if (smsTermsModal) {
+        smsTermsModal.addEventListener('click', (event) => {
+          if (event.target instanceof HTMLElement && event.target.matches('[data-close-sms-terms="true"]')) {
+            closeSmsTermsModal();
           }
         });
       }
@@ -1989,9 +2024,12 @@
         if (event.key === 'Escape' && isFellowsModalOpen()) {
           closeFellowsModal();
         }
+        if (event.key === 'Escape' && isSmsTermsModalOpen()) {
+          closeSmsTermsModal();
+        }
 
         if (isTypingTarget) return;
-        if (isAnimating || isContactModalOpen() || isAcademyWaitlistModalOpen() || isInterviewModalOpen() || isFoundationModalOpen() || isFellowsModalOpen()) return;
+        if (isAnimating || isContactModalOpen() || isAcademyWaitlistModalOpen() || isInterviewModalOpen() || isFoundationModalOpen() || isFellowsModalOpen() || isSmsTermsModalOpen()) return;
 
         if (event.key === 'ArrowLeft') {
           event.preventDefault();

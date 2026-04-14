@@ -504,6 +504,132 @@
       gap: 14px;
     }
 
+.sms-terms-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 74;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 220ms ease, visibility 220ms ease;
+    }
+
+.sms-terms-modal.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+.sms-terms-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(6, 9, 14, 0.78);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+.sms-terms-modal__panel {
+      position: relative;
+      width: min(94vw, 980px);
+      max-height: min(88vh, 940px);
+      margin: clamp(26px, 5.2vh, 52px) auto 0;
+      border-radius: 16px;
+      border: 1px solid rgba(208, 170, 110, 0.36);
+      background:
+        radial-gradient(130% 125% at 8% 0%, rgba(218, 187, 133, 0.16) 0%, rgba(218, 187, 133, 0) 52%),
+        linear-gradient(175deg, rgba(20, 24, 31, 0.96) 0%, rgba(15, 18, 24, 0.96) 100%);
+      box-shadow: 0 28px 72px rgba(0, 0, 0, 0.64);
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+    }
+
+.sms-terms-modal__close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      cursor: pointer;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+    }
+
+.sms-terms-modal__header {
+      padding: clamp(18px, 2.2vh, 24px) clamp(18px, 2.2vw, 28px) 14px;
+      border-bottom: 1px solid rgba(208, 170, 110, 0.24);
+    }
+
+.sms-terms-modal__kicker {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+.sms-terms-modal__title {
+      margin: 8px 0 0;
+      color: #ffffff;
+      font-size: clamp(24px, 2.2vw, 34px);
+      line-height: 1.12;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+    }
+
+.sms-terms-modal__body {
+      padding: clamp(14px, 1.7vh, 20px) clamp(16px, 2vw, 26px) clamp(20px, 2.4vh, 30px);
+      overflow-y: auto;
+      display: grid;
+      gap: 14px;
+    }
+
+.sms-terms-modal__section {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 12px;
+      padding: 12px 13px;
+    }
+
+.sms-terms-modal__section h3 {
+      margin: 0 0 7px;
+      color: #f6dec0;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+.sms-terms-modal__section p {
+      margin: 0;
+      color: rgba(243, 246, 252, 0.9);
+      font-size: 14px;
+      line-height: 1.58;
+    }
+
+.sms-terms-modal__section p + p {
+      margin-top: 9px;
+    }
+
+.sms-terms-modal__subhead {
+      color: #f9e7d0 !important;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 12px !important;
+    }
+
+.sms-terms-modal__section a {
+      color: #f9dfbd;
+      text-decoration: underline;
+      text-decoration-color: rgba(249, 223, 189, 0.62);
+      text-underline-offset: 2px;
+    }
+
 .brand-logo {
       display: block;
       height: 42px;
