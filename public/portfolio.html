@@ -1,0 +1,691 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Companies | Wocstar Fund</title>
+  <style>
+    :root {
+      --page-bg: #111418;
+      --text-main: rgba(248, 248, 248, 0.96);
+      --text-muted: rgba(224, 224, 224, 0.72);
+      --plate-bg: rgba(255, 255, 255, 0.08);
+      --plate-border: rgba(255, 255, 255, 0.28);
+      --card-bg: rgba(255, 255, 255, 0.06);
+      --card-border: rgba(255, 255, 255, 0.24);
+      --motion: 240ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      background: var(--page-bg);
+    }
+
+    body {
+      font-family: "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 82% 2%, rgba(255, 255, 255, 0.16), transparent 28%),
+        radial-gradient(circle at 10% 96%, rgba(160, 194, 242, 0.1), transparent 34%),
+        linear-gradient(180deg, #151a21 0%, #111418 100%);
+    }
+
+    .brand {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      z-index: 10;
+      line-height: 1;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .brand-logo {
+      display: block;
+      height: 42px;
+      width: auto;
+      max-width: 100%;
+    }
+
+    .page {
+      width: min(1180px, calc(100vw - 72px));
+      margin: 0 auto;
+      padding: clamp(116px, 14vh, 150px) 0 clamp(44px, 8vh, 88px);
+    }
+
+    .header {
+      max-width: 760px;
+      margin-bottom: clamp(34px, 7vh, 74px);
+      position: relative;
+      display: grid;
+      gap: 16px;
+    }
+
+    .title {
+      font-size: clamp(24px, 4.1vw, 54px);
+      line-height: 0.96;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .description {
+      max-width: 640px;
+      font-size: clamp(14px, 1.05vw, 18px);
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .header::after {
+      content: "";
+      width: min(520px, 60vw);
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0.46),
+        rgba(255, 255, 255, 0)
+      );
+      animation: lineDrift 6s ease-in-out infinite;
+    }
+
+    .company-carousel {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .carousel-nav {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      transition: transform var(--motion), background var(--motion), border-color var(--motion);
+    }
+
+    .carousel-nav:hover,
+    .carousel-nav:focus-visible {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.42);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .carousel-viewport {
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .carousel-track {
+      list-style: none;
+      display: flex;
+      transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+      margin: 0;
+      padding: 0;
+    }
+
+    .carousel-slide {
+      flex: 0 0 100%;
+      padding: 8px 4px;
+    }
+
+    .company-card {
+      width: min(100%, 520px);
+      margin: 0 auto;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      border-radius: 12px;
+      padding: 9px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+      transition: transform var(--motion), border-color var(--motion), box-shadow var(--motion), background var(--motion);
+      cursor: pointer;
+    }
+
+    .company-card:hover,
+    .company-card:focus-visible {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.11);
+      border-color: rgba(255, 255, 255, 0.34);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+      outline: none;
+    }
+
+    .logo-plate {
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      background: var(--plate-bg);
+      border: 1px solid var(--plate-border);
+      border-radius: 8px;
+      padding: clamp(6px, 0.8vw, 10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-plate::before {
+      content: "";
+      position: absolute;
+      inset: auto -22% -38% -22%;
+      height: 60%;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0) 72%);
+      pointer-events: none;
+    }
+
+    .logo-mark {
+      font-size: clamp(13px, 0.92vw, 16px);
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.94);
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    .logo-image {
+      width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+      display: block;
+    }
+
+    .logo-image--full-visible {
+      width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+    }
+
+    .logo-plate--hemster {
+      background: rgba(14, 14, 14, 0.72);
+      border-color: rgba(255, 255, 255, 0.32);
+    }
+
+    .logo-image--hemster {
+      width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      filter: contrast(1.2) brightness(1.04);
+    }
+
+    .company-name {
+      margin-top: 9px;
+      font-size: clamp(15px, 1vw, 18px);
+      line-height: 1.3;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--text-main);
+    }
+
+    .carousel-dots {
+      margin-top: 14px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .carousel-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      border: 0;
+      background: rgba(255, 255, 255, 0.32);
+      cursor: pointer;
+      transition: transform var(--motion), background var(--motion);
+    }
+
+    .carousel-dot.is-active {
+      background: rgba(255, 255, 255, 0.88);
+      transform: scale(1.18);
+    }
+
+    .company-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 220ms ease, visibility 220ms ease;
+    }
+
+    .company-modal.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .company-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.66);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .company-modal__panel {
+      position: relative;
+      width: min(92vw, 560px);
+      margin: 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 16px;
+      background: rgba(10, 14, 22, 0.92);
+      padding: clamp(18px, 2.2vw, 30px);
+      box-shadow: 0 24px 54px rgba(0, 0, 0, 0.4);
+      transform: translateY(12px);
+      transition: transform 220ms ease;
+    }
+
+    .company-modal.is-open .company-modal__panel {
+      transform: translateY(0);
+    }
+
+    .company-modal__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .company-modal__title {
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .company-modal__meta {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.76);
+      margin-bottom: 10px;
+    }
+
+    .company-modal__desc {
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.6;
+      font-size: clamp(14px, 1vw, 17px);
+    }
+
+    .company-modal__cta {
+      margin-top: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.56);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      transition: background var(--motion), transform var(--motion);
+    }
+
+    .company-modal__cta:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 1024px) {
+      .brand {
+        top: 18px;
+        left: 18px;
+      }
+
+      .brand-logo {
+        height: 36px;
+      }
+
+      .page {
+        width: calc(100vw - 48px);
+        padding-top: 98px;
+      }
+
+      .company-carousel {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .carousel-nav {
+        display: none;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .company-card {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .page {
+        width: calc(100vw - 28px);
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .carousel-slide {
+        opacity: 0;
+        transform: translateY(14px);
+        animation: cardIn 520ms var(--motion) forwards;
+      }
+
+      .carousel-slide:nth-child(1) { animation-delay: 40ms; }
+      .carousel-slide:nth-child(2) { animation-delay: 90ms; }
+      .carousel-slide:nth-child(3) { animation-delay: 140ms; }
+      .carousel-slide:nth-child(4) { animation-delay: 190ms; }
+      .carousel-slide:nth-child(5) { animation-delay: 240ms; }
+      .carousel-slide:nth-child(6) { animation-delay: 290ms; }
+      .carousel-slide:nth-child(7) { animation-delay: 340ms; }
+    }
+
+    @keyframes cardIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes lineDrift {
+      from {
+        transform: translateX(-14px);
+      }
+      to {
+        transform: translateX(14px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="brand" href="index.html" aria-label="Go to Wocstar Fund home">
+    <img class="brand-logo" src="assets/images/wocstar-logos/wocstar-fund-logo.png" alt="Wocstar Fund" />
+  </a>
+
+  <main class="page">
+    <header class="header">
+      <h1 class="title">Portfolio Companies</h1>
+      <p class="description">
+        Working together with Founders to move the world forward
+      </p>
+    </header>
+
+    <section aria-label="Portfolio company carousel">
+      <div class="company-carousel">
+        <button class="carousel-nav" id="carouselPrev" type="button" aria-label="Previous company">&#8249;</button>
+        <div class="carousel-viewport">
+          <ul class="carousel-track" id="carouselTrack" aria-label="Portfolio company list">
+            <li class="carousel-slide">
+              <button
+                class="company-card"
+                type="button"
+                data-company-name="Samba TV"
+                data-company-industry="Media Technology"
+                data-company-description="Samba TV builds audience intelligence and measurement technology for connected television and modern media strategy."
+                data-company-url="https://www.samba.tv"
+                aria-label="Open Samba TV details"
+              >
+          <div class="logo-plate"><img class="logo-image" src="assets/images/portco/sambatvlogo.png" alt="Samba TV logo" /></div>
+          <p class="company-name">Samba TV</p>
+              </button>
+            </li>
+            <li class="carousel-slide">
+              <button
+                class="company-card"
+                type="button"
+                data-company-name="Hemster"
+                data-company-industry="Retail Technology"
+                data-company-description="Hemster connects shoppers and tailors with on-demand alteration infrastructure designed to reduce returns and improve fit."
+                data-company-url="https://www.hemster.co"
+                aria-label="Open Hemster details"
+              >
+          <div class="logo-plate logo-plate--hemster"><img class="logo-image logo-image--hemster" src="assets/images/portco/hemster.jpg" alt="Hemster logo" /></div>
+          <p class="company-name">Hemster</p>
+              </button>
+            </li>
+            <li class="carousel-slide">
+              <button
+                class="company-card"
+                type="button"
+                data-company-name="Re-Nuble"
+                data-company-industry="AgriTech"
+                data-company-description="Re-Nuble transforms food waste into high-performance biological fertilizers and crop solutions for sustainable agriculture."
+                data-company-url="https://www.re-nuble.com"
+                aria-label="Open Re-Nuble details"
+              >
+          <div class="logo-plate"><img class="logo-image" src="assets/images/portco/renuble.png" alt="Re-Nuble logo" /></div>
+          <p class="company-name">Re-Nuble</p>
+              </button>
+            </li>
+            <li class="carousel-slide">
+              <button
+                class="company-card"
+                type="button"
+                data-company-name="FilmHedge"
+                data-company-industry="FinTech for Film"
+                data-company-description="FilmHedge provides capital infrastructure and financing tools built specifically for film and television production workflows."
+                data-company-url="https://www.filmhedge.com"
+                aria-label="Open FilmHedge details"
+              >
+          <div class="logo-plate"><img class="logo-image logo-image--full-visible" src="assets/images/portco/filmhedge.jpg" alt="FilmHedge logo" /></div>
+          <p class="company-name">FilmHedge</p>
+              </button>
+            </li>
+            <li class="carousel-slide">
+              <button
+                class="company-card"
+                type="button"
+                data-company-name="Infinite Object"
+                data-company-industry="Consumer Media Hardware"
+                data-company-description="Infinite Objects creates physical media displays that turn digital motion content into collectible design objects."
+                data-company-url="https://www.infiniteobjects.com"
+                aria-label="Open Infinite Object details"
+              >
+          <div class="logo-plate"><img class="logo-image" src="assets/images/portco/infiniteobjects.png" alt="Infinite Object logo" /></div>
+          <p class="company-name">Infinite Object</p>
+              </button>
+            </li>
+            <li class="carousel-slide">
+              <button
+                class="company-card"
+                type="button"
+                data-company-name="Possip"
+                data-company-industry="EdTech"
+                data-company-description="Possip enables schools and districts to capture real-time family feedback and strengthen trust through two-way communication."
+                data-company-url="https://www.possip.com"
+                aria-label="Open Possip details"
+              >
+          <div class="logo-plate"><img class="logo-image" src="assets/images/portco/possip.png" alt="Possip logo" /></div>
+          <p class="company-name">Possip</p>
+              </button>
+            </li>
+            <li class="carousel-slide">
+              <button
+                class="company-card"
+                type="button"
+                data-company-name="Moment.ai"
+                data-company-industry="Applied AI"
+                data-company-description="Moment.ai builds AI-native systems that help teams automate decisioning, accelerate execution, and deliver measurable outcomes."
+                data-company-url="https://www.moment.ai"
+                aria-label="Open Moment.ai details"
+              >
+          <div class="logo-plate"><span class="logo-mark">Moment.ai</span></div>
+          <p class="company-name">Moment.ai</p>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <button class="carousel-nav" id="carouselNext" type="button" aria-label="Next company">&#8250;</button>
+      </div>
+      <div class="carousel-dots" id="carouselDots" aria-label="Company slide dots"></div>
+    </section>
+  </main>
+
+  <div class="company-modal" id="companyModal" aria-hidden="true">
+    <div class="company-modal__backdrop" data-close-modal="true"></div>
+    <section class="company-modal__panel" role="dialog" aria-modal="true" aria-labelledby="companyModalTitle">
+      <button class="company-modal__close" type="button" data-close-modal="true" aria-label="Close company details">x</button>
+      <h2 class="company-modal__title" id="companyModalTitle"></h2>
+      <p class="company-modal__meta" id="companyModalIndustry"></p>
+      <p class="company-modal__desc" id="companyModalDescription"></p>
+      <a class="company-modal__cta" id="companyModalWebsite" href="#" target="_blank" rel="noopener noreferrer">Visit Website</a>
+    </section>
+  </div>
+
+  <script>
+    (function () {
+      const track = document.getElementById('carouselTrack');
+      const prevBtn = document.getElementById('carouselPrev');
+      const nextBtn = document.getElementById('carouselNext');
+      const dotsWrap = document.getElementById('carouselDots');
+      const cards = Array.from(document.querySelectorAll('.company-card'));
+      const modal = document.getElementById('companyModal');
+      const modalTitle = document.getElementById('companyModalTitle');
+      const modalIndustry = document.getElementById('companyModalIndustry');
+      const modalDescription = document.getElementById('companyModalDescription');
+      const modalWebsite = document.getElementById('companyModalWebsite');
+
+      if (!track || !cards.length) return;
+
+      let currentIndex = 0;
+      let autoTimer = null;
+      const total = cards.length;
+
+      function renderCarousel() {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        const dots = Array.from(dotsWrap.querySelectorAll('.carousel-dot'));
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('is-active', index === currentIndex);
+        });
+      }
+
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % total;
+        renderCarousel();
+      }
+
+      function prevSlide() {
+        currentIndex = (currentIndex - 1 + total) % total;
+        renderCarousel();
+      }
+
+      function startAuto() {
+        if (autoTimer) {
+          window.clearInterval(autoTimer);
+        }
+        autoTimer = window.setInterval(nextSlide, 4200);
+      }
+
+      function openModal(card) {
+        const name = card.getAttribute('data-company-name') || '';
+        const industry = card.getAttribute('data-company-industry') || '';
+        const description = card.getAttribute('data-company-description') || '';
+        const website = card.getAttribute('data-company-url') || '#';
+
+        modalTitle.textContent = name;
+        modalIndustry.textContent = industry;
+        modalDescription.textContent = description;
+        modalWebsite.setAttribute('href', website);
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeModal() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+
+      for (let i = 0; i < total; i += 1) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'carousel-dot';
+        dot.setAttribute('aria-label', `Go to company ${i + 1}`);
+        dot.addEventListener('click', () => {
+          currentIndex = i;
+          renderCarousel();
+          startAuto();
+        });
+        dotsWrap.appendChild(dot);
+      }
+
+      cards.forEach((card) => {
+        card.addEventListener('click', () => openModal(card));
+      });
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          prevSlide();
+          startAuto();
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          nextSlide();
+          startAuto();
+        });
+      }
+
+      if (modal) {
+        modal.addEventListener('click', (event) => {
+          if (event.target instanceof HTMLElement && event.target.matches('[data-close-modal="true"]')) {
+            closeModal();
+          }
+        });
+      }
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+          closeModal();
+        }
+        if (event.key === 'ArrowRight') {
+          nextSlide();
+          startAuto();
+        }
+        if (event.key === 'ArrowLeft') {
+          prevSlide();
+          startAuto();
+        }
+      });
+
+      renderCarousel();
+      startAuto();
+    })();
+  </script>
+</body>
+</html>
+

@@ -31,6 +31,7 @@
       const academyWaitlistForm = document.getElementById('academyWaitlistForm');
       const academyWaitlistStatus = document.getElementById('academyWaitlistStatus');
       const academyWaitlistNameInput = document.getElementById('academyWaitlistName');
+      const academyWaitlistPhoneInput = document.getElementById('academyWaitlistPhone');
       const goToGayleBio = document.getElementById('goToGayleBio');
       const goToGayleFromBubble = document.getElementById('goToGayleFromBubble');
       const goToGayleReadBio = document.getElementById('goToGayleReadBio');
@@ -1906,8 +1907,21 @@
         });
       }
       if (academyWaitlistForm) {
+        if (academyWaitlistPhoneInput) {
+          academyWaitlistPhoneInput.addEventListener('input', () => {
+            academyWaitlistPhoneInput.setCustomValidity('');
+          });
+        }
         academyWaitlistForm.addEventListener('submit', (event) => {
           event.preventDefault();
+          if (academyWaitlistPhoneInput) {
+            const phoneRaw = academyWaitlistPhoneInput.value.trim();
+            const digits = phoneRaw.replace(/\D/g, '');
+            const isUsPhone = digits.length === 10 || (digits.length === 11 && digits.startsWith('1'));
+            academyWaitlistPhoneInput.setCustomValidity(
+              isUsPhone ? '' : 'Please enter a valid US phone number.'
+            );
+          }
           if (!academyWaitlistForm.checkValidity()) {
             academyWaitlistForm.reportValidity();
             return;
@@ -1917,6 +1931,7 @@
           const company = String(formData.get('company_name') || '').trim();
           const email = String(formData.get('email') || '').trim();
           const role = String(formData.get('role') || '').trim();
+          const phone = String(formData.get('phone') || '').trim();
           const message = String(formData.get('message') || '').trim();
 
           const subject = encodeURIComponent(`Wocstar Academy Waitlist: ${name || 'New applicant'}`);
@@ -1925,6 +1940,7 @@
             `Company: ${company || 'N/A'}\n` +
             `Email: ${email}\n` +
             `Role: ${role || 'N/A'}\n\n` +
+            `Phone: ${phone}\n\n` +
             `Notes:\n${message || 'N/A'}`
           );
           const mailtoUrl = `mailto:colleen@wocstar.com?subject=${subject}&body=${body}`;

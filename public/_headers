@@ -1,0 +1,15 @@
+﻿# Security headers
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Cross-Origin-Opener-Policy: same-origin
+
+# Aggressive caching for static assets
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML should revalidate quickly
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate

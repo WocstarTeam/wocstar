@@ -246,7 +246,7 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
                 <p class="academy-curriculum__meta-copy"><strong>Collaborative Power:</strong> Group coursework with founders and investors, powered by collective intelligence and shared networks.</p>
                 <p class="academy-curriculum__meta-copy"><strong>Wocstar Online Academy (Coming Soon):</strong> Self-paced modules for leaders who want world-class training on their own schedule.</p>
               </div>
-              <button class="academy-curriculum__cta" type="button" id="academyApplyButton">Apply to Academy</button>
+              <button class="academy-curriculum__cta" type="button" id="academyApplyButton">Secure your spot</button>
             </article>
           </div>
         </section>
@@ -476,6 +476,30 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
                     </span>
                     <span class="advisory-card__name">JOEL SOLOMON</span>
                     <span class="advisory-card__firm">Renewal Funds</span>
+                  </li>
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="mattwilkins.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">MATTHEW WILKENS</span>
+                    <span class="advisory-card__firm">Grupo Kallas</span>
+                  </li>
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">MI</span>
+                    <span class="advisory-card__name">MONICA ISSAR</span>
+                    <span class="advisory-card__firm">JPMorgan</span>
+                  </li>
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="natalie.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">NATHALIE MOLINA NI&Ntilde;O</span>
+                    <span class="advisory-card__firm">KNOWN Capital</span>
+                  </li>
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">RC</span>
+                    <span class="advisory-card__name">RUDY CLINE-THOMAS</span>
+                    <span class="advisory-card__firm">Mastry, Inc</span>
                   </li>
                 </ul>
               </div>
@@ -805,7 +829,7 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
         </label>
         <label class="contact-form__field" for="academyWaitlistCompany">
           Company Name
-          <input id="academyWaitlistCompany" name="company_name" type="text" autocomplete="organization" />
+          <input id="academyWaitlistCompany" name="company_name" type="text" autocomplete="organization" required />
         </label>
         <label class="contact-form__field" for="academyWaitlistEmail">
           Email
@@ -820,6 +844,10 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
             <option value="Ally">Ally</option>
             <option value="Other">Other</option>
           </select>
+        </label>
+        <label class="contact-form__field" for="academyWaitlistPhone">
+          Phone Number
+          <input id="academyWaitlistPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(212) 555-1234" pattern="(?:\\+1\\s?)?(?:\\(\\d{3}\\)|\\d{3})[-.\\s]?\\d{3}[-.\\s]?\\d{4}" title="Enter a valid US phone number (e.g., (212) 555-1234 or 212-555-1234)" required />
         </label>
         <label class="contact-form__field" for="academyWaitlistMessage">
           Notes (optional)

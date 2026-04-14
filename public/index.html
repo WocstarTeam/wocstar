@@ -1,0 +1,935 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wocstar Capital</title>
+    <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/scenes.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+  <main class="viewport" id="viewport">
+    <section class="scene active fund-scene" data-index="0">
+      <div class="fund-scene__layout">
+        <div class="fund-scene__video">
+          <video src="assets/videos/depth1.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+          <div class="overlay"></div>
+          <header class="fund-video-copy" aria-label="Wocstar Fund intro">
+            <h1 class="fund-video-copy__title">Wocstar Fund</h1>
+            <p class="fund-video-copy__subtext">We don&rsquo;t just invest; we ignite.
+Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters transforming the world&rsquo;s most critical industries.</p>
+          </header>
+        </div>
+        <section class="fund-portfolio" id="fund-portfolio" aria-label="Wocstar Fund portfolio companies">
+          <section class="fund-exits" id="success-stories-exits" aria-label="Wocstar Fund exits">
+            <h3 class="fund-exits__title">Exits</h3>
+            <ul class="fund-exits__grid">
+              <li class="fund-exits-card">
+                <a class="fund-exits-card__link" href="https://www.sportsilab.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Sports Innovation Lab">
+                  <div class="fund-exits-card__plate fund-exits-card__plate--sportslab">
+                    <img class="fund-exits-card__logo fund-exits-card__logo--sportslab" src="assets/images/exits/sportslablogo.png" alt="Sports Innovation Lab logo" />
+                  </div>
+                  <p class="fund-exits-card__name">Sports Innovation Lab</p>
+                  <p class="fund-exits-card__industry">Sports Intelligence</p>
+                </a>
+              </li>
+              <li class="fund-exits-card">
+                <a class="fund-exits-card__link" href="https://www.forbes.com/sites/tanyaklich/2018/11/12/uncharted-power-founder-jessica-o-matthews-on-building-the-anti-silicon-valley-energy-startup/" target="_blank" rel="noopener noreferrer" aria-label="Read about Uncharted Power">
+                  <div class="fund-exits-card__plate fund-exits-card__plate--uncharted">
+                    <img class="fund-exits-card__logo fund-exits-card__logo--uncharted" src="assets/images/exits/unchartedpowerlogo.png" alt="Uncharted Power logo" />
+                  </div>
+                  <p class="fund-exits-card__name">Uncharted Power</p>
+                  <p class="fund-exits-card__industry">Energy Infrastructure</p>
+                </a>
+              </li>
+              <li class="fund-exits-card">
+                <a class="fund-exits-card__link" href="https://audigent.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Audigent">
+                  <div class="fund-exits-card__plate fund-exits-card__plate--audigent">
+                    <img class="fund-exits-card__logo fund-exits-card__logo--audigent" src="assets/images/exits/audigentlogo.png" alt="Audigent logo" />
+                  </div>
+                  <p class="fund-exits-card__name">Audigent</p>
+                  <p class="fund-exits-card__industry">AdTech</p>
+                </a>
+              </li>
+              <li class="fund-exits-card">
+                <a class="fund-exits-card__link" href="https://flowinc.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Flow">
+                  <div class="fund-exits-card__plate fund-exits-card__plate--flow">
+                    <img class="fund-exits-card__logo fund-exits-card__logo--flow" src="assets/images/exits/flowinclogo.png" alt="Flow logo" />
+                  </div>
+                  <p class="fund-exits-card__name">Flow</p>
+                  <p class="fund-exits-card__industry">FinTech</p>
+                </a>
+              </li>
+            </ul>
+          </section>
+          <div class="fund-portfolio__header" id="portfolio-companies">
+            <h2 class="fund-portfolio__title">Portfolio Companies</h2>
+            <div class="fund-portfolio__controls" aria-label="Portfolio navigation">
+              <button class="fund-portfolio__btn" type="button" id="fundPortcoPrevBtn" aria-label="Show previous portfolio companies">&#8249;</button>
+              <button class="fund-portfolio__btn" type="button" id="fundPortcoNextBtn" aria-label="Show next portfolio companies">&#8250;</button>
+            </div>
+          </div>
+          <div class="fund-portfolio__viewport" id="fundPortcoViewport">
+            <ul class="fund-portfolio__track" id="fundPortcoTrack"></ul>
+          </div>
+          <section class="fund-prior" id="prior-investment" aria-label="Wocstar Fund prior investment">
+            <h3 class="fund-prior__title">Prior Investment</h3>
+            <ul class="fund-prior__grid">
+              <li class="fund-exits-card">
+                <div class="fund-exits-card__plate fund-exits-card__plate--zerogrocery">
+                  <img class="fund-exits-card__logo fund-exits-card__logo--zerogrocery" src="assets/images/portco/zero-grocery-transparent.png" alt="Zero Grocery logo" />
+                </div>
+                <p class="fund-exits-card__name">Zero Grocery</p>
+              </li>
+            </ul>
+          </section>
+          <footer class="scene-global-footer fund-inline-footer" aria-label="Fund page footer">
+            <div class="scene-global-footer__inner">
+              <div class="scene-global-footer__left">
+                <h2 class="scene-global-footer__title">Building the future? We&rsquo;re looking for you. Let&rsquo;s make it happen.</h2>
+                <a class="scene-global-footer__btn" href="https://form.jotform.com/Wocstar/wocstar-fund-application" target="_blank" rel="noopener noreferrer">Apply for Funding</a>
+                <div class="scene-global-footer__links">
+                  <a href="#">SMS Terms &amp; Conditions</a>
+                  <a href="#">Privacy Policy</a>
+                </div>
+                <p class="scene-global-footer__legal">
+                  Copyright &copy; 2026 Wocstar Capital, LLC. All rights reserved.<br />
+                  Wocstar&reg; is a registered trademark of Wocstar Capital, LLC.<br />
+                  NYC, New York
+                </p>
+              </div>
+              <div class="scene-global-footer__right">
+                <form class="scene-global-footer__search" role="search" aria-label="Fund search" onsubmit="return false;">
+                  <input type="search" placeholder="Search" aria-label="Search" />
+                  <button type="submit" aria-label="Submit search">&#9906;</button>
+                </form>
+                <div class="scene-global-footer__actions">
+                  <button class="scene-global-footer__btn" type="button" id="fundInlineContactButton">Contact Us</button>
+                </div>
+                <div class="scene-global-footer__social">
+                  <p class="scene-global-footer__social-title">Follow Us On Social</p>
+                  <div class="scene-global-footer__social-row" aria-label="Fund social links">
+                    <a class="social-icon social-youtube" href="https://www.youtube.com/channel/UCcpzz0ps3xDkmWyl4nvGxiQ" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 12s0-3.2-.4-4.7c-.2-.8-.8-1.4-1.6-1.6C19.4 5.3 12 5.3 12 5.3s-7.4 0-9 .4c-.8.2-1.4.8-1.6 1.6C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.8 1.4 1.6 1.6 1.6.4 9 .4 9 .4s7.4 0 9-.4c.8-.2 1.4-.8 1.6-1.6.4-1.5.4-4.7.4-4.7zM10 15.5V8.5L16 12l-6 3.5z"/></svg>
+                    </a>
+                    <a class="social-icon social-apple" href="https://podcasts.apple.com/py/podcast/vcs-off-the-record-with-gayle-jennings-obyrne/id1515746108" target="_blank" rel="noopener noreferrer" aria-label="Apple Podcast">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 12.6c0-2.4 2-3.5 2.1-3.6-1.2-1.7-3-1.9-3.6-1.9-1.5-.2-2.9.9-3.6.9-.8 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.9 2.3-1.7 2.9-.4 7.2 1.2 9.5.8 1.1 1.8 2.3 3.1 2.2 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.1-1.1 2.9-2.2.9-1.3 1.3-2.7 1.3-2.8-.1 0-2.8-1.1-2.8-3.6zM14.2 5.6c.7-.8 1.2-1.9 1.1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1 .1 2-.5 2.7-1.3z"/></svg>
+                    </a>
+                    <a class="social-icon social-spotify" href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C6.2 1.5 1.5 6.2 1.5 12S6.2 22.5 12 22.5 22.5 17.8 22.5 12 17.8 1.5 12 1.5zm4.8 14.9c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.9-9.4-1.1-.3.1-.7-.1-.8-.5-.1-.3.1-.7.5-.8 4-.9 7.5-.5 10.3 1.2.4.1.5.6.3 1zm1.2-2.7c-.3.4-.8.5-1.2.3-2.8-1.7-7.2-2.2-10.5-1.2-.5.1-1-.1-1.1-.6-.1-.5.1-1 .6-1.1 3.8-1.1 8.6-.6 11.9 1.4.4.2.5.8.3 1.2zm.1-2.8C14.8 9 9.7 8.9 6.6 9.9c-.6.2-1.2-.1-1.4-.7-.2-.6.1-1.2.7-1.4 3.6-1.1 9.2-1 13.4 1.4.5.3.7 1 .4 1.5-.2.5-.9.7-1.4.4z"/></svg>
+                    </a>
+                    <a class="social-icon social-instagram" href="https://www.instagram.com/wocstarfund/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm0 1.8c-2.2 0-4 1.8-4 4v8.4c0 2.2 1.8 4 4 4h8.4c2.2 0 4-1.8 4-4V7.8c0-2.2-1.8-4-4-4H7.8zm9.1 1.4a1.3 1.3 0 110 2.6 1.3 1.3 0 010-2.6zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.8a3.2 3.2 0 100 6.4 3.2 3.2 0 000-6.4z"/></svg>
+                    </a>
+                    <a class="social-icon social-linkedin" href="https://www.linkedin.com/company/wocstar/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.7 3.5a2.1 2.1 0 100 4.2 2.1 2.1 0 000-4.2zM3 9h3.4v12H3V9zm6 0h3.2v1.6h.1c.4-.8 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5V21h-3.4v-5.8c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H9V9z"/></svg>
+                    </a>
+                    <a class="social-icon social-facebook" href="https://web.facebook.com/Wocstar?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.2V11H8v3h2.4v8h3.1z"/></svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </section>
+      </div>
+    </section>
+
+    <section class="scene academy-scene" data-index="1">
+      <div class="academy-scene__layout">
+        <div class="academy-scene__video">
+          <video src="assets/videos/istockphoto-1397154176-640_adpp_is.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+          <div class="overlay"></div>
+          <header class="academy-video-copy" aria-label="Wocstar Academy intro">
+            <h1 class="academy-video-copy__title">Wocstar Academy</h1>
+            <p class="academy-video-copy__subtext">The Wocstar Academy isn&rsquo;t just a program&mdash;it&rsquo;s a deep-dive into the mechanics that move you from founder to master of the raise by providing the definitive, insider playbook for securing the capital you deserve. Likewise, allies learn to move from occasional supporters to savvy, successful investors.</p>
+          </header>
+        </div>
+        <section class="academy-story" id="about-the-academy" aria-label="Wocstar Academy program details">
+          <div class="academy-story__inner">
+            <h2 class="academy-story__lead">Empowering Founders and Investors</h2>
+            <p class="academy-story__text">Wocstar Academy&rsquo;s program gives entrepreneurs direct insights from active funders, expert guidance to sharpen their storytelling, and tailored strategies for investor pitches, grants, and loan proposals. This nationally recognized experience includes curated workshops, one-on-one mentorship with industry leaders, and a supportive community of peers. The support continues after the program through networking opportunities and curated introductions that help accelerate each founder&rsquo;s journey.</p>
+          </div>
+        </section>
+        <section class="academy-alumni" id="academy-alumni-testimonials" aria-label="Past academy alumni testimonials">
+          <div class="academy-alumni__header">
+            <h3 class="academy-alumni__title">Alumni Testimonials</h3>
+            <div class="academy-alumni__controls" aria-label="Alumni testimonial navigation">
+              <button class="academy-alumni__btn" type="button" id="academyAlumniPrevBtn" aria-label="Show previous alumni testimonials">&#8249;</button>
+              <button class="academy-alumni__btn" type="button" id="academyAlumniNextBtn" aria-label="Show next alumni testimonials">&#8250;</button>
+            </div>
+          </div>
+          <div class="academy-alumni__viewport" id="academyAlumniViewport">
+            <ul class="academy-alumni__track" id="academyAlumniTrack">
+              <li class="academy-alumni__card">
+                <span class="academy-alumni__avatar" data-initials="KB">
+                  <img class="academy-alumni__avatar-image academy-alumni__avatar-image--kaelin" src="assets/images/academy/kaelin.png" alt="Kaelin Bass portrait" loading="lazy" />
+                </span>
+                <h4 class="academy-alumni__name">Kaelin Bass</h4>
+                <p class="academy-alumni__quote">&ldquo;Wocstar Academy changed my life. The one-on-one mentorship alone is priceless. I encourage any entrepreneur to take this workshop if you want a stronger grasp of how to run a startup and raise capital. Ten out of ten.&rdquo;</p>
+                <p class="academy-alumni__company"><a href="https://www.kmboobies.com/?srsltid=AfmBOopRXVzjbfJfy1zO49Ti0I1UdyktRYbweoMYLhx3_8J9MsnnGDpu" target="_blank" rel="noopener noreferrer">KMBoobies</a></p>
+              </li>
+              <li class="academy-alumni__card">
+                <span class="academy-alumni__avatar" data-initials="DK">
+                  <img class="academy-alumni__avatar-image academy-alumni__avatar-image--dawn" src="assets/images/academy/dawn.png" alt="Dawn Kelly portrait" loading="lazy" />
+                </span>
+                <h4 class="academy-alumni__name">Dawn Kelly</h4>
+                <p class="academy-alumni__quote">&ldquo;Wocstar gave me the capital-raising blueprint and storytelling framework that turned The Nourish Spot from a community juice bar into a thriving multi-location business. I gained the tools to raise capital, shape my story, and scale beyond what I ever imagined.&rdquo;</p>
+                <p class="academy-alumni__company"><a href="https://www.thenourishspot.com/?srsltid=AfmBOooaCY3djM8l4Ck82FRpyeDRcKqPsYiOHc4VtwiaFDrf96Neu2Fs" target="_blank" rel="noopener noreferrer">The Nourish Spot</a></p>
+              </li>
+              <li class="academy-alumni__card">
+                <span class="academy-alumni__avatar" data-initials="SC">
+                  <img class="academy-alumni__avatar-image academy-alumni__avatar-image--sirobe" src="assets/images/academy/sirobe.png" alt="Sirobe Carstafhnur portrait" loading="lazy" />
+                </span>
+                <h4 class="academy-alumni__name">Sirob&egrave; Carstafhnur</h4>
+                <p class="academy-alumni__quote">&ldquo;What I love about Wocstar Academy is the immediacy of the tools they give you. These are solutions you can put into action today. It was an amazing powerful experience, and learning from everyone&rsquo;s unique approach expanded my own.&rdquo;</p>
+                <p class="academy-alumni__company"><a href="https://sirobe.com/" target="_blank" rel="noopener noreferrer">Sirob&egrave;</a></p>
+              </li>
+              <li class="academy-alumni__card">
+                <span class="academy-alumni__avatar" data-initials="AC">
+                  <img class="academy-alumni__avatar-image academy-alumni__avatar-image--ameka" src="assets/images/academy/ameka.png" alt="Ameka Coleman portrait" loading="lazy" />
+                </span>
+                <h4 class="academy-alumni__name">Ameka Coleman</h4>
+                <p class="academy-alumni__quote">&ldquo;The Academy elevated my pitch and confidence. It took me to the next level. I now speak confidently about my vision, as well as my financial needs, when talking to potential partners and investors. The entire program was incredible.&rdquo;</p>
+                <p class="academy-alumni__company"><a href="https://strandsoffaith.com/?srsltid=AfmBOoqZH-K7yCTuOoZZt8KobubxKpuCrgbFbMEz3Zk6cKlT_zgE6Vg-" target="_blank" rel="noopener noreferrer">Strands of Faith</a></p>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section class="academy-curriculum" id="academy-curriculum" aria-label="Wocstar Academy founder and investor curriculum">
+          <div class="academy-curriculum__inner">
+            <header class="academy-curriculum__header">
+              <p class="academy-curriculum__kicker">Curriculum Blueprint</p>
+              <h3 class="academy-curriculum__title">
+                <span class="academy-curriculum__title-line">The playbook that turns ambition</span>
+                <span class="academy-curriculum__title-line">into investable momentum</span>
+              </h3>
+              <p class="academy-curriculum__intro">Built for founders raising with precision and allies investing with confidence. Practical, high-caliber training designed for real outcomes.</p>
+              <div class="academy-curriculum__chips" aria-label="Academy learning pillars">
+                <button class="academy-curriculum__scene-btn is-active" type="button" data-academy-scene="founder" aria-pressed="true">Founder Track</button>
+                <button class="academy-curriculum__scene-btn" type="button" data-academy-scene="investor" aria-pressed="false">Investor Track</button>
+              </div>
+            </header>
+
+            <div class="academy-curriculum__tracks">
+              <article class="academy-curriculum__card is-active" id="academy-founder-track" data-academy-scene-panel="founder">
+                <h4 class="academy-curriculum__card-title">Founder Curriculum</h4>
+                <p class="academy-curriculum__card-subtitle">Insider intelligence for the raise</p>
+                <ul class="academy-curriculum__list">
+                  <li><strong>Strategic Capitalization:</strong> Identify the right capital for your stage, from seed to scale.</li>
+                  <li><strong>Valuation &amp; Terms:</strong> Master the math and mechanics of negotiating fair, growth-oriented deals.</li>
+                  <li><strong>Campaign Execution:</strong> Build and run a professional fundraising engine that closes rounds.</li>
+                  <li><strong>Investor Cultivation:</strong> Move beyond the pitch to build lasting, high-value investor alliances.</li>
+                </ul>
+              </article>
+
+              <article class="academy-curriculum__card" id="academy-investor-track" data-academy-scene-panel="investor">
+                <h4 class="academy-curriculum__card-title">Investor Curriculum</h4>
+                <p class="academy-curriculum__card-subtitle">Mastering the asset class</p>
+                <ul class="academy-curriculum__list">
+                  <li><strong>Asset Class Mastery:</strong> Deep-dive into venture capital fundamentals and early-stage equity mechanics.</li>
+                  <li><strong>The Diligence Framework:</strong> Evaluate tech innovation and spot the edge others miss.</li>
+                  <li><strong>Portfolio Strategy:</strong> Understand risk management, diversification, and long-term return design.</li>
+                  <li><strong>Inclusive Sourcing:</strong> Use a female-forward lens to find and fuel high-potential, under-tapped talent.</li>
+                </ul>
+              </article>
+            </div>
+
+            <article class="academy-curriculum__meta">
+              <div class="academy-curriculum__meta-body">
+                <h4 class="academy-curriculum__meta-title">How We Learn: Community &amp; Flexibility</h4>
+                <p class="academy-curriculum__meta-copy"><strong>Collaborative Power:</strong> Group coursework with founders and investors, powered by collective intelligence and shared networks.</p>
+                <p class="academy-curriculum__meta-copy"><strong>Wocstar Online Academy (Coming Soon):</strong> Self-paced modules for leaders who want world-class training on their own schedule.</p>
+              </div>
+              <button class="academy-curriculum__cta" type="button" id="academyApplyButton">Secure your spot</button>
+            </article>
+          </div>
+        </section>
+        <section class="academy-quote" aria-label="Wocstar Academy founder quote">
+          <div class="academy-quote__inner">
+            <div class="academy-quote__portrait-wrap">
+              <img class="academy-quote__portrait" src="assets/images/misc/Gayle.png" alt="Gayle Jennings Oâ€™Byrne portrait" />
+            </div>
+            <div>
+              <p class="academy-quote__text">&ldquo;Wocstar Academy provides the tools, the capital playbook, and the female-forward mindset that both founders and investors deserve. When you join, you aren&rsquo;t just entering a program&mdash;you are stepping into an allied network designed to ignite your goals.&rdquo;</p>
+              <p class="academy-quote__author">Gayle Jennings O&rsquo;Byrne, <em>CEO Wocstar Capital</em></p>
+            </div>
+          </div>
+        </section>
+        <footer class="scene-global-footer academy-inline-footer" aria-label="Academy page footer">
+          <div class="scene-global-footer__inner">
+            <div class="scene-global-footer__left">
+              <h2 class="scene-global-footer__title">Ready to master the capital playbook?</h2>
+              <button class="scene-global-footer__btn" type="button" id="academyWaitlistButton">Secure your spot</button>
+              <div class="scene-global-footer__links">
+                <a href="#">SMS Terms &amp; Conditions</a>
+                <a href="#">Privacy Policy</a>
+              </div>
+              <p class="scene-global-footer__legal">
+                Copyright &copy; 2026 Wocstar Capital, LLC. All rights reserved.<br />
+                Wocstar&reg; is a registered trademark of Wocstar Capital, LLC.<br />
+                NYC, New York
+              </p>
+            </div>
+            <div class="scene-global-footer__right">
+              <form class="scene-global-footer__search" role="search" aria-label="Academy search" onsubmit="return false;">
+                <input type="search" placeholder="Search" aria-label="Search" />
+                <button type="submit" aria-label="Submit search">&#9906;</button>
+              </form>
+              <div class="scene-global-footer__actions">
+                <button class="scene-global-footer__btn" type="button" id="academyInlineContactButton">Contact Us</button>
+              </div>
+              <div class="scene-global-footer__social">
+                <p class="scene-global-footer__social-title">Follow Us On Social</p>
+                <div class="scene-global-footer__social-row" aria-label="Academy social links">
+                  <a class="social-icon social-youtube" href="https://www.youtube.com/channel/UCcpzz0ps3xDkmWyl4nvGxiQ" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 12s0-3.2-.4-4.7c-.2-.8-.8-1.4-1.6-1.6C19.4 5.3 12 5.3 12 5.3s-7.4 0-9 .4c-.8.2-1.4.8-1.6 1.6C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.8 1.4 1.6 1.6 1.6.4 9 .4 9 .4s7.4 0 9-.4c.8-.2 1.4-.8 1.6-1.6.4-1.5.4-4.7.4-4.7zM10 15.5V8.5L16 12l-6 3.5z"/></svg>
+                  </a>
+                  <a class="social-icon social-apple" href="https://podcasts.apple.com/py/podcast/vcs-off-the-record-with-gayle-jennings-obyrne/id1515746108" target="_blank" rel="noopener noreferrer" aria-label="Apple Podcast">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 12.6c0-2.4 2-3.5 2.1-3.6-1.2-1.7-3-1.9-3.6-1.9-1.5-.2-2.9.9-3.6.9-.8 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.9 2.3-1.7 2.9-.4 7.2 1.2 9.5.8 1.1 1.8 2.3 3.1 2.2 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.1-1.1 2.9-2.2.9-1.3 1.3-2.7 1.3-2.8-.1 0-2.8-1.1-2.8-3.6zM14.2 5.6c.7-.8 1.2-1.9 1.1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1 .1 2-.5 2.7-1.3z"/></svg>
+                  </a>
+                  <a class="social-icon social-spotify" href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C6.2 1.5 1.5 6.2 1.5 12S6.2 22.5 12 22.5 22.5 17.8 22.5 12 17.8 1.5 12 1.5zm4.8 14.9c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.9-9.4-1.1-.3.1-.7-.1-.8-.5-.1-.3.1-.7.5-.8 4-.9 7.5-.5 10.3 1.2.4.1.5.6.3 1zm1.2-2.7c-.3.4-.8.5-1.2.3-2.8-1.7-7.2-2.2-10.5-1.2-.5.1-1-.1-1.1-.6-.1-.5.1-1 .6-1.1 3.8-1.1 8.6-.6 11.9 1.4.4.2.5.8.3 1.2zm.1-2.8C14.8 9 9.7 8.9 6.6 9.9c-.6.2-1.2-.1-1.4-.7-.2-.6.1-1.2.7-1.4 3.6-1.1 9.2-1 13.4 1.4.5.3.7 1 .4 1.5-.2.5-.9.7-1.4.4z"/></svg>
+                  </a>
+                  <a class="social-icon social-instagram" href="https://www.instagram.com/wocstarfund/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm0 1.8c-2.2 0-4 1.8-4 4v8.4c0 2.2 1.8 4 4 4h8.4c2.2 0 4-1.8 4-4V7.8c0-2.2-1.8-4-4-4H7.8zm9.1 1.4a1.3 1.3 0 110 2.6 1.3 1.3 0 010-2.6zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.8a3.2 3.2 0 100 6.4 3.2 3.2 0 000-6.4z"/></svg>
+                  </a>
+                  <a class="social-icon social-linkedin" href="https://www.linkedin.com/company/wocstar/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.7 3.5a2.1 2.1 0 100 4.2 2.1 2.1 0 000-4.2zM3 9h3.4v12H3V9zm6 0h3.2v1.6h.1c.4-.8 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5V21h-3.4v-5.8c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H9V9z"/></svg>
+                  </a>
+                  <a class="social-icon social-facebook" href="https://web.facebook.com/Wocstar?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.2V11H8v3h2.4v8h3.1z"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </section>
+
+    <section class="scene media-scene" data-index="2">
+      <div class="media-scene__video">
+        <video src="assets/videos/istockphoto-1733016928-640_adpp_is.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+        <div class="overlay"></div>
+        <header class="media-video-copy" aria-label="Wocstar Media intro" id="about">
+          <h1 class="media-video-copy__title">Wocstar Media</h1>
+          <p class="media-video-copy__subtext">Backing Creative Disrupters. Investing in Cultural Innovation.</p>
+        </header>
+      </div>
+      <div class="media-layout">
+        <article class="media-letter" aria-label="Wocstar Media letter">
+          <p class="media-letter__eyebrow">Wocstar Media</p>
+          <div class="media-letter__body">
+            <p class="media-letter__paragraph" data-media-type>Wocstar Media is the investment engine for the creative economy. We back creative entrepreneurs with the same conviction, capital, and strategic support we provide our innovative founders. We fuel the stories and businesses that define our future.</p>
+          </div>
+        </article>
+        <section class="media-arrows" aria-label="Wocstar Media pathways">
+          <div class="media-pathways" aria-label="Interlocking media pathways">
+            <button class="media-pathway media-pathway--fellows" type="button" id="media-fellows" aria-label="Open Media Fellows">
+              <span class="media-pathway__label">MEDIA FELLOWS</span>
+            </button>
+            <button class="media-pathway media-pathway--foundation" type="button" id="wocstar-media-foundation" aria-label="Open Media Foundation">
+              <span class="media-pathway__label">MEDIA FOUNDATION</span>
+            </button>
+            <a class="media-pathway media-pathway--podcast" id="podcasting" href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer" aria-label="Open VC's Off the Record Podcast">
+              <span class="media-pathway__label">VC'S OFF THE RECORD</span>
+            </a>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="scene universe-scene" data-index="3">
+      <div class="capital-scene__video">
+        <video src="assets/videos/wocstarcapitalvideo.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+        <header class="capital-video-copy" aria-label="Wocstar Capital intro">
+          <h1 class="capital-video-copy__title">Wocstar Capital</h1>
+          <p class="capital-video-copy__subtext">We don&rsquo;t just invest; we ignite. We fuel the unstoppable.</p>
+          <p class="capital-video-copy__subtext">Wocstar Capital is a global community of investors, allies, and entrepreneurs. Through capital, education, a global network, and access, we&rsquo;re rewriting the rules of success.</p>
+        </header>
+      </div>
+      <div class="universe-layout">
+        <section class="capital-interview" id="featured-news" aria-label="Featured PIX11 interview with Gayle Jennings-O'Byrne">
+          <article class="capital-interview__item is-active" data-interview-index="0" aria-live="polite">
+            <a class="capital-interview__media" href="https://www.youtube.com/watch?v=DOVWZRc-OFA&autoplay=1" target="_blank" rel="noopener noreferrer" aria-label="Watch Gayle Jennings-O'Byrne PIX11 interview on YouTube" data-embed-url="https://www.youtube-nocookie.com/embed/DOVWZRc-OFA?autoplay=1&playsinline=1&rel=0&modestbranding=1" data-fallback-url="https://www.youtube.com/watch?v=DOVWZRc-OFA">
+              <img src="https://i.ytimg.com/vi/DOVWZRc-OFA/hqdefault.jpg" alt="Gayle Jennings-O'Byrne interview thumbnail" loading="lazy" />
+              <span class="capital-interview__play" aria-hidden="true"></span>
+            </a>
+            <div class="capital-interview__copy">
+              <p class="capital-interview__kicker">Featured Interview</p>
+              <h3 class="capital-interview__title">Gayle Jennings-O'Byrne on PIX11</h3>
+              <p class="capital-interview__text">Gayle shares her vision for building generational wealth through inclusive innovation, founder readiness, and bold investment leadership. Hear how Wocstar Capital is opening doors for the next wave of transformative entrepreneurs.</p>
+              <a class="capital-interview__cta" href="https://youtu.be/DOVWZRc-OFA" target="_blank" rel="noopener noreferrer">Listen To The Full Interview</a>
+            </div>
+          </article>
+          <article class="capital-interview__item" data-interview-index="1" aria-live="polite">
+            <a class="capital-interview__media" href="https://www.youtube.com/watch?v=2MLWgDO9EPw" target="_blank" rel="noopener noreferrer" aria-label="Watch Gayle Jennings-O'Byrne CBS News segment" data-embed-url="https://www.youtube-nocookie.com/embed/2MLWgDO9EPw?autoplay=1&playsinline=1&rel=0&modestbranding=1" data-fallback-url="https://www.youtube.com/watch?v=2MLWgDO9EPw">
+              <img src="https://i.ytimg.com/vi/2MLWgDO9EPw/hqdefault.jpg" alt="Gayle Jennings-O'Byrne speaking with interviewer on CBS News" loading="lazy" />
+              <span class="capital-interview__play" aria-hidden="true"></span>
+            </a>
+            <div class="capital-interview__copy">
+              <p class="capital-interview__kicker">In The Press</p>
+              <h3 class="capital-interview__title">Gayle Featured on CBS News</h3>
+              <p class="capital-interview__text">In this CBS News conversation, Gayle dives into the real risks and realities of entrepreneurship and what founders need to build resilient, scalable businesses in today's market.</p>
+              <a class="capital-interview__cta" href="https://www.youtube.com/watch?v=2MLWgDO9EPw" target="_blank" rel="noopener noreferrer">Listen To The Full Interview</a>
+            </div>
+          </article>
+        </section>
+        <section class="universe-showcase" id="the-wocstar-universe" aria-label="Wocstar team, venture partners, advisory board, and allies showcase">
+          <div class="universe-partners__header">
+            <h3 class="universe-partners__title universe-team-title" id="universeShowcaseTitle">The Wocstar Team</h3>
+            <div class="universe-partners__controls" aria-label="Showcase navigation">
+              <button class="universe-partners__btn" type="button" id="partnersPrevBtn" aria-label="Show previous showcase scene">&#8249;</button>
+              <button class="universe-partners__btn" type="button" id="partnersNextBtn" aria-label="Show next showcase scene">&#8250;</button>
+            </div>
+          </div>
+          <div class="universe-showcase__slide is-active" data-showcase-index="0" data-showcase-title="The Wocstar Team">
+            <div class="universe-collage" aria-label="Wocstar Team profiles">
+              <div class="universe-shape" aria-hidden="true"></div>
+              <section class="universe-group" data-group="core-team" aria-label="Core team">
+                <a class="profile-orbit profile-orbit--01" href="#" id="goToGayleFromBubble" aria-label="Gayle Jennings-O'Byrne biography">
+                  <span class="profile-orbit__photo" aria-hidden="true"></span>
+                  <span class="profile-orbit__dialog">Pialy Aditya</span>
+                  <span class="profile-orbit__cta">Read bio</span>
+                </a>
+                <a class="profile-orbit profile-orbit--02" href="/universe/core-team-member-2.html" aria-label="Core team member biography">
+                  <span class="profile-orbit__photo" aria-hidden="true"></span>
+                  <span class="profile-orbit__dialog">Colleen Bataille</span>
+                  <span class="profile-orbit__cta">Read bio</span>
+                </a>
+                <a class="profile-orbit profile-orbit--03" href="/universe/core-team-member-3.html" aria-label="Core team member biography">
+                  <span class="profile-orbit__photo" aria-hidden="true"></span>
+                  <span class="profile-orbit__dialog">Gayle Jennings-O'Byrne</span>
+                  <span class="profile-orbit__cta" id="goToGayleReadBio">Read bio</span>
+                </a>
+              </section>
+              <section class="universe-group" data-group="partners" aria-label="Partners">
+                <a class="profile-orbit profile-orbit--04" href="/universe/partner-1.html" aria-label="Partner biography">
+                  <span class="profile-orbit__photo" aria-hidden="true"></span>
+                  <span class="profile-orbit__dialog">Laurel Lefebvre</span>
+                  <span class="profile-orbit__cta">Read bio</span>
+                </a>
+                <a class="profile-orbit profile-orbit--05" href="/universe/partner-2.html" aria-label="Partner biography">
+                  <span class="profile-orbit__photo" aria-hidden="true"></span>
+                  <span class="profile-orbit__dialog">Victoria Bert</span>
+                  <span class="profile-orbit__cta">Read bio</span>
+                </a>
+              </section>
+            </div>
+          </div>
+          <div class="universe-showcase__slide" data-showcase-index="1" data-showcase-title="Our Venture Partners">
+            <section class="universe-partners" aria-label="Our venture partners">
+              <div class="universe-partners__viewport" id="partnersViewport">
+                <ul class="universe-partners__track" id="partnersTrack">
+                  <li class="partner-card partner-card--gold">
+                    <span class="partner-card__avatar" aria-hidden="true">
+                      <img class="partner-card__avatar-image" src="assets/images/misc/christaljackson.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="partner-card__name">CHRISTAL M. JACKSON</span>
+                    <span class="partner-card__firm">Mosaic Genius</span>
+                  </li>
+                  <li class="partner-card partner-card--blue">
+                    <span class="partner-card__avatar" aria-hidden="true">
+                      <img class="partner-card__avatar-image" src="assets/images/misc/Erica.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="partner-card__name">ERICA MINNIHAN</span>
+                    <span class="partner-card__firm">Reign Ventures</span>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </div>
+          <div class="universe-showcase__slide" data-showcase-index="2" data-showcase-title="The Advisory Board">
+            <section class="universe-partners" aria-label="The advisory board">
+              <div class="universe-partners__viewport">
+                <ul class="universe-partners__track">
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="assets/images/advisory-board/BETSY.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">BETSEY COHEN</span>
+                    <span class="advisory-card__firm">Teneo Ventures</span>
+                  </li>
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="assets/images/advisory-board/SCOTT.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">SCOTT BAKER</span>
+                    <span class="advisory-card__firm">New England Development</span>
+                  </li>
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="assets/images/advisory-board/CARTER.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">CARTER MCCLELLAND</span>
+                    <span class="advisory-card__firm">Union Square Advisors</span>
+                  </li>
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="assets/images/advisory-board/JOEL.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">JOEL SOLOMON</span>
+                    <span class="advisory-card__firm">Renewal Funds</span>
+                  </li>
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="assets/images/misc/mattwilkins.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">MATTHEW WILKENS</span>
+                    <span class="advisory-card__firm">Grupo Kallas</span>
+                  </li>
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">MI</span>
+                    <span class="advisory-card__name">MONICA ISSAR</span>
+                    <span class="advisory-card__firm">JPMorgan</span>
+                  </li>
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="assets/images/misc/natalie.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">NATHALIE MOLINA NI&Ntilde;O</span>
+                    <span class="advisory-card__firm">KNOWN Capital</span>
+                  </li>
+                  <li class="partner-card advisory-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">RC</span>
+                    <span class="advisory-card__name">RUDY CLINE-THOMAS</span>
+                    <span class="advisory-card__firm">Mastry, Inc</span>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </div>
+          <div class="universe-showcase__slide" data-showcase-index="3" data-showcase-title="The Allies">
+            <section class="universe-partners" aria-label="The allies">
+              <div class="universe-partners__viewport">
+                <ul class="universe-partners__track">
+                  <li class="partner-card advisory-card allies-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="assets/images/allies/DALILA.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">DALILA WILSON-SCOTT</span>
+                    <span class="advisory-card__firm">Comcast NBCUniversal</span>
+                  </li>
+                  <li class="partner-card advisory-card allies-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="assets/images/allies/JACKI.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">JACKI ZEHNER</span>
+                    <span class="advisory-card__firm">ShePlace and Women Moving Millions</span>
+                  </li>
+                  <li class="partner-card advisory-card allies-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="assets/images/allies/JILL.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">JILL KARP</span>
+                    <span class="advisory-card__firm">Karp Foundation</span>
+                  </li>
+                  <li class="partner-card advisory-card allies-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="assets/images/allies/TILICIA.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">TILCIA TOLEDO</span>
+                    <span class="advisory-card__firm">FTI Consulting</span>
+                  </li>
+                  <li class="partner-card advisory-card allies-card">
+                    <span class="advisory-card__avatar" aria-hidden="true">
+                      <img src="assets/images/allies/LEANNE.png" alt="" loading="lazy" />
+                    </span>
+                    <span class="advisory-card__name">LEANNE HUEBNER</span>
+                    <span class="advisory-card__firm">Minds Matter National</span>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </div>
+        </section>
+        <footer class="scene-global-footer fund-inline-footer" aria-label="Capital page footer">
+          <div class="scene-global-footer__inner">
+            <div class="scene-global-footer__left">
+              <h2 class="scene-global-footer__title">Building the future? We&rsquo;re looking for you. Let&rsquo;s make it happen.</h2>
+              <a class="scene-global-footer__btn" href="https://form.jotform.com/Wocstar/wocstar-fund-application" target="_blank" rel="noopener noreferrer">Apply for Funding</a>
+              <div class="scene-global-footer__links">
+                <a href="#">SMS Terms &amp; Conditions</a>
+                <a href="#">Privacy Policy</a>
+              </div>
+              <p class="scene-global-footer__legal">
+                Copyright &copy; 2026 Wocstar Capital, LLC. All rights reserved.<br />
+                Wocstar&reg; is a registered trademark of Wocstar Capital, LLC.<br />
+                NYC, New York
+              </p>
+            </div>
+            <div class="scene-global-footer__right">
+              <form class="scene-global-footer__search" role="search" aria-label="Capital search" onsubmit="return false;">
+                <input type="search" placeholder="Search" aria-label="Search" />
+                <button type="submit" aria-label="Submit search">&#9906;</button>
+              </form>
+              <div class="scene-global-footer__actions">
+                <button class="scene-global-footer__btn" type="button" id="capitalInlineContactButton">Contact Us</button>
+              </div>
+              <div class="scene-global-footer__social">
+                <p class="scene-global-footer__social-title">Follow Us On Social</p>
+                <div class="scene-global-footer__social-row" aria-label="Capital social links">
+                  <a class="social-icon social-youtube" href="https://www.youtube.com/channel/UCcpzz0ps3xDkmWyl4nvGxiQ" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 12s0-3.2-.4-4.7c-.2-.8-.8-1.4-1.6-1.6C19.4 5.3 12 5.3 12 5.3s-7.4 0-9 .4c-.8.2-1.4.8-1.6 1.6C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.8 1.4 1.6 1.6 1.6.4 9 .4 9 .4s7.4 0 9-.4c.8-.2 1.4-.8 1.6-1.6.4-1.5.4-4.7.4-4.7zM10 15.5V8.5L16 12l-6 3.5z"/></svg>
+                  </a>
+                  <a class="social-icon social-apple" href="https://podcasts.apple.com/py/podcast/vcs-off-the-record-with-gayle-jennings-obyrne/id1515746108" target="_blank" rel="noopener noreferrer" aria-label="Apple Podcast">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 12.6c0-2.4 2-3.5 2.1-3.6-1.2-1.7-3-1.9-3.6-1.9-1.5-.2-2.9.9-3.6.9-.8 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.9 2.3-1.7 2.9-.4 7.2 1.2 9.5.8 1.1 1.8 2.3 3.1 2.2 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.1-1.1 2.9-2.2.9-1.3 1.3-2.7 1.3-2.8-.1 0-2.8-1.1-2.8-3.6zM14.2 5.6c.7-.8 1.2-1.9 1.1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1 .1 2-.5 2.7-1.3z"/></svg>
+                  </a>
+                  <a class="social-icon social-spotify" href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C6.2 1.5 1.5 6.2 1.5 12S6.2 22.5 12 22.5 22.5 17.8 22.5 12 17.8 1.5 12 1.5zm4.8 14.9c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.9-9.4-1.1-.3.1-.7-.1-.8-.5-.1-.3.1-.7.5-.8 4-.9 7.5-.5 10.3 1.2.4.1.5.6.3 1zm1.2-2.7c-.3.4-.8.5-1.2.3-2.8-1.7-7.2-2.2-10.5-1.2-.5.1-1-.1-1.1-.6-.1-.5.1-1 .6-1.1 3.8-1.1 8.6-.6 11.9 1.4.4.2.5.8.3 1.2zm.1-2.8C14.8 9 9.7 8.9 6.6 9.9c-.6.2-1.2-.1-1.4-.7-.2-.6.1-1.2.7-1.4 3.6-1.1 9.2-1 13.4 1.4.5.3.7 1 .4 1.5-.2.5-.9.7-1.4.4z"/></svg>
+                  </a>
+                  <a class="social-icon social-instagram" href="https://www.instagram.com/wocstarfund/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm0 1.8c-2.2 0-4 1.8-4 4v8.4c0 2.2 1.8 4 4 4h8.4c2.2 0 4-1.8 4-4V7.8c0-2.2-1.8-4-4-4H7.8zm9.1 1.4a1.3 1.3 0 110 2.6 1.3 1.3 0 010-2.6zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.8a3.2 3.2 0 100 6.4 3.2 3.2 0 000-6.4z"/></svg>
+                  </a>
+                  <a class="social-icon social-linkedin" href="https://www.linkedin.com/company/wocstar/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.7 3.5a2.1 2.1 0 100 4.2 2.1 2.1 0 000-4.2zM3 9h3.4v12H3V9zm6 0h3.2v1.6h.1c.4-.8 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5V21h-3.4v-5.8c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H9V9z"/></svg>
+                  </a>
+                  <a class="social-icon social-facebook" href="https://web.facebook.com/Wocstar?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.2V11H8v3h2.4v8h3.1z"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <div class="overlay"></div>
+    </section>
+
+    <section class="scene profile-scene" data-index="4">
+      <div class="profile-layout">
+        <img src="assets/images/misc/Gayle.png" alt="Gayle Jennings-O'Byrne" class="profile-image" />
+        <article class="profile-copy">
+          <p>Gayle Jennings-O'Byrne is the CEO of Wocstar Capital and co-founder of the Wocstar Fund, an early-stage venture capital fund that invests in a new generation of innovative and diverse tech entrepreneurs. Recognized by the New York Times as one of &quot;10 Women Changing the Landscape of Leadership,&quot; she has been named one of Forbes &quot;50 Over 50&quot; investors and a &quot;Top Black Venture Capitalist&quot; (Business Insider) and a &quot;Top 10 Woman of Influence in Venture Capital&quot; by Venture Capital Journal. Her track record of identifying and empowering visionary founders has resulted in successful fund exits that have returned investor capital. Gayle also leads Wocstar Academy, a global program that trains CEOs for capital readiness, and oversees a major grant on behalf of Pivotal Ventures and other foundations to address systemic underinvestment in female fund managers.</p>
+          <p>Gayle has over 30+ years of Wall Street, technology, philanthropy, training, and professional speaking experience. She is a former mergers and acquisitions banker at JPMorgan. She led the capital/planning effort for the Cinema High School, the 1st public high school of its kind. She began her career at Sun Microsystems.</p>
+          <p>She is a graduate of the Wharton School of Business, the University of Michigan, and an attendee of the National University of Singapore and the City of London Polytechnic.</p>
+          <p>She is the former President of The Nantucket Project Academy and a former board member of Tri Delta Foundation Board, Women.NYC, NYC Economic Development Corporation, and board member of BE.NYC (Black Entrepreneurs), NYC Department of Small Business Services. Gayle is a 2022 recipient of the U.S. Presidential Lifetime Achievement Award, the 2021 Tri-Delta Woman of Achievement Award. Gayle's media experience includes M&amp;A of film studios and assets, Associate Producer of &quot;Thoughts of a Colored Man&quot; a Broadway play (October 2021) and investor in &quot;For Colored Girls Who Have Considered Suicide / When the Rainbow Is Enuf&quot; (April 2022) which was nominated for seven Tony Awards as well as investor in several films and media projects.</p>
+          <section class="press-section" aria-label="Find Gayle in the press">
+            <h2 class="press-title">Find Gayle in the press</h2>
+            <div class="press-grid">
+              <a class="press-card" href="https://www.nytimes.com/live/2021/03/05/world/women-leadership" target="_blank" rel="noopener noreferrer" aria-label="Read New York Times coverage about Gayle">
+                <img class="press-logo bright" src="assets/images/misc/the-new-york-times-seeklogo.png" alt="The New York Times" />
+              </a>
+              <a class="press-card" href="https://www.abcnews.go.com/search?searchtext=Gayle%20Jennings-O%27Byrne" target="_blank" rel="noopener noreferrer" aria-label="Read ABC News coverage about Gayle">
+                <img class="press-logo bright" src="assets/images/misc/abc-news-seeklogo.png" alt="ABC News" />
+              </a>
+              <a class="press-card" href="https://www.crainsnewyork.com/search?query=Gayle%20Jennings-O%27Byrne" target="_blank" rel="noopener noreferrer" aria-label="Read Crain's New York coverage about Gayle">
+                <img class="press-logo" src="assets/images/misc/Crain's_New_York_idQCK4RdSh_0.png" alt="Crain's New York" />
+              </a>
+              <a class="press-card" href="https://www.cbsnews.com/search/?q=Gayle%20Jennings-O%27Byrne" target="_blank" rel="noopener noreferrer" aria-label="Read CBS News coverage about Gayle">
+                <img class="press-logo cbs-logo" src="assets/images/misc/CBS_News_id1klAFr7p_1.jpeg" alt="CBS News" />
+              </a>
+              <a class="press-card pix11-card" href="https://pix11.com/new-york-living/personality-and-your-finances/" target="_blank" rel="noopener noreferrer" aria-label="Watch PIX11 coverage featuring Gayle">
+                <span class="pix11-wordmark">PIX11</span>
+              </a>
+              <a class="press-card" href="https://www.forbes.com/sites/maggiemcgrath/2024/08/01/50-over-50-investment/" target="_blank" rel="noopener noreferrer" aria-label="Read Forbes coverage about Gayle">
+                <img class="press-logo bright" src="assets/images/misc/Forbes_idvlzRQKLx_1.png" alt="Forbes" />
+              </a>
+              <a class="press-card jp-card" href="https://www.jpmorgan.com/search?query=Gayle%20Jennings-O%27Byrne" target="_blank" rel="noopener noreferrer" aria-label="Read JPMorgan coverage about Gayle">
+                <img class="press-logo" src="assets/images/misc/jp-morgan-seeklogo.png" alt="JPMorgan" />
+              </a>
+            </div>
+          </section>
+          <footer class="profile-footer" aria-label="Site footer">
+            <div class="profile-footer-grid">
+              <div>
+                <h2 class="footer-heading">Join us. Sign up for the newsletter.</h2>
+                <a class="footer-btn" href="#" aria-label="Subscribe to newsletter">Subscribe</a>
+                <div class="footer-links">
+                  <a href="#">SMS Terms &amp; Conditions</a>
+                  <a href="#">Privacy Policy</a>
+                </div>
+              </div>
+              <div>
+                <input class="footer-search" type="search" name="footer-search" placeholder="Search" aria-label="Search" />
+                <div class="footer-action-stack">
+                  <a class="footer-btn" id="contactButton" href="#">Contact Us</a>
+                </div>
+                <div class="footer-social">
+                  <p class="footer-social-title">Follow Gayle on social media</p>
+                  <div class="footer-social-row" aria-label="Social links">
+                    <a class="social-icon social-youtube" href="#" aria-label="YouTube">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M23 12s0-3.2-.4-4.7c-.2-.8-.8-1.4-1.6-1.6C19.4 5.3 12 5.3 12 5.3s-7.4 0-9 .4c-.8.2-1.4.8-1.6 1.6C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.8 1.4 1.6 1.6 1.6.4 9 .4 9 .4s7.4 0 9-.4c.8-.2 1.4-.8 1.6-1.6.4-1.5.4-4.7.4-4.7zM10 15.5V8.5L16 12l-6 3.5z"/>
+                      </svg>
+                    </a>
+                    <a class="social-icon social-apple" href="#" aria-label="Apple">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M16.6 12.6c0-2.4 2-3.5 2.1-3.6-1.2-1.7-3-1.9-3.6-1.9-1.5-.2-2.9.9-3.6.9-.8 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.9 2.3-1.7 2.9-.4 7.2 1.2 9.5.8 1.1 1.8 2.3 3.1 2.2 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.1-1.1 2.9-2.2.9-1.3 1.3-2.7 1.3-2.8-.1 0-2.8-1.1-2.8-3.6zM14.2 5.6c.7-.8 1.2-1.9 1.1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1 .1 2-.5 2.7-1.3z"/>
+                      </svg>
+                    </a>
+                    <a class="social-icon social-spotify" href="#" aria-label="Spotify">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 1.5C6.2 1.5 1.5 6.2 1.5 12S6.2 22.5 12 22.5 22.5 17.8 22.5 12 17.8 1.5 12 1.5zm4.8 14.9c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.9-9.4-1.1-.3.1-.7-.1-.8-.5-.1-.3.1-.7.5-.8 4-.9 7.5-.5 10.3 1.2.4.1.5.6.3 1zm1.2-2.7c-.3.4-.8.5-1.2.3-2.8-1.7-7.2-2.2-10.5-1.2-.5.1-1-.1-1.1-.6-.1-.5.1-1 .6-1.1 3.8-1.1 8.6-.6 11.9 1.4.4.2.5.8.3 1.2zm.1-2.8C14.8 9 9.7 8.9 6.6 9.9c-.6.2-1.2-.1-1.4-.7-.2-.6.1-1.2.7-1.4 3.6-1.1 9.2-1 13.4 1.4.5.3.7 1 .4 1.5-.2.5-.9.7-1.4.4z"/>
+                      </svg>
+                    </a>
+                    <a class="social-icon social-instagram" href="#" aria-label="Instagram">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm0 1.8c-2.2 0-4 1.8-4 4v8.4c0 2.2 1.8 4 4 4h8.4c2.2 0 4-1.8 4-4V7.8c0-2.2-1.8-4-4-4H7.8zm9.1 1.4a1.3 1.3 0 110 2.6 1.3 1.3 0 010-2.6zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.8a3.2 3.2 0 100 6.4 3.2 3.2 0 000-6.4z"/>
+                      </svg>
+                    </a>
+                    <a class="social-icon social-linkedin" href="#" aria-label="LinkedIn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4.7 3.5a2.1 2.1 0 100 4.2 2.1 2.1 0 000-4.2zM3 9h3.4v12H3V9zm6 0h3.2v1.6h.1c.4-.8 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5V21h-3.4v-5.8c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H9V9z"/>
+                      </svg>
+                    </a>
+                    <a class="social-icon social-facebook" href="#" aria-label="Facebook">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.2V11H8v3h2.4v8h3.1z"/>
+                      </svg>
+                    </a>
+                    <a class="social-icon social-tiktok" href="#" aria-label="TikTok">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M14 3c.2 1.7 1.2 3 2.9 3.8 1 .5 2 .7 3.1.7v2.7c-1.5 0-3-.4-4.3-1.1v5.9c0 3.2-2.5 5.7-5.7 5.7S4.3 18.2 4.3 15 6.8 9.3 10 9.3c.4 0 .8 0 1.2.1V12c-.4-.1-.8-.2-1.2-.2-1.8 0-3.2 1.4-3.2 3.2S8.2 18.2 10 18.2s3.2-1.4 3.2-3.2V3h.8z"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="footer-legal">
+              Copyright &copy; 2026 Wocstar Capital, LLC. All rights reserved.<br />
+              Wocstar&reg; is a registered trademark of Wocstar Capital, LLC.<br />
+              New York
+            </p>
+          </footer>
+        </article>
+      </div>
+      <div class="overlay"></div>
+    </section>
+  </main>
+
+  <div class="foundation-modal" id="foundationModal" aria-hidden="true">
+    <div class="foundation-modal__backdrop" data-close-foundation="true"></div>
+    <section class="foundation-modal__panel" role="dialog" aria-modal="true" aria-label="Wocstar Media Foundation">
+      <button type="button" class="foundation-modal__close" data-close-foundation="true" aria-label="Close foundation panel">X</button>
+      <header class="foundation-modal__hero">
+        <p class="foundation-modal__kicker">Wocstar</p>
+        <h2 class="foundation-modal__title">Media Foundation</h2>
+        <p class="foundation-modal__intro">Wocstar Media Foundation supports entrepreneurs and creators who use innovation, imagination, and human experiences to take society on a powerful journey. Our work amplifies diverse voices changing the future of finance, entrepreneurship, media, and entertainment.</p>
+      </header>
+      <div class="foundation-modal__body">
+        <section class="foundation-grid">
+          <article class="foundation-card">
+            <h3 class="foundation-card__title">Why It Matters</h3>
+            <p class="foundation-card__text">Your contribution directly supports artists and media entrepreneurs building meaningful stories, broadening representation, and creating cultural momentum that reaches far beyond a single project.</p>
+            <p class="foundation-card__text">Each gift helps power Wocstar Media Fellows and related initiatives designed to expand access, unlock opportunity, and champion long-term creative impact.</p>
+          </article>
+          <aside class="foundation-actions" aria-label="Ways to donate">
+            <article class="foundation-tier">
+              <p class="foundation-tier__name">Monthly Support</p>
+              <p class="foundation-tier__amount">From $20</p>
+              <p class="foundation-tier__meta">Sustain fellowship programming and year-round creator support.</p>
+              <a class="foundation-tier__btn" href="https://www.wocstarfund.com/media-foundation" target="_blank" rel="noopener noreferrer">Donate Monthly</a>
+            </article>
+            <article class="foundation-tier">
+              <p class="foundation-tier__name">One-Time Gift</p>
+              <p class="foundation-tier__amount">From $100</p>
+              <p class="foundation-tier__meta">Fund high-impact storytelling projects and new creative pathways.</p>
+              <a class="foundation-tier__btn" href="https://www.wocstarfund.com/media-foundation" target="_blank" rel="noopener noreferrer">Give Once</a>
+            </article>
+          </aside>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <div class="fellows-modal" id="fellowsModal" aria-hidden="true">
+    <div class="fellows-modal__backdrop" data-close-fellows="true"></div>
+    <section class="fellows-modal__panel" role="dialog" aria-modal="true" aria-label="Wocstar Media Fellows">
+      <button type="button" class="fellows-modal__close" data-close-fellows="true" aria-label="Close fellows panel">X</button>
+      <header class="fellows-modal__header">
+        <h2 class="fellows-modal__title">Wocstar Media Fellows</h2>
+        <p class="fellows-modal__intro">Wocstar Media Fellows supports artists who use their talent and imagination to shape the world.</p>
+      </header>
+      <div class="fellows-modal__body">
+        <article class="fellow-card">
+          <div class="fellow-card__avatar" aria-hidden="true">
+            <img src="assets/images/fellows/nicki.png" alt="" loading="lazy" />
+          </div>
+          <div>
+            <p class="fellow-card__kicker">2024 - 2025 Media Fellow</p>
+            <h3 class="fellow-card__name">Nicki Micheaux</h3>
+            <p class="fellow-card__role">Actor, Writer, and Director</p>
+            <p class="fellow-card__text">Nicki Micheaux was named Wocstar Media Fellow in 2024. Nicki exemplifies the creative entrepreneur who uses storytelling to take audiences on transformative journeys. Armed with over 30 years of industry experience and the skills honed in the directing program, Nicki completed her first feature film, <em>Summer of Violence</em>, in 2024.</p>
+            <p class="fellow-card__text"><em>Summer of Violence</em> highlights a Black woman&rsquo;s poignant coming-of-age story with depth and resonance. The film captivated audiences and premiered in theaters nationwide. In recent years, Nicki has also shifted her creative vision toward writing and directing to expand the stories she brings to screen.</p>
+            <p class="fellow-card__text">In addition to her creative pursuits, Nicki developed and launched <strong>Elevate Creative Talents</strong>, a course designed for actors, writers, directors, and producers to move projects from script to screen. She is also an ambassador for Moms of Black Boys United, reflecting her commitment to both art and advocacy.</p>
+          </div>
+        </article>
+        <article class="fellow-card">
+          <div class="fellow-card__avatar" aria-hidden="true">
+            <img src="assets/images/fellows/randy.png" alt="" loading="lazy" />
+          </div>
+          <div>
+            <p class="fellow-card__kicker">2026 Media Fellow</p>
+            <h3 class="fellow-card__name">Randy Donaldson</h3>
+            <p class="fellow-card__role">Tony Nominated Producer</p>
+            <p class="fellow-card__text">Producer of critically acclaimed Broadway and Off-Broadway shows such as <em>The Scottsboro Boys</em>, <em>American Son</em>, <em>The Pee Wee Herman Show</em>, <em>One Funny Mother</em>, <em>Triassic Parq</em>, and <em>Falling For Eve</em>.</p>
+            <p class="fellow-card__text">Randy is the Executive Producer of <em>Marian</em>, a new musical inspired by the life and legacy of Marian Anderson. He is also producing the upcoming production of <em>Mr. Rickey Calls a Meeting</em>. With a deep commitment to building an inclusive theater landscape, Randy focuses on stories that broaden representation, create opportunity, and invite audiences into powerful cultural conversations.</p>
+            <p class="fellow-card__text"><strong>Randy joins the Wocstar Media Fellows Program in 2026, where he will develop new work and expand pathways for diverse voices across the theater industry.</strong></p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <div class="interview-modal" id="interviewModal" aria-hidden="true">
+    <div class="interview-modal__backdrop" data-close-interview="true"></div>
+    <section class="interview-modal__panel" role="dialog" aria-modal="true" aria-label="Interview video player">
+      <button type="button" class="interview-modal__close" data-close-interview="true" aria-label="Close interview player">X</button>
+      <div class="interview-modal__frame-wrap">
+        <iframe class="interview-modal__frame" id="interviewModalFrame" title="Interview video" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+      </div>
+      <p class="interview-modal__fallback">If the player does not load here, <a id="interviewModalFallbackLink" href="#" target="_blank" rel="noopener noreferrer">open the interview in a new tab</a>.</p>
+    </section>
+  </div>
+
+  <div class="contact-modal" id="contactModal" aria-hidden="true">
+    <div class="contact-modal__backdrop" data-close-contact="true"></div>
+    <section class="contact-modal__panel" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+      <button type="button" class="contact-modal__close" aria-label="Close contact form" data-close-contact="true">X</button>
+      <h2 class="contact-modal__title" id="contactModalTitle">Contact Us</h2>
+      <form class="contact-form" id="contactForm" novalidate>
+        <label class="contact-form__field" for="contactName">
+          Name
+          <input id="contactName" name="name" type="text" required autocomplete="name" />
+        </label>
+        <label class="contact-form__field" for="contactCompany">
+          Company Name (Optional)
+          <input id="contactCompany" name="company_name" type="text" autocomplete="organization" />
+        </label>
+        <label class="contact-form__field" for="contactEmail">
+          Email
+          <input id="contactEmail" name="email" type="email" required autocomplete="email" />
+        </label>
+        <label class="contact-form__field" for="contactMessage">
+          Message
+          <textarea id="contactMessage" name="message" required></textarea>
+        </label>
+        <button class="contact-form__submit" type="submit">Submit</button>
+        <p class="contact-form__status" id="contactFormStatus" aria-live="polite"></p>
+      </form>
+    </section>
+  </div>
+  <div class="contact-modal academy-waitlist-modal" id="academyWaitlistModal" aria-hidden="true">
+    <div class="contact-modal__backdrop" data-close-academy-waitlist="true"></div>
+    <section class="contact-modal__panel" role="dialog" aria-modal="true" aria-labelledby="academyWaitlistTitle">
+      <button type="button" class="contact-modal__close" aria-label="Close academy waitlist form" data-close-academy-waitlist="true">X</button>
+      <h2 class="contact-modal__title" id="academyWaitlistTitle">Join the Academy Waitlist</h2>
+      <form class="contact-form" id="academyWaitlistForm" novalidate>
+        <label class="contact-form__field" for="academyWaitlistName">
+          Full Name
+          <input id="academyWaitlistName" name="name" type="text" autocomplete="name" required />
+        </label>
+        <label class="contact-form__field" for="academyWaitlistCompany">
+          Company Name
+          <input id="academyWaitlistCompany" name="company_name" type="text" autocomplete="organization" required />
+        </label>
+        <label class="contact-form__field" for="academyWaitlistEmail">
+          Email
+          <input id="academyWaitlistEmail" name="email" type="email" autocomplete="email" required />
+        </label>
+        <label class="contact-form__field" for="academyWaitlistRole">
+          I am joining as
+          <select id="academyWaitlistRole" name="role" required>
+            <option value="">Select one</option>
+            <option value="Founder">Founder</option>
+            <option value="Investor">Investor</option>
+            <option value="Ally">Ally</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label class="contact-form__field" for="academyWaitlistPhone">
+          Phone Number
+          <input id="academyWaitlistPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(212) 555-1234" pattern="(?:\\+1\\s?)?(?:\\(\\d{3}\\)|\\d{3})[-.\\s]?\\d{3}[-.\\s]?\\d{4}" title="Enter a valid US phone number (e.g., (212) 555-1234 or 212-555-1234)" required />
+        </label>
+        <label class="contact-form__field" for="academyWaitlistMessage">
+          Notes (optional)
+          <textarea id="academyWaitlistMessage" name="message" rows="4" placeholder="What are you most excited to learn?"></textarea>
+        </label>
+        <button class="contact-form__submit" type="submit">Join Waitlist</button>
+        <p class="contact-form__status" id="academyWaitlistStatus" aria-live="polite"></p>
+      </form>
+    </section>
+  </div>
+
+  <div class="brand-switcher">
+    <div class="brand-capital-wrap">
+      <button class="brand" type="button" data-scene-target="3" aria-label="Wocstar Capital">
+        <img class="brand-logo" src="assets/images/wocstar-logos/wocstarshadow.png" alt="Wocstar Capital" />
+      </button>
+      <ul class="brand-capital-menu" id="brandCapitalMenu" aria-label="Wocstar Capital menu">
+        <li><a href="#featured-news">Featured News</a></li>
+        <li><a href="#the-wocstar-universe">The Wocstar Universe</a></li>
+        <li><a href="https://form.jotform.com/250832645113047" target="_blank" rel="noopener noreferrer">Pitch to the Fund</a></li>
+      </ul>
+    </div>
+    <div class="brand-fund-wrap">
+      <button class="brand is-active" type="button" data-scene-target="0" aria-label="Wocstar Fund">
+        <img class="brand-logo" src="assets/images/wocstar-logos/wocstar-fund-logo.png" alt="Wocstar Fund" />
+      </button>
+      <ul class="brand-fund-menu" id="brandFundMenu" aria-label="Wocstar Fund menu">
+        <li><a href="#success-stories-exits">Exits</a></li>
+        <li><a href="#portfolio-companies">Portfolio Companies</a></li>
+        <li><a href="https://form.jotform.com/250832645113047" target="_blank" rel="noopener noreferrer">Investment Inquiry Form</a></li>
+      </ul>
+    </div>
+    <div class="brand-academy-wrap">
+      <button class="brand" type="button" data-scene-target="1" aria-label="Wocstar Academy">
+        <img class="brand-logo" src="assets/images/wocstar-logos/wocstar-academy-logo.png" alt="Wocstar Academy" />
+      </button>
+      <ul class="brand-academy-menu" id="brandAcademyMenu" aria-label="Wocstar Academy menu">
+        <li><a href="#about-the-academy">About the Academy</a></li>
+        <li><a href="#academy-alumni-testimonials">Alumni Testimonials</a></li>
+      </ul>
+    </div>
+    <div class="brand-media-wrap">
+      <button class="brand" type="button" data-scene-target="2" aria-label="Wocstar Media">
+        <img class="brand-logo" src="assets/images/wocstar-logos/wocstar-media-logo.png" alt="Wocstar Media" />
+      </button>
+      <ul class="brand-media-menu" id="brandMediaMenu" aria-label="Wocstar Media menu">
+        <li><a href="#about">About</a></li>
+        <li><a href="#media-fellows">Media Fellows</a></li>
+        <li><a href="#wocstar-media-foundation">Wocstar Media Foundation</a></li>
+        <li><a href="#podcasting">Podcasting</a></li>
+      </ul>
+    </div>
+  </div>
+  <nav class="scene1-menu" aria-label="Scene one menu"></nav>
+  <nav class="scene2-menu" aria-label="Scene two menu"></nav>
+  <nav class="scene3-menu" aria-label="Scene three menu"></nav>
+  <div class="headline-wrap">
+    <h1 class="headline" id="headline">The Wocstar Universe</h1>
+    <p class="headline-subtext" id="headlineSubtext"></p>
+  </div>
+
+  <a class="scene-arrow scene-prev-arrow" href="#" aria-label="Go to previous page section" title="Previous">
+    <span aria-hidden="true">&#8249;</span>
+  </a>
+
+  <a class="scene-arrow scene-next-arrow" href="#" aria-label="Go to next page section" title="Next">
+    <span aria-hidden="true">&#8250;</span>
+  </a>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
