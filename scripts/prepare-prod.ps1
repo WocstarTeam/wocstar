@@ -11,6 +11,11 @@ function Ensure-Dir([string]$p) {
   }
 }
 
+function Write-Utf8NoBom([string]$path, [string]$content) {
+  $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+  [System.IO.File]::WriteAllText($path, $content, $utf8NoBom)
+}
+
 $src = (Resolve-Path $SourceRoot).Path
 $out = Join-Path $src $OutDir
 
@@ -78,7 +83,7 @@ foreach ($f in $topFiles) {
 }
 
 # Cloudflare production files
-@"
+$_headersContent = @"
 # Security headers
 /*
   X-Content-Type-Options: nosniff
@@ -94,18 +99,21 @@ foreach ($f in $topFiles) {
 # HTML should revalidate quickly
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
-"@ | Set-Content -Path (Join-Path $out "_headers") -Encoding UTF8
+"@
+Write-Utf8NoBom (Join-Path $out "_headers") $_headersContent
 
-@"
+$_redirectsContent = @"
 # Keep explicit pages accessible
 /portfolio   /portfolio.html   200
-"@ | Set-Content -Path (Join-Path $out "_redirects") -Encoding UTF8
+"@
+Write-Utf8NoBom (Join-Path $out "_redirects") $_redirectsContent
 
-@"
+$_wranglerToml = @"
 name = "wocstar-demo"
 compatibility_date = "2026-04-14"
 pages_build_output_dir = "public"
-"@ | Set-Content -Path (Join-Path $src "wrangler.toml") -Encoding UTF8
+"@
+Write-Utf8NoBom (Join-Path $src "wrangler.toml") $_wranglerToml
 
 # Path rewrites for copied files only
 $filesToRewrite = @()
