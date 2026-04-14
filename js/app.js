@@ -1975,7 +1975,7 @@
             academyWaitlistPhoneInput.setCustomValidity('');
           });
         }
-        academyWaitlistForm.addEventListener('submit', (event) => {
+        academyWaitlistForm.addEventListener('submit', async (event) => {
           event.preventDefault();
           if (academyWaitlistPhoneInput) {
             const phoneRaw = academyWaitlistPhoneInput.value.trim();
@@ -1996,26 +1996,52 @@
           const role = String(formData.get('role') || '').trim();
           const phone = String(formData.get('phone') || '').trim();
           const message = String(formData.get('message') || '').trim();
-
-          const subject = encodeURIComponent(`Wocstar Academy Waitlist: ${name || 'New applicant'}`);
-          const body = encodeURIComponent(
-            `Name: ${name}\n` +
-            `Company: ${company || 'N/A'}\n` +
-            `Email: ${email}\n` +
-            `Role: ${role || 'N/A'}\n\n` +
-            `Phone: ${phone}\n\n` +
-            `Notes:\n${message || 'N/A'}`
-          );
-          const mailtoUrl = `mailto:colleen@wocstar.com?subject=${subject}&body=${body}`;
+          const submitButton = academyWaitlistForm.querySelector('button[type="submit"]');
 
           if (academyWaitlistStatus) {
-            academyWaitlistStatus.textContent = 'Opening your email client...';
+            academyWaitlistStatus.textContent = 'Sending your request...';
           }
-          window.location.href = mailtoUrl;
-          window.setTimeout(() => {
+          if (submitButton) {
+            submitButton.disabled = true;
+          }
+
+          try {
+            const response = await fetch('/api/academy-waitlist', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+              },
+              body: JSON.stringify({
+                name,
+                company_name: company,
+                email,
+                role,
+                phone,
+                message
+              })
+            });
+
+            if (!response.ok) {
+              throw new Error('Academy waitlist request failed');
+            }
+
+            if (academyWaitlistStatus) {
+              academyWaitlistStatus.textContent = 'Request sent. Thank you.';
+            }
             academyWaitlistForm.reset();
-            closeAcademyWaitlistModal();
-          }, 500);
+            window.setTimeout(() => {
+              closeAcademyWaitlistModal();
+            }, 600);
+          } catch (error) {
+            if (academyWaitlistStatus) {
+              academyWaitlistStatus.textContent = 'Unable to send right now. Please try again in a moment.';
+            }
+          } finally {
+            if (submitButton) {
+              submitButton.disabled = false;
+            }
+          }
         });
       }
       document.addEventListener('keydown', (event) => {
