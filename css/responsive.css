@@ -654,3 +654,76 @@
       }
     }
 
+/* Consistency layer: keep structure and proportions closer across devices */
+@media (max-width: 768px) {
+      .brand-switcher {
+        width: calc(100vw - 14px);
+        height: 70px;
+      }
+
+      body[data-scene="0"]::before,
+      body[data-scene="1"]::before,
+      body[data-scene="2"]::before,
+      body[data-scene="3"]::before {
+        height: 70px;
+      }
+
+      .brand-logo {
+        height: clamp(22px, 3.4vw, 30px);
+      }
+
+      .fund-scene__layout {
+        padding-top: 70px;
+      }
+
+      .fund-scene__video,
+      .media-scene__video,
+      .capital-scene__video {
+        height: calc(var(--app-vh) - 70px);
+        min-height: calc(var(--app-vh) - 70px);
+      }
+
+      .fund-scene__video {
+        flex-basis: calc(var(--app-vh) - 70px);
+      }
+
+      .capital-video-copy__title,
+      .fund-video-copy__title,
+      .academy-video-copy__title,
+      .media-video-copy__title {
+        font-size: clamp(22px, 5.4vw, 40px);
+      }
+
+      .capital-video-copy__subtext,
+      .fund-video-copy__subtext,
+      .academy-video-copy__subtext,
+      .media-video-copy__subtext {
+        font-size: clamp(12px, 2.8vw, 16px);
+        line-height: 1.45;
+      }
+
+      .fund-portco-card {
+        flex-basis: calc((100% - 12px) / 2) !important;
+      }
+
+      .fund-portco-card,
+      .fund-exits-card {
+        min-height: clamp(212px, 33vw, 244px);
+      }
+
+      .fund-exits__grid,
+      .fund-prior__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      }
+
+      .fund-portco-card__name,
+      .fund-exits-card__name {
+        font-size: clamp(12px, 2.25vw, 15px);
+      }
+
+      .fund-portco-card__industry,
+      .fund-exits-card__industry {
+        font-size: clamp(11px, 1.9vw, 14px);
+      }
+    }
+
