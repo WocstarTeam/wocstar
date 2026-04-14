@@ -1327,8 +1327,10 @@
       left: 0;
       right: 0;
       height: 82px;
-      background: #061316;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+      background:
+        radial-gradient(130% 120% at 8% 0%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.82) 52%, rgba(255, 255, 255, 0.7) 100%),
+        linear-gradient(120deg, #ffffff 0%, #fcf7f7 45%, #f8ecec 72%, #f3dfdf 100%);
+      box-shadow: none;
       pointer-events: none;
       z-index: 11;
     }
@@ -2853,7 +2855,9 @@
     .media-scene {
       overflow-y: auto;
       overflow-x: hidden;
-      background: #000;
+      background:
+        radial-gradient(120% 140% at 12% 0%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.86) 52%, rgba(255, 255, 255, 0.74) 100%),
+        linear-gradient(160deg, #ffffff 0%, #fcf8f8 42%, #f8eeee 72%, #f4e3e3 100%);
     }
 
     .media-scene__video {
@@ -2914,15 +2918,19 @@
       justify-content: flex-start;
       align-items: center;
       gap: 0;
-      background: #000;
+      background:
+        radial-gradient(120% 140% at 12% 0%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.86) 52%, rgba(255, 255, 255, 0.74) 100%),
+        linear-gradient(160deg, #ffffff 0%, #fcf8f8 42%, #f8eeee 72%, #f4e3e3 100%);
     }
 
     .media-letter {
       width: min(1040px, 100%);
       border-radius: 18px;
-      border: 1px solid var(--media-frame-accent);
-      background: #000;
-      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.44), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(161, 25, 46, 0.4);
+      background:
+        radial-gradient(140% 120% at 10% 0%, rgba(255, 255, 255, 0.58) 0%, rgba(255, 255, 255, 0) 46%),
+        linear-gradient(136deg, #fbf7f6 0%, #f8f0ef 42%, #f2dedd 72%, #ecd0cf 100%);
+      box-shadow: 0 20px 48px rgba(108, 62, 72, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
       padding: clamp(24px, 3vw, 38px) clamp(20px, 3.4vw, 48px) clamp(28px, 3.8vw, 44px);
@@ -2930,7 +2938,7 @@
 
     .media-letter__eyebrow {
       margin: 0 0 8px;
-      color: rgba(230, 203, 158, 0.95);
+      color: #7e1224;
       font-size: clamp(12px, 0.95vw, 14px);
       letter-spacing: 0.16em;
       font-weight: 700;
@@ -2939,7 +2947,7 @@
 
     .media-letter__title {
       margin: 0;
-      color: rgba(255, 255, 255, 0.98);
+      color: #2b0a11;
       font-size: clamp(28px, 2.9vw, 44px);
       line-height: 1.08;
       font-weight: 700;
@@ -2956,7 +2964,7 @@
       margin: 0;
       opacity: 0;
       transform: translateY(8px);
-      color: rgba(243, 247, 255, 0.96);
+      color: rgba(48, 14, 22, 0.9);
       font-family: "Segoe UI", Arial, sans-serif;
       font-size: clamp(14px, 1.02vw, 17px);
       line-height: 1.66;
@@ -3062,13 +3070,14 @@
 
     .media-pathway--foundation {
       z-index: 4;
-      background-image: url('../fellows/randy.png');
+      background-image: url('../broadwayplay.png');
       animation-delay: 230ms;
     }
 
     .media-pathway--podcast {
       z-index: 2;
-      background-image: url('../CBS_News_id1klAFr7p_1.jpeg');
+      background-image: url('../vcsofftherecord.png');
+      background-position: 62% center;
       animation-delay: 340ms;
     }
 
