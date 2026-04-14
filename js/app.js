@@ -75,6 +75,7 @@
       const profileSceneIndex = 4;
       const mainSceneSequence = [3, 0, 1, 2];
       const sceneTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'The Wocstar Universe', 'Gayle Jennings-O\'Byrne'];
+      const sceneDocumentTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'Wocstar Capital', 'Gayle Jennings-O\'Byrne'];
       const sceneDescriptions = [
         `Wocstar Fund is an early-stage investment fund focused on tech innovation.
 
@@ -307,11 +308,12 @@
           if (!paragraph.dataset.fullText) {
             paragraph.dataset.fullText = (paragraph.textContent || '').trim();
           }
-          paragraph.textContent = '';
-          paragraph.classList.remove('is-visible', 'is-typing');
+          paragraph.textContent = paragraph.dataset.fullText || '';
+          paragraph.classList.add('is-visible');
+          paragraph.classList.remove('is-typing');
         });
-        mediaTypingStarted = false;
-        mediaTypingCompleted = false;
+        mediaTypingStarted = true;
+        mediaTypingCompleted = true;
       }
 
       function getMediaTypingDelay(character) {
@@ -322,42 +324,18 @@
       }
 
       function startMediaTyping() {
-        if (!mediaTypedParagraphs.length || mediaTypingCompleted || mediaTypingStarted) return;
-        mediaTypingStarted = true;
-
-        let paragraphIndex = 0;
-
-        const typeNextParagraph = () => {
-          if (paragraphIndex >= mediaTypedParagraphs.length) {
-            mediaTypingCompleted = true;
-            stopMediaTyping();
-            return;
+        if (!mediaTypedParagraphs.length) return;
+        mediaTypedParagraphs.forEach((paragraph) => {
+          if (!paragraph.dataset.fullText) {
+            paragraph.dataset.fullText = (paragraph.textContent || '').trim();
           }
-
-          const paragraph = mediaTypedParagraphs[paragraphIndex];
-          const fullText = paragraph.dataset.fullText || '';
-          let characterIndex = 0;
-
-          paragraph.classList.add('is-visible', 'is-typing');
-
-          const typeCharacter = () => {
-            if (characterIndex >= fullText.length) {
-              paragraph.classList.remove('is-typing');
-              paragraphIndex += 1;
-              mediaTypingTimer = window.setTimeout(typeNextParagraph, 460);
-              return;
-            }
-
-            const character = fullText.charAt(characterIndex);
-            paragraph.textContent += character;
-            characterIndex += 1;
-            mediaTypingTimer = window.setTimeout(typeCharacter, getMediaTypingDelay(character));
-          };
-
-          typeCharacter();
-        };
-
-        typeNextParagraph();
+          paragraph.textContent = paragraph.dataset.fullText || '';
+          paragraph.classList.add('is-visible');
+          paragraph.classList.remove('is-typing');
+        });
+        mediaTypingStarted = true;
+        mediaTypingCompleted = true;
+        stopMediaTyping();
       }
 
       function initAcademyCurriculumReveal() {
@@ -975,6 +953,7 @@
 
       function updateStatus() {
         document.body.setAttribute('data-scene', String(currentIndex));
+        document.title = sceneDocumentTitles[currentIndex] || 'Wocstar Capital';
         if (currentIndex === 0) {
           setCapitalMenuOpen(false);
           setAcademyMenuOpen(false);
