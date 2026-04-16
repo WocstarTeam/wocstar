@@ -796,6 +796,28 @@
       .profile-layout {
         padding-bottom: max(22px, env(safe-area-inset-bottom));
       }
+
+      .academy-curriculum__title {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+      }
+
+      .academy-curriculum__title-line {
+        white-space: normal !important;
+        display: block;
+      }
+
+      .academy-curriculum__intro,
+      .academy-curriculum__card-subtitle,
+      .academy-curriculum__list li {
+        max-width: 100%;
+      }
+
+      .scene-global-footer__inner,
+      .scene-global-footer__left,
+      .scene-global-footer__right {
+        min-width: 0;
+      }
     }
 
 @media (max-width: 420px) {
