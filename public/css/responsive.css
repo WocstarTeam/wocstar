@@ -639,7 +639,8 @@
       .academy-footer-mobile__search {
         margin-left: auto;
         display: grid;
-        grid-template-columns: 0fr 34px;
+        grid-template-columns: minmax(120px, 1fr) 34px;
+        width: clamp(170px, 46vw, 250px);
         align-items: center;
         border: 1px solid rgba(142, 121, 100, 0.42);
         border-radius: 999px;
@@ -1370,102 +1371,6 @@
 
       .academy-inline-footer > .academy-footer-mobile {
         display: grid !important;
-      }
-    }
-
-/* Option 2: editorial minimal Academy mobile footer */
-@media (max-width: 900px) {
-      .academy-footer-mobile--minimal {
-        gap: 8px !important;
-        padding: 0 10px calc(8px + env(safe-area-inset-bottom)) !important;
-      }
-
-      .academy-footer-mobile--minimal .academy-footer-mobile__card--minimal {
-        border: 0;
-        border-radius: 0;
-        background: transparent;
-        padding: 0;
-      }
-
-      .academy-footer-mobile--minimal .academy-footer-mobile__title {
-        margin: 0 0 7px;
-        font-size: clamp(14px, 4.2vw, 18px);
-        line-height: 1.14;
-        color: #9a5610;
-      }
-
-      .academy-footer-mobile--minimal .academy-footer-mobile__top-row--minimal {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-      }
-
-      .academy-footer-mobile--minimal .academy-footer-mobile__cta,
-      .academy-footer-mobile--minimal .academy-footer-mobile__contact {
-        min-height: 31px !important;
-        width: min(160px, 48%) !important;
-        min-width: 0 !important;
-        padding: 6px 8px !important;
-        font-size: 11px !important;
-      }
-
-      .academy-footer-mobile__links-minimal {
-        display: flex;
-        gap: 10px;
-        margin-top: 8px;
-        flex-wrap: wrap;
-      }
-
-      .academy-footer-mobile__links-minimal a {
-        font-size: 11px;
-        color: #2f343a;
-        text-decoration: none;
-      }
-
-      .academy-footer-mobile__legal-minimal {
-        margin: 6px 0 0;
-        font-size: 9px;
-        line-height: 1.25;
-        color: rgba(36, 40, 45, 0.78);
-      }
-
-      .academy-footer-mobile__social-minimal {
-        border-top: 1px solid rgba(154, 86, 16, 0.18);
-        padding-top: 8px;
-      }
-
-      .academy-footer-mobile__social-minimal > p {
-        margin: 0 0 6px;
-        font-size: 11px;
-        font-weight: 700;
-        color: #2f343a;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
-      }
-
-      .academy-footer-mobile__social-minimal-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-      }
-
-      .academy-footer-mobile__social-minimal-row a {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 26px;
-        padding: 0 10px;
-        border-radius: 999px;
-        border: 1px solid rgba(154, 86, 16, 0.2);
-        background: rgba(255, 255, 255, 0.86);
-        color: #2f343a;
-        font-size: 10px;
-        text-decoration: none;
-      }
-
-      .academy-footer-mobile__search,
-      .academy-footer-mobile__accordion {
-        display: none !important;
       }
     }
 
