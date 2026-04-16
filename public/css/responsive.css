@@ -1102,3 +1102,75 @@
       }
     }
 
+/* Academy footer compact sizing (mobile/tablet only) */
+@media (max-width: 900px) {
+      .academy-scene .academy-inline-footer {
+        padding-top: 10px !important;
+      }
+
+      .academy-scene .academy-inline-footer .scene-global-footer__inner {
+        gap: 10px !important;
+      }
+
+      .academy-scene .academy-inline-footer .scene-global-footer__title {
+        font-size: clamp(18px, 5.1vw, 22px) !important;
+        line-height: 1.16 !important;
+        margin-bottom: 8px !important;
+      }
+
+      .academy-scene .academy-inline-footer .scene-global-footer__btn {
+        min-width: 160px !important;
+        min-height: 36px !important;
+        padding: 8px 12px !important;
+        font-size: 13px !important;
+      }
+
+      .academy-scene .academy-inline-footer .scene-global-footer__links {
+        margin-top: 8px !important;
+        gap: 4px !important;
+      }
+
+      .academy-scene .academy-inline-footer .scene-global-footer__links a {
+        font-size: 13px !important;
+        line-height: 1.25 !important;
+      }
+
+      .academy-scene .academy-inline-footer .scene-global-footer__legal {
+        margin-top: 8px !important;
+        font-size: 11px !important;
+        line-height: 1.35 !important;
+      }
+
+      .academy-scene .academy-inline-footer .scene-global-footer__search input {
+        min-height: 36px !important;
+        padding: 8px 10px !important;
+        font-size: 14px !important;
+      }
+
+      .academy-scene .academy-inline-footer .scene-global-footer__search {
+        grid-template-columns: minmax(0, 1fr) 52px !important;
+      }
+
+      .academy-scene .academy-inline-footer .scene-global-footer__search button {
+        font-size: 15px !important;
+      }
+
+      .academy-scene .academy-inline-footer .scene-global-footer__actions {
+        margin-top: 8px !important;
+        gap: 6px !important;
+      }
+
+      .academy-scene .academy-inline-footer .scene-global-footer__social {
+        margin-top: 14px !important;
+      }
+
+      .academy-scene .academy-inline-footer .scene-global-footer__social-title {
+        font-size: 13px !important;
+        margin-bottom: 6px !important;
+      }
+
+      .academy-scene .academy-inline-footer .scene-global-footer__social-row {
+        gap: 8px !important;
+      }
+    }
+
