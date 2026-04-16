@@ -752,7 +752,7 @@
       .media-scene__video video,
       .capital-scene__video video {
         object-fit: contain !important;
-        object-position: center center !important;
+        object-position: center top !important;
       }
 
       .capital-video-copy__subtext,
