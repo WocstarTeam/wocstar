@@ -1363,8 +1363,8 @@
       }
     }
 
-/* Final priority: premium Academy mobile footer */
-@media (max-width: 900px) {
+/* Final priority: premium Academy footer on mobile/tablet */
+@media (max-width: 1200px), (pointer: coarse) {
       .academy-inline-footer > .scene-global-footer__inner {
         display: none !important;
       }
