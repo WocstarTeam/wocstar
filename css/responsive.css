@@ -782,17 +782,34 @@
         left: auto !important;
         right: auto !important;
         bottom: auto !important;
-        margin-top: 10px;
-        padding: 0 16px;
+        margin-top: 0;
+        padding: 12px 16px 14px;
         max-width: 100%;
+        background: #06080c;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        text-shadow: none;
+      }
+
+      .capital-video-copy__title,
+      .fund-video-copy__title,
+      .academy-video-copy__title,
+      .media-video-copy__title {
+        margin: 0;
+        line-height: 1.08;
       }
 
       .capital-video-copy__subtext,
       .fund-video-copy__subtext,
       .academy-video-copy__subtext,
       .media-video-copy__subtext {
+        margin-top: 8px;
         margin-left: 0 !important;
         max-width: 100%;
+        line-height: 1.5;
+      }
+
+      .scene-arrow {
+        display: none !important;
       }
 
       .universe-collage {
