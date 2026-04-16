@@ -2440,6 +2440,12 @@
       text-align: center;
     }
 
+    /* Force-hide company names in Fund cards across all breakpoints */
+    .fund-portco-card__name,
+    .fund-exits-card__name {
+      display: none !important;
+    }
+
     .fund-portco-card__industry {
       margin-top: 6px;
       color: var(--fund-meta);
