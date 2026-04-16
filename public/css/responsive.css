@@ -1365,6 +1365,18 @@
 
 /* Final priority: premium Academy footer on mobile/tablet */
 @media (max-width: 1200px), (pointer: coarse) {
+      .academy-inline-footer,
+      .fund-inline-footer {
+        margin-top: 0 !important;
+        padding: 6px 0 calc(6px + env(safe-area-inset-bottom)) !important;
+      }
+
+      .academy-inline-footer > .academy-footer-mobile,
+      .fund-inline-footer > .academy-footer-mobile {
+        gap: 10px !important;
+        padding: 0 10px calc(8px + env(safe-area-inset-bottom)) !important;
+      }
+
       .academy-inline-footer > .scene-global-footer__inner {
         display: none !important;
       }
