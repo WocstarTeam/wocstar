@@ -998,32 +998,41 @@
 @media (hover: none), (pointer: coarse), (max-device-width: 1400px), (max-width: 1400px) {
       body[data-scene="1"] .academy-scene__video {
         margin-top: 72px !important;
-        height: calc(var(--app-vh) - 72px) !important;
-        min-height: calc(var(--app-vh) - 72px) !important;
-        flex: 0 0 calc(var(--app-vh) - 72px) !important;
-        overflow: hidden !important;
+        height: auto !important;
+        min-height: 0 !important;
+        flex: 0 0 auto !important;
+        aspect-ratio: auto !important;
+        overflow: visible !important;
       }
 
       body[data-scene="1"] .academy-scene__video > video,
       body[data-scene="1"] .scene[data-index="1"] .academy-scene__video > video,
       body[data-scene="1"] .scene[data-index="1"] video {
-        position: absolute !important;
-        inset: 0 !important;
+        position: relative !important;
+        inset: auto !important;
+        top: auto !important;
         width: 100% !important;
-        height: 100% !important;
+        height: auto !important;
         min-height: 0 !important;
         max-height: none !important;
         object-fit: contain !important;
         object-position: center top !important;
+      }
+
+      body[data-scene="1"] .academy-video-copy {
+        position: absolute !important;
+        left: 12px !important;
+        right: 12px !important;
+        bottom: 10px !important;
       }
     }
 
 @media (max-width: 600px) {
       body[data-scene="1"] .academy-scene__video {
         margin-top: 68px !important;
-        height: calc(var(--app-vh) - 68px) !important;
-        min-height: calc(var(--app-vh) - 68px) !important;
-        flex: 0 0 calc(var(--app-vh) - 68px) !important;
+        height: auto !important;
+        min-height: 0 !important;
+        flex: 0 0 auto !important;
       }
     }
 
