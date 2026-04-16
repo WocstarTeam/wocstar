@@ -1156,6 +1156,73 @@
       }
     }
 
+@media (max-width: 768px) {
+      .universe-showcase__slide[data-showcase-index="0"] .universe-collage {
+        position: relative;
+        display: block;
+        width: min(92vw, 360px);
+        aspect-ratio: 1 / 1;
+        min-height: 0;
+        margin: 0 auto 12px;
+        padding: 0;
+        overflow: visible;
+      }
+
+      .universe-showcase__slide[data-showcase-index="0"] .universe-group {
+        display: block;
+      }
+
+      .universe-showcase__slide[data-showcase-index="0"] .universe-shape {
+        position: absolute;
+        inset: 10% 10%;
+        width: auto;
+        height: auto;
+        left: auto;
+        top: auto;
+      }
+
+      .universe-showcase__slide[data-showcase-index="0"] .profile-orbit {
+        position: absolute;
+        width: clamp(84px, 24vw, 116px);
+        height: clamp(84px, 24vw, 116px);
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .universe-showcase__slide[data-showcase-index="0"] .profile-orbit:hover,
+      .universe-showcase__slide[data-showcase-index="0"] .profile-orbit:focus-visible {
+        transform: translate(-50%, -50%) scale(1.06);
+      }
+
+      .universe-showcase__slide[data-showcase-index="0"] .profile-orbit--01 {
+        left: 22%;
+        top: 22%;
+      }
+
+      .universe-showcase__slide[data-showcase-index="0"] .profile-orbit--02 {
+        left: 78%;
+        top: 22%;
+      }
+
+      .universe-showcase__slide[data-showcase-index="0"] .profile-orbit--03 {
+        left: 50%;
+        top: 50%;
+        width: clamp(96px, 27vw, 130px);
+        height: clamp(96px, 27vw, 130px);
+      }
+
+      .universe-showcase__slide[data-showcase-index="0"] .profile-orbit--04 {
+        left: 22%;
+        top: 78%;
+      }
+
+      .universe-showcase__slide[data-showcase-index="0"] .profile-orbit--05 {
+        left: 78%;
+        top: 78%;
+      }
+    }
+
 /* Academy-only hard override: full video visible, no head crop */
 @media (max-width: 1400px), (pointer: coarse) {
       .academy-scene__video {
