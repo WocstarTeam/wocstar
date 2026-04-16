@@ -58,6 +58,9 @@
       const smsTermsLinks = Array.from(document.querySelectorAll('[data-open-sms-terms="true"]'));
       const interviewModalFrame = document.getElementById('interviewModalFrame');
       const interviewModalFallbackLink = document.getElementById('interviewModalFallbackLink');
+      const academyLegacyFooterInner = document.getElementById('academyLegacyFooterInner');
+      const academyFooterMobileBlock = document.querySelector('.academy-inline-footer > .academy-footer-mobile');
+      const academyFooterMobileQuery = window.matchMedia('(max-width: 1200px), (pointer: coarse)');
       const universeScene = document.querySelector('.universe-scene');
       const fundScene = document.querySelector('.fund-scene');
       const academyScene = document.querySelector('.academy-scene');
@@ -1838,6 +1841,21 @@
           }
         });
       }
+      const syncAcademyFooterVariant = () => {
+        if (!academyLegacyFooterInner || !academyFooterMobileBlock) {
+          return;
+        }
+        const useMobileFooter = academyFooterMobileQuery.matches;
+        academyLegacyFooterInner.style.setProperty('display', useMobileFooter ? 'none' : 'flex', 'important');
+        academyFooterMobileBlock.style.setProperty('display', useMobileFooter ? 'grid' : 'none', 'important');
+      };
+      syncAcademyFooterVariant();
+      if (academyFooterMobileQuery.addEventListener) {
+        academyFooterMobileQuery.addEventListener('change', syncAcademyFooterVariant);
+      } else if (academyFooterMobileQuery.addListener) {
+        academyFooterMobileQuery.addListener(syncAcademyFooterVariant);
+      }
+      window.addEventListener('resize', syncAcademyFooterVariant);
       if (academyApplyButton) {
         academyApplyButton.addEventListener('click', openAcademyWaitlistModal);
       }
