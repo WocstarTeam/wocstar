@@ -21,6 +21,11 @@
       const fundInlineContactButton = document.getElementById('fundInlineContactButton');
       const academyInlineContactButton = document.getElementById('academyInlineContactButton');
       const academyWaitlistButton = document.getElementById('academyWaitlistButton');
+      const academyInlineContactButtonMobile = document.getElementById('academyInlineContactButtonMobile');
+      const academyWaitlistButtonMobile = document.getElementById('academyWaitlistButtonMobile');
+      const academyMobileSearch = document.querySelector('.academy-footer-mobile__search');
+      const academyMobileSearchInput = document.getElementById('academyMobileSearchInput');
+      const academyMobileSearchToggle = document.getElementById('academyMobileSearchToggle');
       const academyApplyButton = document.getElementById('academyApplyButton');
       const capitalInlineContactButton = document.getElementById('capitalInlineContactButton');
       const contactModal = document.getElementById('contactModal');
@@ -1800,8 +1805,38 @@
       if (academyInlineContactButton) {
         academyInlineContactButton.addEventListener('click', openContactModal);
       }
+      if (academyInlineContactButtonMobile) {
+        academyInlineContactButtonMobile.addEventListener('click', openContactModal);
+      }
       if (academyWaitlistButton) {
         academyWaitlistButton.addEventListener('click', openAcademyWaitlistModal);
+      }
+      if (academyWaitlistButtonMobile) {
+        academyWaitlistButtonMobile.addEventListener('click', openAcademyWaitlistModal);
+      }
+      if (academyMobileSearch && academyMobileSearchInput && academyMobileSearchToggle) {
+        const closeAcademyMobileSearch = () => {
+          academyMobileSearch.classList.remove('is-open');
+          academyMobileSearchToggle.setAttribute('aria-expanded', 'false');
+        };
+        academyMobileSearchToggle.addEventListener('click', () => {
+          const nextOpen = !academyMobileSearch.classList.contains('is-open');
+          academyMobileSearch.classList.toggle('is-open', nextOpen);
+          academyMobileSearchToggle.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+          if (nextOpen) {
+            academyMobileSearchInput.focus();
+          }
+        });
+        academyMobileSearchInput.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            closeAcademyMobileSearch();
+          }
+        });
+        document.addEventListener('click', (event) => {
+          if (event.target instanceof HTMLElement && !academyMobileSearch.contains(event.target)) {
+            closeAcademyMobileSearch();
+          }
+        });
       }
       if (academyApplyButton) {
         academyApplyButton.addEventListener('click', openAcademyWaitlistModal);
