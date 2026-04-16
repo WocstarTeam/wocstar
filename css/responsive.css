@@ -1372,5 +1372,13 @@
       .academy-inline-footer > .academy-footer-mobile {
         display: grid !important;
       }
+
+      .fund-inline-footer > .scene-global-footer__inner {
+        display: none !important;
+      }
+
+      .fund-inline-footer > .academy-footer-mobile {
+        display: grid !important;
+      }
     }
 

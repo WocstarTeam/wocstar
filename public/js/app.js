@@ -19,13 +19,21 @@
       const openMediaFoundationButton = document.getElementById('wocstar-media-foundation');
       const contactButton = document.getElementById('contactButton');
       const fundInlineContactButton = document.getElementById('fundInlineContactButton');
+      const fundInlineContactButtonMobile = document.getElementById('fundInlineContactButtonMobile');
       const academyInlineContactButton = document.getElementById('academyInlineContactButton');
       const academyWaitlistButton = document.getElementById('academyWaitlistButton');
       const academyInlineContactButtonMobile = document.getElementById('academyInlineContactButtonMobile');
       const academyWaitlistButtonMobile = document.getElementById('academyWaitlistButtonMobile');
+      const capitalInlineContactButtonMobile = document.getElementById('capitalInlineContactButtonMobile');
       const academyMobileSearch = document.querySelector('.academy-footer-mobile__search');
       const academyMobileSearchInput = document.getElementById('academyMobileSearchInput');
       const academyMobileSearchToggle = document.getElementById('academyMobileSearchToggle');
+      const fundMobileSearch = document.getElementById('fundMobileSearchInput') ? document.getElementById('fundMobileSearchInput').closest('.academy-footer-mobile__search') : null;
+      const fundMobileSearchInput = document.getElementById('fundMobileSearchInput');
+      const fundMobileSearchToggle = document.getElementById('fundMobileSearchToggle');
+      const capitalMobileSearch = document.getElementById('capitalMobileSearchInput') ? document.getElementById('capitalMobileSearchInput').closest('.academy-footer-mobile__search') : null;
+      const capitalMobileSearchInput = document.getElementById('capitalMobileSearchInput');
+      const capitalMobileSearchToggle = document.getElementById('capitalMobileSearchToggle');
       const academyApplyButton = document.getElementById('academyApplyButton');
       const capitalInlineContactButton = document.getElementById('capitalInlineContactButton');
       const contactModal = document.getElementById('contactModal');
@@ -58,8 +66,12 @@
       const smsTermsLinks = Array.from(document.querySelectorAll('[data-open-sms-terms="true"]'));
       const interviewModalFrame = document.getElementById('interviewModalFrame');
       const interviewModalFallbackLink = document.getElementById('interviewModalFallbackLink');
+      const fundLegacyFooterInner = document.getElementById('fundLegacyFooterInner');
       const academyLegacyFooterInner = document.getElementById('academyLegacyFooterInner');
+      const capitalLegacyFooterInner = document.getElementById('capitalLegacyFooterInner');
+      const fundFooterMobileBlock = document.querySelector('.fund-inline-footer[aria-label="Fund page footer"] > .fund-footer-mobile');
       const academyFooterMobileBlock = document.querySelector('.academy-inline-footer > .academy-footer-mobile');
+      const capitalFooterMobileBlock = document.querySelector('.fund-inline-footer[aria-label="Capital page footer"] > .capital-footer-mobile');
       const academyFooterMobileQuery = window.matchMedia('(max-width: 1200px), (pointer: coarse)');
       const universeScene = document.querySelector('.universe-scene');
       const fundScene = document.querySelector('.fund-scene');
@@ -1805,6 +1817,9 @@
       if (fundInlineContactButton) {
         fundInlineContactButton.addEventListener('click', openContactModal);
       }
+      if (fundInlineContactButtonMobile) {
+        fundInlineContactButtonMobile.addEventListener('click', openContactModal);
+      }
       if (academyInlineContactButton) {
         academyInlineContactButton.addEventListener('click', openContactModal);
       }
@@ -1817,45 +1832,61 @@
       if (academyWaitlistButtonMobile) {
         academyWaitlistButtonMobile.addEventListener('click', openAcademyWaitlistModal);
       }
-      if (academyMobileSearch && academyMobileSearchInput && academyMobileSearchToggle) {
-        const closeAcademyMobileSearch = () => {
-          academyMobileSearch.classList.remove('is-open');
-          academyMobileSearchToggle.setAttribute('aria-expanded', 'false');
+      if (capitalInlineContactButtonMobile) {
+        capitalInlineContactButtonMobile.addEventListener('click', openContactModal);
+      }
+      const bindFooterSearchToggle = (searchWrap, searchInput, searchToggle) => {
+        if (!searchWrap || !searchInput || !searchToggle) {
+          return;
+        }
+        const closeSearch = () => {
+          searchWrap.classList.remove('is-open');
+          searchToggle.setAttribute('aria-expanded', 'false');
         };
-        academyMobileSearchToggle.addEventListener('click', () => {
-          const nextOpen = !academyMobileSearch.classList.contains('is-open');
-          academyMobileSearch.classList.toggle('is-open', nextOpen);
-          academyMobileSearchToggle.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+        searchToggle.addEventListener('click', () => {
+          const nextOpen = !searchWrap.classList.contains('is-open');
+          searchWrap.classList.toggle('is-open', nextOpen);
+          searchToggle.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
           if (nextOpen) {
-            academyMobileSearchInput.focus();
+            searchInput.focus();
           }
         });
-        academyMobileSearchInput.addEventListener('keydown', (event) => {
+        searchInput.addEventListener('keydown', (event) => {
           if (event.key === 'Escape') {
-            closeAcademyMobileSearch();
+            closeSearch();
           }
         });
         document.addEventListener('click', (event) => {
-          if (event.target instanceof HTMLElement && !academyMobileSearch.contains(event.target)) {
-            closeAcademyMobileSearch();
+          if (event.target instanceof HTMLElement && !searchWrap.contains(event.target)) {
+            closeSearch();
           }
         });
-      }
-      const syncAcademyFooterVariant = () => {
-        if (!academyLegacyFooterInner || !academyFooterMobileBlock) {
+      };
+      bindFooterSearchToggle(academyMobileSearch, academyMobileSearchInput, academyMobileSearchToggle);
+      bindFooterSearchToggle(fundMobileSearch, fundMobileSearchInput, fundMobileSearchToggle);
+      bindFooterSearchToggle(capitalMobileSearch, capitalMobileSearchInput, capitalMobileSearchToggle);
+
+      const setFooterVariantDisplay = (legacyEl, mobileEl, useMobileFooter) => {
+        if (!legacyEl || !mobileEl) {
           return;
         }
-        const useMobileFooter = academyFooterMobileQuery.matches;
-        academyLegacyFooterInner.style.setProperty('display', useMobileFooter ? 'none' : 'flex', 'important');
-        academyFooterMobileBlock.style.setProperty('display', useMobileFooter ? 'grid' : 'none', 'important');
+        legacyEl.style.setProperty('display', useMobileFooter ? 'none' : 'flex', 'important');
+        mobileEl.style.setProperty('display', useMobileFooter ? 'grid' : 'none', 'important');
       };
-      syncAcademyFooterVariant();
+
+      const syncFooterVariants = () => {
+        const useMobileFooter = academyFooterMobileQuery.matches;
+        setFooterVariantDisplay(fundLegacyFooterInner, fundFooterMobileBlock, useMobileFooter);
+        setFooterVariantDisplay(academyLegacyFooterInner, academyFooterMobileBlock, useMobileFooter);
+        setFooterVariantDisplay(capitalLegacyFooterInner, capitalFooterMobileBlock, useMobileFooter);
+      };
+      syncFooterVariants();
       if (academyFooterMobileQuery.addEventListener) {
-        academyFooterMobileQuery.addEventListener('change', syncAcademyFooterVariant);
+        academyFooterMobileQuery.addEventListener('change', syncFooterVariants);
       } else if (academyFooterMobileQuery.addListener) {
-        academyFooterMobileQuery.addListener(syncAcademyFooterVariant);
+        academyFooterMobileQuery.addListener(syncFooterVariants);
       }
-      window.addEventListener('resize', syncAcademyFooterVariant);
+      window.addEventListener('resize', syncFooterVariants);
       if (academyApplyButton) {
         academyApplyButton.addEventListener('click', openAcademyWaitlistModal);
       }

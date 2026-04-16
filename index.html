@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wocstar Capital</title>
-    <link rel="stylesheet" href="tokens.css?v=20260416-19" />
-  <link rel="stylesheet" href="css/base.css?v=20260416-19" />
-  <link rel="stylesheet" href="css/layout.css?v=20260416-19" />
-  <link rel="stylesheet" href="css/components.css?v=20260416-19" />
-  <link rel="stylesheet" href="css/scenes.css?v=20260416-19" />
-  <link rel="stylesheet" href="css/responsive.css?v=20260416-19" />
+    <link rel="stylesheet" href="tokens.css?v=20260416-20" />
+  <link rel="stylesheet" href="css/base.css?v=20260416-20" />
+  <link rel="stylesheet" href="css/layout.css?v=20260416-20" />
+  <link rel="stylesheet" href="css/components.css?v=20260416-20" />
+  <link rel="stylesheet" href="css/scenes.css?v=20260416-20" />
+  <link rel="stylesheet" href="css/responsive.css?v=20260416-20" />
 </head>
 <body>
   <main class="viewport" id="viewport">
@@ -84,7 +84,7 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
             </ul>
           </section>
           <footer class="scene-global-footer fund-inline-footer" aria-label="Fund page footer">
-            <div class="scene-global-footer__inner">
+            <div class="scene-global-footer__inner" id="fundLegacyFooterInner" style="display:none;">
               <div class="scene-global-footer__left">
                 <h2 class="scene-global-footer__title">Building the future? We&rsquo;re looking for you. Let&rsquo;s make it happen.</h2>
                 <a class="scene-global-footer__btn" href="https://form.jotform.com/Wocstar/wocstar-fund-application" target="_blank" rel="noopener noreferrer">Apply for Funding</a>
@@ -130,6 +130,50 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="academy-footer-mobile fund-footer-mobile" aria-label="Fund mobile footer">
+              <section class="academy-footer-mobile__card" aria-label="Fund mobile call to action">
+                <h2 class="academy-footer-mobile__title">Building the future? We&rsquo;re looking for you. Let&rsquo;s make it happen.</h2>
+                <div class="academy-footer-mobile__top-row">
+                  <a class="scene-global-footer__btn academy-footer-mobile__cta" href="https://form.jotform.com/Wocstar/wocstar-fund-application" target="_blank" rel="noopener noreferrer">Apply for Funding</a>
+                  <form class="academy-footer-mobile__search is-open" role="search" aria-label="Fund search" onsubmit="return false;">
+                    <label class="academy-footer-mobile__search-label" for="fundMobileSearchInput">Search</label>
+                    <input id="fundMobileSearchInput" type="search" placeholder="Search" aria-label="Search" />
+                    <button type="button" id="fundMobileSearchToggle" aria-label="Toggle search" aria-expanded="true" aria-controls="fundMobileSearchInput">&#9906;</button>
+                  </form>
+                </div>
+              </section>
+              <section class="academy-footer-mobile__accordion" aria-label="Fund utility links">
+                <details class="academy-footer-mobile__item">
+                  <summary>Legal</summary>
+                  <div class="academy-footer-mobile__panel">
+                    <a href="#" data-open-sms-terms="true">SMS Terms &amp; Conditions</a>
+                    <a href="#">Privacy Policy</a>
+                    <p>
+                      Copyright &copy; 2026 Wocstar Capital, LLC. All rights reserved.<br />
+                      Wocstar&reg; is a registered trademark of Wocstar Capital, LLC.<br />
+                      NYC, New York
+                    </p>
+                  </div>
+                </details>
+                <details class="academy-footer-mobile__item">
+                  <summary>Contact</summary>
+                  <div class="academy-footer-mobile__panel">
+                    <button class="scene-global-footer__btn academy-footer-mobile__contact" type="button" id="fundInlineContactButtonMobile">Contact Us</button>
+                  </div>
+                </details>
+                <details class="academy-footer-mobile__item">
+                  <summary>Social</summary>
+                  <div class="academy-footer-mobile__panel academy-footer-mobile__social">
+                    <a href="https://www.youtube.com/channel/UCcpzz0ps3xDkmWyl4nvGxiQ" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    <a href="https://podcasts.apple.com/py/podcast/vcs-off-the-record-with-gayle-jennings-obyrne/id1515746108" target="_blank" rel="noopener noreferrer">Apple</a>
+                    <a href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer">Spotify</a>
+                    <a href="https://www.instagram.com/wocstarfund/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://www.linkedin.com/company/wocstar/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://web.facebook.com/Wocstar?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer">Facebook</a>
+                  </div>
+                </details>
+              </section>
             </div>
           </footer>
         </section>
@@ -594,7 +638,7 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
           </div>
         </section>
         <footer class="scene-global-footer fund-inline-footer" aria-label="Capital page footer">
-          <div class="scene-global-footer__inner">
+          <div class="scene-global-footer__inner" id="capitalLegacyFooterInner" style="display:none;">
             <div class="scene-global-footer__left">
               <h2 class="scene-global-footer__title">Building the future? We&rsquo;re looking for you. Let&rsquo;s make it happen.</h2>
               <a class="scene-global-footer__btn" href="https://form.jotform.com/Wocstar/wocstar-fund-application" target="_blank" rel="noopener noreferrer">Apply for Funding</a>
@@ -640,6 +684,50 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
                 </div>
               </div>
             </div>
+          </div>
+          <div class="academy-footer-mobile capital-footer-mobile" aria-label="Capital mobile footer">
+            <section class="academy-footer-mobile__card" aria-label="Capital mobile call to action">
+              <h2 class="academy-footer-mobile__title">Building the future? We&rsquo;re looking for you. Let&rsquo;s make it happen.</h2>
+              <div class="academy-footer-mobile__top-row">
+                <a class="scene-global-footer__btn academy-footer-mobile__cta" href="https://form.jotform.com/Wocstar/wocstar-fund-application" target="_blank" rel="noopener noreferrer">Apply for Funding</a>
+                <form class="academy-footer-mobile__search is-open" role="search" aria-label="Capital search" onsubmit="return false;">
+                  <label class="academy-footer-mobile__search-label" for="capitalMobileSearchInput">Search</label>
+                  <input id="capitalMobileSearchInput" type="search" placeholder="Search" aria-label="Search" />
+                  <button type="button" id="capitalMobileSearchToggle" aria-label="Toggle search" aria-expanded="true" aria-controls="capitalMobileSearchInput">&#9906;</button>
+                </form>
+              </div>
+            </section>
+            <section class="academy-footer-mobile__accordion" aria-label="Capital utility links">
+              <details class="academy-footer-mobile__item">
+                <summary>Legal</summary>
+                <div class="academy-footer-mobile__panel">
+                  <a href="#" data-open-sms-terms="true">SMS Terms &amp; Conditions</a>
+                  <a href="#">Privacy Policy</a>
+                  <p>
+                    Copyright &copy; 2026 Wocstar Capital, LLC. All rights reserved.<br />
+                    Wocstar&reg; is a registered trademark of Wocstar Capital, LLC.<br />
+                    NYC, New York
+                  </p>
+                </div>
+              </details>
+              <details class="academy-footer-mobile__item">
+                <summary>Contact</summary>
+                <div class="academy-footer-mobile__panel">
+                  <button class="scene-global-footer__btn academy-footer-mobile__contact" type="button" id="capitalInlineContactButtonMobile">Contact Us</button>
+                </div>
+              </details>
+              <details class="academy-footer-mobile__item">
+                <summary>Social</summary>
+                <div class="academy-footer-mobile__panel academy-footer-mobile__social">
+                  <a href="https://www.youtube.com/channel/UCcpzz0ps3xDkmWyl4nvGxiQ" target="_blank" rel="noopener noreferrer">YouTube</a>
+                  <a href="https://podcasts.apple.com/py/podcast/vcs-off-the-record-with-gayle-jennings-obyrne/id1515746108" target="_blank" rel="noopener noreferrer">Apple</a>
+                  <a href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer">Spotify</a>
+                  <a href="https://www.instagram.com/wocstarfund/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                  <a href="https://www.linkedin.com/company/wocstar/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                  <a href="https://web.facebook.com/Wocstar?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer">Facebook</a>
+                </div>
+              </details>
+            </section>
           </div>
         </footer>
       </div>
@@ -1011,7 +1099,7 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
     <span aria-hidden="true">&#8250;</span>
   </a>
 
-    <script src="js/app.js?v=20260416-19"></script>
+    <script src="js/app.js?v=20260416-20"></script>
 </body>
 </html>
 
