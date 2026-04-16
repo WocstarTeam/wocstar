@@ -916,6 +916,30 @@
       }
     }
 
+/* Academy-only hard override: full video visible, no head crop */
+@media (max-width: 1400px), (pointer: coarse) {
+      .academy-scene__video {
+        height: auto !important;
+        min-height: 0 !important;
+        flex: 0 0 auto !important;
+        aspect-ratio: auto !important;
+        overflow: visible !important;
+      }
+
+      body[data-scene="1"] .scene[data-index="1"] .academy-scene__video video,
+      body[data-scene="1"] .scene[data-index="1"] video,
+      .academy-scene__video video {
+        position: relative !important;
+        inset: auto !important;
+        top: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        object-fit: contain !important;
+        object-position: center top !important;
+      }
+    }
+
 @media (max-width: 420px) {
       .universe-collage {
         grid-template-columns: repeat(2, minmax(0, 1fr));
