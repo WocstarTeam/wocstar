@@ -528,8 +528,8 @@
 
       .academy-quote__text {
         max-width: 100%;
-        font-size: clamp(20px, 4.8vw, 28px);
-        line-height: 1.2;
+        font-size: clamp(16px, 1.06vw, 20px);
+        line-height: 1.5;
       }
 
       .academy-alumni__card {
