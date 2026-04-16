@@ -508,7 +508,6 @@
                 <div class="fund-portco-card__plate${plateClass}">
                   ${logoContent}
                 </div>
-                <p class="fund-portco-card__name">${escapeHtml(company.name)}</p>
                 <p class="fund-portco-card__industry">${escapeHtml(company.industry || '')}</p>
               </a>
             </li>
