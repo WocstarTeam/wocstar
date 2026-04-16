@@ -727,6 +727,92 @@
       }
     }
 
+/* Mobile fit-and-alignment safeguards */
+@media (max-width: 900px) {
+      .brand-switcher,
+      body[data-scene="0"] .brand-switcher,
+      body[data-scene="1"] .brand-switcher,
+      body[data-scene="2"] .brand-switcher,
+      body[data-scene="3"] .brand-switcher {
+        width: min(980px, calc(100vw - 12px)) !important;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+      }
+
+      .fund-scene__video,
+      .academy-scene__video,
+      .media-scene__video,
+      .capital-scene__video {
+        background: #000;
+      }
+
+      .fund-scene__video video,
+      .academy-scene__video video,
+      .media-scene__video video,
+      .capital-scene__video video {
+        object-fit: contain !important;
+        object-position: center center !important;
+      }
+
+      .capital-video-copy__subtext,
+      .fund-video-copy__subtext,
+      .academy-video-copy__subtext,
+      .media-video-copy__subtext {
+        margin-left: 0 !important;
+        max-width: 100%;
+      }
+
+      .universe-collage {
+        overflow: visible;
+        min-height: 0;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        justify-items: center;
+        align-items: start;
+        align-content: start;
+        gap: 12px;
+        padding-bottom: 22px;
+      }
+
+      .universe-group {
+        display: contents;
+      }
+
+      .universe-shape {
+        grid-column: 1 / -1;
+        grid-row: 1 / -1;
+      }
+
+      .profile-orbit {
+        width: clamp(84px, 24vw, 124px);
+        height: clamp(84px, 24vw, 124px);
+      }
+
+      .fund-scene__layout,
+      .academy-scene__layout,
+      .media-layout,
+      .universe-layout,
+      .profile-layout {
+        padding-bottom: max(22px, env(safe-area-inset-bottom));
+      }
+    }
+
+@media (max-width: 420px) {
+      .universe-collage {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+@media (min-width: 1440px) {
+      .fund-video-copy,
+      .capital-video-copy,
+      .academy-video-copy,
+      .media-video-copy {
+        max-width: min(980px, 78vw);
+      }
+    }
+
 @media (max-width: 900px), (pointer: coarse) {
       .interview-modal__backdrop,
       .contact-modal__backdrop,

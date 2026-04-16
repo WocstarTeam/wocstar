@@ -140,6 +140,14 @@
         document.documentElement.style.setProperty('--app-vh', `${window.innerHeight}px`);
       }
 
+      function getSceneHeaderOffset() {
+        if (!brandSwitcher) {
+          return window.innerWidth <= 768 ? 70 : 82;
+        }
+        const height = Math.round(brandSwitcher.getBoundingClientRect().height || 0);
+        return Math.max(64, height);
+      }
+
       const fundPortfolioCompanies = [
         {
           name: 'Samba TV',
@@ -262,7 +270,7 @@
         if (!target) return;
         const containerRect = academyScene.getBoundingClientRect();
         const targetRect = target.getBoundingClientRect();
-        const headerOffset = window.innerWidth <= 768 ? 72 : 82;
+        const headerOffset = getSceneHeaderOffset();
         const top = Math.max(
           0,
           academyScene.scrollTop + (targetRect.top - containerRect.top) - headerOffset
@@ -284,7 +292,7 @@
         if (!mediaScene || !hash || hash.charAt(0) !== '#') return;
         const target = mediaScene.querySelector(hash);
         if (!target) return;
-        const headerOffset = window.innerWidth <= 768 ? 72 : 82;
+        const headerOffset = getSceneHeaderOffset();
         const top = Math.max(0, target.offsetTop - headerOffset);
         mediaScene.scrollTo({ top, behavior: 'smooth' });
       }
@@ -295,7 +303,7 @@
         if (!target) return;
         const containerRect = universeScene.getBoundingClientRect();
         const targetRect = target.getBoundingClientRect();
-        const headerOffset = window.innerWidth <= 768 ? 72 : 82;
+        const headerOffset = getSceneHeaderOffset();
         const top = Math.max(
           0,
           universeScene.scrollTop + (targetRect.top - containerRect.top) - headerOffset
@@ -435,7 +443,7 @@
         if (!target) return;
         const containerRect = fundScene.getBoundingClientRect();
         const targetRect = target.getBoundingClientRect();
-        const headerOffset = window.innerWidth <= 768 ? 72 : 82;
+        const headerOffset = getSceneHeaderOffset();
         const top = Math.max(
           0,
           fundScene.scrollTop + (targetRect.top - containerRect.top) - headerOffset
@@ -452,7 +460,7 @@
         if (!fundScene || !fundExitsSection) return;
         const containerRect = fundScene.getBoundingClientRect();
         const targetRect = fundExitsSection.getBoundingClientRect();
-        const headerOffset = window.innerWidth <= 768 ? 72 : 82;
+        const headerOffset = getSceneHeaderOffset();
         const top = Math.max(
           0,
           fundScene.scrollTop + (targetRect.top - containerRect.top) - headerOffset
@@ -466,7 +474,7 @@
         if (!target) return;
         const containerRect = fundScene.getBoundingClientRect();
         const targetRect = target.getBoundingClientRect();
-        const headerOffset = window.innerWidth <= 768 ? 72 : 82;
+        const headerOffset = getSceneHeaderOffset();
         const top = Math.max(
           0,
           fundScene.scrollTop + (targetRect.top - containerRect.top) - headerOffset
