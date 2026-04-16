@@ -762,6 +762,73 @@
         border: 1px solid rgba(154, 86, 16, 0.2);
         background: rgba(255, 255, 255, 0.84);
       }
+
+      /* Capital-specific premium mobile footer palette */
+      .capital-footer-mobile .academy-footer-mobile__card {
+        background: linear-gradient(180deg, rgba(17, 24, 34, 0.94), rgba(10, 14, 22, 0.96));
+        border: 1px solid rgba(113, 144, 182, 0.36);
+      }
+
+      .capital-footer-mobile .academy-footer-mobile__title {
+        color: #ecf3ff;
+      }
+
+      .capital-footer-mobile .academy-footer-mobile__search {
+        background: rgba(11, 18, 29, 0.9);
+        border-color: rgba(113, 144, 182, 0.42);
+      }
+
+      .capital-footer-mobile .academy-footer-mobile__search input {
+        color: #f3f8ff;
+      }
+
+      .capital-footer-mobile .academy-footer-mobile__search input::placeholder {
+        color: rgba(220, 232, 247, 0.72);
+      }
+
+      .capital-footer-mobile .academy-footer-mobile__search button {
+        background: #2a3a52;
+        color: #ecf3ff;
+        border-left-color: rgba(157, 186, 221, 0.36);
+      }
+
+      .capital-footer-mobile .academy-footer-mobile__item {
+        background: rgba(13, 20, 31, 0.76);
+        border-color: rgba(113, 144, 182, 0.3);
+      }
+
+      .capital-footer-mobile .academy-footer-mobile__item summary {
+        color: #e8f0fc;
+      }
+
+      .capital-footer-mobile .academy-footer-mobile__item summary::after {
+        color: #9ec4f4;
+      }
+
+      .capital-footer-mobile .academy-footer-mobile__panel a,
+      .capital-footer-mobile .academy-footer-mobile__panel p {
+        color: #d5e2f5;
+      }
+
+      .capital-footer-mobile .academy-footer-mobile__panel p {
+        color: rgba(201, 216, 236, 0.76);
+      }
+
+      .capital-footer-mobile .academy-footer-mobile__social a {
+        background: rgba(26, 40, 58, 0.9);
+        border-color: rgba(126, 157, 195, 0.36);
+        color: #e8f0fc;
+      }
+
+      .capital-footer-mobile .scene-global-footer__btn {
+        background: #2a3a52;
+        border-color: #5f7da3;
+        color: #f4f8ff;
+      }
+
+      .capital-footer-mobile .scene-global-footer__btn:hover {
+        background: #334864;
+      }
     }
 
 @media (min-width: 769px) and (max-width: 1180px) {
