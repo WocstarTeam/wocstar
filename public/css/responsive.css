@@ -800,7 +800,8 @@
       .media-video-copy__title {
         margin: 0;
         line-height: 1.08;
-        font-size: clamp(18px, 6.1vw, 30px);
+        font-size: clamp(15px, 4.9vw, 22px);
+        line-height: 1.04;
       }
 
       .capital-video-copy__subtext,
@@ -810,8 +811,8 @@
         margin-top: 6px;
         margin-left: 0 !important;
         max-width: 100%;
-        font-size: clamp(11px, 3.4vw, 15px);
-        line-height: 1.36;
+        font-size: clamp(10px, 2.6vw, 12px);
+        line-height: 1.24;
       }
 
       .scene-arrow {
