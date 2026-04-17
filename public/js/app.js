@@ -117,6 +117,7 @@
       const wheelThreshold = 35;
       const boundaryIntentThreshold = 3;
       const boundaryIntentResetWindow = 2600;
+      const boundaryIntentStepGap = 650;
 
       let currentIndex = 0;
       let isAnimating = false;
@@ -129,18 +130,23 @@
       let profileExitIntentDirection = 0;
       let profileExitIntentAt = 0;
       let profileExitIntentCount = 0;
+      let profileExitIntentStepAt = 0;
       let universeExitIntentDirection = 0;
       let universeExitIntentAt = 0;
       let universeExitIntentCount = 0;
+      let universeExitIntentStepAt = 0;
       let fundExitIntentDirection = 0;
       let fundExitIntentAt = 0;
       let fundExitIntentCount = 0;
+      let fundExitIntentStepAt = 0;
       let academyExitIntentDirection = 0;
       let academyExitIntentAt = 0;
       let academyExitIntentCount = 0;
+      let academyExitIntentStepAt = 0;
       let mediaExitIntentDirection = 0;
       let mediaExitIntentAt = 0;
       let mediaExitIntentCount = 0;
+      let mediaExitIntentStepAt = 0;
       let universeShowcaseIndex = 0;
       let universeShowcaseTimer = null;
       let capitalInterviewIndex = 0;
@@ -889,30 +895,35 @@
         profileExitIntentDirection = 0;
         profileExitIntentAt = 0;
         profileExitIntentCount = 0;
+        profileExitIntentStepAt = 0;
       }
 
       function clearUniverseExitIntent() {
         universeExitIntentDirection = 0;
         universeExitIntentAt = 0;
         universeExitIntentCount = 0;
+        universeExitIntentStepAt = 0;
       }
 
       function clearFundExitIntent() {
         fundExitIntentDirection = 0;
         fundExitIntentAt = 0;
         fundExitIntentCount = 0;
+        fundExitIntentStepAt = 0;
       }
 
       function clearAcademyExitIntent() {
         academyExitIntentDirection = 0;
         academyExitIntentAt = 0;
         academyExitIntentCount = 0;
+        academyExitIntentStepAt = 0;
       }
 
       function clearMediaExitIntent() {
         mediaExitIntentDirection = 0;
         mediaExitIntentAt = 0;
         mediaExitIntentCount = 0;
+        mediaExitIntentStepAt = 0;
       }
 
       function shouldTransitionFromFundBottom(direction = 1) {
@@ -922,11 +933,16 @@
           fundExitIntentDirection = direction;
           fundExitIntentAt = now;
           fundExitIntentCount = 1;
+          fundExitIntentStepAt = now;
           return false;
         }
 
-        fundExitIntentCount += 1;
         fundExitIntentAt = now;
+        if (now - fundExitIntentStepAt < boundaryIntentStepGap) {
+          return false;
+        }
+        fundExitIntentCount += 1;
+        fundExitIntentStepAt = now;
         if (fundExitIntentCount < boundaryIntentThreshold) {
           return false;
         }
@@ -942,11 +958,16 @@
           universeExitIntentDirection = direction;
           universeExitIntentAt = now;
           universeExitIntentCount = 1;
+          universeExitIntentStepAt = now;
           return false;
         }
 
-        universeExitIntentCount += 1;
         universeExitIntentAt = now;
+        if (now - universeExitIntentStepAt < boundaryIntentStepGap) {
+          return false;
+        }
+        universeExitIntentCount += 1;
+        universeExitIntentStepAt = now;
         if (universeExitIntentCount < boundaryIntentThreshold) {
           return false;
         }
@@ -962,11 +983,16 @@
           academyExitIntentDirection = direction;
           academyExitIntentAt = now;
           academyExitIntentCount = 1;
+          academyExitIntentStepAt = now;
           return false;
         }
 
-        academyExitIntentCount += 1;
         academyExitIntentAt = now;
+        if (now - academyExitIntentStepAt < boundaryIntentStepGap) {
+          return false;
+        }
+        academyExitIntentCount += 1;
+        academyExitIntentStepAt = now;
         if (academyExitIntentCount < boundaryIntentThreshold) {
           return false;
         }
@@ -982,11 +1008,16 @@
           mediaExitIntentDirection = direction;
           mediaExitIntentAt = now;
           mediaExitIntentCount = 1;
+          mediaExitIntentStepAt = now;
           return false;
         }
 
-        mediaExitIntentCount += 1;
         mediaExitIntentAt = now;
+        if (now - mediaExitIntentStepAt < boundaryIntentStepGap) {
+          return false;
+        }
+        mediaExitIntentCount += 1;
+        mediaExitIntentStepAt = now;
         if (mediaExitIntentCount < boundaryIntentThreshold) {
           return false;
         }
@@ -1002,11 +1033,16 @@
           profileExitIntentDirection = direction;
           profileExitIntentAt = now;
           profileExitIntentCount = 1;
+          profileExitIntentStepAt = now;
           return false;
         }
 
-        profileExitIntentCount += 1;
         profileExitIntentAt = now;
+        if (now - profileExitIntentStepAt < boundaryIntentStepGap) {
+          return false;
+        }
+        profileExitIntentCount += 1;
+        profileExitIntentStepAt = now;
         if (profileExitIntentCount < boundaryIntentThreshold) {
           return false;
         }
