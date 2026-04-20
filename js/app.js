@@ -2012,50 +2012,6 @@
           });
         });
       }
-      if (contactForm) {
-        contactForm.addEventListener('submit', async (event) => {
-          event.preventDefault();
-          const nameInput = contactForm.querySelector('input[name="name"]');
-          const companyInput = contactForm.querySelector('input[name="company"]') || contactForm.querySelector('input[name="company_name"]');
-          const emailInput = contactForm.querySelector('input[name="email"]');
-          const messageInput = contactForm.querySelector('textarea[name="message"]');
-          const name = nameInput && typeof nameInput.value === 'string' ? nameInput.value.trim() : '';
-          const company = companyInput && typeof companyInput.value === 'string' ? companyInput.value.trim() : '';
-          const email = emailInput && typeof emailInput.value === 'string' ? emailInput.value.trim() : '';
-          const message = messageInput && typeof messageInput.value === 'string' ? messageInput.value.trim() : '';
-
-          if (!name || !email || !message) {
-            if (contactFormStatus) {
-              contactFormStatus.textContent = 'Please fill all required fields.';
-            }
-            return;
-          }
-
-          const formData = new URLSearchParams();
-          formData.append('name', name);
-          formData.append('company', company || '');
-          formData.append('email', email);
-          formData.append('message', message);
-          formData.append('source', 'contact_form');
-          formData.append('page', window.location.pathname);
-
-          try {
-            await fetch('https://script.google.com/macros/s/AKfycbx-ABKwt0cs5mibMlU-Xm2jLolXXOwpiCKRrvVo5vYn1o31oCXu5Sb6tVQ5sH2Y1K-6/exec', {
-              method: 'POST',
-              mode: 'no-cors',
-              body: formData
-            });
-            if (contactFormStatus) {
-              contactFormStatus.textContent = 'Message sent successfully.';
-            }
-            contactForm.reset();
-          } catch (error) {
-            if (contactFormStatus) {
-              contactFormStatus.textContent = 'Unable to send right now. Please try again in a moment.';
-            }
-          }
-        });
-      }
       if (academyWaitlistForm) {
         if (academyWaitlistPhoneInput) {
           academyWaitlistPhoneInput.addEventListener('input', () => {

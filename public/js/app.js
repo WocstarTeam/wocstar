@@ -2105,66 +2105,6 @@
           });
         });
       }
-      if (contactForm) {
-        contactForm.addEventListener('submit', async (event) => {
-          event.preventDefault();
-          if (!contactForm.checkValidity()) {
-            contactForm.reportValidity();
-            return;
-          }
-          const formData = new FormData(contactForm);
-          const name = String(formData.get('name') || '').trim();
-          const company = String(formData.get('company_name') || '').trim();
-          const email = String(formData.get('email') || '').trim();
-          const message = String(formData.get('message') || '').trim();
-
-          const submitButton = contactForm.querySelector('button[type="submit"]');
-
-          if (contactFormStatus) {
-            contactFormStatus.textContent = 'Sending your message...';
-          }
-          if (submitButton) {
-            submitButton.disabled = true;
-          }
-
-          try {
-            const response = await fetch('/api/contact', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-              },
-              body: JSON.stringify({
-                name,
-                company_name: company,
-                email,
-                message,
-                scene: sceneDocumentTitles[currentIndex] || 'Wocstar Capital'
-              })
-            });
-
-            if (!response.ok) {
-              throw new Error('Contact request failed');
-            }
-
-            if (contactFormStatus) {
-              contactFormStatus.textContent = 'Message sent. Thank you.';
-            }
-            contactForm.reset();
-            window.setTimeout(() => {
-              closeContactModal();
-            }, 600);
-          } catch (error) {
-            if (contactFormStatus) {
-              contactFormStatus.textContent = 'Unable to send right now. Please try again in a moment.';
-            }
-          } finally {
-            if (submitButton) {
-              submitButton.disabled = false;
-            }
-          }
-        });
-      }
       if (academyWaitlistForm) {
         if (academyWaitlistPhoneInput) {
           academyWaitlistPhoneInput.addEventListener('input', () => {
