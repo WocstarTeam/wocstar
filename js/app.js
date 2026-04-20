@@ -39,6 +39,7 @@
       const contactModal = document.getElementById('contactModal');
       const contactForm = document.querySelector('.contact-form') || document.getElementById('contactForm');
       const contactFormStatus = document.querySelector('.contact-form__status') || document.getElementById('contactFormStatus');
+      const contactSubmitFrame = document.getElementById('contactSubmitFrame');
       const contactNameInput = document.getElementById('contactName');
       const academyWaitlistModal = document.getElementById('academyWaitlistModal');
       const academyWaitlistForm = document.getElementById('academyWaitlistForm');
@@ -154,6 +155,7 @@
       let isFundMenuOpen = false;
       let isAcademyMenuOpen = false;
       let isMediaMenuOpen = false;
+      let contactSubmitPending = false;
       let touchStartedInMediaScene = false;
 
       function syncAppViewportHeight() {
@@ -2010,6 +2012,28 @@
             const sceneKey = button.dataset.academyScene || 'founder';
             setAcademyCurriculumScene(sceneKey, false);
           });
+        });
+      }
+      if (contactForm) {
+        contactForm.addEventListener('submit', (event) => {
+          if (!contactForm.checkValidity()) {
+            contactForm.reportValidity();
+            event.preventDefault();
+            return;
+          }
+          contactSubmitPending = true;
+          if (contactFormStatus) {
+            contactFormStatus.textContent = 'Submission received, thank you!';
+          }
+        });
+      }
+      if (contactSubmitFrame) {
+        contactSubmitFrame.addEventListener('load', () => {
+          if (!contactSubmitPending) return;
+          contactSubmitPending = false;
+          if (contactForm) {
+            contactForm.reset();
+          }
         });
       }
       if (academyWaitlistForm) {
