@@ -2036,7 +2036,7 @@
     <section class="contact-modal__panel" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
       <button type="button" class="contact-modal__close" aria-label="Close contact form" data-close-contact="true">X</button>
       <h2 class="contact-modal__title" id="contactModalTitle">Contact Us</h2>
-      <form class="contact-form" id="contactForm" action="https://script.google.com/macros/s/AKfycbx-ABKwt0cs5mibMlU-Xm2jLolXXOwpiCKRrvVo5vYn1o31oCXu5Sb6tVQ5sH2Y1K-6/exec" method="POST" target="contactSubmitFrame" novalidate>
+      <form class="contact-form" id="contactForm" action="https://script.google.com/macros/s/AKfycbx-ABKwt0cs5mibMlU-Xm2jLolXXOwpiCKRrvVo5vYn1o31oCXu5Sb6tVQ5sH2Y1K-6/exec" method="POST" target="contactSubmitFrame" novalidate onsubmit="window.__contactSubmitPending=true;var status=document.getElementById('contactFormStatus');if(status){status.textContent='Submission received, thank you!';}alert('Submission received, thank you!');">
         <label class="contact-form__field" for="contactName">
           Name
           <input id="contactName" name="name" type="text" required autocomplete="name" />
@@ -2060,7 +2060,7 @@
       </form>
     </section>
   </div>
-  <iframe name="contactSubmitFrame" id="contactSubmitFrame" title="Contact form submission" style="position:absolute;left:-9999px;top:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none;" tabindex="-1" aria-hidden="true"></iframe>
+  <iframe name="contactSubmitFrame" id="contactSubmitFrame" title="Contact form submission" style="position:absolute;left:-9999px;top:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none;" tabindex="-1" aria-hidden="true" onload="if(window.__contactSubmitPending){window.__contactSubmitPending=false;var form=document.getElementById('contactForm');if(form){form.reset();}}"></iframe>
 
   <div class="brand-switcher">
     <button class="brand" type="button" data-scene-target="3" aria-label="Wocstar Capital">
