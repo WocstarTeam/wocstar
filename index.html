@@ -2703,21 +2703,24 @@
         contactForm.addEventListener('submit', async (event) => {
           event.preventDefault();
           const nameInput = contactForm.querySelector('input[name="name"]');
+          const companyInput = contactForm.querySelector('input[name="company"]') || contactForm.querySelector('input[name="company_name"]');
           const emailInput = contactForm.querySelector('input[name="email"]');
           const messageInput = contactForm.querySelector('textarea[name="message"]');
           const name = nameInput && typeof nameInput.value === 'string' ? nameInput.value.trim() : '';
+          const company = companyInput && typeof companyInput.value === 'string' ? companyInput.value.trim() : '';
           const email = emailInput && typeof emailInput.value === 'string' ? emailInput.value.trim() : '';
           const message = messageInput && typeof messageInput.value === 'string' ? messageInput.value.trim() : '';
 
           if (!name || !email || !message) {
             if (contactFormStatus) {
-              contactFormStatus.textContent = 'Please fill all fields.';
+              contactFormStatus.textContent = 'Please fill all required fields.';
             }
             return;
           }
 
           const requestPayload = JSON.stringify({
             name,
+            company,
             email,
             message,
             source: 'contact_form',
@@ -2725,42 +2728,18 @@
           });
 
           try {
-            let didSend = false;
-            try {
-              const response = await fetch('https://script.google.com/macros/s/AKfycbx-ABKwt0cs5mibMlU-Xm2jLolXXOwpiCKRrvVo5vYn1o31oCXu5Sb6tVQ5sH2Y1K-6/exec', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: requestPayload
-              });
-
-              if (!response.ok) {
-                throw new Error('Contact request failed');
-              }
-
-              didSend = true;
-            } catch (primaryError) {
-              await fetch('https://script.google.com/macros/s/AKfycbx-ABKwt0cs5mibMlU-Xm2jLolXXOwpiCKRrvVo5vYn1o31oCXu5Sb6tVQ5sH2Y1K-6/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                  'Content-Type': 'text/plain;charset=utf-8'
-                },
-                body: requestPayload
-              });
-              didSend = true;
+            await fetch('https://script.google.com/macros/s/AKfycbx-ABKwt0cs5mibMlU-Xm2jLolXXOwpiCKRrvVo5vYn1o31oCXu5Sb6tVQ5sH2Y1K-6/exec', {
+              method: 'POST',
+              mode: 'no-cors',
+              body: requestPayload
+            });
+            if (contactFormStatus) {
+              contactFormStatus.textContent = 'Message sent successfully.';
             }
-
-            if (didSend) {
-              if (contactFormStatus) {
-                contactFormStatus.textContent = 'Message sent successfully.';
-              }
-              contactForm.reset();
-            }
+            contactForm.reset();
           } catch (error) {
             if (contactFormStatus) {
-              contactFormStatus.textContent = 'Something went wrong. Please try again.';
+              contactFormStatus.textContent = 'Unable to send right now. Please try again in a moment.';
             }
           }
         });
@@ -2809,6 +2788,5 @@
   </script>
 </body>
 </html>
-
 
 
