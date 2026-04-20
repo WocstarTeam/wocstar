@@ -2036,7 +2036,7 @@
     <section class="contact-modal__panel" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
       <button type="button" class="contact-modal__close" aria-label="Close contact form" data-close-contact="true">X</button>
       <h2 class="contact-modal__title" id="contactModalTitle">Contact Us</h2>
-      <form class="contact-form" id="contactForm" action="https://script.google.com/macros/s/AKfycbx-ABKwt0cs5mibMlU-Xm2jLolXXOwpiCKRrvVo5vYn1o31oCXu5Sb6tVQ5sH2Y1K-6/exec" method="POST" target="_blank" novalidate>
+      <form class="contact-form" id="contactForm" action="https://script.google.com/macros/s/AKfycbx-ABKwt0cs5mibMlU-Xm2jLolXXOwpiCKRrvVo5vYn1o31oCXu5Sb6tVQ5sH2Y1K-6/exec" method="POST" target="contactSubmitFrame" novalidate>
         <label class="contact-form__field" for="contactName">
           Name
           <input id="contactName" name="name" type="text" required autocomplete="name" />
@@ -2060,6 +2060,7 @@
       </form>
     </section>
   </div>
+  <iframe name="contactSubmitFrame" id="contactSubmitFrame" title="Contact form submission" style="display:none;width:0;height:0;border:0;" tabindex="-1" aria-hidden="true"></iframe>
 
   <div class="brand-switcher">
     <button class="brand" type="button" data-scene-target="3" aria-label="Wocstar Capital">
@@ -2144,6 +2145,7 @@
       const contactModal = document.getElementById('contactModal');
       const contactForm = document.querySelector('.contact-form') || document.getElementById('contactForm');
       const contactFormStatus = document.querySelector('.contact-form__status') || document.getElementById('contactFormStatus');
+      const contactSubmitFrame = document.getElementById('contactSubmitFrame');
       const contactNameInput = document.getElementById('contactName');
       const goToGayleBio = document.getElementById('goToGayleBio');
       const goToGayleFromBubble = document.getElementById('goToGayleFromBubble');
@@ -2176,6 +2178,7 @@
       let profileExitIntentDirection = 0;
       let profileExitIntentAt = 0;
       let partnersIndex = 0;
+      let contactSubmitPending = false;
       let isFundMenuOpen = false;
       let isAcademyMenuOpen = false;
       let isMediaMenuOpen = false;
@@ -2700,6 +2703,28 @@
       }
       if (partnersNextBtn) {
         partnersNextBtn.addEventListener('click', () => stepPartnersCarousel(1));
+      }
+      if (contactForm) {
+        contactForm.addEventListener('submit', (event) => {
+          if (!contactForm.checkValidity()) {
+            contactForm.reportValidity();
+            event.preventDefault();
+            return;
+          }
+          contactSubmitPending = true;
+          if (contactFormStatus) {
+            contactFormStatus.textContent = 'Submission received, thank you!';
+          }
+        });
+      }
+      if (contactSubmitFrame) {
+        contactSubmitFrame.addEventListener('load', () => {
+          if (!contactSubmitPending) return;
+          contactSubmitPending = false;
+          if (contactForm) {
+            contactForm.reset();
+          }
+        });
       }
       document.addEventListener('keydown', (event) => {
         const target = event.target instanceof HTMLElement ? event.target : null;
