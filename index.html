@@ -2055,12 +2055,12 @@
         </label>
         <input type="hidden" name="source" value="contact_form" />
         <input type="hidden" name="page" value="contact" />
-        <button class="contact-form__submit" type="submit">Submit</button>
+        <button class="contact-form__submit" type="submit" formtarget="contactSubmitFrame">Submit</button>
         <p class="contact-form__status" id="contactFormStatus" aria-live="polite"></p>
       </form>
     </section>
   </div>
-  <iframe name="contactSubmitFrame" id="contactSubmitFrame" title="Contact form submission" style="display:none;width:0;height:0;border:0;" tabindex="-1" aria-hidden="true"></iframe>
+  <iframe name="contactSubmitFrame" id="contactSubmitFrame" title="Contact form submission" style="position:absolute;left:-9999px;top:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none;" tabindex="-1" aria-hidden="true"></iframe>
 
   <div class="brand-switcher">
     <button class="brand" type="button" data-scene-target="3" aria-label="Wocstar Capital">
@@ -2711,10 +2711,13 @@
             event.preventDefault();
             return;
           }
+          event.preventDefault();
           contactSubmitPending = true;
+          contactForm.setAttribute('target', 'contactSubmitFrame');
           if (contactFormStatus) {
             contactFormStatus.textContent = 'Submission received, thank you!';
           }
+          contactForm.submit();
         });
       }
       if (contactSubmitFrame) {

@@ -2114,10 +2114,13 @@
             event.preventDefault();
             return;
           }
+          event.preventDefault();
           contactSubmitPending = true;
+          contactForm.setAttribute('target', 'contactSubmitFrame');
           if (contactFormStatus) {
             contactFormStatus.textContent = 'Submission received, thank you!';
           }
+          contactForm.submit();
         });
       }
       if (contactSubmitFrame) {

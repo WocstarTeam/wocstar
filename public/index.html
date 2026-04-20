@@ -1052,12 +1052,12 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
         </label>
         <input type="hidden" name="source" value="contact_form" />
         <input type="hidden" name="page" value="contact" />
-        <button class="contact-form__submit" type="submit">Submit</button>
+        <button class="contact-form__submit" type="submit" formtarget="contactSubmitFrame">Submit</button>
         <p class="contact-form__status" id="contactFormStatus" aria-live="polite"></p>
       </form>
     </section>
   </div>
-  <iframe name="contactSubmitFrame" id="contactSubmitFrame" title="Contact form submission" style="display:none;width:0;height:0;border:0;" tabindex="-1" aria-hidden="true"></iframe>
+  <iframe name="contactSubmitFrame" id="contactSubmitFrame" title="Contact form submission" style="position:absolute;left:-9999px;top:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none;" tabindex="-1" aria-hidden="true"></iframe>
   <div class="contact-modal academy-waitlist-modal" id="academyWaitlistModal" aria-hidden="true">
     <div class="contact-modal__backdrop" data-close-academy-waitlist="true"></div>
     <section class="contact-modal__panel" role="dialog" aria-modal="true" aria-labelledby="academyWaitlistTitle">
@@ -1158,7 +1158,7 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
     <span aria-hidden="true">&#8250;</span>
   </a>
 
-    <script src="js/app.js?v=20260416-22"></script>
+    <script src="js/app.js?v=20260420-01"></script>
 </body>
 </html>
 
