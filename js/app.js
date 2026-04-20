@@ -37,8 +37,8 @@
       const academyApplyButton = document.getElementById('academyApplyButton');
       const capitalInlineContactButton = document.getElementById('capitalInlineContactButton');
       const contactModal = document.getElementById('contactModal');
-      const contactForm = document.getElementById('contactForm');
-      const contactFormStatus = document.getElementById('contactFormStatus');
+      const contactForm = document.querySelector('.contact-form') || document.getElementById('contactForm');
+      const contactFormStatus = document.querySelector('.contact-form__status') || document.getElementById('contactFormStatus');
       const contactNameInput = document.getElementById('contactName');
       const academyWaitlistModal = document.getElementById('academyWaitlistModal');
       const academyWaitlistForm = document.getElementById('academyWaitlistForm');
@@ -2015,38 +2015,32 @@
       if (contactForm) {
         contactForm.addEventListener('submit', async (event) => {
           event.preventDefault();
-          if (!contactForm.checkValidity()) {
-            contactForm.reportValidity();
+          const nameInput = contactForm.querySelector('input[name="name"]');
+          const emailInput = contactForm.querySelector('input[name="email"]');
+          const messageInput = contactForm.querySelector('textarea[name="message"]');
+          const name = nameInput && typeof nameInput.value === 'string' ? nameInput.value.trim() : '';
+          const email = emailInput && typeof emailInput.value === 'string' ? emailInput.value.trim() : '';
+          const message = messageInput && typeof messageInput.value === 'string' ? messageInput.value.trim() : '';
+
+          if (!name || !email || !message) {
+            if (contactFormStatus) {
+              contactFormStatus.textContent = 'Please fill all fields.';
+            }
             return;
-          }
-          const formData = new FormData(contactForm);
-          const name = String(formData.get('name') || '').trim();
-          const company = String(formData.get('company_name') || '').trim();
-          const email = String(formData.get('email') || '').trim();
-          const message = String(formData.get('message') || '').trim();
-
-          const submitButton = contactForm.querySelector('button[type="submit"]');
-
-          if (contactFormStatus) {
-            contactFormStatus.textContent = 'Sending your message...';
-          }
-          if (submitButton) {
-            submitButton.disabled = true;
           }
 
           try {
-            const response = await fetch('/api/contact', {
+            const response = await fetch('https://script.google.com/macros/s/AKfycbx-ABKwt0cs5mibMlU-Xm2jLolXXOwpiCKRrvVo5vYn1o31oCXu5Sb6tVQ5sH2Y1K-6/exec', {
               method: 'POST',
               headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
+                'Content-Type': 'application/json'
               },
               body: JSON.stringify({
                 name,
-                company_name: company,
                 email,
                 message,
-                scene: sceneDocumentTitles[currentIndex] || 'Wocstar Capital'
+                source: 'contact_form',
+                page: window.location.pathname
               })
             });
 
@@ -2055,19 +2049,12 @@
             }
 
             if (contactFormStatus) {
-              contactFormStatus.textContent = 'Message sent. Thank you.';
+              contactFormStatus.textContent = 'Message sent successfully.';
             }
             contactForm.reset();
-            window.setTimeout(() => {
-              closeContactModal();
-            }, 600);
           } catch (error) {
             if (contactFormStatus) {
-              contactFormStatus.textContent = 'Unable to send right now. Please try again in a moment.';
-            }
-          } finally {
-            if (submitButton) {
-              submitButton.disabled = false;
+              contactFormStatus.textContent = 'Something went wrong. Please try again.';
             }
           }
         });
