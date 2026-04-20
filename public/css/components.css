@@ -1,4 +1,4 @@
-/* Components: menus, modals, buttons, carousels, footer */
+﻿/* Components: menus, modals, buttons, carousels, footer */
 
 .interview-modal {
       position: fixed;
@@ -1361,4 +1361,5 @@
       color: rgba(255, 255, 255, 0.8);
       transform: translateY(-2px);
     }
+
 

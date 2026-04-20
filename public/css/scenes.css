@@ -1,4 +1,4 @@
-.viewport {
+﻿.viewport {
       position: relative;
       width: 100%;
       height: var(--app-vh);
@@ -801,24 +801,24 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: url('../Gayle.png') center 20% / cover no-repeat;
+      background: url('../assets/images/misc/Gayle.png') center 20% / cover no-repeat;
       filter: grayscale(1);
     }
 
     .profile-orbit--02 .profile-orbit__photo {
-      background: url('../colleen.png') center 24% / cover no-repeat;
+      background: url('../assets/images/misc/colleen.png') center 24% / cover no-repeat;
     }
 
     .profile-orbit--01 .profile-orbit__photo {
-      background: url('../pialy.png') center 24% / cover no-repeat;
+      background: url('../assets/images/misc/pialy.png') center 24% / cover no-repeat;
     }
 
     .profile-orbit--04 .profile-orbit__photo {
-      background: url('../laurel.png') center 24% / cover no-repeat;
+      background: url('../assets/images/misc/laurel.png') center 24% / cover no-repeat;
     }
 
     .profile-orbit--05 .profile-orbit__photo {
-      background: url('../VICTORIA.png') center 24% / cover no-repeat;
+      background: url('../assets/images/misc/VICTORIA.png') center 24% / cover no-repeat;
     }
 
     .profile-layout {
@@ -3164,19 +3164,19 @@
 
     .media-pathway--fellows {
       z-index: 3;
-      background-image: url('../fellows/nicki.png');
+      background-image: url('../assets/images/fellows/nicki.png');
       animation-delay: 120ms;
     }
 
     .media-pathway--foundation {
       z-index: 4;
-      background-image: url('../broadwayplay.png');
+      background-image: url('../assets/images/misc/broadwayplay.png');
       animation-delay: 230ms;
     }
 
     .media-pathway--podcast {
       z-index: 2;
-      background-image: url('../vcsofftherecord.png');
+      background-image: url('../assets/images/misc/vcsofftherecord.png');
       background-position: 62% center;
       animation-delay: 340ms;
     }
@@ -4490,4 +4490,5 @@
         transform: translateY(0) scale(1);
       }
     }
+
 
