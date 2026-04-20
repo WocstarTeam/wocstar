@@ -3,796 +3,1932 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wocstar Capital</title>
-    <link rel="stylesheet" href="tokens.css?v=20260418-01" />
-  <link rel="stylesheet" href="css/base.css?v=20260418-01" />
-  <link rel="stylesheet" href="css/layout.css?v=20260418-01" />
-  <link rel="stylesheet" href="css/components.css?v=20260418-01" />
-  <link rel="stylesheet" href="css/scenes.css?v=20260418-01" />
-  <link rel="stylesheet" href="css/responsive.css?v=20260418-01" />
+  <title>Cinematic Scroll Layers</title>
+  <style>
+    :root {
+      --duration: 900ms;
+      --easing: cubic-bezier(0.22, 1, 0.36, 1);
+      --overlay: rgba(0, 0, 0, 0.34);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      touch-action: none;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .viewport {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: scale(1);
+      transition: opacity var(--duration) var(--easing), transform var(--duration) var(--easing);
+      will-change: opacity, transform;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .scene video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      pointer-events: none;
+    }
+
+    .scene[data-index="1"] video {
+      object-position: center 12%;
+    }
+
+    .scene[data-index="0"] video {
+      object-position: center 46%;
+    }
+
+    .scene[data-index="2"] video {
+      object-position: center 10%;
+    }
+
+    .scene .overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--overlay);
+      pointer-events: none;
+    }
+
+    .profile-scene .overlay {
+      background: rgba(0, 0, 0, 0.48);
+    }
+
+    .universe-scene .overlay {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .universe-layout {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      padding: clamp(86px, 10vh, 130px) clamp(20px, 4vw, 54px) clamp(24px, 5vh, 56px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(16px, 2.4vh, 28px);
+    }
+
+    .universe-header {
+      max-width: min(760px, 92vw);
+    }
+
+    .universe-title {
+      color: #fff;
+      font-size: clamp(30px, 5.1vw, 68px);
+      line-height: 0.98;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      text-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    .universe-subtitle {
+      margin-top: 10px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: clamp(14px, 1.3vw, 21px);
+      line-height: 1.45;
+      max-width: min(640px, 92vw);
+    }
+
+    .universe-collage {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .universe-partners {
+      position: relative;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      padding-top: 12px;
+    }
+
+    .universe-partners__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .universe-partners__title {
+      color: rgba(255, 255, 255, 0.95);
+      font-size: clamp(14px, 1.05vw, 18px);
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .universe-partners__controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .universe-partners__btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .universe-partners__btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .universe-partners__viewport {
+      overflow: hidden;
+    }
+
+    .universe-partners__track {
+      list-style: none;
+      display: flex;
+      gap: 10px;
+      will-change: transform;
+      transition: transform 280ms ease;
+      padding: 0;
+      margin: 0;
+    }
+
+    .partner-card {
+      flex: 0 0 clamp(150px, 17vw, 210px);
+      min-height: 86px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      padding: 12px 10px;
+      text-align: center;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .partner-card:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .partner-card__logo {
+      color: rgba(255, 255, 255, 0.94);
+      font-size: clamp(12px, 0.95vw, 14px);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .partner-card__name {
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: clamp(12px, 0.88vw, 14px);
+      line-height: 1.25;
+    }
+
+    .universe-shape {
+      position: absolute;
+      top: 14%;
+      left: 26%;
+      width: min(35vw, 480px);
+      height: min(35vw, 480px);
+      background: linear-gradient(140deg, rgba(70, 134, 255, 0.4), rgba(10, 24, 60, 0.2));
+      transform: rotate(-45deg);
+      border-radius: 22% 22% 12% 12%;
+      pointer-events: none;
+    }
+
+    .universe-shape::before,
+    .universe-shape::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 34% 30%, rgba(119, 171, 255, 0.3), rgba(23, 42, 88, 0.2) 72%);
+    }
+
+    .universe-shape::before {
+      left: 0;
+      top: -50%;
+    }
+
+    .universe-shape::after {
+      left: 50%;
+      top: 0;
+    }
+
+    .universe-group {
+      position: absolute;
+      inset: 0;
+    }
+
+    .profile-orbit {
+      position: absolute;
+      border-radius: 999px;
+      width: var(--orbit-size);
+      height: var(--orbit-size);
+      left: var(--orbit-left);
+      top: var(--orbit-top);
+      text-decoration: none;
+      z-index: var(--orbit-layer, 2);
+      transition: transform 220ms ease, box-shadow 220ms ease;
+      overflow: visible;
+    }
+
+    .profile-orbit:hover,
+    .profile-orbit:focus-visible {
+      transform: scale(1.06);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.34);
+      outline: none;
+    }
+
+    .profile-orbit__photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 999px;
+      border: 2px solid var(--orbit-ring, #4d8fff);
+      background: radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.45), rgba(29, 58, 111, 0.45) 44%, rgba(16, 22, 36, 0.64));
+      display: block;
+    }
+
+    .profile-orbit__dialog {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 10px);
+      transform: translate(-50%, 6px);
+      min-width: 120px;
+      max-width: min(180px, 42vw);
+      padding: 8px 12px;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: clamp(11px, 0.85vw, 13px);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.2;
+      background: rgba(8, 18, 36, 0.38);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px);
+      box-shadow: inset 0 0 0 1px rgba(177, 196, 227, 0.85);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 170ms ease, transform 170ms ease;
+      white-space: nowrap;
+    }
+
+    .profile-orbit__dialog::after {
+      content: "";
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      width: 8px;
+      height: 3px;
+      background: rgba(177, 196, 227, 0.95);
+      box-shadow: -3px 3px 0 rgba(177, 196, 227, 0.95);
+      opacity: 0.8;
+    }
+
+    .profile-orbit:hover .profile-orbit__dialog,
+    .profile-orbit:focus-visible .profile-orbit__dialog {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .profile-orbit--01 { --orbit-size: clamp(110px, 16.5vw, 198px); --orbit-left: 7%; --orbit-top: 34%; --orbit-layer: 4; --orbit-ring: #5f9dff; }
+    .profile-orbit--02 { --orbit-size: clamp(92px, 13.2vw, 164px); --orbit-left: 24%; --orbit-top: 20%; --orbit-layer: 3; --orbit-ring: #f1c98d; }
+    .profile-orbit--03 { --orbit-size: clamp(104px, 14vw, 178px); --orbit-left: 40%; --orbit-top: 36%; --orbit-layer: 5; --orbit-ring: #5f9dff; }
+    .profile-orbit--04 { --orbit-size: clamp(88px, 12.3vw, 150px); --orbit-left: 56%; --orbit-top: 18%; --orbit-layer: 2; --orbit-ring: #d6ad67; }
+    .profile-orbit--05 { --orbit-size: clamp(116px, 15.6vw, 190px); --orbit-left: 66%; --orbit-top: 43%; --orbit-layer: 4; --orbit-ring: #5f9dff; }
+    .profile-orbit--06 { --orbit-size: clamp(82px, 11.5vw, 138px); --orbit-left: 79%; --orbit-top: 27%; --orbit-layer: 3; --orbit-ring: #e8be7a; }
+    .profile-orbit--07 { --orbit-size: clamp(96px, 13.5vw, 166px); --orbit-left: 28%; --orbit-top: 56%; --orbit-layer: 3; --orbit-ring: #6ca7ff; }
+    .profile-orbit--08 { --orbit-size: clamp(86px, 11.8vw, 142px); --orbit-left: 52%; --orbit-top: 62%; --orbit-layer: 2; --orbit-ring: #f0c684; }
+
+    .profile-orbit--03 .profile-orbit__photo {
+      background: url('Gayle.png') center 20% / cover no-repeat;
+    }
+
+    .profile-orbit--02 .profile-orbit__photo {
+      background: url('colleen.png') center 24% / cover no-repeat;
+    }
+
+    .profile-orbit--01 .profile-orbit__photo {
+      background: url('pialy.png') center 24% / cover no-repeat;
+    }
+
+    .profile-orbit--04 .profile-orbit__photo {
+      background: url('laurel.png') center 24% / cover no-repeat;
+    }
+
+    .profile-orbit--05 {
+      --orbit-layer: 6;
+    }
+
+    .profile-orbit--05 .profile-orbit__photo {
+      background: url('VICTORIA.png') center 24% / cover no-repeat;
+    }
+
+    .profile-orbit--06 .profile-orbit__photo {
+      background: url('jessica.png') center 24% / cover no-repeat;
+    }
+
+    .profile-layout {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: minmax(260px, 34vw) minmax(0, 1fr);
+      gap: clamp(18px, 2.6vw, 44px);
+      align-items: start;
+      padding: clamp(22px, 3.2vw, 52px);
+      padding-top: clamp(112px, 13vh, 156px);
+    }
+
+    .profile-image {
+      width: 100%;
+      height: min(82vh, 960px);
+      object-fit: cover;
+      object-position: center 16%;
+      margin-top: 0;
+      margin-left: 0;
+      border-radius: 14px;
+      border: none;
+      box-shadow: 0 18px 56px rgba(0, 0, 0, 0.35);
+    }
+
+    .profile-copy {
+      align-self: start;
+      overflow-y: auto;
+      overflow-x: hidden;
+      overscroll-behavior: contain;
+      max-height: 82vh;
+      margin-top: -26px;
+      padding: clamp(12px, 1.5vw, 20px);
+      border-radius: 14px;
+      border: none;
+      background: rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: rgba(255, 255, 255, 0.94);
+      font-size: clamp(12px, 0.86vw, 14px);
+      line-height: 1.55;
+      letter-spacing: 0.015em;
+      text-align: left;
+      transform-origin: top left;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.45) rgba(255, 255, 255, 0.12);
+    }
+
+    .profile-copy::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .profile-copy::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+    }
+
+    .profile-copy::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.45);
+      border-radius: 999px;
+    }
+
+    .profile-copy p + p {
+      margin-top: 15px;
+    }
+
+    .press-section {
+      margin-top: 20px;
+    }
+
+    .profile-footer {
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .profile-footer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .footer-heading {
+      font-size: clamp(19px, 1.4vw, 24px);
+      line-height: 1.2;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .footer-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: min(100%, 260px);
+      min-height: 46px;
+      padding: 10px 16px;
+      background: #e7e3de;
+      color: #151515;
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid #e7e3de;
+      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .footer-btn + .footer-btn {
+      margin-top: 10px;
+    }
+
+    .footer-btn:hover {
+      background: #fff;
+      color: #000;
+      transform: translateY(-1px);
+    }
+
+    .footer-links {
+      margin-top: 16px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.95);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-search {
+      width: 100%;
+      max-width: 400px;
+      min-height: 46px;
+      padding: 10px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      background: rgba(0, 0, 0, 0.2);
+      color: #fff;
+      font: inherit;
+    }
+
+    .footer-search::placeholder {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .footer-social {
+      margin-top: 16px;
+    }
+
+    .footer-action-stack {
+      margin-top: 12px;
+    }
+
+    .footer-social-title {
+      font-size: clamp(17px, 1.2vw, 20px);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .footer-social-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      color: #fff;
+      text-decoration: none;
+      transition: transform 160ms ease, filter 160ms ease;
+    }
+
+    .social-icon svg {
+      width: 17px;
+      height: 17px;
+      fill: #fff;
+      display: block;
+    }
+
+    .social-icon:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    .social-youtube {
+      background: #ff2f00;
+    }
+
+    .social-apple {
+      background: #f1f1f1;
+    }
+
+    .social-apple svg {
+      fill: #111;
+    }
+
+    .social-spotify {
+      background: #7bbf45;
+      border-radius: 999px;
+    }
+
+    .social-instagram {
+      background: radial-gradient(circle at 20% 115%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+    }
+
+    .social-linkedin {
+      background: #0077b5;
+    }
+
+    .social-facebook {
+      background: #4267b2;
+    }
+
+    .social-tiktok {
+      background: transparent;
+      border-radius: 0;
+    }
+
+    .footer-legal {
+      margin-top: 20px;
+      font-size: clamp(11px, 0.84vw, 14px);
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .contact-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 220ms ease, visibility 220ms ease;
+    }
+
+    .contact-modal.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .contact-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .contact-modal__panel {
+      position: relative;
+      width: min(94vw, 560px);
+      margin: clamp(40px, 8vh, 80px) auto 0;
+      background: rgba(20, 20, 20, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 16px;
+      padding: clamp(18px, 2vw, 28px);
+      color: #fff;
+      box-shadow: 0 26px 70px rgba(0, 0, 0, 0.5);
+      transform: translateY(16px) scale(0.98);
+      transition: transform 220ms ease;
+    }
+
+    .contact-modal.is-open .contact-modal__panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .contact-modal__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      cursor: pointer;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .contact-modal__close:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .contact-modal__title {
+      font-size: clamp(23px, 1.8vw, 29px);
+      line-height: 1.2;
+      margin-bottom: 18px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-form__field {
+      display: grid;
+      gap: 6px;
+      font-size: 13px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .contact-form__field input,
+    .contact-form__field textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      color: #fff;
+      padding: 11px 12px;
+      font: inherit;
+      text-transform: none;
+      letter-spacing: normal;
+      transition: border-color 160ms ease, background 160ms ease;
+    }
+
+    .contact-form__field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .contact-form__field input:focus,
+    .contact-form__field textarea:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .contact-form__submit {
+      margin-top: 4px;
+      min-height: 46px;
+      border: 1px solid #f0ebe4;
+      border-radius: 10px;
+      background: #f0ebe4;
+      color: #171717;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease;
+    }
+
+    .contact-form__submit:hover {
+      background: #fff;
+      transform: translateY(-1px);
+    }
+
+    .contact-form__status {
+      min-height: 18px;
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .press-title {
+      font-size: clamp(22px, 1.65vw, 28px);
+      line-height: 1.2;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 18px;
+      letter-spacing: 0.01em;
+    }
+
+    .press-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .press-card {
+      min-height: 74px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background 180ms ease, transform 180ms ease, border-color 180ms ease;
+    }
+
+    .press-card:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.34);
+      transform: translateY(-2px);
+    }
+
+    .press-card.light-bg {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(255, 255, 255, 0.95);
+    }
+
+    .press-card.light-bg:hover {
+      background: #ffffff;
+      border-color: #ffffff;
+    }
+
+    .press-card.jp-card {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(255, 255, 255, 0.85);
+    }
+
+    .press-card.jp-card:hover {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(255, 255, 255, 0.95);
+    }
+
+    .press-logo {
+      width: 100%;
+      max-width: 180px;
+      max-height: 38px;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      filter: none;
+      opacity: 1;
+    }
+
+    .press-logo.bright {
+      filter: brightness(0) invert(1) contrast(1.05) brightness(1.35);
+    }
+
+    .press-logo.cbs-logo {
+      max-width: 210px;
+      max-height: 52px;
+    }
+
+    .press-card.pix11-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .press-card.pix11-card:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.34);
+    }
+
+    .pix11-wordmark {
+      color: #fff;
+      font-size: clamp(16px, 1vw, 18px);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .press-logo-text {
+      font-size: clamp(13px, 0.9vw, 16px);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: rgba(255, 255, 255, 0.95);
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .scene.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 3;
+      pointer-events: auto;
+    }
+
+    .brand-switcher {
+      position: fixed;
+      top: clamp(34px, 4.8vh, 52px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1020px, calc(100vw - 40px));
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: center;
+      justify-items: center;
+      z-index: 12;
+    }
+
+    body[data-scene="2"]::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 82px;
+      background: #061316;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+      pointer-events: none;
+      z-index: 11;
+    }
+
+    body[data-scene="1"]::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 82px;
+      background: #e8e8e8;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+      pointer-events: none;
+      z-index: 11;
+    }
+
+    body[data-scene="0"]::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 82px;
+      background:
+        radial-gradient(210px 118px at 50% 22%, rgba(70, 70, 70, 0.18) 0%, rgba(70, 70, 70, 0) 72%),
+        radial-gradient(170px 90px at 78% 70%, rgba(36, 36, 36, 0.14) 0%, rgba(36, 36, 36, 0) 74%),
+        linear-gradient(110deg, #111111 0%, #171717 50%, #0b0b0b 100%),
+        linear-gradient(180deg, rgba(16, 16, 16, 0.97) 0%, rgba(16, 16, 16, 0.95) 62%, rgba(16, 16, 16, 0.64) 84%, rgba(16, 16, 16, 0) 100%);
+      pointer-events: none;
+      z-index: 11;
+    }
+
+    body[data-scene="0"] .brand-switcher {
+      top: 19px;
+      left: 50%;
+      width: min(1080px, calc(100vw - 56px));
+    }
+
+    body[data-scene="0"] .scene[data-index="0"] video {
+      inset: 82px 0 0 0;
+      height: auto;
+      object-position: center 46%;
+    }
+
+    body[data-scene="1"] .brand-switcher {
+      top: 19px;
+      left: calc(50% - 40px);
+      width: min(1080px, calc(100vw - 56px));
+    }
+
+    body[data-scene="1"] .scene[data-index="1"] video {
+      top: 82px;
+      height: calc(100% - 82px);
+      object-position: center 8%;
+    }
+
+    body[data-scene="2"] .brand-switcher {
+      top: 19px;
+      left: calc(50% - 38px);
+      width: min(1080px, calc(100vw - 56px));
+    }
+
+    body[data-scene="2"] .scene[data-index="2"] video {
+      top: 82px;
+      height: calc(100% - 82px);
+      object-position: center 6%;
+    }
+
+    .brand {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      line-height: 1;
+      padding: 2px 8px;
+      border: 0;
+      background: transparent;
+      user-select: none;
+      pointer-events: auto;
+      text-decoration: none;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    .brand:hover,
+    .brand:focus-visible,
+    .brand.is-active {
+      opacity: 1;
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .brand-logo {
+      display: block;
+      height: 42px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      background: transparent;
+    }
+
+    .brand-fund-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .brand-fund-menu {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top center;
+      animation: dropdownIn 180ms ease;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 180ms ease, visibility 180ms ease;
+      z-index: 14;
+    }
+
+    body[data-scene="0"][data-fund-menu-open="true"] .brand-fund-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .brand-fund-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .brand-fund-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .brand-academy-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .brand-academy-menu {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top center;
+      animation: dropdownIn 180ms ease;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 180ms ease, visibility 180ms ease;
+      z-index: 14;
+    }
+
+    body[data-scene="1"][data-academy-menu-open="true"] .brand-academy-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .brand-academy-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .brand-academy-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .brand-media-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .brand-media-menu {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top center;
+      animation: dropdownIn 180ms ease;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 180ms ease, visibility 180ms ease;
+      z-index: 14;
+    }
+
+    body[data-scene="2"][data-media-menu-open="true"] .brand-media-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .brand-media-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .brand-media-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .scene1-menu {
+      position: fixed;
+      right: 12px;
+      top: 18px;
+      transform: none;
+      z-index: 13;
+      pointer-events: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 220ms ease;
+    }
+
+    body[data-fund-menu-open="true"] .scene1-menu { display: none; }
+    body[data-academy-menu-open="true"] .scene2-menu { display: none; }
+    body[data-media-menu-open="true"] .scene3-menu { display: none; }
+
+    .scene2-menu {
+      position: fixed;
+      right: 12px;
+      top: 18px;
+      transform: none;
+      z-index: 13;
+      pointer-events: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 220ms ease;
+    }
+
+    body[data-scene="1"] .scene2-menu {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scene3-menu {
+      position: fixed;
+      right: 12px;
+      top: 18px;
+      transform: none;
+      z-index: 13;
+      pointer-events: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 220ms ease;
+    }
+
+    body[data-scene="2"] .scene3-menu {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scene4-menu {
+      position: fixed;
+      right: 12px;
+      top: 18px;
+      transform: none;
+      z-index: 13;
+      pointer-events: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 220ms ease;
+    }
+
+    body[data-scene="3"] .scene4-menu {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scene1-menu details {
+      min-width: 0;
+      width: 46px;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      overflow: visible;
+      position: relative;
+    }
+
+    .scene2-menu details {
+      min-width: 0;
+      width: 46px;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      overflow: visible;
+      position: relative;
+    }
+
+    .scene3-menu details {
+      min-width: 0;
+      width: 46px;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      overflow: visible;
+      position: relative;
+    }
+
+    .scene4-menu details {
+      min-width: 0;
+      width: 46px;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      overflow: visible;
+      position: relative;
+    }
+
+    .scene1-menu summary {
+      list-style: none;
+      cursor: pointer;
+      width: 46px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.95);
+      user-select: none;
+    }
+
+    .scene2-menu summary {
+      list-style: none;
+      cursor: pointer;
+      width: 46px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.95);
+      user-select: none;
+    }
+
+    .scene3-menu summary {
+      list-style: none;
+      cursor: pointer;
+      width: 46px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.95);
+      user-select: none;
+    }
+
+    .scene4-menu summary {
+      list-style: none;
+      cursor: pointer;
+      width: 46px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.95);
+      user-select: none;
+    }
+
+    .scene1-menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .scene2-menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .scene3-menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .scene4-menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .scene1-menu summary::before {
+      content: "";
+      width: 18px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 999px;
+      box-shadow: 0 -6px 0 rgba(255, 255, 255, 0.96), 0 6px 0 rgba(255, 255, 255, 0.96);
+    }
+
+    .scene2-menu summary::before {
+      content: "";
+      width: 18px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 999px;
+      box-shadow: 0 -6px 0 rgba(255, 255, 255, 0.96), 0 6px 0 rgba(255, 255, 255, 0.96);
+    }
+
+    .scene3-menu summary::before {
+      content: "";
+      width: 18px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 999px;
+      box-shadow: 0 -6px 0 rgba(255, 255, 255, 0.96), 0 6px 0 rgba(255, 255, 255, 0.96);
+    }
+
+    .scene4-menu summary::before {
+      content: "";
+      width: 18px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 999px;
+      box-shadow: 0 -6px 0 rgba(255, 255, 255, 0.96), 0 6px 0 rgba(255, 255, 255, 0.96);
+    }
+
+    .scene1-menu ul {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top right;
+      animation: dropdownIn 180ms ease;
+    }
+
+    .scene2-menu ul {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top right;
+      animation: dropdownIn 180ms ease;
+    }
+
+    .scene3-menu ul {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top right;
+      animation: dropdownIn 180ms ease;
+    }
+
+    .scene4-menu ul {
+      margin: 0;
+      padding: 4px 0 8px;
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      min-width: 220px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transform-origin: top right;
+      animation: dropdownIn 180ms ease;
+    }
+
+    .scene1-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .scene2-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .scene3-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .scene4-menu a {
+      display: block;
+      padding: 9px 12px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .scene1-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .scene2-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .scene3-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .scene4-menu a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .headline-wrap {
+      position: fixed;
+      left: 36px;
+      right: auto;
+      width: min(980px, calc(100vw - 40px));
+      bottom: clamp(74px, 12vh, 130px);
+      z-index: 11;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .headline {
+      color: #fff;
+      font-size: clamp(30px, 5.6vw, 76px);
+      line-height: 0.98;
+      font-weight: 700;
+      width: 100%;
+      max-width: none;
+      white-space: nowrap;
+      text-align: left;
+      text-indent: 0;
+      text-shadow: 0 8px 30px rgba(0, 0, 0, 0.26);
+    }
+
+    .headline-subtext {
+      margin-top: 16px;
+      width: 100%;
+      max-width: 100%;
+      padding-left: 0.7em;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: clamp(14px, 1.18vw, 20px);
+      line-height: 1.5;
+      font-weight: 500;
+      text-shadow: 0 6px 24px rgba(0, 0, 0, 0.24);
+      white-space: pre-line;
+      text-align: left;
+      margin-left: 0;
+    }
+
+    @media (max-width: 1100px), (max-height: 760px) {
+      .profile-layout {
+        grid-template-columns: minmax(220px, 32vw) minmax(0, 1fr);
+        gap: clamp(14px, 2vw, 26px);
+        padding: clamp(14px, 2vw, 26px);
+        padding-top: clamp(92px, 11vh, 124px);
+      }
+
+      .profile-image {
+        height: min(72vh, 700px);
+        object-fit: cover;
+        object-position: center 14%;
+        background: none;
+      }
+
+      .profile-copy {
+        margin-top: -18px;
+        max-height: 72vh;
+      }
+    }
+
+    @media (max-height: 640px) {
+      .profile-layout {
+        gap: 12px;
+        padding: 12px;
+        padding-top: 78px;
+      }
+
+      .profile-image {
+        height: min(62vh, 520px);
+      }
+
+      .profile-copy {
+        max-height: 62vh;
+        font-size: 11px;
+        line-height: 1.42;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .scene[data-index="0"] video {
+        object-position: center 38%;
+      }
+
+      .scene[data-index="1"] video {
+        object-position: center 8%;
+      }
+
+      .scene[data-index="2"] video {
+        object-position: center 6%;
+      }
+
+      .brand-switcher {
+        top: 24px;
+        width: calc(100vw - 24px);
+      }
+
+      body[data-scene="2"]::before {
+        height: 72px;
+      }
+
+      body[data-scene="0"]::before {
+        height: 72px;
+      }
+
+      body[data-scene="0"] .brand-switcher {
+        top: 20px;
+        left: 50%;
+        width: calc(100vw - 18px);
+      }
+
+      body[data-scene="0"] .scene[data-index="0"] video {
+        inset: 72px 0 0 0;
+        height: auto;
+        object-position: center 38%;
+      }
+
+      body[data-scene="1"]::before {
+        height: 72px;
+      }
+
+      body[data-scene="1"] .brand-switcher {
+        top: 20px;
+        left: calc(50% - 14px);
+        width: calc(100vw - 18px);
+      }
+
+      body[data-scene="1"] .scene[data-index="1"] video {
+        top: 72px;
+        height: calc(100% - 72px);
+        object-position: center 10%;
+      }
+
+      body[data-scene="2"] .brand-switcher {
+        top: 20px;
+        left: calc(50% - 18px);
+        width: calc(100vw - 18px);
+      }
+
+      body[data-scene="2"] .scene[data-index="2"] video {
+        top: 72px;
+        height: calc(100% - 72px);
+        object-position: center 8%;
+      }
+
+
+      .brand-logo {
+        height: 30px;
+      }
+
+      .headline-wrap {
+        left: 26px;
+        right: auto;
+        width: calc(100vw - 28px);
+        bottom: 86px;
+      }
+
+      .headline {
+        font-size: clamp(24px, 6.8vw, 38px);
+        max-width: none;
+      }
+
+      .headline-subtext {
+        margin-top: 12px;
+        font-size: clamp(13px, 3.7vw, 17px);
+        line-height: 1.42;
+        max-width: 96vw;
+      }
+
+      .profile-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(0, 1fr);
+        align-items: start;
+        padding: 14px;
+        padding-top: 92px;
+        gap: 12px;
+      }
+
+      .universe-layout {
+        padding: 84px 14px 22px;
+        gap: 12px;
+      }
+
+      .universe-title {
+        font-size: clamp(28px, 8.5vw, 44px);
+      }
+
+      .universe-subtitle {
+        font-size: clamp(13px, 3.6vw, 17px);
+        margin-top: 8px;
+      }
+
+      .universe-collage {
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        gap: 10px;
+        padding-right: 2px;
+      }
+
+      .universe-partners {
+        width: 100%;
+        margin-top: 8px;
+      }
+
+      .universe-partners__viewport {
+        overflow-x: auto;
+      }
+
+      .universe-partners__track {
+        width: max-content;
+      }
+
+      .partner-card {
+        flex-basis: clamp(138px, 36vw, 176px);
+      }
+
+      .universe-shape {
+        width: min(64vw, 340px);
+        height: min(64vw, 340px);
+        top: 12%;
+        left: 18%;
+      }
+
+      .universe-group {
+        display: contents;
+      }
+
+      .profile-orbit {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: clamp(80px, 22vw, 118px);
+        height: clamp(80px, 22vw, 118px);
+      }
+
+      .profile-orbit__photo {
+        font-size: clamp(11px, 3vw, 14px);
+      }
+
+      .profile-image {
+        height: min(38vh, 380px);
+        object-fit: cover;
+        object-position: center 10%;
+        background: none;
+        margin-top: 0;
+        margin-left: 0;
+      }
+
+      .profile-copy {
+        margin-top: 0;
+        max-height: 46vh;
+        font-size: 11px;
+        line-height: 1.45;
+        padding: 10px;
+      }
+
+      .press-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .profile-footer-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .footer-search {
+        max-width: 100%;
+      }
+
+      .contact-modal__panel {
+        width: min(94vw, 520px);
+        margin-top: 20px;
+      }
+
+      .scene1-menu {
+        right: 10px;
+        top: 14px;
+        bottom: auto;
+        transform: none;
+      }
+
+      .scene2-menu {
+        right: 10px;
+        top: 14px;
+        bottom: auto;
+        transform: none;
+      }
+
+      .scene3-menu {
+        right: 10px;
+        top: 14px;
+        bottom: auto;
+        transform: none;
+      }
+
+      .scene4-menu {
+        right: 10px;
+        top: 14px;
+        bottom: auto;
+        transform: none;
+      }
+
+      .scene1-menu details {
+        width: 44px;
+      }
+
+      .scene1-menu ul {
+        min-width: 190px;
+      }
+
+      .scene2-menu details {
+        width: 44px;
+      }
+
+      .scene2-menu ul {
+        min-width: 190px;
+      }
+
+      .scene3-menu details {
+        width: 44px;
+      }
+
+      .scene3-menu ul {
+        min-width: 190px;
+      }
+
+      .scene4-menu details {
+        width: 44px;
+      }
+
+      .scene4-menu ul {
+        min-width: 190px;
+      }
+
+    }
+
+    .scene-arrow {
+      position: fixed;
+      bottom: clamp(18px, 2.8vh, 34px);
+      display: inline-block;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: clamp(44px, 5.4vw, 58px);
+      line-height: 1;
+      z-index: 16;
+      text-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+      transition: transform 180ms ease, color 180ms ease;
+    }
+
+    .scene-next-arrow {
+      right: clamp(18px, 2.4vw, 32px);
+    }
+
+    .scene-prev-arrow {
+      left: clamp(18px, 2.4vw, 32px);
+    }
+
+    .scene-arrow:hover {
+      color: rgba(255, 255, 255, 0.8);
+      transform: translateY(-2px);
+    }
+
+    @keyframes dropdownIn {
+      from {
+        opacity: 0;
+        transform: translateY(-4px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+  </style>
 </head>
 <body>
   <main class="viewport" id="viewport">
-    <section class="scene active fund-scene" data-index="0">
-      <div class="fund-scene__layout">
-        <div class="fund-scene__video">
-          <video src="assets/videos/wocstarfund.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
-          <div class="overlay"></div>
-          <header class="fund-video-copy" aria-label="Wocstar Fund intro">
-            <h1 class="fund-video-copy__title">Wocstar Fund</h1>
-            <p class="fund-video-copy__subtext">We don&rsquo;t just invest; we ignite.
-Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters transforming the world&rsquo;s most critical industries.</p>
-          </header>
-        </div>
-        <section class="fund-portfolio" id="fund-portfolio" aria-label="Wocstar Fund portfolio companies">
-          <section class="fund-exits" id="success-stories-exits" aria-label="Wocstar Fund exits">
-            <h3 class="fund-exits__title">Exits</h3>
-            <ul class="fund-exits__grid fund-company-grid fund-company-grid--exits">
-              <li class="fund-company-card fund-company-card--exited">
-                <div class="fund-company-card__logo-shell">
-                  <div class="fund-company-card__logo-slot">
-                    <img class="fund-company-card__logo fund-company-card__logo--sportslab" src="assets/images/exits/sportslablogo.png" alt="Sports Innovation Lab logo" />
-                  </div>
-                </div>
-                <p class="fund-status-badge fund-status-badge--exited">Exited</p>
-              </li>
-              <li class="fund-company-card fund-company-card--exited">
-                <div class="fund-company-card__logo-shell">
-                  <div class="fund-company-card__logo-slot">
-                    <img class="fund-company-card__logo fund-company-card__logo--uncharted" src="assets/images/exits/unchartedpowerlogo.png" alt="Uncharted Power logo" />
-                  </div>
-                </div>
-                <p class="fund-status-badge fund-status-badge--exited">Exited</p>
-              </li>
-              <li class="fund-company-card fund-company-card--exited">
-                <div class="fund-company-card__logo-shell">
-                  <div class="fund-company-card__logo-slot">
-                    <img class="fund-company-card__logo fund-company-card__logo--audigent" src="assets/images/exits/audigentlogo.png" alt="Audigent logo" />
-                  </div>
-                </div>
-                <p class="fund-status-badge fund-status-badge--exited">Exited</p>
-                <p class="fund-company-card__detail">Acquired by Experian</p>
-              </li>
-              <li class="fund-company-card fund-company-card--exited">
-                <div class="fund-company-card__logo-shell">
-                  <div class="fund-company-card__logo-slot">
-                    <img class="fund-company-card__logo fund-company-card__logo--flow" src="assets/images/exits/flowinclogo.png" alt="Flow logo" />
-                  </div>
-                </div>
-                <p class="fund-status-badge fund-status-badge--exited">Exited</p>
-              </li>
-            </ul>
-          </section>
-          <section class="fund-portfolio-active" aria-label="Wocstar Fund portfolio companies">
-            <div class="fund-portfolio__header" id="portfolio-companies">
-              <h2 class="fund-portfolio__title">Portfolio Companies</h2>
-            </div>
-            <ul class="fund-company-grid fund-company-grid--active">
-              <li class="fund-company-card fund-company-card--active">
-                <div class="fund-company-card__logo-shell">
-                  <div class="fund-company-card__logo-slot">
-                    <img class="fund-company-card__logo fund-company-card__logo--samba" src="assets/images/portco/sambatvlogo.png" alt="Samba TV logo" />
-                  </div>
-                </div>
-                <p class="fund-status-badge fund-status-badge--active">Active</p>
-              </li>
-              <li class="fund-company-card fund-company-card--active">
-                <div class="fund-company-card__logo-shell">
-                  <div class="fund-company-card__logo-slot">
-                    <img class="fund-company-card__logo fund-company-card__logo--hemster" src="assets/images/portco/hemster-transparent.png" alt="Hemster logo" />
-                  </div>
-                </div>
-                <p class="fund-status-badge fund-status-badge--active">Active</p>
-              </li>
-              <li class="fund-company-card fund-company-card--active">
-                <div class="fund-company-card__logo-shell">
-                  <div class="fund-company-card__logo-slot">
-                    <img class="fund-company-card__logo fund-company-card__logo--renuble" src="assets/images/portco/renuble.png" alt="Re-Nuble logo" />
-                  </div>
-                </div>
-                <p class="fund-status-badge fund-status-badge--active">Active</p>
-              </li>
-              <li class="fund-company-card fund-company-card--active">
-                <div class="fund-company-card__logo-shell">
-                  <div class="fund-company-card__logo-slot">
-                    <img class="fund-company-card__logo fund-company-card__logo--filmhedge" src="assets/images/portco/filmhedge.jpg" alt="FilmHedge logo" />
-                  </div>
-                </div>
-                <p class="fund-status-badge fund-status-badge--active">Active</p>
-              </li>
-              <li class="fund-company-card fund-company-card--active">
-                <div class="fund-company-card__logo-shell">
-                  <div class="fund-company-card__logo-slot">
-                    <img class="fund-company-card__logo fund-company-card__logo--infinite" src="assets/images/portco/infiniteobjects.png" alt="Infinite Objects logo" />
-                  </div>
-                </div>
-                <p class="fund-status-badge fund-status-badge--active">Active</p>
-              </li>
-              <li class="fund-company-card fund-company-card--active">
-                <div class="fund-company-card__logo-shell">
-                  <div class="fund-company-card__logo-slot">
-                    <img class="fund-company-card__logo fund-company-card__logo--possip" src="assets/images/portco/possip.png" alt="Possip logo" />
-                  </div>
-                </div>
-                <p class="fund-status-badge fund-status-badge--active">Active</p>
-              </li>
-              <li class="fund-company-card fund-company-card--active">
-                <div class="fund-company-card__logo-shell">
-                  <div class="fund-company-card__logo-slot">
-                    <span class="fund-company-card__wordmark">Moment.ai</span>
-                  </div>
-                </div>
-                <p class="fund-status-badge fund-status-badge--active">Active</p>
-              </li>
-            </ul>
-          </section>
-          <section class="fund-prior" id="prior-investment" aria-label="Wocstar Fund prior investment">
-            <h3 class="fund-prior__title">Prior Investment</h3>
-            <ul class="fund-prior__grid fund-company-grid fund-company-grid--prior">
-              <li class="fund-company-card fund-company-card--prior">
-                <div class="fund-company-card__logo-shell">
-                  <div class="fund-company-card__logo-slot">
-                    <img class="fund-company-card__logo fund-company-card__logo--zerogrocery" src="assets/images/portco/zero-grocery-transparent.png" alt="Zero Grocery logo" />
-                  </div>
-                </div>
-                <p class="fund-status-badge fund-status-badge--prior">Prior Investment</p>
-              </li>
-            </ul>
-          </section>
-          <footer class="scene-global-footer fund-inline-footer" aria-label="Fund page footer">
-            <div class="scene-global-footer__inner" id="fundLegacyFooterInner" style="display:none;">
-              <div class="scene-global-footer__left">
-                <h2 class="scene-global-footer__title">Building the future? We&rsquo;re looking for you. Let&rsquo;s make it happen.</h2>
-                <a class="scene-global-footer__btn" href="https://form.jotform.com/Wocstar/wocstar-fund-application" target="_blank" rel="noopener noreferrer">Apply for Funding</a>
-                <div class="scene-global-footer__links">
-                  <a href="#" data-open-sms-terms="true">SMS Terms &amp; Conditions</a>
-                  <a href="#">Privacy Policy</a>
-                </div>
-                <p class="scene-global-footer__legal">
-                  Copyright &copy; 2026 Wocstar Capital, LLC. All rights reserved.<br />
-                  Wocstar&reg; is a registered trademark of Wocstar Capital, LLC.<br />
-                  NYC, New York
-                </p>
-              </div>
-              <div class="scene-global-footer__right">
-                <form class="scene-global-footer__search" role="search" aria-label="Fund search" onsubmit="return false;">
-                  <input type="search" placeholder="Search" aria-label="Search" />
-                  <button type="submit" aria-label="Submit search">&#9906;</button>
-                </form>
-                <div class="scene-global-footer__actions">
-                  <button class="scene-global-footer__btn" type="button" id="fundInlineContactButton">Contact Us</button>
-                </div>
-                <div class="scene-global-footer__social">
-                  <p class="scene-global-footer__social-title">Follow Us On Social</p>
-                  <div class="scene-global-footer__social-row" aria-label="Fund social links">
-                    <a class="social-icon social-youtube" href="https://www.youtube.com/channel/UCcpzz0ps3xDkmWyl4nvGxiQ" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 12s0-3.2-.4-4.7c-.2-.8-.8-1.4-1.6-1.6C19.4 5.3 12 5.3 12 5.3s-7.4 0-9 .4c-.8.2-1.4.8-1.6 1.6C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.8 1.4 1.6 1.6 1.6.4 9 .4 9 .4s7.4 0 9-.4c.8-.2 1.4-.8 1.6-1.6.4-1.5.4-4.7.4-4.7zM10 15.5V8.5L16 12l-6 3.5z"/></svg>
-                    </a>
-                    <a class="social-icon social-apple" href="https://podcasts.apple.com/py/podcast/vcs-off-the-record-with-gayle-jennings-obyrne/id1515746108" target="_blank" rel="noopener noreferrer" aria-label="Apple Podcast">
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 12.6c0-2.4 2-3.5 2.1-3.6-1.2-1.7-3-1.9-3.6-1.9-1.5-.2-2.9.9-3.6.9-.8 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.9 2.3-1.7 2.9-.4 7.2 1.2 9.5.8 1.1 1.8 2.3 3.1 2.2 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.1-1.1 2.9-2.2.9-1.3 1.3-2.7 1.3-2.8-.1 0-2.8-1.1-2.8-3.6zM14.2 5.6c.7-.8 1.2-1.9 1.1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1 .1 2-.5 2.7-1.3z"/></svg>
-                    </a>
-                    <a class="social-icon social-spotify" href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C6.2 1.5 1.5 6.2 1.5 12S6.2 22.5 12 22.5 22.5 17.8 22.5 12 17.8 1.5 12 1.5zm4.8 14.9c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.9-9.4-1.1-.3.1-.7-.1-.8-.5-.1-.3.1-.7.5-.8 4-.9 7.5-.5 10.3 1.2.4.1.5.6.3 1zm1.2-2.7c-.3.4-.8.5-1.2.3-2.8-1.7-7.2-2.2-10.5-1.2-.5.1-1-.1-1.1-.6-.1-.5.1-1 .6-1.1 3.8-1.1 8.6-.6 11.9 1.4.4.2.5.8.3 1.2zm.1-2.8C14.8 9 9.7 8.9 6.6 9.9c-.6.2-1.2-.1-1.4-.7-.2-.6.1-1.2.7-1.4 3.6-1.1 9.2-1 13.4 1.4.5.3.7 1 .4 1.5-.2.5-.9.7-1.4.4z"/></svg>
-                    </a>
-                    <a class="social-icon social-instagram" href="https://www.instagram.com/wocstarfund/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm0 1.8c-2.2 0-4 1.8-4 4v8.4c0 2.2 1.8 4 4 4h8.4c2.2 0 4-1.8 4-4V7.8c0-2.2-1.8-4-4-4H7.8zm9.1 1.4a1.3 1.3 0 110 2.6 1.3 1.3 0 010-2.6zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.8a3.2 3.2 0 100 6.4 3.2 3.2 0 000-6.4z"/></svg>
-                    </a>
-                    <a class="social-icon social-linkedin" href="https://www.linkedin.com/company/wocstar/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.7 3.5a2.1 2.1 0 100 4.2 2.1 2.1 0 000-4.2zM3 9h3.4v12H3V9zm6 0h3.2v1.6h.1c.4-.8 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5V21h-3.4v-5.8c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H9V9z"/></svg>
-                    </a>
-                    <a class="social-icon social-facebook" href="https://web.facebook.com/Wocstar?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.2V11H8v3h2.4v8h3.1z"/></svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="academy-footer-mobile fund-footer-mobile" aria-label="Fund mobile footer">
-              <section class="academy-footer-mobile__card" aria-label="Fund mobile call to action">
-                <h2 class="academy-footer-mobile__title">Building the future? We&rsquo;re looking for you. Let&rsquo;s make it happen.</h2>
-                <div class="academy-footer-mobile__top-row">
-                  <a class="scene-global-footer__btn academy-footer-mobile__cta" href="https://form.jotform.com/Wocstar/wocstar-fund-application" target="_blank" rel="noopener noreferrer">Apply for Funding</a>
-                  <form class="academy-footer-mobile__search is-open" role="search" aria-label="Fund search" onsubmit="return false;">
-                    <label class="academy-footer-mobile__search-label" for="fundMobileSearchInput">Search</label>
-                    <input id="fundMobileSearchInput" type="search" placeholder="Search" aria-label="Search" />
-                    <button type="button" id="fundMobileSearchToggle" aria-label="Toggle search" aria-expanded="true" aria-controls="fundMobileSearchInput">&#9906;</button>
-                  </form>
-                </div>
-              </section>
-              <section class="academy-footer-mobile__accordion" aria-label="Fund utility links">
-                <details class="academy-footer-mobile__item">
-                  <summary>Legal</summary>
-                  <div class="academy-footer-mobile__panel">
-                    <a href="#" data-open-sms-terms="true">SMS Terms &amp; Conditions</a>
-                    <a href="#">Privacy Policy</a>
-                    <p>
-                      Copyright &copy; 2026 Wocstar Capital, LLC. All rights reserved.<br />
-                      Wocstar&reg; is a registered trademark of Wocstar Capital, LLC.<br />
-                      NYC, New York
-                    </p>
-                  </div>
-                </details>
-                <details class="academy-footer-mobile__item">
-                  <summary>Contact</summary>
-                  <div class="academy-footer-mobile__panel">
-                    <button class="scene-global-footer__btn academy-footer-mobile__contact" type="button" id="fundInlineContactButtonMobile">Contact Us</button>
-                  </div>
-                </details>
-                <details class="academy-footer-mobile__item">
-                  <summary>Social</summary>
-                  <div class="academy-footer-mobile__panel academy-footer-mobile__social">
-                    <a href="https://www.youtube.com/channel/UCcpzz0ps3xDkmWyl4nvGxiQ" target="_blank" rel="noopener noreferrer">YouTube</a>
-                    <a href="https://podcasts.apple.com/py/podcast/vcs-off-the-record-with-gayle-jennings-obyrne/id1515746108" target="_blank" rel="noopener noreferrer">Apple</a>
-                    <a href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer">Spotify</a>
-                    <a href="https://www.instagram.com/wocstarfund/" target="_blank" rel="noopener noreferrer">Instagram</a>
-                    <a href="https://www.linkedin.com/company/wocstar/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                    <a href="https://web.facebook.com/Wocstar?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer">Facebook</a>
-                  </div>
-                </details>
-              </section>
-            </div>
-          </footer>
-        </section>
-      </div>
+    <section class="scene active" data-index="0">
+      <video src="depth1.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+      <div class="overlay"></div>
     </section>
 
-    <section class="scene academy-scene" data-index="1">
-      <div class="academy-scene__layout">
-        <div class="academy-scene__video">
-          <video src="assets/videos/wocstaracademy.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
-          <div class="overlay"></div>
-          <header class="academy-video-copy" aria-label="Wocstar Academy intro">
-            <h1 class="academy-video-copy__title">Wocstar Academy</h1>
-            <p class="academy-video-copy__subtext">The Wocstar Academy isn&rsquo;t just a program&mdash;it&rsquo;s a deep-dive into the mechanics that move you from founder to master of the raise by providing the definitive, insider playbook for securing the capital you deserve. Likewise, allies learn to move from occasional supporters to savvy, successful investors.</p>
-          </header>
-        </div>
-        <section class="academy-story" id="about-the-academy" aria-label="Wocstar Academy program details">
-          <div class="academy-story__inner">
-            <h2 class="academy-story__lead">Empowering Founders and Investors</h2>
-            <p class="academy-story__text">Wocstar Academy&rsquo;s program gives entrepreneurs direct insights from active funders, expert guidance to sharpen their storytelling, and tailored strategies for investor pitches, grants, and loan proposals. This nationally recognized experience includes curated workshops, one-on-one mentorship with industry leaders, and a supportive community of peers. The support continues after the program through networking opportunities and curated introductions that help accelerate each founder&rsquo;s journey.</p>
-          </div>
-        </section>
-        <section class="academy-alumni" id="academy-alumni-testimonials" aria-label="Past academy alumni testimonials">
-          <div class="academy-alumni__header">
-            <h3 class="academy-alumni__title">Alumni Testimonials</h3>
-            <div class="academy-alumni__controls" aria-label="Alumni testimonial navigation">
-              <button class="academy-alumni__btn" type="button" id="academyAlumniPrevBtn" aria-label="Show previous alumni testimonials">&#8249;</button>
-              <button class="academy-alumni__btn" type="button" id="academyAlumniNextBtn" aria-label="Show next alumni testimonials">&#8250;</button>
-            </div>
-          </div>
-          <div class="academy-alumni__viewport" id="academyAlumniViewport">
-            <ul class="academy-alumni__track" id="academyAlumniTrack">
-              <li class="academy-alumni__card">
-                <span class="academy-alumni__avatar" data-initials="KB">
-                  <img class="academy-alumni__avatar-image academy-alumni__avatar-image--kaelin" src="assets/images/academy/kaelin.png" alt="Kaelin Bass portrait" loading="lazy" />
-                </span>
-                <h4 class="academy-alumni__name">Kaelin Bass</h4>
-                <p class="academy-alumni__quote">&ldquo;Wocstar Academy changed my life. The one-on-one mentorship alone is priceless. I encourage any entrepreneur to take this workshop if you want a stronger grasp of how to run a startup and raise capital. Ten out of ten.&rdquo;</p>
-                <p class="academy-alumni__company"><a href="https://www.kmboobies.com/?srsltid=AfmBOopRXVzjbfJfy1zO49Ti0I1UdyktRYbweoMYLhx3_8J9MsnnGDpu" target="_blank" rel="noopener noreferrer">KMBoobies</a></p>
-              </li>
-              <li class="academy-alumni__card">
-                <span class="academy-alumni__avatar" data-initials="DK">
-                  <img class="academy-alumni__avatar-image academy-alumni__avatar-image--dawn" src="assets/images/academy/dawn.png" alt="Dawn Kelly portrait" loading="lazy" />
-                </span>
-                <h4 class="academy-alumni__name">Dawn Kelly</h4>
-                <p class="academy-alumni__quote">&ldquo;Wocstar gave me the capital-raising blueprint and storytelling framework that turned The Nourish Spot from a community juice bar into a thriving multi-location business. I gained the tools to raise capital, shape my story, and scale beyond what I ever imagined.&rdquo;</p>
-                <p class="academy-alumni__company"><a href="https://www.thenourishspot.com/?srsltid=AfmBOooaCY3djM8l4Ck82FRpyeDRcKqPsYiOHc4VtwiaFDrf96Neu2Fs" target="_blank" rel="noopener noreferrer">The Nourish Spot</a></p>
-              </li>
-              <li class="academy-alumni__card">
-                <span class="academy-alumni__avatar" data-initials="SC">
-                  <img class="academy-alumni__avatar-image academy-alumni__avatar-image--sirobe" src="assets/images/academy/sirobe.png" alt="Sirobe Carstafhnur portrait" loading="lazy" />
-                </span>
-                <h4 class="academy-alumni__name">Sirob&egrave; Carstafhnur</h4>
-                <p class="academy-alumni__quote">&ldquo;What I love about Wocstar Academy is the immediacy of the tools they give you. These are solutions you can put into action today. It was an amazing powerful experience, and learning from everyone&rsquo;s unique approach expanded my own.&rdquo;</p>
-                <p class="academy-alumni__company"><a href="https://sirobe.com/" target="_blank" rel="noopener noreferrer">Sirob&egrave;</a></p>
-              </li>
-              <li class="academy-alumni__card">
-                <span class="academy-alumni__avatar" data-initials="AC">
-                  <img class="academy-alumni__avatar-image academy-alumni__avatar-image--ameka" src="assets/images/academy/ameka.png" alt="Ameka Coleman portrait" loading="lazy" />
-                </span>
-                <h4 class="academy-alumni__name">Ameka Coleman</h4>
-                <p class="academy-alumni__quote">&ldquo;The Academy elevated my pitch and confidence. It took me to the next level. I now speak confidently about my vision, as well as my financial needs, when talking to potential partners and investors. The entire program was incredible.&rdquo;</p>
-                <p class="academy-alumni__company"><a href="https://strandsoffaith.com/?srsltid=AfmBOoqZH-K7yCTuOoZZt8KobubxKpuCrgbFbMEz3Zk6cKlT_zgE6Vg-" target="_blank" rel="noopener noreferrer">Strands of Faith</a></p>
-              </li>
-            </ul>
-          </div>
-        </section>
-        <section class="academy-curriculum" id="academy-curriculum" aria-label="Wocstar Academy founder and investor curriculum">
-          <div class="academy-curriculum__inner">
-            <header class="academy-curriculum__header">
-              <p class="academy-curriculum__kicker">Curriculum Blueprint</p>
-              <h3 class="academy-curriculum__title">
-                <span class="academy-curriculum__title-line">The playbook that turns ambition</span>
-                <span class="academy-curriculum__title-line">into investable momentum</span>
-              </h3>
-              <p class="academy-curriculum__intro">Built for founders raising with precision and allies investing with confidence. Practical, high-caliber training designed for real outcomes.</p>
-              <div class="academy-curriculum__chips" aria-label="Academy learning pillars">
-                <button class="academy-curriculum__scene-btn is-active" type="button" data-academy-scene="founder" aria-pressed="true">Founder Track</button>
-                <button class="academy-curriculum__scene-btn" type="button" data-academy-scene="investor" aria-pressed="false">Investor Track</button>
-              </div>
-            </header>
-
-            <div class="academy-curriculum__tracks">
-              <article class="academy-curriculum__card is-active" id="academy-founder-track" data-academy-scene-panel="founder">
-                <h4 class="academy-curriculum__card-title">Founder Curriculum</h4>
-                <p class="academy-curriculum__card-subtitle">Insider intelligence for the raise</p>
-                <ul class="academy-curriculum__list">
-                  <li><strong>Strategic Capitalization:</strong> Identify the right capital for your stage, from seed to scale.</li>
-                  <li><strong>Valuation &amp; Terms:</strong> Master the math and mechanics of negotiating fair, growth-oriented deals.</li>
-                  <li><strong>Campaign Execution:</strong> Build and run a professional fundraising engine that closes rounds.</li>
-                  <li><strong>Investor Cultivation:</strong> Move beyond the pitch to build lasting, high-value investor alliances.</li>
-                </ul>
-              </article>
-
-              <article class="academy-curriculum__card" id="academy-investor-track" data-academy-scene-panel="investor">
-                <h4 class="academy-curriculum__card-title">Investor Curriculum</h4>
-                <p class="academy-curriculum__card-subtitle">Mastering the asset class</p>
-                <ul class="academy-curriculum__list">
-                  <li><strong>Asset Class Mastery:</strong> Deep-dive into venture capital fundamentals and early-stage equity mechanics.</li>
-                  <li><strong>The Diligence Framework:</strong> Evaluate tech innovation and spot the edge others miss.</li>
-                  <li><strong>Portfolio Strategy:</strong> Understand risk management, diversification, and long-term return design.</li>
-                  <li><strong>Inclusive Sourcing:</strong> Use a female-forward lens to find and fuel high-potential, under-tapped talent.</li>
-                </ul>
-              </article>
-            </div>
-
-            <article class="academy-curriculum__meta">
-              <div class="academy-curriculum__meta-body">
-                <h4 class="academy-curriculum__meta-title">How We Learn: Community &amp; Flexibility</h4>
-                <p class="academy-curriculum__meta-copy"><strong>Collaborative Power:</strong> Group coursework with founders and investors, powered by collective intelligence and shared networks.</p>
-                <p class="academy-curriculum__meta-copy"><strong>Wocstar Online Academy (Coming Soon):</strong> Self-paced modules for leaders who want world-class training on their own schedule.</p>
-              </div>
-              <button class="academy-curriculum__cta" type="button" id="academyApplyButton">Secure your spot</button>
-            </article>
-          </div>
-        </section>
-        <section class="academy-quote" aria-label="Wocstar Academy founder quote">
-          <div class="academy-quote__inner">
-            <div class="academy-quote__portrait-wrap">
-              <img class="academy-quote__portrait" src="assets/images/misc/Gayle.png" alt="Gayle Jennings O’Byrne portrait" />
-            </div>
-            <div>
-              <p class="academy-quote__text">&ldquo;Wocstar Academy provides the tools, the capital playbook, and the female-forward mindset that both founders and investors deserve. When you join, you aren&rsquo;t just entering a program&mdash;you are stepping into an allied network designed to ignite your goals.&rdquo;</p>
-              <p class="academy-quote__author">Gayle Jennings O&rsquo;Byrne, <em>CEO Wocstar Capital</em></p>
-            </div>
-          </div>
-        </section>
-        <footer class="scene-global-footer academy-inline-footer" aria-label="Academy page footer">
-          <div class="scene-global-footer__inner" id="academyLegacyFooterInner" style="display:none;">
-            <div class="scene-global-footer__left">
-              <h2 class="scene-global-footer__title">Ready to master the capital playbook?</h2>
-              <button class="scene-global-footer__btn" type="button" id="academyWaitlistButton">Secure your spot</button>
-              <div class="scene-global-footer__links">
-                <a href="#" data-open-sms-terms="true">SMS Terms &amp; Conditions</a>
-                <a href="#">Privacy Policy</a>
-              </div>
-              <p class="scene-global-footer__legal">
-                Copyright &copy; 2026 Wocstar Capital, LLC. All rights reserved.<br />
-                Wocstar&reg; is a registered trademark of Wocstar Capital, LLC.<br />
-                NYC, New York
-              </p>
-            </div>
-            <div class="scene-global-footer__right">
-              <form class="scene-global-footer__search" role="search" aria-label="Academy search" onsubmit="return false;">
-                <input type="search" placeholder="Search" aria-label="Search" />
-                <button type="submit" aria-label="Submit search">&#9906;</button>
-              </form>
-              <div class="scene-global-footer__actions">
-                <button class="scene-global-footer__btn" type="button" id="academyInlineContactButton">Contact Us</button>
-              </div>
-              <div class="scene-global-footer__social">
-                <p class="scene-global-footer__social-title">Follow Us On Social</p>
-                <div class="scene-global-footer__social-row" aria-label="Academy social links">
-                  <a class="social-icon social-youtube" href="https://www.youtube.com/channel/UCcpzz0ps3xDkmWyl4nvGxiQ" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 12s0-3.2-.4-4.7c-.2-.8-.8-1.4-1.6-1.6C19.4 5.3 12 5.3 12 5.3s-7.4 0-9 .4c-.8.2-1.4.8-1.6 1.6C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.8 1.4 1.6 1.6 1.6.4 9 .4 9 .4s7.4 0 9-.4c.8-.2 1.4-.8 1.6-1.6.4-1.5.4-4.7.4-4.7zM10 15.5V8.5L16 12l-6 3.5z"/></svg>
-                  </a>
-                  <a class="social-icon social-apple" href="https://podcasts.apple.com/py/podcast/vcs-off-the-record-with-gayle-jennings-obyrne/id1515746108" target="_blank" rel="noopener noreferrer" aria-label="Apple Podcast">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 12.6c0-2.4 2-3.5 2.1-3.6-1.2-1.7-3-1.9-3.6-1.9-1.5-.2-2.9.9-3.6.9-.8 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.9 2.3-1.7 2.9-.4 7.2 1.2 9.5.8 1.1 1.8 2.3 3.1 2.2 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.1-1.1 2.9-2.2.9-1.3 1.3-2.7 1.3-2.8-.1 0-2.8-1.1-2.8-3.6zM14.2 5.6c.7-.8 1.2-1.9 1.1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1 .1 2-.5 2.7-1.3z"/></svg>
-                  </a>
-                  <a class="social-icon social-spotify" href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C6.2 1.5 1.5 6.2 1.5 12S6.2 22.5 12 22.5 22.5 17.8 22.5 12 17.8 1.5 12 1.5zm4.8 14.9c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.9-9.4-1.1-.3.1-.7-.1-.8-.5-.1-.3.1-.7.5-.8 4-.9 7.5-.5 10.3 1.2.4.1.5.6.3 1zm1.2-2.7c-.3.4-.8.5-1.2.3-2.8-1.7-7.2-2.2-10.5-1.2-.5.1-1-.1-1.1-.6-.1-.5.1-1 .6-1.1 3.8-1.1 8.6-.6 11.9 1.4.4.2.5.8.3 1.2zm.1-2.8C14.8 9 9.7 8.9 6.6 9.9c-.6.2-1.2-.1-1.4-.7-.2-.6.1-1.2.7-1.4 3.6-1.1 9.2-1 13.4 1.4.5.3.7 1 .4 1.5-.2.5-.9.7-1.4.4z"/></svg>
-                  </a>
-                  <a class="social-icon social-instagram" href="https://www.instagram.com/wocstarfund/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm0 1.8c-2.2 0-4 1.8-4 4v8.4c0 2.2 1.8 4 4 4h8.4c2.2 0 4-1.8 4-4V7.8c0-2.2-1.8-4-4-4H7.8zm9.1 1.4a1.3 1.3 0 110 2.6 1.3 1.3 0 010-2.6zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.8a3.2 3.2 0 100 6.4 3.2 3.2 0 000-6.4z"/></svg>
-                  </a>
-                  <a class="social-icon social-linkedin" href="https://www.linkedin.com/company/wocstar/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.7 3.5a2.1 2.1 0 100 4.2 2.1 2.1 0 000-4.2zM3 9h3.4v12H3V9zm6 0h3.2v1.6h.1c.4-.8 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5V21h-3.4v-5.8c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H9V9z"/></svg>
-                  </a>
-                  <a class="social-icon social-facebook" href="https://web.facebook.com/Wocstar?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.2V11H8v3h2.4v8h3.1z"/></svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="academy-footer-mobile" aria-label="Academy mobile footer">
-            <section class="academy-footer-mobile__card" aria-label="Academy mobile call to action">
-              <h2 class="academy-footer-mobile__title">Ready to master the capital playbook?</h2>
-              <div class="academy-footer-mobile__top-row">
-                <button class="scene-global-footer__btn academy-footer-mobile__cta" type="button" id="academyWaitlistButtonMobile">Secure your spot</button>
-                <form class="academy-footer-mobile__search is-open" role="search" aria-label="Academy search" onsubmit="return false;">
-                  <label class="academy-footer-mobile__search-label" for="academyMobileSearchInput">Search</label>
-                  <input id="academyMobileSearchInput" type="search" placeholder="Search" aria-label="Search" />
-                  <button type="button" id="academyMobileSearchToggle" aria-label="Toggle search" aria-expanded="true" aria-controls="academyMobileSearchInput">&#9906;</button>
-                </form>
-              </div>
-            </section>
-            <section class="academy-footer-mobile__accordion" aria-label="Academy utility links">
-              <details class="academy-footer-mobile__item">
-                <summary>Legal</summary>
-                <div class="academy-footer-mobile__panel">
-                  <a href="#" data-open-sms-terms="true">SMS Terms &amp; Conditions</a>
-                  <a href="#">Privacy Policy</a>
-                  <p>
-                    Copyright &copy; 2026 Wocstar Capital, LLC. All rights reserved.<br />
-                    Wocstar&reg; is a registered trademark of Wocstar Capital, LLC.<br />
-                    NYC, New York
-                  </p>
-                </div>
-              </details>
-              <details class="academy-footer-mobile__item">
-                <summary>Contact</summary>
-                <div class="academy-footer-mobile__panel">
-                  <button class="scene-global-footer__btn academy-footer-mobile__contact" type="button" id="academyInlineContactButtonMobile">Contact Us</button>
-                </div>
-              </details>
-              <details class="academy-footer-mobile__item">
-                <summary>Social</summary>
-                <div class="academy-footer-mobile__panel academy-footer-mobile__social">
-                  <a href="https://www.youtube.com/channel/UCcpzz0ps3xDkmWyl4nvGxiQ" target="_blank" rel="noopener noreferrer">YouTube</a>
-                  <a href="https://podcasts.apple.com/py/podcast/vcs-off-the-record-with-gayle-jennings-obyrne/id1515746108" target="_blank" rel="noopener noreferrer">Apple</a>
-                  <a href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer">Spotify</a>
-                  <a href="https://www.instagram.com/wocstarfund/" target="_blank" rel="noopener noreferrer">Instagram</a>
-                  <a href="https://www.linkedin.com/company/wocstar/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                  <a href="https://web.facebook.com/Wocstar?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer">Facebook</a>
-                </div>
-              </details>
-            </section>
-          </div>
-        </footer>
-      </div>
+    <section class="scene" data-index="1">
+      <video src="istockphoto-1397154176-640_adpp_is.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+      <div class="overlay"></div>
     </section>
 
-    <section class="scene media-scene" data-index="2">
-      <div class="media-scene__video">
-        <video src="assets/videos/wocstarmedia.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
-        <div class="overlay"></div>
-        <header class="media-video-copy" aria-label="Wocstar Media intro" id="about">
-          <h1 class="media-video-copy__title">Wocstar Media</h1>
-          <p class="media-video-copy__subtext">Backing Creative Disrupters. Investing in Cultural Innovation.</p>
-        </header>
-      </div>
-      <div class="media-layout">
-        <article class="media-letter" aria-label="Wocstar Media letter">
-          <p class="media-letter__eyebrow">Wocstar Media</p>
-          <div class="media-letter__body">
-            <p class="media-letter__paragraph" data-media-type>Wocstar Media is the investment engine for the creative economy. We back creative entrepreneurs with the same conviction, capital, and strategic support we provide our innovative founders. We fuel the stories and businesses that define our future.</p>
-          </div>
-        </article>
-        <section class="media-arrows" aria-label="Wocstar Media pathways">
-          <div class="media-pathways" aria-label="Interlocking media pathways">
-            <button class="media-pathway media-pathway--fellows" type="button" id="media-fellows" aria-label="Open Media Fellows">
-              <span class="media-pathway__label">MEDIA FELLOWS</span>
-            </button>
-            <button class="media-pathway media-pathway--foundation" type="button" id="wocstar-media-foundation" aria-label="Open Media Foundation">
-              <span class="media-pathway__label">MEDIA FOUNDATION</span>
-            </button>
-            <a class="media-pathway media-pathway--podcast" id="podcasting" href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer" aria-label="Open VC's Off the Record Podcast">
-              <span class="media-pathway__label">VC'S OFF THE RECORD</span>
-            </a>
-          </div>
-        </section>
-      </div>
+    <section class="scene" data-index="2">
+      <video src="istockphoto-1733016928-640_adpp_is.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+      <div class="overlay"></div>
     </section>
 
     <section class="scene universe-scene" data-index="3">
-      <div class="capital-scene__video">
-        <video src="assets/videos/wocstarcapital.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
-        <header class="capital-video-copy" aria-label="Wocstar Capital intro">
-          <h1 class="capital-video-copy__title">Wocstar Capital</h1>
-          <p class="capital-video-copy__subtext">We don&rsquo;t just invest; we ignite. We fuel the unstoppable.</p>
-          <p class="capital-video-copy__subtext">Wocstar Capital is a global community of investors, allies, and entrepreneurs. Through capital, education, a global network, and access, we&rsquo;re rewriting the rules of success.</p>
-        </header>
-      </div>
       <div class="universe-layout">
-        <section class="capital-interview" id="featured-news" aria-label="Featured PIX11 interview with Gayle Jennings-O'Byrne">
-          <article class="capital-interview__item is-active" data-interview-index="0" aria-live="polite">
-            <a class="capital-interview__media" href="https://www.youtube.com/watch?v=DOVWZRc-OFA&autoplay=1" target="_blank" rel="noopener noreferrer" aria-label="Watch Gayle Jennings-O'Byrne PIX11 interview on YouTube" data-embed-url="https://www.youtube-nocookie.com/embed/DOVWZRc-OFA?autoplay=1&playsinline=1&rel=0&modestbranding=1" data-fallback-url="https://www.youtube.com/watch?v=DOVWZRc-OFA">
-              <img src="https://i.ytimg.com/vi/DOVWZRc-OFA/hqdefault.jpg" alt="Gayle Jennings-O'Byrne interview thumbnail" loading="lazy" />
-              <span class="capital-interview__play" aria-hidden="true"></span>
+        <header class="universe-header">
+        </header>
+        <div class="universe-collage" aria-label="Wocstar Universe profiles">
+          <div class="universe-shape" aria-hidden="true"></div>
+          <section class="universe-group" data-group="core-team" aria-label="Core team">
+            <a class="profile-orbit profile-orbit--01" href="#" id="goToGayleFromBubble" aria-label="Gayle Jennings-O'Byrne biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Pialy Aditya</span>
             </a>
-            <div class="capital-interview__copy">
-              <p class="capital-interview__kicker">Featured Interview</p>
-              <h3 class="capital-interview__title">Gayle Jennings-O'Byrne on PIX11</h3>
-              <p class="capital-interview__text">Gayle shares her vision for building generational wealth through inclusive innovation, founder readiness, and bold investment leadership. Hear how Wocstar Capital is opening doors for the next wave of transformative entrepreneurs.</p>
-              <a class="capital-interview__cta" href="https://youtu.be/DOVWZRc-OFA" target="_blank" rel="noopener noreferrer">Listen To The Full Interview</a>
-            </div>
-          </article>
-          <article class="capital-interview__item" data-interview-index="1" aria-live="polite">
-            <a class="capital-interview__media" href="https://www.youtube.com/watch?v=2MLWgDO9EPw" target="_blank" rel="noopener noreferrer" aria-label="Watch Gayle Jennings-O'Byrne CBS News segment" data-embed-url="https://www.youtube-nocookie.com/embed/2MLWgDO9EPw?autoplay=1&playsinline=1&rel=0&modestbranding=1" data-fallback-url="https://www.youtube.com/watch?v=2MLWgDO9EPw">
-              <img src="https://i.ytimg.com/vi/2MLWgDO9EPw/hqdefault.jpg" alt="Gayle Jennings-O'Byrne speaking with interviewer on CBS News" loading="lazy" />
-              <span class="capital-interview__play" aria-hidden="true"></span>
+            <a class="profile-orbit profile-orbit--02" href="/universe/core-team-member-2.html" aria-label="Core team member biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Colleen Bataille</span>
             </a>
-            <div class="capital-interview__copy">
-              <p class="capital-interview__kicker">In The Press</p>
-              <h3 class="capital-interview__title">Gayle Featured on CBS News</h3>
-              <p class="capital-interview__text">In this CBS News conversation, Gayle dives into the real risks and realities of entrepreneurship and what founders need to build resilient, scalable businesses in today's market.</p>
-              <a class="capital-interview__cta" href="https://www.youtube.com/watch?v=2MLWgDO9EPw" target="_blank" rel="noopener noreferrer">Listen To The Full Interview</a>
-            </div>
-          </article>
-        </section>
-        <section class="universe-showcase" id="the-wocstar-universe" aria-label="Wocstar team, venture partners, advisory board, and allies showcase">
+            <a class="profile-orbit profile-orbit--03" href="/universe/core-team-member-3.html" aria-label="Core team member biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Gayle Jennings-O'Byrne</span>
+            </a>
+          </section>
+          <section class="universe-group" data-group="partners" aria-label="Partners">
+            <a class="profile-orbit profile-orbit--04" href="/universe/partner-1.html" aria-label="Partner biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Laurel Lefebvre</span>
+            </a>
+            <a class="profile-orbit profile-orbit--05" href="/universe/partner-2.html" aria-label="Partner biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Victoria Bert</span>
+            </a>
+            <a class="profile-orbit profile-orbit--06" href="/universe/partner-3.html" aria-label="Partner biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Jessica Ndrianasy</span>
+            </a>
+          </section>
+          <section class="universe-group" data-group="collaborators" aria-label="Collaborators">
+            <a class="profile-orbit profile-orbit--07" href="/universe/collaborator-1.html" aria-label="Collaborator biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Collaborator 1</span>
+            </a>
+            <a class="profile-orbit profile-orbit--08" href="/universe/collaborator-2.html" aria-label="Collaborator biography">
+              <span class="profile-orbit__photo" aria-hidden="true"></span>
+              <span class="profile-orbit__dialog">Collaborator 2</span>
+            </a>
+          </section>
+        </div>
+        <section class="universe-partners" aria-label="Venture partners carousel">
           <div class="universe-partners__header">
-            <h3 class="universe-partners__title universe-team-title" id="universeShowcaseTitle">The Wocstar Team</h3>
-            <div class="universe-partners__controls" aria-label="Showcase navigation">
-              <button class="universe-partners__btn" type="button" id="partnersPrevBtn" aria-label="Show previous showcase scene">&#8249;</button>
-              <button class="universe-partners__btn" type="button" id="partnersNextBtn" aria-label="Show next showcase scene">&#8250;</button>
+            <h3 class="universe-partners__title">Venture Partners</h3>
+            <div class="universe-partners__controls" aria-label="Venture partners navigation">
+              <button class="universe-partners__btn" type="button" id="partnersPrevBtn" aria-label="Show previous venture partners">&#8249;</button>
+              <button class="universe-partners__btn" type="button" id="partnersNextBtn" aria-label="Show next venture partners">&#8250;</button>
             </div>
           </div>
-          <div class="universe-showcase__slide is-active" data-showcase-index="0" data-showcase-title="The Wocstar Team">
-            <div class="universe-collage" aria-label="Wocstar Team profiles">
-              <div class="universe-shape" aria-hidden="true"></div>
-              <section class="universe-group" data-group="core-team" aria-label="Core team">
-                <a class="profile-orbit profile-orbit--01" href="#" id="goToGayleFromBubble" aria-label="Gayle Jennings-O'Byrne biography">
-                  <span class="profile-orbit__photo" aria-hidden="true"></span>
-                  <span class="profile-orbit__dialog">Pialy Aditya</span>
-                  <span class="profile-orbit__cta">Read bio</span>
-                </a>
-                <a class="profile-orbit profile-orbit--02" href="/universe/core-team-member-2.html" aria-label="Core team member biography">
-                  <span class="profile-orbit__photo" aria-hidden="true"></span>
-                  <span class="profile-orbit__dialog">Colleen Bataille</span>
-                  <span class="profile-orbit__cta">Read bio</span>
-                </a>
-                <a class="profile-orbit profile-orbit--03" href="/universe/core-team-member-3.html" aria-label="Core team member biography">
-                  <span class="profile-orbit__photo" aria-hidden="true"></span>
-                  <span class="profile-orbit__dialog">Gayle Jennings-O'Byrne</span>
-                  <span class="profile-orbit__cta" id="goToGayleReadBio">Read bio</span>
-                </a>
-              </section>
-              <section class="universe-group" data-group="partners" aria-label="Partners">
-                <a class="profile-orbit profile-orbit--04" href="/universe/partner-1.html" aria-label="Partner biography">
-                  <span class="profile-orbit__photo" aria-hidden="true"></span>
-                  <span class="profile-orbit__dialog">Laurel Lefebvre</span>
-                  <span class="profile-orbit__cta">Read bio</span>
-                </a>
-                <a class="profile-orbit profile-orbit--05" href="/universe/partner-2.html" aria-label="Partner biography">
-                  <span class="profile-orbit__photo" aria-hidden="true"></span>
-                  <span class="profile-orbit__dialog">Victoria Bert</span>
-                  <span class="profile-orbit__cta">Read bio</span>
-                </a>
-              </section>
-            </div>
-          </div>
-          <div class="universe-showcase__slide" data-showcase-index="1" data-showcase-title="Our Venture Partners">
-            <section class="universe-partners" aria-label="Our venture partners">
-              <div class="universe-partners__viewport" id="partnersViewport">
-                <ul class="universe-partners__track" id="partnersTrack">
-                  <li class="partner-card partner-card--gold">
-                    <span class="partner-card__avatar" aria-hidden="true">
-                      <img class="partner-card__avatar-image" src="assets/images/misc/christaljackson.png" alt="" loading="lazy" />
-                    </span>
-                    <span class="partner-card__name">CHRISTAL M. JACKSON</span>
-                    <span class="partner-card__firm">Mosaic Genius</span>
-                  </li>
-                  <li class="partner-card partner-card--blue">
-                    <span class="partner-card__avatar" aria-hidden="true">
-                      <img class="partner-card__avatar-image" src="assets/images/misc/Erica.png" alt="" loading="lazy" />
-                    </span>
-                    <span class="partner-card__name">ERICA MINNIHAN</span>
-                    <span class="partner-card__firm">Reign Ventures</span>
-                  </li>
-                </ul>
-              </div>
-            </section>
-          </div>
-          <div class="universe-showcase__slide" data-showcase-index="2" data-showcase-title="The Advisory Board">
-            <section class="universe-partners" aria-label="The advisory board">
-              <div class="universe-partners__viewport">
-                <ul class="universe-partners__track">
-                  <li class="partner-card advisory-card">
-                    <span class="advisory-card__avatar" aria-hidden="true">
-                      <img src="assets/images/optimized/universe-avatars/advisory-board-BETSY-240.jpg" srcset="assets/images/optimized/universe-avatars/advisory-board-BETSY-240.jpg 240w, assets/images/optimized/universe-avatars/advisory-board-BETSY-420.jpg 420w" sizes="(max-width: 760px) 106px, 132px" width="132" height="132" alt="" loading="lazy" decoding="async" fetchpriority="low" />
-                    </span>
-                    <span class="advisory-card__name">BETSEY COHEN</span>
-                    <span class="advisory-card__firm">Teneo Ventures</span>
-                  </li>
-                  <li class="partner-card advisory-card">
-                    <span class="advisory-card__avatar" aria-hidden="true">
-                      <img src="assets/images/optimized/universe-avatars/advisory-board-SCOTT-240.jpg" srcset="assets/images/optimized/universe-avatars/advisory-board-SCOTT-240.jpg 240w, assets/images/optimized/universe-avatars/advisory-board-SCOTT-420.jpg 420w" sizes="(max-width: 760px) 106px, 132px" width="132" height="132" alt="" loading="lazy" decoding="async" fetchpriority="low" />
-                    </span>
-                    <span class="advisory-card__name">SCOTT BAKER</span>
-                    <span class="advisory-card__firm">New England Development</span>
-                  </li>
-                  <li class="partner-card advisory-card">
-                    <span class="advisory-card__avatar" aria-hidden="true">
-                      <img src="assets/images/optimized/universe-avatars/advisory-board-CARTER-240.jpg" srcset="assets/images/optimized/universe-avatars/advisory-board-CARTER-240.jpg 240w, assets/images/optimized/universe-avatars/advisory-board-CARTER-420.jpg 420w" sizes="(max-width: 760px) 106px, 132px" width="132" height="132" alt="" loading="lazy" decoding="async" fetchpriority="low" />
-                    </span>
-                    <span class="advisory-card__name">CARTER MCCLELLAND</span>
-                    <span class="advisory-card__firm">Union Square Advisors</span>
-                  </li>
-                  <li class="partner-card advisory-card">
-                    <span class="advisory-card__avatar" aria-hidden="true">
-                      <img src="assets/images/optimized/universe-avatars/advisory-board-JOEL-240.jpg" srcset="assets/images/optimized/universe-avatars/advisory-board-JOEL-240.jpg 240w, assets/images/optimized/universe-avatars/advisory-board-JOEL-420.jpg 420w" sizes="(max-width: 760px) 106px, 132px" width="132" height="132" alt="" loading="lazy" decoding="async" fetchpriority="low" />
-                    </span>
-                    <span class="advisory-card__name">JOEL SOLOMON</span>
-                    <span class="advisory-card__firm">Renewal Funds</span>
-                  </li>
-                  <li class="partner-card advisory-card">
-                    <span class="advisory-card__avatar" aria-hidden="true">
-                      <img src="assets/images/optimized/universe-avatars/misc-mattwilkins-240.jpg" srcset="assets/images/optimized/universe-avatars/misc-mattwilkins-240.jpg 240w, assets/images/optimized/universe-avatars/misc-mattwilkins-420.jpg 420w" sizes="(max-width: 760px) 106px, 132px" width="132" height="132" alt="" loading="lazy" decoding="async" fetchpriority="low" />
-                    </span>
-                    <span class="advisory-card__name">MATTHEW WILKENS</span>
-                    <span class="advisory-card__firm">Grupo Kallas</span>
-                  </li>
-                  <li class="partner-card advisory-card">
-                    <span class="advisory-card__avatar" aria-hidden="true">
-                      <img src="assets/images/optimized/universe-avatars/allies-issar-240.jpg" srcset="assets/images/optimized/universe-avatars/allies-issar-240.jpg 240w, assets/images/optimized/universe-avatars/allies-issar-420.jpg 420w" sizes="(max-width: 760px) 106px, 132px" width="132" height="132" alt="" loading="lazy" decoding="async" fetchpriority="low" />
-                    </span>
-                    <span class="advisory-card__name">MONICA ISSAR</span>
-                    <span class="advisory-card__firm">JPMorgan</span>
-                  </li>
-                  <li class="partner-card advisory-card">
-                    <span class="advisory-card__avatar" aria-hidden="true">
-                      <img src="assets/images/optimized/universe-avatars/misc-natalie-240.jpg" srcset="assets/images/optimized/universe-avatars/misc-natalie-240.jpg 240w, assets/images/optimized/universe-avatars/misc-natalie-420.jpg 420w" sizes="(max-width: 760px) 106px, 132px" width="132" height="132" alt="" loading="lazy" decoding="async" fetchpriority="low" />
-                    </span>
-                    <span class="advisory-card__name">NATHALIE MOLINA NI&Ntilde;O</span>
-                    <span class="advisory-card__firm">KNOWN Capital</span>
-                  </li>
-                  <li class="partner-card advisory-card">
-                    <span class="advisory-card__avatar" aria-hidden="true">
-                      <img src="assets/images/optimized/universe-avatars/allies-rudy-240.jpg" srcset="assets/images/optimized/universe-avatars/allies-rudy-240.jpg 240w, assets/images/optimized/universe-avatars/allies-rudy-420.jpg 420w" sizes="(max-width: 760px) 106px, 132px" width="132" height="132" alt="" loading="lazy" decoding="async" fetchpriority="low" />
-                    </span>
-                    <span class="advisory-card__name">RUDY CLINE-THOMAS</span>
-                    <span class="advisory-card__firm">Mastry, Inc</span>
-                  </li>
-                </ul>
-              </div>
-            </section>
-          </div>
-          <div class="universe-showcase__slide" data-showcase-index="3" data-showcase-title="The Allies">
-            <section class="universe-partners" aria-label="The allies">
-              <div class="universe-partners__viewport">
-                <ul class="universe-partners__track">
-                  <li class="partner-card advisory-card allies-card">
-                    <span class="advisory-card__avatar" aria-hidden="true">
-                      <img src="assets/images/optimized/universe-avatars/allies-DALILA-240.jpg" srcset="assets/images/optimized/universe-avatars/allies-DALILA-240.jpg 240w, assets/images/optimized/universe-avatars/allies-DALILA-420.jpg 420w" sizes="(max-width: 760px) 106px, 132px" width="132" height="132" alt="" loading="lazy" decoding="async" fetchpriority="low" />
-                    </span>
-                    <span class="advisory-card__name">DALILA WILSON-SCOTT</span>
-                    <span class="advisory-card__firm">Comcast NBCUniversal</span>
-                  </li>
-                  <li class="partner-card advisory-card allies-card">
-                    <span class="advisory-card__avatar" aria-hidden="true">
-                      <img src="assets/images/optimized/universe-avatars/allies-JACKI-240.jpg" srcset="assets/images/optimized/universe-avatars/allies-JACKI-240.jpg 240w, assets/images/optimized/universe-avatars/allies-JACKI-420.jpg 420w" sizes="(max-width: 760px) 106px, 132px" width="132" height="132" alt="" loading="lazy" decoding="async" fetchpriority="low" />
-                    </span>
-                    <span class="advisory-card__name">JACKI ZEHNER</span>
-                    <span class="advisory-card__firm">ShePlace and Women Moving Millions</span>
-                  </li>
-                  <li class="partner-card advisory-card allies-card">
-                    <span class="advisory-card__avatar" aria-hidden="true">
-                      <img src="assets/images/optimized/universe-avatars/allies-JILL-240.jpg" srcset="assets/images/optimized/universe-avatars/allies-JILL-240.jpg 240w, assets/images/optimized/universe-avatars/allies-JILL-420.jpg 420w" sizes="(max-width: 760px) 106px, 132px" width="132" height="132" alt="" loading="lazy" decoding="async" fetchpriority="low" />
-                    </span>
-                    <span class="advisory-card__name">JILL KARP</span>
-                    <span class="advisory-card__firm">Karp Foundation</span>
-                  </li>
-                  <li class="partner-card advisory-card allies-card">
-                    <span class="advisory-card__avatar" aria-hidden="true">
-                      <img src="assets/images/optimized/universe-avatars/allies-TILICIA-240.jpg" srcset="assets/images/optimized/universe-avatars/allies-TILICIA-240.jpg 240w, assets/images/optimized/universe-avatars/allies-TILICIA-420.jpg 420w" sizes="(max-width: 760px) 106px, 132px" width="132" height="132" alt="" loading="lazy" decoding="async" fetchpriority="low" />
-                    </span>
-                    <span class="advisory-card__name">TILCIA TOLEDO</span>
-                    <span class="advisory-card__firm">FTI Consulting</span>
-                  </li>
-                  <li class="partner-card advisory-card allies-card">
-                    <span class="advisory-card__avatar" aria-hidden="true">
-                      <img src="assets/images/optimized/universe-avatars/allies-LEANNE-240.jpg" srcset="assets/images/optimized/universe-avatars/allies-LEANNE-240.jpg 240w, assets/images/optimized/universe-avatars/allies-LEANNE-420.jpg 420w" sizes="(max-width: 760px) 106px, 132px" width="132" height="132" alt="" loading="lazy" decoding="async" fetchpriority="low" />
-                    </span>
-                    <span class="advisory-card__name">LEANNE HUEBNER</span>
-                    <span class="advisory-card__firm">Minds Matter National</span>
-                  </li>
-                </ul>
-              </div>
-            </section>
+          <div class="universe-partners__viewport" id="partnersViewport">
+            <ul class="universe-partners__track" id="partnersTrack">
+              <li class="partner-card">
+                <span class="partner-card__logo">Aster</span>
+                <span class="partner-card__name">Aster Growth Partners</span>
+              </li>
+              <li class="partner-card">
+                <span class="partner-card__logo">Nova</span>
+                <span class="partner-card__name">Nova Catalyst</span>
+              </li>
+              <li class="partner-card">
+                <span class="partner-card__logo">Foundry</span>
+                <span class="partner-card__name">Foundry Collective</span>
+              </li>
+              <li class="partner-card">
+                <span class="partner-card__logo">Meridian</span>
+                <span class="partner-card__name">Meridian Capital Group</span>
+              </li>
+              <li class="partner-card">
+                <span class="partner-card__logo">Summit</span>
+                <span class="partner-card__name">Summit Innovation Fund</span>
+              </li>
+              <li class="partner-card">
+                <span class="partner-card__logo">Atlas</span>
+                <span class="partner-card__name">Atlas Future Ventures</span>
+              </li>
+            </ul>
           </div>
         </section>
-        <footer class="scene-global-footer fund-inline-footer" aria-label="Capital page footer">
-          <div class="scene-global-footer__inner" id="capitalLegacyFooterInner" style="display:none;">
-            <div class="scene-global-footer__left">
-              <h2 class="scene-global-footer__title">Building the future? We&rsquo;re looking for you. Let&rsquo;s make it happen.</h2>
-              <a class="scene-global-footer__btn" href="https://form.jotform.com/Wocstar/wocstar-fund-application" target="_blank" rel="noopener noreferrer">Apply for Funding</a>
-              <div class="scene-global-footer__links">
-                <a href="#" data-open-sms-terms="true">SMS Terms &amp; Conditions</a>
-                <a href="#">Privacy Policy</a>
-              </div>
-              <p class="scene-global-footer__legal">
-                Copyright &copy; 2026 Wocstar Capital, LLC. All rights reserved.<br />
-                Wocstar&reg; is a registered trademark of Wocstar Capital, LLC.<br />
-                NYC, New York
-              </p>
-            </div>
-            <div class="scene-global-footer__right">
-              <form class="scene-global-footer__search" role="search" aria-label="Capital search" onsubmit="return false;">
-                <input type="search" placeholder="Search" aria-label="Search" />
-                <button type="submit" aria-label="Submit search">&#9906;</button>
-              </form>
-              <div class="scene-global-footer__actions">
-                <button class="scene-global-footer__btn" type="button" id="capitalInlineContactButton">Contact Us</button>
-              </div>
-              <div class="scene-global-footer__social">
-                <p class="scene-global-footer__social-title">Follow Us On Social</p>
-                <div class="scene-global-footer__social-row" aria-label="Capital social links">
-                  <a class="social-icon social-youtube" href="https://www.youtube.com/channel/UCcpzz0ps3xDkmWyl4nvGxiQ" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 12s0-3.2-.4-4.7c-.2-.8-.8-1.4-1.6-1.6C19.4 5.3 12 5.3 12 5.3s-7.4 0-9 .4c-.8.2-1.4.8-1.6 1.6C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.8 1.4 1.6 1.6 1.6.4 9 .4 9 .4s7.4 0 9-.4c.8-.2 1.4-.8 1.6-1.6.4-1.5.4-4.7.4-4.7zM10 15.5V8.5L16 12l-6 3.5z"/></svg>
-                  </a>
-                  <a class="social-icon social-apple" href="https://podcasts.apple.com/py/podcast/vcs-off-the-record-with-gayle-jennings-obyrne/id1515746108" target="_blank" rel="noopener noreferrer" aria-label="Apple Podcast">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 12.6c0-2.4 2-3.5 2.1-3.6-1.2-1.7-3-1.9-3.6-1.9-1.5-.2-2.9.9-3.6.9-.8 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.9 2.3-1.7 2.9-.4 7.2 1.2 9.5.8 1.1 1.8 2.3 3.1 2.2 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.1-1.1 2.9-2.2.9-1.3 1.3-2.7 1.3-2.8-.1 0-2.8-1.1-2.8-3.6zM14.2 5.6c.7-.8 1.2-1.9 1.1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1 .1 2-.5 2.7-1.3z"/></svg>
-                  </a>
-                  <a class="social-icon social-spotify" href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C6.2 1.5 1.5 6.2 1.5 12S6.2 22.5 12 22.5 22.5 17.8 22.5 12 17.8 1.5 12 1.5zm4.8 14.9c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.9-9.4-1.1-.3.1-.7-.1-.8-.5-.1-.3.1-.7.5-.8 4-.9 7.5-.5 10.3 1.2.4.1.5.6.3 1zm1.2-2.7c-.3.4-.8.5-1.2.3-2.8-1.7-7.2-2.2-10.5-1.2-.5.1-1-.1-1.1-.6-.1-.5.1-1 .6-1.1 3.8-1.1 8.6-.6 11.9 1.4.4.2.5.8.3 1.2zm.1-2.8C14.8 9 9.7 8.9 6.6 9.9c-.6.2-1.2-.1-1.4-.7-.2-.6.1-1.2.7-1.4 3.6-1.1 9.2-1 13.4 1.4.5.3.7 1 .4 1.5-.2.5-.9.7-1.4.4z"/></svg>
-                  </a>
-                  <a class="social-icon social-instagram" href="https://www.instagram.com/wocstarfund/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm0 1.8c-2.2 0-4 1.8-4 4v8.4c0 2.2 1.8 4 4 4h8.4c2.2 0 4-1.8 4-4V7.8c0-2.2-1.8-4-4-4H7.8zm9.1 1.4a1.3 1.3 0 110 2.6 1.3 1.3 0 010-2.6zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.8a3.2 3.2 0 100 6.4 3.2 3.2 0 000-6.4z"/></svg>
-                  </a>
-                  <a class="social-icon social-linkedin" href="https://www.linkedin.com/company/wocstar/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.7 3.5a2.1 2.1 0 100 4.2 2.1 2.1 0 000-4.2zM3 9h3.4v12H3V9zm6 0h3.2v1.6h.1c.4-.8 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5V21h-3.4v-5.8c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H9V9z"/></svg>
-                  </a>
-                  <a class="social-icon social-facebook" href="https://web.facebook.com/Wocstar?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.2V11H8v3h2.4v8h3.1z"/></svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="academy-footer-mobile capital-footer-mobile" aria-label="Capital mobile footer">
-            <section class="academy-footer-mobile__card" aria-label="Capital mobile call to action">
-              <h2 class="academy-footer-mobile__title">Building the future? We&rsquo;re looking for you. Let&rsquo;s make it happen.</h2>
-              <div class="academy-footer-mobile__top-row">
-                <a class="scene-global-footer__btn academy-footer-mobile__cta" href="https://form.jotform.com/Wocstar/wocstar-fund-application" target="_blank" rel="noopener noreferrer">Apply for Funding</a>
-                <form class="academy-footer-mobile__search is-open" role="search" aria-label="Capital search" onsubmit="return false;">
-                  <label class="academy-footer-mobile__search-label" for="capitalMobileSearchInput">Search</label>
-                  <input id="capitalMobileSearchInput" type="search" placeholder="Search" aria-label="Search" />
-                  <button type="button" id="capitalMobileSearchToggle" aria-label="Toggle search" aria-expanded="true" aria-controls="capitalMobileSearchInput">&#9906;</button>
-                </form>
-              </div>
-            </section>
-            <section class="academy-footer-mobile__accordion" aria-label="Capital utility links">
-              <details class="academy-footer-mobile__item">
-                <summary>Legal</summary>
-                <div class="academy-footer-mobile__panel">
-                  <a href="#" data-open-sms-terms="true">SMS Terms &amp; Conditions</a>
-                  <a href="#">Privacy Policy</a>
-                  <p>
-                    Copyright &copy; 2026 Wocstar Capital, LLC. All rights reserved.<br />
-                    Wocstar&reg; is a registered trademark of Wocstar Capital, LLC.<br />
-                    NYC, New York
-                  </p>
-                </div>
-              </details>
-              <details class="academy-footer-mobile__item">
-                <summary>Contact</summary>
-                <div class="academy-footer-mobile__panel">
-                  <button class="scene-global-footer__btn academy-footer-mobile__contact" type="button" id="capitalInlineContactButtonMobile">Contact Us</button>
-                </div>
-              </details>
-              <details class="academy-footer-mobile__item">
-                <summary>Social</summary>
-                <div class="academy-footer-mobile__panel academy-footer-mobile__social">
-                  <a href="https://www.youtube.com/channel/UCcpzz0ps3xDkmWyl4nvGxiQ" target="_blank" rel="noopener noreferrer">YouTube</a>
-                  <a href="https://podcasts.apple.com/py/podcast/vcs-off-the-record-with-gayle-jennings-obyrne/id1515746108" target="_blank" rel="noopener noreferrer">Apple</a>
-                  <a href="https://creators.spotify.com/pod/profile/vcsoffrecord-podcast/" target="_blank" rel="noopener noreferrer">Spotify</a>
-                  <a href="https://www.instagram.com/wocstarfund/" target="_blank" rel="noopener noreferrer">Instagram</a>
-                  <a href="https://www.linkedin.com/company/wocstar/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                  <a href="https://web.facebook.com/Wocstar?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer">Facebook</a>
-                </div>
-              </details>
-            </section>
-          </div>
-        </footer>
       </div>
       <div class="overlay"></div>
     </section>
 
     <section class="scene profile-scene" data-index="4">
       <div class="profile-layout">
-        <img src="assets/images/misc/Gayle.png" alt="Gayle Jennings-O'Byrne" class="profile-image" />
+        <img src="Gayle.png" alt="Gayle Jennings-O'Byrne" class="profile-image" />
         <article class="profile-copy">
           <p>Gayle Jennings-O'Byrne is the CEO of Wocstar Capital and co-founder of the Wocstar Fund, an early-stage venture capital fund that invests in a new generation of innovative and diverse tech entrepreneurs. Recognized by the New York Times as one of &quot;10 Women Changing the Landscape of Leadership,&quot; she has been named one of Forbes &quot;50 Over 50&quot; investors and a &quot;Top Black Venture Capitalist&quot; (Business Insider) and a &quot;Top 10 Woman of Influence in Venture Capital&quot; by Venture Capital Journal. Her track record of identifying and empowering visionary founders has resulted in successful fund exits that have returned investor capital. Gayle also leads Wocstar Academy, a global program that trains CEOs for capital readiness, and oversees a major grant on behalf of Pivotal Ventures and other foundations to address systemic underinvestment in female fund managers.</p>
           <p>Gayle has over 30+ years of Wall Street, technology, philanthropy, training, and professional speaking experience. She is a former mergers and acquisitions banker at JPMorgan. She led the capital/planning effort for the Cinema High School, the 1st public high school of its kind. She began her career at Sun Microsystems.</p>
@@ -802,25 +1938,25 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
             <h2 class="press-title">Find Gayle in the press</h2>
             <div class="press-grid">
               <a class="press-card" href="https://www.nytimes.com/live/2021/03/05/world/women-leadership" target="_blank" rel="noopener noreferrer" aria-label="Read New York Times coverage about Gayle">
-                <img class="press-logo bright" src="assets/images/misc/the-new-york-times-seeklogo.png" alt="The New York Times" />
+                <img class="press-logo bright" src="the-new-york-times-seeklogo.png" alt="The New York Times" />
               </a>
               <a class="press-card" href="https://www.abcnews.go.com/search?searchtext=Gayle%20Jennings-O%27Byrne" target="_blank" rel="noopener noreferrer" aria-label="Read ABC News coverage about Gayle">
-                <img class="press-logo bright" src="assets/images/misc/abc-news-seeklogo.png" alt="ABC News" />
+                <img class="press-logo bright" src="abc-news-seeklogo.png" alt="ABC News" />
               </a>
               <a class="press-card" href="https://www.crainsnewyork.com/search?query=Gayle%20Jennings-O%27Byrne" target="_blank" rel="noopener noreferrer" aria-label="Read Crain's New York coverage about Gayle">
-                <img class="press-logo" src="assets/images/misc/Crain's_New_York_idQCK4RdSh_0.png" alt="Crain's New York" />
+                <img class="press-logo" src="Crain's_New_York_idQCK4RdSh_0.png" alt="Crain's New York" />
               </a>
               <a class="press-card" href="https://www.cbsnews.com/search/?q=Gayle%20Jennings-O%27Byrne" target="_blank" rel="noopener noreferrer" aria-label="Read CBS News coverage about Gayle">
-                <img class="press-logo cbs-logo" src="assets/images/misc/CBS_News_id1klAFr7p_1.jpeg" alt="CBS News" />
+                <img class="press-logo cbs-logo" src="CBS_News_id1klAFr7p_1.jpeg" alt="CBS News" />
               </a>
               <a class="press-card pix11-card" href="https://pix11.com/new-york-living/personality-and-your-finances/" target="_blank" rel="noopener noreferrer" aria-label="Watch PIX11 coverage featuring Gayle">
                 <span class="pix11-wordmark">PIX11</span>
               </a>
               <a class="press-card" href="https://www.forbes.com/sites/maggiemcgrath/2024/08/01/50-over-50-investment/" target="_blank" rel="noopener noreferrer" aria-label="Read Forbes coverage about Gayle">
-                <img class="press-logo bright" src="assets/images/misc/Forbes_idvlzRQKLx_1.png" alt="Forbes" />
+                <img class="press-logo bright" src="Forbes_idvlzRQKLx_1.png" alt="Forbes" />
               </a>
               <a class="press-card jp-card" href="https://www.jpmorgan.com/search?query=Gayle%20Jennings-O%27Byrne" target="_blank" rel="noopener noreferrer" aria-label="Read JPMorgan coverage about Gayle">
-                <img class="press-logo" src="assets/images/misc/jp-morgan-seeklogo.png" alt="JPMorgan" />
+                <img class="press-logo" src="jp-morgan-seeklogo.png" alt="JPMorgan" />
               </a>
             </div>
           </section>
@@ -830,14 +1966,16 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
                 <h2 class="footer-heading">Join us. Sign up for the newsletter.</h2>
                 <a class="footer-btn" href="#" aria-label="Subscribe to newsletter">Subscribe</a>
                 <div class="footer-links">
-                  <a href="#" data-open-sms-terms="true">SMS Terms &amp; Conditions</a>
+                  <a href="#">Wocstar Capital Commitment</a>
+                  <a href="#">SMS Terms &amp; Conditions</a>
                   <a href="#">Privacy Policy</a>
                 </div>
               </div>
               <div>
                 <input class="footer-search" type="search" name="footer-search" placeholder="Search" aria-label="Search" />
                 <div class="footer-action-stack">
-                  <a class="footer-btn" id="contactButton" href="#">Contact Us</a>
+                  <a class="footer-btn" id="contactButton" href="#">Contact</a>
+                  <a class="footer-btn" href="#">News</a>
                 </div>
                 <div class="footer-social">
                   <p class="footer-social-title">Follow Gayle on social media</p>
@@ -893,141 +2031,6 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
     </section>
   </main>
 
-  <div class="foundation-modal" id="foundationModal" aria-hidden="true">
-    <div class="foundation-modal__backdrop" data-close-foundation="true"></div>
-    <section class="foundation-modal__panel" role="dialog" aria-modal="true" aria-label="Wocstar Media Foundation">
-      <button type="button" class="foundation-modal__close" data-close-foundation="true" aria-label="Close foundation panel">X</button>
-      <header class="foundation-modal__hero">
-        <p class="foundation-modal__kicker">Wocstar</p>
-        <h2 class="foundation-modal__title">Media Foundation</h2>
-        <p class="foundation-modal__intro">Wocstar Media Foundation supports entrepreneurs and creators who use innovation, imagination, and human experiences to take society on a powerful journey. Our work amplifies diverse voices changing the future of finance, entrepreneurship, media, and entertainment.</p>
-      </header>
-      <div class="foundation-modal__body">
-        <section class="foundation-grid">
-          <article class="foundation-card">
-            <h3 class="foundation-card__title">Why It Matters</h3>
-            <p class="foundation-card__text">Your contribution directly supports artists and media entrepreneurs building meaningful stories, broadening representation, and creating cultural momentum that reaches far beyond a single project.</p>
-            <p class="foundation-card__text">Each gift helps power Wocstar Media Fellows and related initiatives designed to expand access, unlock opportunity, and champion long-term creative impact.</p>
-          </article>
-          <aside class="foundation-actions" aria-label="Ways to donate">
-            <article class="foundation-tier">
-              <p class="foundation-tier__name">Monthly Support</p>
-              <p class="foundation-tier__amount">From $20</p>
-              <p class="foundation-tier__meta">Sustain fellowship programming and year-round creator support.</p>
-              <a class="foundation-tier__btn" href="https://www.wocstarfund.com/media-foundation" target="_blank" rel="noopener noreferrer">Donate Monthly</a>
-            </article>
-            <article class="foundation-tier">
-              <p class="foundation-tier__name">One-Time Gift</p>
-              <p class="foundation-tier__amount">From $100</p>
-              <p class="foundation-tier__meta">Fund high-impact storytelling projects and new creative pathways.</p>
-              <a class="foundation-tier__btn" href="https://www.wocstarfund.com/media-foundation" target="_blank" rel="noopener noreferrer">Give Once</a>
-            </article>
-          </aside>
-        </section>
-      </div>
-    </section>
-  </div>
-
-  <div class="fellows-modal" id="fellowsModal" aria-hidden="true">
-    <div class="fellows-modal__backdrop" data-close-fellows="true"></div>
-    <section class="fellows-modal__panel" role="dialog" aria-modal="true" aria-label="Wocstar Media Fellows">
-      <button type="button" class="fellows-modal__close" data-close-fellows="true" aria-label="Close fellows panel">X</button>
-      <header class="fellows-modal__header">
-        <h2 class="fellows-modal__title">Wocstar Media Fellows</h2>
-        <p class="fellows-modal__intro">Wocstar Media Fellows supports artists who use their talent and imagination to shape the world.</p>
-      </header>
-      <div class="fellows-modal__body">
-        <article class="fellow-card">
-          <div class="fellow-card__avatar" aria-hidden="true">
-            <img src="assets/images/fellows/nicki.png" alt="" loading="lazy" />
-          </div>
-          <div>
-            <p class="fellow-card__kicker">2024 - 2025 Media Fellow</p>
-            <h3 class="fellow-card__name">Nicki Micheaux</h3>
-            <p class="fellow-card__role">Actor, Writer, and Director</p>
-            <p class="fellow-card__text">Nicki Micheaux was named Wocstar Media Fellow in 2024. Nicki exemplifies the creative entrepreneur who uses storytelling to take audiences on transformative journeys. Armed with over 30 years of industry experience and the skills honed in the directing program, Nicki completed her first feature film, <em>Summer of Violence</em>, in 2024.</p>
-            <p class="fellow-card__text"><em>Summer of Violence</em> highlights a Black woman&rsquo;s poignant coming-of-age story with depth and resonance. The film captivated audiences and premiered in theaters nationwide. In recent years, Nicki has also shifted her creative vision toward writing and directing to expand the stories she brings to screen.</p>
-            <p class="fellow-card__text">In addition to her creative pursuits, Nicki developed and launched <strong>Elevate Creative Talents</strong>, a course designed for actors, writers, directors, and producers to move projects from script to screen. She is also an ambassador for Moms of Black Boys United, reflecting her commitment to both art and advocacy.</p>
-          </div>
-        </article>
-        <article class="fellow-card">
-          <div class="fellow-card__avatar" aria-hidden="true">
-            <img src="assets/images/fellows/randy.png" alt="" loading="lazy" />
-          </div>
-          <div>
-            <p class="fellow-card__kicker">2026 Media Fellow</p>
-            <h3 class="fellow-card__name">Randy Donaldson</h3>
-            <p class="fellow-card__role">Tony Nominated Producer</p>
-            <p class="fellow-card__text">Producer of critically acclaimed Broadway and Off-Broadway shows such as <em>The Scottsboro Boys</em>, <em>American Son</em>, <em>The Pee Wee Herman Show</em>, <em>One Funny Mother</em>, <em>Triassic Parq</em>, and <em>Falling For Eve</em>.</p>
-            <p class="fellow-card__text">Randy is the Executive Producer of <em>Marian</em>, a new musical inspired by the life and legacy of Marian Anderson. He is also producing the upcoming production of <em>Mr. Rickey Calls a Meeting</em>. With a deep commitment to building an inclusive theater landscape, Randy focuses on stories that broaden representation, create opportunity, and invite audiences into powerful cultural conversations.</p>
-            <p class="fellow-card__text"><strong>Randy joins the Wocstar Media Fellows Program in 2026, where he will develop new work and expand pathways for diverse voices across the theater industry.</strong></p>
-          </div>
-        </article>
-      </div>
-    </section>
-  </div>
-
-  <div class="sms-terms-modal" id="smsTermsModal" aria-hidden="true">
-    <div class="sms-terms-modal__backdrop" data-close-sms-terms="true"></div>
-    <section class="sms-terms-modal__panel" role="dialog" aria-modal="true" aria-labelledby="smsTermsModalTitle">
-      <button type="button" class="sms-terms-modal__close" data-close-sms-terms="true" aria-label="Close messaging terms">X</button>
-      <header class="sms-terms-modal__header">
-        <p class="sms-terms-modal__kicker">Wocstar</p>
-        <h2 class="sms-terms-modal__title" id="smsTermsModalTitle">Messaging Terms &amp; Conditions</h2>
-      </header>
-      <div class="sms-terms-modal__body">
-        <article class="sms-terms-modal__section">
-          <h3>General</h3>
-          <p>When you opt-in to the service, we will send you a message to confirm your signup. By opting into messages, you agree to receive recurring automated marketing and informational text messages from Wocstar. Automated messages may be sent using an automatic telephone dialing system to the mobile telephone number you provided when signing up or any other number that you designate. Message frequency varies, and additional mobile messages may be sent periodically based on your interaction with Wocstar.</p>
-          <p>Wocstar reserves the right to alter the frequency of messages sent at any time to increase or decrease the total number of sent messages. Wocstar also reserves the right to change the short code or phone number or alphanumeric sender where messages are sent.</p>
-          <p>Your usual message and data rates may apply. If you have any questions about your text plan or data plan, it is best to contact your mobile provider. Your mobile provider is not liable for delayed or undelivered messages.</p>
-          <p>Your consent to receive marketing messages is not a condition of purchase.</p>
-        </article>
-        <article class="sms-terms-modal__section">
-          <h3>Carriers</h3>
-          <p>Carriers are not liable for delayed or undelivered messages.</p>
-        </article>
-        <article class="sms-terms-modal__section">
-          <h3>Cancellation</h3>
-          <p>Messages will provide instructions to unsubscribe either by texting STOP or through an included link. After you unsubscribe, we will send you a message to confirm that you have been unsubscribed and no more messages will be sent. If you would like to receive messages from Wocstar again, just sign up as you did the first time and Wocstar will start sending messages to you again.</p>
-        </article>
-        <article class="sms-terms-modal__section">
-          <h3>Info</h3>
-          <p>For support regarding our services, email us at <a href="mailto:media@wocstar.com">media@wocstar.com</a>.</p>
-        </article>
-        <article class="sms-terms-modal__section">
-          <h3>Transfer of Number</h3>
-          <p>You agree that before changing your mobile number or transferring your mobile number to another individual, you will either reply &quot;STOP&quot; from the original number.</p>
-        </article>
-        <article class="sms-terms-modal__section">
-          <h3>Privacy</h3>
-          <p>If you have any questions about your data or our privacy practices, please visit our <a href="https://www.wocstar.com/privacy-policy" target="_blank" rel="noopener noreferrer">privacy policy</a>.</p>
-        </article>
-        <article class="sms-terms-modal__section">
-          <h3>Messaging Terms Changes</h3>
-          <p>We reserve the right to change or terminate our messaging program at any time. We also reserve the right to update these Messaging Terms at any time. Such changes will be effective immediately upon posting. If you do not agree to a change to these Messaging Terms, you should cancel your enrolment with our messaging program. Your continued enrollment following such changes shall constitute your acceptance of such changes.</p>
-        </article>
-        <article class="sms-terms-modal__section">
-          <h3>Collecting Donations</h3>
-          <p class="sms-terms-modal__subhead">Tax Deductible Donation</p>
-          <p>The Wocstar Media Foundation is a 501(c)(3) nonprofit charity. We accept cash contributions from individuals and companies; grants and distributions from donor-advised funds, foundations, and charitable trusts; and anything with established or appraisable value, including cryptocurrency, real estate, stocks, bonds, privately held business interests, fund manager-carried interest, and collectible art. Don&apos;t hesitate to contact us for more information on making contributions that do not use the online donation form above, including checks, wires, and non-cash donations.</p>
-          <p>We are proudly supported by LOHAS ADVISORS.</p>
-        </article>
-      </div>
-    </section>
-  </div>
-
-  <div class="interview-modal" id="interviewModal" aria-hidden="true">
-    <div class="interview-modal__backdrop" data-close-interview="true"></div>
-    <section class="interview-modal__panel" role="dialog" aria-modal="true" aria-label="Interview video player">
-      <button type="button" class="interview-modal__close" data-close-interview="true" aria-label="Close interview player">X</button>
-      <div class="interview-modal__frame-wrap">
-        <iframe class="interview-modal__frame" id="interviewModalFrame" title="Interview video" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
-      </div>
-      <p class="interview-modal__fallback">If the player does not load here, <a id="interviewModalFallbackLink" href="#" target="_blank" rel="noopener noreferrer">open the interview in a new tab</a>.</p>
-    </section>
-  </div>
-
   <div class="contact-modal" id="contactModal" aria-hidden="true">
     <div class="contact-modal__backdrop" data-close-contact="true"></div>
     <section class="contact-modal__panel" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
@@ -1058,81 +2061,34 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
     </section>
   </div>
   <iframe name="contactSubmitFrame" id="contactSubmitFrame" title="Contact form submission" style="position:absolute;left:-9999px;top:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none;" tabindex="-1" aria-hidden="true" onload="if(window.__contactSubmitPending){window.__contactSubmitPending=false;var form=document.getElementById('contactForm');if(form){form.reset();}}"></iframe>
-  <div class="contact-modal academy-waitlist-modal" id="academyWaitlistModal" aria-hidden="true">
-    <div class="contact-modal__backdrop" data-close-academy-waitlist="true"></div>
-    <section class="contact-modal__panel" role="dialog" aria-modal="true" aria-labelledby="academyWaitlistTitle">
-      <button type="button" class="contact-modal__close" aria-label="Close academy waitlist form" data-close-academy-waitlist="true">X</button>
-      <h2 class="contact-modal__title" id="academyWaitlistTitle">Join the Academy Waitlist</h2>
-      <form class="contact-form" id="academyWaitlistForm" novalidate>
-        <label class="contact-form__field" for="academyWaitlistName">
-          Full Name
-          <input id="academyWaitlistName" name="name" type="text" autocomplete="name" required />
-        </label>
-        <label class="contact-form__field" for="academyWaitlistCompany">
-          Company Name
-          <input id="academyWaitlistCompany" name="company_name" type="text" autocomplete="organization" required />
-        </label>
-        <label class="contact-form__field" for="academyWaitlistEmail">
-          Email
-          <input id="academyWaitlistEmail" name="email" type="email" autocomplete="email" required />
-        </label>
-        <label class="contact-form__field" for="academyWaitlistRole">
-          I am joining as
-          <select id="academyWaitlistRole" name="role" required>
-            <option value="">Select one</option>
-            <option value="Founder">Founder</option>
-            <option value="Investor">Investor</option>
-            <option value="Ally">Ally</option>
-            <option value="Other">Other</option>
-          </select>
-        </label>
-        <label class="contact-form__field" for="academyWaitlistPhone">
-          Phone Number
-          <input id="academyWaitlistPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(212) 555-1234" pattern="(?:\\+1\\s?)?(?:\\(\\d{3}\\)|\\d{3})[-.\\s]?\\d{3}[-.\\s]?\\d{4}" title="Enter a valid US phone number (e.g., (212) 555-1234 or 212-555-1234)" required />
-        </label>
-        <label class="contact-form__field" for="academyWaitlistMessage">
-          Notes (optional)
-          <textarea id="academyWaitlistMessage" name="message" rows="4" placeholder="What are you most excited to learn?"></textarea>
-        </label>
-        <button class="contact-form__submit" type="submit">Join Waitlist</button>
-        <p class="contact-form__status" id="academyWaitlistStatus" aria-live="polite"></p>
-      </form>
-    </section>
-  </div>
 
   <div class="brand-switcher">
-    <div class="brand-capital-wrap">
-      <button class="brand" type="button" data-scene-target="3" aria-label="Wocstar Capital">
-        <img class="brand-logo" src="assets/images/wocstar-logos/wocstarshadow.png" alt="Wocstar Capital" />
-      </button>
-      <ul class="brand-capital-menu" id="brandCapitalMenu" aria-label="Wocstar Capital menu">
-        <li><a href="#featured-news">Featured News</a></li>
-        <li><a href="#the-wocstar-universe">The Wocstar Universe</a></li>
-        <li><a href="https://form.jotform.com/250832645113047" target="_blank" rel="noopener noreferrer">Pitch to the Fund</a></li>
-      </ul>
-    </div>
+    <button class="brand" type="button" data-scene-target="3" aria-label="Wocstar Capital">
+      <img class="brand-logo" src="Wocstar logos/Wocstar-capital_black_nov5.png" alt="Wocstar Capital" />
+    </button>
     <div class="brand-fund-wrap">
       <button class="brand is-active" type="button" data-scene-target="0" aria-label="Wocstar Fund">
-        <img class="brand-logo" src="assets/images/wocstar-logos/wocstar-fund-logo.png" alt="Wocstar Fund" />
+        <img class="brand-logo" src="Wocstar logos/wocstar-fund-logo.png" alt="Wocstar Fund" />
       </button>
       <ul class="brand-fund-menu" id="brandFundMenu" aria-label="Wocstar Fund menu">
-        <li><a href="#success-stories-exits">Exits</a></li>
-        <li><a href="#portfolio-companies">Portfolio Companies</a></li>
-        <li><a href="https://form.jotform.com/250832645113047" target="_blank" rel="noopener noreferrer">Investment Inquiry Form</a></li>
+        <li><a href="#the-fund">The Fund</a></li>
+        <li><a href="https://form.jotform.com/250832645113047" target="_blank" rel="noopener noreferrer">Fund application form</a></li>
+        <li><a href="portfolio.html">Portfolio Companies</a></li>
+        <li><a href="#success-stories-exits">Success stories &amp; exits</a></li>
       </ul>
     </div>
     <div class="brand-academy-wrap">
       <button class="brand" type="button" data-scene-target="1" aria-label="Wocstar Academy">
-        <img class="brand-logo" src="assets/images/wocstar-logos/wocstar-academy-logo.png" alt="Wocstar Academy" />
+        <img class="brand-logo" src="Wocstar logos/wocstar-academy-logo.png" alt="Wocstar Academy" />
       </button>
       <ul class="brand-academy-menu" id="brandAcademyMenu" aria-label="Wocstar Academy menu">
         <li><a href="#about-the-academy">About the Academy</a></li>
-        <li><a href="#academy-alumni-testimonials">Alumni Testimonials</a></li>
+        <li><a href="#upcoming-webinars">Upcoming Webinars</a></li>
       </ul>
     </div>
     <div class="brand-media-wrap">
       <button class="brand" type="button" data-scene-target="2" aria-label="Wocstar Media">
-        <img class="brand-logo" src="assets/images/wocstar-logos/wocstar-media-logo.png" alt="Wocstar Media" />
+        <img class="brand-logo" src="Wocstar logos/wocstar-media-logo.png" alt="Wocstar Media" />
       </button>
       <ul class="brand-media-menu" id="brandMediaMenu" aria-label="Wocstar Media menu">
         <li><a href="#about">About</a></li>
@@ -1145,8 +2101,19 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
   <nav class="scene1-menu" aria-label="Scene one menu"></nav>
   <nav class="scene2-menu" aria-label="Scene two menu"></nav>
   <nav class="scene3-menu" aria-label="Scene three menu"></nav>
+  <nav class="scene4-menu" aria-label="Scene four menu">
+    <details>
+      <summary aria-label="Open scene four menu"></summary>
+      <ul>
+        <li><a href="/universe/core-team.html">Core team</a></li>
+        <li><a href="/universe/partners.html">Partners</a></li>
+        <li><a href="/universe/collaborators.html">Collaborators</a></li>
+        <li><a href="#" id="goToGayleBio">Gayle biography</a></li>
+      </ul>
+    </details>
+  </nav>
   <div class="headline-wrap">
-    <h1 class="headline" id="headline">The Wocstar Universe</h1>
+    <h1 class="headline" id="headline">Wocstar Fund</h1>
     <p class="headline-subtext" id="headlineSubtext"></p>
   </div>
 
@@ -1158,19 +2125,651 @@ Driven by a female-forward mindset, Wocstar Fund backs the tech disrupters trans
     <span aria-hidden="true">&#8250;</span>
   </a>
 
-    <script src="js/app.js?v=20260420-01"></script>
+  <script>
+    (function () {
+      const scenes = Array.from(document.querySelectorAll('.scene'));
+      const brandSwitcher = document.querySelector('.brand-switcher');
+      const brandButtons = Array.from(document.querySelectorAll('.brand-switcher .brand[data-scene-target]'));
+      const brandFundWrap = document.querySelector('.brand-fund-wrap');
+      const brandFundMenu = document.getElementById('brandFundMenu');
+      const brandAcademyWrap = document.querySelector('.brand-academy-wrap');
+      const brandAcademyMenu = document.getElementById('brandAcademyMenu');
+      const brandMediaWrap = document.querySelector('.brand-media-wrap');
+      const brandMediaMenu = document.getElementById('brandMediaMenu');
+      const headline = document.getElementById('headline');
+      const headlineWrap = document.querySelector('.headline-wrap');
+      const headlineSubtext = document.getElementById('headlineSubtext');
+      const nextArrow = document.querySelector('.scene-next-arrow');
+      const prevArrow = document.querySelector('.scene-prev-arrow');
+      const contactButton = document.getElementById('contactButton');
+      const contactModal = document.getElementById('contactModal');
+      const contactForm = document.querySelector('.contact-form') || document.getElementById('contactForm');
+      const contactFormStatus = document.querySelector('.contact-form__status') || document.getElementById('contactFormStatus');
+      const contactSubmitFrame = document.getElementById('contactSubmitFrame');
+      const contactNameInput = document.getElementById('contactName');
+      const goToGayleBio = document.getElementById('goToGayleBio');
+      const goToGayleFromBubble = document.getElementById('goToGayleFromBubble');
+      const partnersTrack = document.getElementById('partnersTrack');
+      const partnersViewport = document.getElementById('partnersViewport');
+      const partnersPrevBtn = document.getElementById('partnersPrevBtn');
+      const partnersNextBtn = document.getElementById('partnersNextBtn');
+      const universeSceneIndex = 3;
+      const profileSceneIndex = 4;
+      const sceneTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'The Wocstar Universe', 'Gayle Jennings-O\'Byrne'];
+      const sceneDescriptions = [
+        `Wocstar Fund is an early-stage investment fund focused on tech innovation.
+
+        We invest in companies and technology to create a more innovative, equitable and sustainable world. Working together with Founders to move the world forward.`,
+        'The Wocstar Entrepreneur Academy helps you unlock capital, grow your business, and build lasting success.',
+        'Turning Powerful Stories into Lasting Impact.',
+        '',
+        ''
+      ];
+      const transitionDuration = 900;
+      const swipeThreshold = 50;
+      const wheelThreshold = 35;
+      const profileExitDelay = 520;
+
+      let currentIndex = 0;
+      let isAnimating = false;
+      let touchStartY = null;
+      let touchStartedInProfileCopy = false;
+      let lastFocusedElement = null;
+      let profileExitIntentDirection = 0;
+      let profileExitIntentAt = 0;
+      let partnersIndex = 0;
+      let contactSubmitPending = false;
+      let isFundMenuOpen = false;
+      let isAcademyMenuOpen = false;
+      let isMediaMenuOpen = false;
+
+      function setFundMenuOpen(isOpen) {
+        isFundMenuOpen = isOpen;
+        if (isOpen) {
+          document.body.setAttribute('data-fund-menu-open', 'true');
+        } else {
+          document.body.removeAttribute('data-fund-menu-open');
+        }
+      }
+
+      function setAcademyMenuOpen(isOpen) {
+        isAcademyMenuOpen = isOpen;
+        if (isOpen) {
+          document.body.setAttribute('data-academy-menu-open', 'true');
+        } else {
+          document.body.removeAttribute('data-academy-menu-open');
+        }
+      }
+
+      function setMediaMenuOpen(isOpen) {
+        isMediaMenuOpen = isOpen;
+        if (isOpen) {
+          document.body.setAttribute('data-media-menu-open', 'true');
+        } else {
+          document.body.removeAttribute('data-media-menu-open');
+        }
+      }
+
+      function getPartnersPerView() {
+        if (window.innerWidth <= 560) return 1;
+        if (window.innerWidth <= 920) return 2;
+        if (window.innerWidth <= 1280) return 3;
+        return 4;
+      }
+
+      function updatePartnersCarousel(animate = true) {
+        if (!partnersTrack || !partnersViewport) return;
+        const cards = Array.from(partnersTrack.querySelectorAll('.partner-card'));
+        if (!cards.length) return;
+
+        const cardsPerView = getPartnersPerView();
+        const maxIndex = Math.max(0, cards.length - cardsPerView);
+        partnersIndex = Math.min(partnersIndex, maxIndex);
+
+        const cardWidth = cards[0].offsetWidth;
+        const style = window.getComputedStyle(partnersTrack);
+        const gap = parseFloat(style.columnGap || style.gap || '0') || 0;
+        const offset = partnersIndex * (cardWidth + gap);
+
+        partnersTrack.style.transition = animate ? 'transform 280ms ease' : 'none';
+        partnersTrack.style.transform = `translateX(${-offset}px)`;
+      }
+
+      function stepPartnersCarousel(step) {
+        if (!partnersTrack) return;
+        const cards = Array.from(partnersTrack.querySelectorAll('.partner-card'));
+        if (!cards.length) return;
+
+        const cardsPerView = getPartnersPerView();
+        const maxIndex = Math.max(0, cards.length - cardsPerView);
+        if (maxIndex <= 0) {
+          partnersIndex = 0;
+          updatePartnersCarousel();
+          return;
+        }
+
+        partnersIndex += step;
+        if (partnersIndex > maxIndex) partnersIndex = 0;
+        if (partnersIndex < 0) partnersIndex = maxIndex;
+        updatePartnersCarousel();
+      }
+
+      function isContactModalOpen() {
+        return Boolean(contactModal && contactModal.classList.contains('is-open'));
+      }
+
+      function openContactModal(event) {
+        if (event) event.preventDefault();
+        if (!contactModal) return;
+        lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+        contactModal.classList.add('is-open');
+        contactModal.setAttribute('aria-hidden', 'false');
+        window.setTimeout(() => {
+          if (contactNameInput) contactNameInput.focus();
+        }, 20);
+      }
+
+      function closeContactModal() {
+        if (!contactModal) return;
+        contactModal.classList.remove('is-open');
+        contactModal.setAttribute('aria-hidden', 'true');
+        if (contactFormStatus) {
+          contactFormStatus.textContent = '';
+        }
+        if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+          lastFocusedElement.focus();
+        }
+      }
+
+      function clearProfileExitIntent() {
+        profileExitIntentDirection = 0;
+        profileExitIntentAt = 0;
+      }
+
+      function shouldTransitionFromProfile(direction) {
+        const now = Date.now();
+        if (profileExitIntentDirection !== direction) {
+          profileExitIntentDirection = direction;
+          profileExitIntentAt = now;
+          return false;
+        }
+
+        if (now - profileExitIntentAt < profileExitDelay) {
+          return false;
+        }
+
+        clearProfileExitIntent();
+        return true;
+      }
+
+      function fitProfileContentToViewport() {
+        const profileCopy = document.querySelector('.profile-scene .profile-copy');
+        if (!profileCopy) return;
+        profileCopy.style.transform = 'none';
+      }
+
+      function updateBrandSwitcher() {
+        if (!brandSwitcher) return;
+
+        brandButtons.forEach((button) => {
+          const sceneTarget = Number(button.getAttribute('data-scene-target'));
+          const isActive = sceneTarget === currentIndex;
+          button.classList.toggle('is-active', isActive);
+          if (isActive) {
+            button.setAttribute('aria-current', 'page');
+          } else {
+            button.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      const videos = Array.from(document.querySelectorAll('video'));
+      videos.forEach((video) => {
+        video.muted = true;
+
+        const tryPlay = () => {
+          const playPromise = video.play();
+          if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(() => {});
+          }
+        };
+
+        if (video.readyState >= 2) {
+          tryPlay();
+        } else {
+          video.addEventListener('canplay', tryPlay, { once: true });
+        }
+      });
+
+      function updateStatus() {
+        const isProfileScene = currentIndex === profileSceneIndex;
+        const isUniverseScene = currentIndex === universeSceneIndex;
+        document.body.setAttribute('data-scene', String(currentIndex));
+        if (currentIndex === 0) {
+          setAcademyMenuOpen(false);
+          setMediaMenuOpen(false);
+        } else if (currentIndex === 1) {
+          setFundMenuOpen(false);
+          setMediaMenuOpen(false);
+        } else if (currentIndex === 2) {
+          setFundMenuOpen(false);
+          setAcademyMenuOpen(false);
+        } else {
+          setFundMenuOpen(false);
+          setAcademyMenuOpen(false);
+          setMediaMenuOpen(false);
+        }
+        if (currentIndex > universeSceneIndex) {
+          setFundMenuOpen(false);
+          setAcademyMenuOpen(false);
+          setMediaMenuOpen(false);
+        }
+        updateBrandSwitcher();
+        headline.textContent = sceneTitles[currentIndex];
+        const rawSubtext = sceneDescriptions[currentIndex] || '';
+        headlineSubtext.textContent = rawSubtext.replace(/\n\s*\n+/g, '\n').trim();
+        headlineWrap.style.opacity = (isProfileScene || isUniverseScene) ? '0' : '1';
+        nextArrow.style.display = 'inline-block';
+        prevArrow.style.display = 'inline-block';
+
+        if (isProfileScene) {
+          requestAnimationFrame(fitProfileContentToViewport);
+        }
+      }
+
+      function setLayerOrder(nextIndex, fromIndex) {
+        scenes.forEach((scene, index) => {
+          if (index === nextIndex) {
+            scene.style.zIndex = '3';
+          } else if (index === fromIndex) {
+            scene.style.zIndex = '2';
+          } else {
+            scene.style.zIndex = '1';
+          }
+        });
+      }
+
+      function transitionTo(nextIndex) {
+        if (isAnimating) return;
+        if (nextIndex < 0 || nextIndex >= scenes.length || nextIndex === currentIndex) return;
+
+        isAnimating = true;
+        clearProfileExitIntent();
+
+        const fromIndex = currentIndex;
+        const currentScene = scenes[fromIndex];
+        const nextScene = scenes[nextIndex];
+
+        setLayerOrder(nextIndex, fromIndex);
+
+        // Update text immediately so previous scene copy does not linger.
+        currentIndex = nextIndex;
+        updateStatus();
+
+        nextScene.style.transition = 'none';
+        nextScene.style.opacity = '0';
+        nextScene.style.transform = 'scale(1.2)';
+        nextScene.classList.add('active');
+
+        void nextScene.offsetWidth;
+
+        nextScene.style.transition = '';
+
+        requestAnimationFrame(() => {
+          nextScene.style.opacity = '1';
+          nextScene.style.transform = 'scale(1)';
+
+          currentScene.style.opacity = '0';
+          currentScene.style.transform = 'scale(0.8)';
+        });
+
+        window.setTimeout(() => {
+          currentScene.classList.remove('active');
+          currentScene.style.opacity = '';
+          currentScene.style.transform = '';
+
+          nextScene.style.opacity = '';
+          nextScene.style.transform = '';
+
+          if (currentIndex === profileSceneIndex) {
+            requestAnimationFrame(fitProfileContentToViewport);
+          }
+
+          isAnimating = false;
+        }, transitionDuration + 30);
+      }
+
+      function getWrappedIndex(step) {
+        return (currentIndex + step + scenes.length) % scenes.length;
+      }
+
+      function onWheel(event) {
+        event.preventDefault();
+        if (isAnimating) return;
+        if (isContactModalOpen()) return;
+        const primaryDelta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+
+        if (currentIndex === profileSceneIndex) {
+          const profileCopy = document.querySelector('.profile-scene .profile-copy');
+          if (profileCopy) {
+            const maxScrollTop = Math.max(0, profileCopy.scrollHeight - profileCopy.clientHeight);
+            const atTop = profileCopy.scrollTop <= 1;
+            const atBottom = profileCopy.scrollTop >= maxScrollTop - 1;
+
+            if (primaryDelta < 0 && atTop) {
+              if (shouldTransitionFromProfile(-1)) {
+                transitionTo(currentIndex - 1);
+              }
+              return;
+            }
+
+            if (primaryDelta > 0 && atBottom) {
+              if (shouldTransitionFromProfile(1)) {
+                transitionTo(currentIndex + 1);
+              }
+              return;
+            }
+
+            clearProfileExitIntent();
+            profileCopy.scrollTop += event.deltaY;
+          }
+          return;
+        }
+
+        clearProfileExitIntent();
+
+        if (Math.abs(primaryDelta) < wheelThreshold) return;
+
+        if (primaryDelta > 0) {
+          transitionTo(currentIndex + 1);
+        } else {
+          transitionTo(currentIndex - 1);
+        }
+      }
+
+      function onMouseButtonNavigate(event) {
+        if (isAnimating || isContactModalOpen()) return;
+        if (event.button === 3) {
+          event.preventDefault();
+          transitionTo(getWrappedIndex(-1));
+        } else if (event.button === 4) {
+          event.preventDefault();
+          transitionTo(getWrappedIndex(1));
+        }
+      }
+
+      function onTouchStart(event) {
+        if (!event.touches || !event.touches[0]) return;
+        touchStartY = event.touches[0].clientY;
+        touchStartedInProfileCopy = Boolean(
+          currentIndex === profileSceneIndex && event.target && event.target.closest('.profile-copy')
+        );
+      }
+
+      function onTouchMove(event) {
+        if (isContactModalOpen()) return;
+        if (currentIndex === profileSceneIndex && event.target && event.target.closest('.profile-copy')) {
+          return;
+        }
+        event.preventDefault();
+      }
+
+      function onTouchEnd(event) {
+        if (touchStartY === null || isAnimating) {
+          touchStartY = null;
+          touchStartedInProfileCopy = false;
+          return;
+        }
+
+        if (isContactModalOpen()) {
+          touchStartY = null;
+          touchStartedInProfileCopy = false;
+          return;
+        }
+
+        if (!event.changedTouches || !event.changedTouches[0]) {
+          touchStartY = null;
+          touchStartedInProfileCopy = false;
+          return;
+        }
+
+        const endY = event.changedTouches[0].clientY;
+        const deltaY = touchStartY - endY;
+
+        if (currentIndex === profileSceneIndex && touchStartedInProfileCopy) {
+          const profileCopy = document.querySelector('.profile-scene .profile-copy');
+          if (profileCopy && Math.abs(deltaY) >= swipeThreshold) {
+            const maxScrollTop = Math.max(0, profileCopy.scrollHeight - profileCopy.clientHeight);
+            const atTop = profileCopy.scrollTop <= 1;
+            const atBottom = profileCopy.scrollTop >= maxScrollTop - 1;
+
+            if (deltaY < 0 && atTop) {
+              if (shouldTransitionFromProfile(-1)) {
+                transitionTo(currentIndex - 1);
+              }
+            } else if (deltaY > 0 && atBottom) {
+              if (shouldTransitionFromProfile(1)) {
+                transitionTo(currentIndex + 1);
+              }
+            } else {
+              clearProfileExitIntent();
+            }
+          } else {
+            clearProfileExitIntent();
+          }
+          touchStartY = null;
+          touchStartedInProfileCopy = false;
+          return;
+        }
+
+        if (Math.abs(deltaY) >= swipeThreshold) {
+          if (deltaY > 0) {
+            transitionTo(currentIndex + 1);
+          } else {
+            transitionTo(currentIndex - 1);
+          }
+        }
+
+        touchStartY = null;
+        touchStartedInProfileCopy = false;
+      }
+
+      window.addEventListener('wheel', onWheel, { passive: false });
+      window.addEventListener('mouseup', onMouseButtonNavigate);
+      window.addEventListener('touchstart', onTouchStart, { passive: true });
+      window.addEventListener('touchmove', onTouchMove, { passive: false });
+      window.addEventListener('touchend', onTouchEnd, { passive: true });
+      brandButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+          const nextIndex = Number(button.getAttribute('data-scene-target'));
+          if (Number.isNaN(nextIndex)) return;
+          if (nextIndex === 0) {
+            if (currentIndex === 0) {
+              setFundMenuOpen(!isFundMenuOpen);
+              setAcademyMenuOpen(false);
+              setMediaMenuOpen(false);
+              updateBrandSwitcher();
+              return;
+            }
+            setAcademyMenuOpen(false);
+            setMediaMenuOpen(false);
+            transitionTo(nextIndex);
+            return;
+          }
+          if (nextIndex === 1) {
+            if (currentIndex === 1) {
+              setAcademyMenuOpen(!isAcademyMenuOpen);
+              setFundMenuOpen(false);
+              setMediaMenuOpen(false);
+              updateBrandSwitcher();
+              return;
+            }
+            setFundMenuOpen(false);
+            setMediaMenuOpen(false);
+            transitionTo(nextIndex);
+            return;
+          }
+          if (nextIndex === 2) {
+            if (currentIndex === 2) {
+              setMediaMenuOpen(!isMediaMenuOpen);
+              setFundMenuOpen(false);
+              setAcademyMenuOpen(false);
+              updateBrandSwitcher();
+              return;
+            }
+            setFundMenuOpen(false);
+            setAcademyMenuOpen(false);
+            setMediaMenuOpen(false);
+            transitionTo(nextIndex);
+            return;
+          }
+          setFundMenuOpen(false);
+          setAcademyMenuOpen(false);
+          setMediaMenuOpen(false);
+          transitionTo(nextIndex);
+        });
+      });
+      if (brandFundMenu) {
+        brandFundMenu.addEventListener('click', (event) => {
+          const target = event.target instanceof HTMLElement ? event.target.closest('a') : null;
+          if (!target) return;
+          setFundMenuOpen(false);
+        });
+      }
+      if (brandAcademyMenu) {
+        brandAcademyMenu.addEventListener('click', (event) => {
+          const target = event.target instanceof HTMLElement ? event.target.closest('a') : null;
+          if (!target) return;
+          setAcademyMenuOpen(false);
+        });
+      }
+      if (brandMediaMenu) {
+        brandMediaMenu.addEventListener('click', (event) => {
+          const target = event.target instanceof HTMLElement ? event.target.closest('a') : null;
+          if (!target) return;
+          setMediaMenuOpen(false);
+        });
+      }
+      document.addEventListener('click', (event) => {
+        if (isFundMenuOpen && brandFundWrap) {
+          if (!(event.target instanceof Node && brandFundWrap.contains(event.target))) {
+            setFundMenuOpen(false);
+          }
+        }
+        if (isAcademyMenuOpen && brandAcademyWrap) {
+          if (!(event.target instanceof Node && brandAcademyWrap.contains(event.target))) {
+            setAcademyMenuOpen(false);
+          }
+        }
+        if (isMediaMenuOpen && brandMediaWrap) {
+          if (!(event.target instanceof Node && brandMediaWrap.contains(event.target))) {
+            setMediaMenuOpen(false);
+          }
+        }
+      });
+      nextArrow.addEventListener('click', (event) => {
+        event.preventDefault();
+        transitionTo(getWrappedIndex(1));
+      });
+      prevArrow.addEventListener('click', (event) => {
+        event.preventDefault();
+        transitionTo(getWrappedIndex(-1));
+      });
+      if (contactButton) {
+        contactButton.addEventListener('click', openContactModal);
+      }
+      if (goToGayleBio) {
+        goToGayleBio.addEventListener('click', (event) => {
+          event.preventDefault();
+          transitionTo(profileSceneIndex);
+        });
+      }
+      if (goToGayleFromBubble) {
+        goToGayleFromBubble.addEventListener('click', (event) => {
+          event.preventDefault();
+          transitionTo(profileSceneIndex);
+        });
+      }
+      if (contactModal) {
+        contactModal.addEventListener('click', (event) => {
+          if (event.target instanceof HTMLElement && event.target.matches('[data-close-contact="true"]')) {
+            closeContactModal();
+          }
+        });
+      }
+      if (partnersPrevBtn) {
+        partnersPrevBtn.addEventListener('click', () => stepPartnersCarousel(-1));
+      }
+      if (partnersNextBtn) {
+        partnersNextBtn.addEventListener('click', () => stepPartnersCarousel(1));
+      }
+      if (contactForm) {
+        contactForm.addEventListener('submit', (event) => {
+          if (!contactForm.checkValidity()) {
+            contactForm.reportValidity();
+            event.preventDefault();
+            return;
+          }
+          event.preventDefault();
+          contactSubmitPending = true;
+          contactForm.setAttribute('target', 'contactSubmitFrame');
+          if (contactFormStatus) {
+            contactFormStatus.textContent = 'Submission received, thank you!';
+          }
+          contactForm.submit();
+        });
+      }
+      if (contactSubmitFrame) {
+        contactSubmitFrame.addEventListener('load', () => {
+          if (!contactSubmitPending) return;
+          contactSubmitPending = false;
+          if (contactForm) {
+            contactForm.reset();
+          }
+        });
+      }
+      document.addEventListener('keydown', (event) => {
+        const target = event.target instanceof HTMLElement ? event.target : null;
+        const isTypingTarget = Boolean(
+          target &&
+          (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)
+        );
+
+        if (event.key === 'Escape' && isFundMenuOpen) {
+          setFundMenuOpen(false);
+        }
+        if (event.key === 'Escape' && isAcademyMenuOpen) {
+          setAcademyMenuOpen(false);
+        }
+        if (event.key === 'Escape' && isMediaMenuOpen) {
+          setMediaMenuOpen(false);
+        }
+        if (event.key === 'Escape' && isContactModalOpen()) {
+          closeContactModal();
+        }
+
+        if (isTypingTarget) return;
+        if (isAnimating || isContactModalOpen()) return;
+
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          transitionTo(getWrappedIndex(-1));
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          transitionTo(getWrappedIndex(1));
+        }
+      });
+      window.addEventListener('resize', () => {
+        updatePartnersCarousel(false);
+        if (currentIndex === profileSceneIndex) {
+          fitProfileContentToViewport();
+        }
+      });
+
+      updatePartnersCarousel(false);
+      updateStatus();
+    })();
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,4 +1,4 @@
-﻿    (function () {
+    (function () {
       const scenes = Array.from(document.querySelectorAll('.scene'));
       const brandSwitcher = document.querySelector('.brand-switcher');
       const brandButtons = Array.from(document.querySelectorAll('.brand-switcher .brand[data-scene-target]'));
@@ -37,8 +37,8 @@
       const academyApplyButton = document.getElementById('academyApplyButton');
       const capitalInlineContactButton = document.getElementById('capitalInlineContactButton');
       const contactModal = document.getElementById('contactModal');
-      const contactForm = document.getElementById('contactForm');
-      const contactFormStatus = document.getElementById('contactFormStatus');
+      const contactForm = document.querySelector('.contact-form') || document.getElementById('contactForm');
+      const contactFormStatus = document.querySelector('.contact-form__status') || document.getElementById('contactFormStatus');
       const contactSubmitFrame = document.getElementById('contactSubmitFrame');
       const contactNameInput = document.getElementById('contactName');
       const academyWaitlistModal = document.getElementById('academyWaitlistModal');
@@ -116,9 +116,11 @@
       const transitionDuration = isPerformanceMode ? 620 : 900;
       const swipeThreshold = 50;
       const wheelThreshold = 35;
-      const boundaryIntentThreshold = 3;
-      const boundaryIntentResetWindow = 2600;
-      const boundaryIntentStepGap = 650;
+      const profileExitDelay = 520;
+      const universeExitDelay = 900;
+      const fundExitDelay = 720;
+      const academyExitDelay = 900;
+      const mediaExitDelay = 900;
 
       let currentIndex = 0;
       let isAnimating = false;
@@ -130,24 +132,10 @@
       let lastFocusedElement = null;
       let profileExitIntentDirection = 0;
       let profileExitIntentAt = 0;
-      let profileExitIntentCount = 0;
-      let profileExitIntentStepAt = 0;
-      let universeExitIntentDirection = 0;
       let universeExitIntentAt = 0;
-      let universeExitIntentCount = 0;
-      let universeExitIntentStepAt = 0;
-      let fundExitIntentDirection = 0;
       let fundExitIntentAt = 0;
-      let fundExitIntentCount = 0;
-      let fundExitIntentStepAt = 0;
-      let academyExitIntentDirection = 0;
       let academyExitIntentAt = 0;
-      let academyExitIntentCount = 0;
-      let academyExitIntentStepAt = 0;
-      let mediaExitIntentDirection = 0;
       let mediaExitIntentAt = 0;
-      let mediaExitIntentCount = 0;
-      let mediaExitIntentStepAt = 0;
       let universeShowcaseIndex = 0;
       let universeShowcaseTimer = null;
       let capitalInterviewIndex = 0;
@@ -186,7 +174,7 @@
         {
           name: 'Samba TV',
           industry: 'Media Technology',
-          logoSrc: 'assets/images/portco/sambatvlogo.png',
+          logoSrc: 'portco logo/sambatvlogo.png',
           logoAlt: 'Samba TV logo',
           url: 'https://www.samba.tv',
           plateClass: 'is-samba'
@@ -194,7 +182,7 @@
         {
           name: 'Hemster',
           industry: 'Retail Technology',
-          logoSrc: 'assets/images/portco/hemster-transparent.png',
+          logoSrc: 'portco logo/hemster-transparent.png',
           logoAlt: 'Hemster logo',
           url: 'https://www.hemster.co',
           plateClass: 'is-dark',
@@ -204,7 +192,7 @@
         {
           name: 'Re-Nuble',
           industry: 'AgriTech',
-          logoSrc: 'assets/images/portco/renuble.png',
+          logoSrc: 'portco logo/renuble.png',
           logoAlt: 'Re-Nuble logo',
           url: 'https://www.re-nuble.com',
           plateClass: 'is-renuble'
@@ -212,7 +200,7 @@
         {
           name: 'FilmHedge',
           industry: 'FinTech for Film',
-          logoSrc: 'assets/images/portco/filmhedge.jpg',
+          logoSrc: 'portco logo/filmhedge.jpg',
           logoAlt: 'FilmHedge logo',
           url: 'https://www.filmhedge.com',
           plateClass: 'is-filmhedge'
@@ -220,7 +208,7 @@
         {
           name: 'Infinite Objects',
           industry: 'Consumer Media Hardware',
-          logoSrc: 'assets/images/portco/infiniteobjects.png',
+          logoSrc: 'portco logo/infiniteobjects.png',
           logoAlt: 'Infinite Objects logo',
           url: 'https://www.infiniteobjects.com',
           plateClass: 'is-infinite'
@@ -228,7 +216,7 @@
         {
           name: 'Possip',
           industry: 'EdTech',
-          logoSrc: 'assets/images/portco/possip.png',
+          logoSrc: 'portco logo/possip.png',
           logoAlt: 'Possip logo',
           url: 'https://www.possip.com',
           plateClass: 'is-possip'
@@ -896,156 +884,85 @@
       function clearProfileExitIntent() {
         profileExitIntentDirection = 0;
         profileExitIntentAt = 0;
-        profileExitIntentCount = 0;
-        profileExitIntentStepAt = 0;
       }
 
       function clearUniverseExitIntent() {
-        universeExitIntentDirection = 0;
         universeExitIntentAt = 0;
-        universeExitIntentCount = 0;
-        universeExitIntentStepAt = 0;
       }
 
       function clearFundExitIntent() {
-        fundExitIntentDirection = 0;
         fundExitIntentAt = 0;
-        fundExitIntentCount = 0;
-        fundExitIntentStepAt = 0;
       }
 
       function clearAcademyExitIntent() {
-        academyExitIntentDirection = 0;
         academyExitIntentAt = 0;
-        academyExitIntentCount = 0;
-        academyExitIntentStepAt = 0;
       }
 
       function clearMediaExitIntent() {
-        mediaExitIntentDirection = 0;
         mediaExitIntentAt = 0;
-        mediaExitIntentCount = 0;
-        mediaExitIntentStepAt = 0;
       }
 
-      function shouldTransitionFromFundBottom(direction = 1) {
+      function shouldTransitionFromFundBottom() {
         const now = Date.now();
-        const intentExpired = !fundExitIntentAt || (now - fundExitIntentAt > boundaryIntentResetWindow);
-        if (fundExitIntentDirection !== direction || intentExpired) {
-          fundExitIntentDirection = direction;
+        if (!fundExitIntentAt) {
           fundExitIntentAt = now;
-          fundExitIntentCount = 1;
-          fundExitIntentStepAt = now;
           return false;
         }
-
-        fundExitIntentAt = now;
-        if (now - fundExitIntentStepAt < boundaryIntentStepGap) {
+        if (now - fundExitIntentAt < fundExitDelay) {
           return false;
         }
-        fundExitIntentCount += 1;
-        fundExitIntentStepAt = now;
-        if (fundExitIntentCount < boundaryIntentThreshold) {
-          return false;
-        }
-
         clearFundExitIntent();
         return true;
       }
 
-      function shouldTransitionFromUniverseBottom(direction = 1) {
+      function shouldTransitionFromUniverseBottom() {
         const now = Date.now();
-        const intentExpired = !universeExitIntentAt || (now - universeExitIntentAt > boundaryIntentResetWindow);
-        if (universeExitIntentDirection !== direction || intentExpired) {
-          universeExitIntentDirection = direction;
+        if (!universeExitIntentAt) {
           universeExitIntentAt = now;
-          universeExitIntentCount = 1;
-          universeExitIntentStepAt = now;
           return false;
         }
-
-        universeExitIntentAt = now;
-        if (now - universeExitIntentStepAt < boundaryIntentStepGap) {
+        if (now - universeExitIntentAt < universeExitDelay) {
           return false;
         }
-        universeExitIntentCount += 1;
-        universeExitIntentStepAt = now;
-        if (universeExitIntentCount < boundaryIntentThreshold) {
-          return false;
-        }
-
         clearUniverseExitIntent();
         return true;
       }
 
-      function shouldTransitionFromAcademyBottom(direction = 1) {
+      function shouldTransitionFromAcademyBottom() {
         const now = Date.now();
-        const intentExpired = !academyExitIntentAt || (now - academyExitIntentAt > boundaryIntentResetWindow);
-        if (academyExitIntentDirection !== direction || intentExpired) {
-          academyExitIntentDirection = direction;
+        if (!academyExitIntentAt) {
           academyExitIntentAt = now;
-          academyExitIntentCount = 1;
-          academyExitIntentStepAt = now;
           return false;
         }
-
-        academyExitIntentAt = now;
-        if (now - academyExitIntentStepAt < boundaryIntentStepGap) {
+        if (now - academyExitIntentAt < academyExitDelay) {
           return false;
         }
-        academyExitIntentCount += 1;
-        academyExitIntentStepAt = now;
-        if (academyExitIntentCount < boundaryIntentThreshold) {
-          return false;
-        }
-
         clearAcademyExitIntent();
         return true;
       }
 
-      function shouldTransitionFromMediaBottom(direction = 1) {
+      function shouldTransitionFromMediaBottom() {
         const now = Date.now();
-        const intentExpired = !mediaExitIntentAt || (now - mediaExitIntentAt > boundaryIntentResetWindow);
-        if (mediaExitIntentDirection !== direction || intentExpired) {
-          mediaExitIntentDirection = direction;
+        if (!mediaExitIntentAt) {
           mediaExitIntentAt = now;
-          mediaExitIntentCount = 1;
-          mediaExitIntentStepAt = now;
           return false;
         }
-
-        mediaExitIntentAt = now;
-        if (now - mediaExitIntentStepAt < boundaryIntentStepGap) {
+        if (now - mediaExitIntentAt < mediaExitDelay) {
           return false;
         }
-        mediaExitIntentCount += 1;
-        mediaExitIntentStepAt = now;
-        if (mediaExitIntentCount < boundaryIntentThreshold) {
-          return false;
-        }
-
         clearMediaExitIntent();
         return true;
       }
 
       function shouldTransitionFromProfile(direction) {
         const now = Date.now();
-        const intentExpired = !profileExitIntentAt || (now - profileExitIntentAt > boundaryIntentResetWindow);
-        if (profileExitIntentDirection !== direction || intentExpired) {
+        if (profileExitIntentDirection !== direction) {
           profileExitIntentDirection = direction;
           profileExitIntentAt = now;
-          profileExitIntentCount = 1;
-          profileExitIntentStepAt = now;
           return false;
         }
 
-        profileExitIntentAt = now;
-        if (now - profileExitIntentStepAt < boundaryIntentStepGap) {
-          return false;
-        }
-        profileExitIntentCount += 1;
-        profileExitIntentStepAt = now;
-        if (profileExitIntentCount < boundaryIntentThreshold) {
+        if (now - profileExitIntentAt < profileExitDelay) {
           return false;
         }
 
@@ -1283,10 +1200,9 @@
             const wantsToGoUp = primaryDelta < 0;
 
             if (wantsToGoUp && atTop) {
-              if (shouldTransitionFromFundBottom(-1)) {
-                const prevIndex = getMainLinearIndex(-1);
-                if (prevIndex !== null) transitionTo(prevIndex);
-              }
+              clearFundExitIntent();
+              const prevIndex = getMainLinearIndex(-1);
+              if (prevIndex !== null) transitionTo(prevIndex);
               return;
             }
 
@@ -1313,10 +1229,9 @@
             const wantsToGoUp = primaryDelta < 0;
 
             if (wantsToGoUp && atTop) {
-              if (shouldTransitionFromAcademyBottom(-1)) {
-                const prevIndex = getMainLinearIndex(-1);
-                if (prevIndex !== null) transitionTo(prevIndex);
-              }
+              clearAcademyExitIntent();
+              const prevIndex = getMainLinearIndex(-1);
+              if (prevIndex !== null) transitionTo(prevIndex);
               return;
             }
 
@@ -1343,10 +1258,9 @@
             const wantsToGoUp = primaryDelta < 0;
 
             if (wantsToGoUp && atTop) {
-              if (shouldTransitionFromMediaBottom(-1)) {
-                const prevIndex = getMainLinearIndex(-1);
-                if (prevIndex !== null) transitionTo(prevIndex);
-              }
+              clearMediaExitIntent();
+              const prevIndex = getMainLinearIndex(-1);
+              if (prevIndex !== null) transitionTo(prevIndex);
               return;
             }
 
@@ -1373,10 +1287,9 @@
             const wantsToGoUp = primaryDelta < 0;
 
             if (wantsToGoUp && atTop) {
-              if (shouldTransitionFromUniverseBottom(-1)) {
-                const prevIndex = getMainLinearIndex(-1);
-                if (prevIndex !== null) transitionTo(prevIndex);
-              }
+              clearUniverseExitIntent();
+              const prevIndex = getMainLinearIndex(-1);
+              if (prevIndex !== null) transitionTo(prevIndex);
               return;
             }
 
@@ -1588,10 +1501,9 @@
           const atBottom = universeScene.scrollTop >= maxScrollTop - 1;
           if (Math.abs(deltaY) >= swipeThreshold) {
             if (deltaY < 0 && atTop) {
-              if (shouldTransitionFromUniverseBottom(-1)) {
-                const prevIndex = getMainLinearIndex(-1);
-                if (prevIndex !== null) transitionTo(prevIndex);
-              }
+              clearUniverseExitIntent();
+              const prevIndex = getMainLinearIndex(-1);
+              if (prevIndex !== null) transitionTo(prevIndex);
             } else if (deltaY > 0 && atBottom) {
               if (shouldTransitionFromUniverseBottom()) {
                 const nextIndex = getMainLinearIndex(1);
@@ -1619,10 +1531,9 @@
           const atBottom = mediaScene.scrollTop >= maxScrollTop - 1;
           if (Math.abs(deltaY) >= swipeThreshold) {
             if (deltaY < 0 && atTop) {
-              if (shouldTransitionFromMediaBottom(-1)) {
-                const prevIndex = getMainLinearIndex(-1);
-                if (prevIndex !== null) transitionTo(prevIndex);
-              }
+              clearMediaExitIntent();
+              const prevIndex = getMainLinearIndex(-1);
+              if (prevIndex !== null) transitionTo(prevIndex);
             } else if (deltaY > 0 && atBottom) {
               if (shouldTransitionFromMediaBottom()) {
                 const nextIndex = getMainLinearIndex(1);
@@ -1650,15 +1561,13 @@
           const atBottom = fundScene.scrollTop >= maxScrollTop - 1;
           if (Math.abs(deltaY) >= swipeThreshold) {
             if (deltaY < 0 && atTop) {
-              if (shouldTransitionFromFundBottom(-1)) {
-                const prevIndex = getMainLinearIndex(-1);
-                if (prevIndex !== null) transitionTo(prevIndex);
-              }
+              clearFundExitIntent();
+              const prevIndex = getMainLinearIndex(-1);
+              if (prevIndex !== null) transitionTo(prevIndex);
             } else if (deltaY > 0 && atBottom) {
-              if (shouldTransitionFromFundBottom(1)) {
-                const nextIndex = getMainLinearIndex(1);
-                if (nextIndex !== null) transitionTo(nextIndex);
-              }
+              clearFundExitIntent();
+              const nextIndex = getMainLinearIndex(1);
+              if (nextIndex !== null) transitionTo(nextIndex);
             } else {
               clearFundExitIntent();
               scrollFundSceneBy(deltaY);
@@ -1680,15 +1589,13 @@
           const atBottom = academyScene.scrollTop >= maxScrollTop - 1;
           if (Math.abs(deltaY) >= swipeThreshold) {
             if (deltaY < 0 && atTop) {
-              if (shouldTransitionFromAcademyBottom(-1)) {
-                const prevIndex = getMainLinearIndex(-1);
-                if (prevIndex !== null) transitionTo(prevIndex);
-              }
+              clearAcademyExitIntent();
+              const prevIndex = getMainLinearIndex(-1);
+              if (prevIndex !== null) transitionTo(prevIndex);
             } else if (deltaY > 0 && atBottom) {
-              if (shouldTransitionFromAcademyBottom(1)) {
-                const nextIndex = getMainLinearIndex(1);
-                if (nextIndex !== null) transitionTo(nextIndex);
-              }
+              clearAcademyExitIntent();
+              const nextIndex = getMainLinearIndex(1);
+              if (nextIndex !== null) transitionTo(nextIndex);
             } else {
               clearAcademyExitIntent();
               scrollAcademySceneBy(deltaY);
@@ -2324,5 +2231,4 @@
       updateStatus();
     })();
   
-
 

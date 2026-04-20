@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   /* Colors */
   --tok-color-overlay: rgba(0, 0, 0, 0.34);
   --tok-color-media-frame-accent: rgba(235, 207, 161, 0.65);
@@ -61,4 +61,3 @@
   /* Shadows */
   --tok-shadow-focus-ring: 0 0 0 2px rgba(217, 212, 206, 0.9);
 }
-
