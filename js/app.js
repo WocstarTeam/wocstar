@@ -2029,29 +2029,48 @@
             return;
           }
 
+          const requestPayload = JSON.stringify({
+            name,
+            email,
+            message,
+            source: 'contact_form',
+            page: window.location.pathname
+          });
+
           try {
-            const response = await fetch('https://script.google.com/macros/s/AKfycbx-ABKwt0cs5mibMlU-Xm2jLolXXOwpiCKRrvVo5vYn1o31oCXu5Sb6tVQ5sH2Y1K-6/exec', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                name,
-                email,
-                message,
-                source: 'contact_form',
-                page: window.location.pathname
-              })
-            });
+            let didSend = false;
+            try {
+              const response = await fetch('https://script.google.com/macros/s/AKfycbx-ABKwt0cs5mibMlU-Xm2jLolXXOwpiCKRrvVo5vYn1o31oCXu5Sb6tVQ5sH2Y1K-6/exec', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: requestPayload
+              });
 
-            if (!response.ok) {
-              throw new Error('Contact request failed');
+              if (!response.ok) {
+                throw new Error('Contact request failed');
+              }
+
+              didSend = true;
+            } catch (primaryError) {
+              await fetch('https://script.google.com/macros/s/AKfycbx-ABKwt0cs5mibMlU-Xm2jLolXXOwpiCKRrvVo5vYn1o31oCXu5Sb6tVQ5sH2Y1K-6/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                  'Content-Type': 'text/plain;charset=utf-8'
+                },
+                body: requestPayload
+              });
+              didSend = true;
             }
 
-            if (contactFormStatus) {
-              contactFormStatus.textContent = 'Message sent successfully.';
+            if (didSend) {
+              if (contactFormStatus) {
+                contactFormStatus.textContent = 'Message sent successfully.';
+              }
+              contactForm.reset();
             }
-            contactForm.reset();
           } catch (error) {
             if (contactFormStatus) {
               contactFormStatus.textContent = 'Something went wrong. Please try again.';
