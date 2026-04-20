@@ -2718,20 +2718,19 @@
             return;
           }
 
-          const requestPayload = JSON.stringify({
-            name,
-            company,
-            email,
-            message,
-            source: 'contact_form',
-            page: window.location.pathname
-          });
+          const formData = new URLSearchParams();
+          formData.append('name', name);
+          formData.append('company', company || '');
+          formData.append('email', email);
+          formData.append('message', message);
+          formData.append('source', 'contact_form');
+          formData.append('page', window.location.pathname);
 
           try {
             await fetch('https://script.google.com/macros/s/AKfycbx-ABKwt0cs5mibMlU-Xm2jLolXXOwpiCKRrvVo5vYn1o31oCXu5Sb6tVQ5sH2Y1K-6/exec', {
               method: 'POST',
               mode: 'no-cors',
-              body: requestPayload
+              body: formData
             });
             if (contactFormStatus) {
               contactFormStatus.textContent = 'Message sent successfully.';
@@ -2788,5 +2787,4 @@
   </script>
 </body>
 </html>
-
 
