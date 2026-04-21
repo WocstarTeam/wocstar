@@ -1,2 +1,5 @@
 # Keep explicit pages accessible
 /portfolio   /portfolio.html   200
+
+# SPA scene routes (e.g. /fund, /academy, /media, /capital, /gayle)
+/*           /index.html       200

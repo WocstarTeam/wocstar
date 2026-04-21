@@ -100,6 +100,19 @@
       const mainSceneSequence = [3, 0, 1, 2];
       const sceneTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'The Wocstar Universe', 'Gayle Jennings-O\'Byrne'];
       const sceneDocumentTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'Wocstar Capital', 'Gayle Jennings-O\'Byrne'];
+      const sceneRouteByIndex = ['/fund', '/academy', '/media', '/capital', '/gayle'];
+      const sceneIndexByRoute = Object.freeze({
+        '/': 0,
+        '/index.html': 0,
+        '/fund': 0,
+        '/academy': 1,
+        '/media': 2,
+        '/capital': 3,
+        '/universe': 3,
+        '/gayle': 4,
+        '/profile': 4,
+        '/bio': 4
+      });
       const sceneDescriptions = [
         `Wocstar Fund is an early-stage investment fund focused on tech innovation.
 
@@ -170,6 +183,7 @@
       let contactSubmitPending = false;
       let touchStartedInMediaScene = false;
       let activeContactSource = CONTACT_SOURCE_LABELS.capital;
+      let suppressRouteSync = false;
 
       function syncAppViewportHeight() {
         document.documentElement.style.setProperty('--app-vh', `${window.innerHeight}px`);
@@ -1131,9 +1145,40 @@
         });
       }
 
+      function normalizePathname(pathname) {
+        const rawPath = String(pathname || '/').trim();
+        if (!rawPath) return '/';
+        const withoutTrailingSlash = rawPath.replace(/\/+$/, '');
+        return (withoutTrailingSlash || '/').toLowerCase();
+      }
+
+      function getSceneIndexFromPathname(pathname) {
+        const normalizedPath = normalizePathname(pathname);
+        if (Object.prototype.hasOwnProperty.call(sceneIndexByRoute, normalizedPath)) {
+          return sceneIndexByRoute[normalizedPath];
+        }
+        return null;
+      }
+
+      function getSceneRouteForIndex(sceneIndex) {
+        return sceneRouteByIndex[sceneIndex] || sceneRouteByIndex[0];
+      }
+
+      function syncRouteToCurrentScene(replace = false) {
+        if (suppressRouteSync) return;
+        if (!window.history || typeof window.history.pushState !== 'function') return;
+        const targetPath = getSceneRouteForIndex(currentIndex);
+        const currentPath = normalizePathname(window.location.pathname);
+        if (currentPath === targetPath) return;
+        const method = replace ? 'replaceState' : 'pushState';
+        const search = window.location.search || '';
+        window.history[method]({ sceneIndex: currentIndex }, '', `${targetPath}${search}`);
+      }
+
       function updateStatus() {
         document.body.setAttribute('data-scene', String(currentIndex));
         document.title = sceneDocumentTitles[currentIndex] || 'Wocstar Capital';
+        syncRouteToCurrentScene();
         syncSceneVideoPlayback();
         if (currentIndex === 0) {
           setCapitalMenuOpen(false);
@@ -1203,8 +1248,9 @@
         });
       }
 
-      function transitionTo(nextIndex) {
-        if (isAnimating) return;
+      function transitionTo(nextIndex, options = {}) {
+        const immediate = Boolean(options.immediate);
+        if (isAnimating && !immediate) return;
         if (nextIndex < 0 || nextIndex >= scenes.length || nextIndex === currentIndex) return;
 
         isAnimating = true;
@@ -1219,6 +1265,25 @@
         const nextScene = scenes[nextIndex];
 
         setLayerOrder(nextIndex, fromIndex);
+
+        if (immediate) {
+          currentScene.classList.remove('active');
+          currentScene.style.opacity = '';
+          currentScene.style.transform = '';
+          nextScene.classList.add('active');
+          nextScene.style.opacity = '';
+          nextScene.style.transform = '';
+          currentIndex = nextIndex;
+          updateStatus();
+          if (nextIndex === 0 && fundScene) {
+            fundScene.scrollTop = 0;
+          }
+          if (nextIndex === 1 && academyScene) {
+            academyScene.scrollTop = 0;
+          }
+          isAnimating = false;
+          return;
+        }
 
         // Update text immediately so previous scene copy does not linger.
         currentIndex = nextIndex;
@@ -2209,6 +2274,15 @@
         syncAppViewportHeight();
         handleWindowResize();
       }, { passive: true });
+      window.addEventListener('popstate', () => {
+        const routeSceneIndex = getSceneIndexFromPathname(window.location.pathname);
+        if (routeSceneIndex === null || routeSceneIndex === currentIndex) {
+          return;
+        }
+        suppressRouteSync = true;
+        transitionTo(routeSceneIndex, { immediate: true });
+        suppressRouteSync = false;
+      });
       if (fundPortcoViewport) {
         fundPortcoViewport.addEventListener('mouseenter', stopFundPortfolioAuto);
         fundPortcoViewport.addEventListener('mouseleave', startFundPortfolioAuto);
@@ -2250,7 +2324,16 @@
       initAcademyCurriculumReveal();
       setAcademyCurriculumScene('founder', false);
       applyContactSource(resolveContactSource(null));
+      const initialRouteSceneIndex = getSceneIndexFromPathname(window.location.pathname);
+      if (initialRouteSceneIndex !== null && initialRouteSceneIndex !== currentIndex) {
+        suppressRouteSync = true;
+        transitionTo(initialRouteSceneIndex, { immediate: true });
+        suppressRouteSync = false;
+      }
+      suppressRouteSync = true;
       updateStatus();
+      suppressRouteSync = false;
+      syncRouteToCurrentScene(true);
     })();
   
 
