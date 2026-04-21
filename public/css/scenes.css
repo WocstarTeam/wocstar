@@ -1371,9 +1371,9 @@
       right: 0;
       height: 82px;
       background:
-        radial-gradient(130% 110% at 12% 0%, rgba(206, 151, 73, 0.12) 0%, rgba(206, 151, 73, 0) 50%),
-        radial-gradient(150% 140% at 100% 0%, rgba(175, 139, 84, 0.08) 0%, rgba(175, 139, 84, 0) 60%),
-        linear-gradient(175deg, #fbfaf7 0%, #f7f3ec 38%, #f2e9db 68%, #eee1cf 100%);
+        radial-gradient(120% 130% at 12% 0%, rgba(232, 140, 34, 0.16) 0%, rgba(232, 140, 34, 0) 52%),
+        radial-gradient(110% 140% at 100% 0%, rgba(93, 114, 136, 0.1) 0%, rgba(93, 114, 136, 0) 58%),
+        linear-gradient(180deg, #f7f6f4 0%, #f2eee8 100%);
       pointer-events: none;
       z-index: 11;
     }
@@ -1389,9 +1389,9 @@
       scrollbar-width: thin;
       scrollbar-color: rgba(255, 255, 255, 0.42) rgba(255, 255, 255, 0.12);
       background:
-        radial-gradient(130% 110% at 12% 0%, rgba(206, 151, 73, 0.11) 0%, rgba(206, 151, 73, 0) 50%),
-        radial-gradient(150% 140% at 100% 0%, rgba(175, 139, 84, 0.07) 0%, rgba(175, 139, 84, 0) 60%),
-        linear-gradient(175deg, #fcfbf8 0%, #f7f3ec 38%, #f1e8db 68%, #ecdcc8 100%);
+        radial-gradient(120% 130% at 12% 0%, rgba(232, 140, 34, 0.16) 0%, rgba(232, 140, 34, 0) 52%),
+        radial-gradient(110% 140% at 100% 0%, rgba(93, 114, 136, 0.1) 0%, rgba(93, 114, 136, 0) 58%),
+        linear-gradient(180deg, #f7f6f4 0%, #f2eee8 100%);
     }
 
     .fund-scene__layout {
@@ -2618,9 +2618,9 @@
     .fund-scene .fund-portfolio {
       border-top-color: rgba(201, 147, 88, 0.36);
       background:
-        radial-gradient(130% 110% at 12% 0%, rgba(206, 151, 73, 0.11) 0%, rgba(206, 151, 73, 0) 50%),
-        radial-gradient(150% 140% at 100% 0%, rgba(175, 139, 84, 0.07) 0%, rgba(175, 139, 84, 0) 60%),
-        linear-gradient(175deg, #fcfbf8 0%, #f7f3ec 38%, #f1e8da 68%, #ecdcc7 100%);
+        radial-gradient(120% 130% at 12% 0%, rgba(232, 140, 34, 0.16) 0%, rgba(232, 140, 34, 0) 52%),
+        radial-gradient(110% 140% at 100% 0%, rgba(93, 114, 136, 0.1) 0%, rgba(93, 114, 136, 0) 58%),
+        linear-gradient(180deg, #f7f6f4 0%, #f2eee8 100%);
     }
 
     .fund-scene .fund-portfolio::before {
