@@ -38,6 +38,14 @@
       const contactFormStatus = document.getElementById('contactFormStatus');
       const contactSubmitFrame = document.getElementById('contactSubmitFrame');
       const contactNameInput = document.getElementById('contactName');
+      const CONTACT_SOURCE_LABELS = Object.freeze({
+        capital: 'Wocstar Capital Contact Form',
+        academy: 'Wocstar Academy Contact Form',
+        fund: 'Wocstar Fund Contact Form'
+      });
+      const contactSourceInput = contactForm ? contactForm.querySelector('input[name="source"]') : null;
+      const contactPageInput = contactForm ? contactForm.querySelector('input[name="page"]') : null;
+      const contactSubjectInput = contactForm ? contactForm.querySelector('input[name="subject"]') : null;
       const goToGayleBio = document.getElementById('goToGayleBio');
       const goToGayleFromBubble = document.getElementById('goToGayleFromBubble');
       const goToGayleReadBio = document.getElementById('goToGayleReadBio');
@@ -161,6 +169,7 @@
       let isMediaMenuOpen = false;
       let contactSubmitPending = false;
       let touchStartedInMediaScene = false;
+      let activeContactSource = CONTACT_SOURCE_LABELS.capital;
 
       function syncAppViewportHeight() {
         document.documentElement.style.setProperty('--app-vh', `${window.innerHeight}px`);
@@ -835,9 +844,67 @@
         }
       }
 
+      function getDefaultContactSourceForScene(sceneIndex = currentIndex) {
+        if (sceneIndex === 0) {
+          return CONTACT_SOURCE_LABELS.fund;
+        }
+        if (sceneIndex === 1) {
+          return CONTACT_SOURCE_LABELS.academy;
+        }
+        if (sceneIndex === 3) {
+          return CONTACT_SOURCE_LABELS.capital;
+        }
+        return CONTACT_SOURCE_LABELS.capital;
+      }
+
+      function resolveContactSource(triggerElement) {
+        if (triggerElement instanceof HTMLElement) {
+          const explicitSource = String(triggerElement.dataset.contactSource || '').trim();
+          if (explicitSource) {
+            return explicitSource;
+          }
+          if (triggerElement.closest('.fund-scene')) {
+            return CONTACT_SOURCE_LABELS.fund;
+          }
+          if (triggerElement.closest('.academy-scene')) {
+            return CONTACT_SOURCE_LABELS.academy;
+          }
+          if (triggerElement.closest('.universe-scene')) {
+            return CONTACT_SOURCE_LABELS.capital;
+          }
+        }
+        return getDefaultContactSourceForScene();
+      }
+
+      function resolveContactPage(sourceLabel) {
+        if (sourceLabel === CONTACT_SOURCE_LABELS.fund) {
+          return 'Wocstar Fund';
+        }
+        if (sourceLabel === CONTACT_SOURCE_LABELS.academy) {
+          return 'Wocstar Academy';
+        }
+        return 'Wocstar Capital';
+      }
+
+      function applyContactSource(sourceLabel) {
+        const normalizedSource = String(sourceLabel || '').trim() || CONTACT_SOURCE_LABELS.capital;
+        activeContactSource = normalizedSource;
+        if (contactSourceInput) {
+          contactSourceInput.value = normalizedSource;
+        }
+        if (contactPageInput) {
+          contactPageInput.value = resolveContactPage(normalizedSource);
+        }
+        if (contactSubjectInput) {
+          contactSubjectInput.value = normalizedSource;
+        }
+      }
+
       function openContactModal(event) {
         if (event) event.preventDefault();
         if (!contactModal) return;
+        const triggerElement = event && event.currentTarget instanceof HTMLElement ? event.currentTarget : null;
+        applyContactSource(resolveContactSource(triggerElement));
         lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
         contactModal.classList.add('is-open');
         contactModal.setAttribute('aria-hidden', 'false');
@@ -2047,6 +2114,7 @@
       }
       if (contactForm) {
         contactForm.addEventListener('submit', (event) => {
+          applyContactSource(activeContactSource || resolveContactSource(null));
           if (!contactForm.checkValidity()) {
             contactForm.reportValidity();
             event.preventDefault();
@@ -2181,6 +2249,7 @@
       startCapitalInterviewAuto();
       initAcademyCurriculumReveal();
       setAcademyCurriculumScene('founder', false);
+      applyContactSource(resolveContactSource(null));
       updateStatus();
     })();
   

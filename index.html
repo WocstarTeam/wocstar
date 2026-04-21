@@ -1974,7 +1974,7 @@
               <div>
                 <input class="footer-search" type="search" name="footer-search" placeholder="Search" aria-label="Search" />
                 <div class="footer-action-stack">
-                  <a class="footer-btn" id="contactButton" href="#">Contact</a>
+                  <a class="footer-btn" id="contactButton" href="#" data-contact-source="Wocstar Capital Contact Form" data-contact-page="Wocstar Capital">Contact</a>
                   <a class="footer-btn" href="#">News</a>
                 </div>
                 <div class="footer-social">
@@ -2053,8 +2053,9 @@
           Message
           <textarea id="contactMessage" name="message" required></textarea>
         </label>
-        <input type="hidden" name="source" value="contact_form" />
-        <input type="hidden" name="page" value="contact" />
+        <input type="hidden" name="source" value="Wocstar Capital Contact Form" />
+        <input type="hidden" name="page" value="Wocstar Capital" />
+        <input type="hidden" name="subject" value="Wocstar Capital Contact Form" />
         <button class="contact-form__submit" type="submit" formtarget="contactSubmitFrame">Submit</button>
         <p class="contact-form__status" id="contactFormStatus" aria-live="polite"></p>
       </form>
@@ -2147,6 +2148,14 @@
       const contactFormStatus = document.querySelector('.contact-form__status') || document.getElementById('contactFormStatus');
       const contactSubmitFrame = document.getElementById('contactSubmitFrame');
       const contactNameInput = document.getElementById('contactName');
+      const CONTACT_SOURCE_LABELS = Object.freeze({
+        capital: 'Wocstar Capital Contact Form',
+        academy: 'Wocstar Academy Contact Form',
+        fund: 'Wocstar Fund Contact Form'
+      });
+      const contactSourceInput = contactForm ? contactForm.querySelector('input[name="source"]') : null;
+      const contactPageInput = contactForm ? contactForm.querySelector('input[name="page"]') : null;
+      const contactSubjectInput = contactForm ? contactForm.querySelector('input[name="subject"]') : null;
       const goToGayleBio = document.getElementById('goToGayleBio');
       const goToGayleFromBubble = document.getElementById('goToGayleFromBubble');
       const partnersTrack = document.getElementById('partnersTrack');
@@ -2182,6 +2191,7 @@
       let isFundMenuOpen = false;
       let isAcademyMenuOpen = false;
       let isMediaMenuOpen = false;
+      let activeContactSource = CONTACT_SOURCE_LABELS.capital;
 
       function setFundMenuOpen(isOpen) {
         isFundMenuOpen = isOpen;
@@ -2258,9 +2268,67 @@
         return Boolean(contactModal && contactModal.classList.contains('is-open'));
       }
 
+      function getDefaultContactSourceForScene(sceneIndex = currentIndex) {
+        if (sceneIndex === 0) {
+          return CONTACT_SOURCE_LABELS.fund;
+        }
+        if (sceneIndex === 1) {
+          return CONTACT_SOURCE_LABELS.academy;
+        }
+        if (sceneIndex === 3) {
+          return CONTACT_SOURCE_LABELS.capital;
+        }
+        return CONTACT_SOURCE_LABELS.capital;
+      }
+
+      function resolveContactSource(triggerElement) {
+        if (triggerElement instanceof HTMLElement) {
+          const explicitSource = String(triggerElement.dataset.contactSource || '').trim();
+          if (explicitSource) {
+            return explicitSource;
+          }
+          if (triggerElement.closest('.fund-scene')) {
+            return CONTACT_SOURCE_LABELS.fund;
+          }
+          if (triggerElement.closest('.academy-scene')) {
+            return CONTACT_SOURCE_LABELS.academy;
+          }
+          if (triggerElement.closest('.universe-scene')) {
+            return CONTACT_SOURCE_LABELS.capital;
+          }
+        }
+        return getDefaultContactSourceForScene();
+      }
+
+      function resolveContactPage(sourceLabel) {
+        if (sourceLabel === CONTACT_SOURCE_LABELS.fund) {
+          return 'Wocstar Fund';
+        }
+        if (sourceLabel === CONTACT_SOURCE_LABELS.academy) {
+          return 'Wocstar Academy';
+        }
+        return 'Wocstar Capital';
+      }
+
+      function applyContactSource(sourceLabel) {
+        const normalizedSource = String(sourceLabel || '').trim() || CONTACT_SOURCE_LABELS.capital;
+        activeContactSource = normalizedSource;
+        if (contactSourceInput) {
+          contactSourceInput.value = normalizedSource;
+        }
+        if (contactPageInput) {
+          contactPageInput.value = resolveContactPage(normalizedSource);
+        }
+        if (contactSubjectInput) {
+          contactSubjectInput.value = normalizedSource;
+        }
+      }
+
       function openContactModal(event) {
         if (event) event.preventDefault();
         if (!contactModal) return;
+        const triggerElement = event && event.currentTarget instanceof HTMLElement ? event.currentTarget : null;
+        applyContactSource(resolveContactSource(triggerElement));
         lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
         contactModal.classList.add('is-open');
         contactModal.setAttribute('aria-hidden', 'false');
@@ -2706,6 +2774,7 @@
       }
       if (contactForm) {
         contactForm.addEventListener('submit', (event) => {
+          applyContactSource(activeContactSource || resolveContactSource(null));
           if (!contactForm.checkValidity()) {
             contactForm.reportValidity();
             event.preventDefault();
@@ -2768,6 +2837,7 @@
       });
 
       updatePartnersCarousel(false);
+      applyContactSource(resolveContactSource(null));
       updateStatus();
     })();
   </script>

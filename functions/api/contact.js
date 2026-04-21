@@ -13,6 +13,8 @@ function sanitize(value) {
   return String(value || '').replace(/\r/g, '').trim();
 }
 
+const DEFAULT_CONTACT_SOURCE = 'Wocstar Capital Contact Form';
+
 export async function onRequestOptions() {
   return new Response(null, {
     status: 204,
@@ -35,6 +37,13 @@ export async function onRequestPost(context) {
     const email = sanitize(payload.email);
     const message = sanitize(payload.message);
     const scene = sanitize(payload.scene);
+    const source =
+      sanitize(payload.source) ||
+      sanitize(payload.form_source) ||
+      sanitize(payload.subject) ||
+      scene ||
+      DEFAULT_CONTACT_SOURCE;
+    const page = sanitize(payload.page) || scene || 'N/A';
 
     if (!name || !email || !message) {
       return json({ ok: false, error: 'Missing required fields' }, { status: 400 });
@@ -61,7 +70,7 @@ export async function onRequestPost(context) {
       reply_to: {
         email
       },
-      subject: `Website Contact: ${name}`,
+      subject: `${source}: ${name}`,
       content: [
         {
           type: 'text/plain',
@@ -69,6 +78,8 @@ export async function onRequestPost(context) {
             `Name: ${name}\n` +
             `Company: ${companyName || 'N/A'}\n` +
             `Email: ${email}\n` +
+            `Source: ${source}\n` +
+            `Page: ${page}\n` +
             `Scene: ${scene || 'N/A'}\n` +
             `Received: ${receivedAt}\n` +
             `IP: ${ip}\n` +
