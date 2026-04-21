@@ -1769,11 +1769,11 @@
     }
 
 @media (max-width: 560px) {
-      .fund-scene .fund-company-grid--exits,
       .fund-scene .fund-company-grid--prior {
         grid-template-columns: minmax(0, 1fr);
       }
 
+      .fund-scene .fund-company-grid--exits,
       .fund-scene .fund-company-grid--active {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
