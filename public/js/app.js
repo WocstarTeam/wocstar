@@ -21,9 +21,7 @@
       const fundInlineContactButton = document.getElementById('fundInlineContactButton');
       const fundInlineContactButtonMobile = document.getElementById('fundInlineContactButtonMobile');
       const academyInlineContactButton = document.getElementById('academyInlineContactButton');
-      const academyWaitlistButton = document.getElementById('academyWaitlistButton');
       const academyInlineContactButtonMobile = document.getElementById('academyInlineContactButtonMobile');
-      const academyWaitlistButtonMobile = document.getElementById('academyWaitlistButtonMobile');
       const capitalInlineContactButtonMobile = document.getElementById('capitalInlineContactButtonMobile');
       const academyMobileSearch = document.querySelector('.academy-footer-mobile__search');
       const academyMobileSearchInput = document.getElementById('academyMobileSearchInput');
@@ -34,18 +32,12 @@
       const capitalMobileSearch = document.getElementById('capitalMobileSearchInput') ? document.getElementById('capitalMobileSearchInput').closest('.academy-footer-mobile__search') : null;
       const capitalMobileSearchInput = document.getElementById('capitalMobileSearchInput');
       const capitalMobileSearchToggle = document.getElementById('capitalMobileSearchToggle');
-      const academyApplyButton = document.getElementById('academyApplyButton');
       const capitalInlineContactButton = document.getElementById('capitalInlineContactButton');
       const contactModal = document.getElementById('contactModal');
       const contactForm = document.getElementById('contactForm');
       const contactFormStatus = document.getElementById('contactFormStatus');
       const contactSubmitFrame = document.getElementById('contactSubmitFrame');
       const contactNameInput = document.getElementById('contactName');
-      const academyWaitlistModal = document.getElementById('academyWaitlistModal');
-      const academyWaitlistForm = document.getElementById('academyWaitlistForm');
-      const academyWaitlistStatus = document.getElementById('academyWaitlistStatus');
-      const academyWaitlistNameInput = document.getElementById('academyWaitlistName');
-      const academyWaitlistPhoneInput = document.getElementById('academyWaitlistPhone');
       const goToGayleBio = document.getElementById('goToGayleBio');
       const goToGayleFromBubble = document.getElementById('goToGayleFromBubble');
       const goToGayleReadBio = document.getElementById('goToGayleReadBio');
@@ -767,10 +759,6 @@
         return Boolean(contactModal && contactModal.classList.contains('is-open'));
       }
 
-      function isAcademyWaitlistModalOpen() {
-        return Boolean(academyWaitlistModal && academyWaitlistModal.classList.contains('is-open'));
-      }
-
       function isInterviewModalOpen() {
         return Boolean(interviewModal && interviewModal.classList.contains('is-open'));
       }
@@ -864,29 +852,6 @@
         contactModal.setAttribute('aria-hidden', 'true');
         if (contactFormStatus) {
           contactFormStatus.textContent = '';
-        }
-        if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
-          lastFocusedElement.focus();
-        }
-      }
-
-      function openAcademyWaitlistModal(event) {
-        if (event) event.preventDefault();
-        if (!academyWaitlistModal) return;
-        lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-        academyWaitlistModal.classList.add('is-open');
-        academyWaitlistModal.setAttribute('aria-hidden', 'false');
-        window.setTimeout(() => {
-          if (academyWaitlistNameInput) academyWaitlistNameInput.focus();
-        }, 20);
-      }
-
-      function closeAcademyWaitlistModal() {
-        if (!academyWaitlistModal) return;
-        academyWaitlistModal.classList.remove('is-open');
-        academyWaitlistModal.setAttribute('aria-hidden', 'true');
-        if (academyWaitlistStatus) {
-          academyWaitlistStatus.textContent = '';
         }
         if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
           lastFocusedElement.focus();
@@ -1258,7 +1223,6 @@
         event.preventDefault();
         if (isAnimating) return;
         if (isContactModalOpen()) return;
-        if (isAcademyWaitlistModalOpen()) return;
         if (isInterviewModalOpen()) return;
         if (isFoundationModalOpen()) {
           if (foundationModalBody) {
@@ -1438,7 +1402,7 @@
       }
 
       function onMouseButtonNavigate(event) {
-        if (isAnimating || isContactModalOpen() || isAcademyWaitlistModalOpen() || isInterviewModalOpen() || isFoundationModalOpen() || isFellowsModalOpen()) return;
+        if (isAnimating || isContactModalOpen() || isInterviewModalOpen() || isFoundationModalOpen() || isFellowsModalOpen()) return;
         if (event.button === 3) {
           event.preventDefault();
           transitionTo(getWrappedIndex(-1));
@@ -1469,7 +1433,7 @@
       }
 
       function onTouchMove(event) {
-        if (isContactModalOpen() || isAcademyWaitlistModalOpen() || isInterviewModalOpen() || isFoundationModalOpen() || isFellowsModalOpen()) return;
+        if (isContactModalOpen() || isInterviewModalOpen() || isFoundationModalOpen() || isFellowsModalOpen()) return;
         if (currentIndex === profileSceneIndex && event.target && event.target.closest('.profile-copy')) {
           return;
         }
@@ -1490,16 +1454,6 @@
         }
 
         if (isContactModalOpen()) {
-          touchStartY = null;
-          touchStartedInProfileCopy = false;
-          touchStartedInUniverseScene = false;
-          touchStartedInFundScene = false;
-          touchStartedInAcademyScene = false;
-          touchStartedInMediaScene = false;
-          return;
-        }
-
-        if (isAcademyWaitlistModalOpen()) {
           touchStartY = null;
           touchStartedInProfileCopy = false;
           touchStartedInUniverseScene = false;
@@ -1921,12 +1875,6 @@
       if (academyInlineContactButtonMobile) {
         academyInlineContactButtonMobile.addEventListener('click', openContactModal);
       }
-      if (academyWaitlistButton) {
-        academyWaitlistButton.addEventListener('click', openAcademyWaitlistModal);
-      }
-      if (academyWaitlistButtonMobile) {
-        academyWaitlistButtonMobile.addEventListener('click', openAcademyWaitlistModal);
-      }
       if (capitalInlineContactButtonMobile) {
         capitalInlineContactButtonMobile.addEventListener('click', openContactModal);
       }
@@ -1982,9 +1930,6 @@
         academyFooterMobileQuery.addListener(syncFooterVariants);
       }
       window.addEventListener('resize', syncFooterVariants);
-      if (academyApplyButton) {
-        academyApplyButton.addEventListener('click', openAcademyWaitlistModal);
-      }
       if (capitalInlineContactButton) {
         capitalInlineContactButton.addEventListener('click', openContactModal);
       }
@@ -2021,13 +1966,6 @@
         contactModal.addEventListener('click', (event) => {
           if (event.target instanceof HTMLElement && event.target.matches('[data-close-contact="true"]')) {
             closeContactModal();
-          }
-        });
-      }
-      if (academyWaitlistModal) {
-        academyWaitlistModal.addEventListener('click', (event) => {
-          if (event.target instanceof HTMLElement && event.target.matches('[data-close-academy-waitlist="true"]')) {
-            closeAcademyWaitlistModal();
           }
         });
       }
@@ -2132,81 +2070,6 @@
           }
         });
       }
-      if (academyWaitlistForm) {
-        if (academyWaitlistPhoneInput) {
-          academyWaitlistPhoneInput.addEventListener('input', () => {
-            academyWaitlistPhoneInput.setCustomValidity('');
-          });
-        }
-        academyWaitlistForm.addEventListener('submit', async (event) => {
-          event.preventDefault();
-          if (academyWaitlistPhoneInput) {
-            const phoneRaw = academyWaitlistPhoneInput.value.trim();
-            const digits = phoneRaw.replace(/\D/g, '');
-            const isUsPhone = digits.length === 10 || (digits.length === 11 && digits.startsWith('1'));
-            academyWaitlistPhoneInput.setCustomValidity(
-              isUsPhone ? '' : 'Please enter a valid US phone number.'
-            );
-          }
-          if (!academyWaitlistForm.checkValidity()) {
-            academyWaitlistForm.reportValidity();
-            return;
-          }
-          const formData = new FormData(academyWaitlistForm);
-          const name = String(formData.get('name') || '').trim();
-          const company = String(formData.get('company_name') || '').trim();
-          const email = String(formData.get('email') || '').trim();
-          const role = String(formData.get('role') || '').trim();
-          const phone = String(formData.get('phone') || '').trim();
-          const message = String(formData.get('message') || '').trim();
-          const submitButton = academyWaitlistForm.querySelector('button[type="submit"]');
-
-          if (academyWaitlistStatus) {
-            academyWaitlistStatus.textContent = 'Sending your request...';
-          }
-          if (submitButton) {
-            submitButton.disabled = true;
-          }
-
-          try {
-            const response = await fetch('/api/academy-waitlist', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-              },
-              body: JSON.stringify({
-                name,
-                company_name: company,
-                email,
-                role,
-                phone,
-                message
-              })
-            });
-
-            if (!response.ok) {
-              throw new Error('Academy waitlist request failed');
-            }
-
-            if (academyWaitlistStatus) {
-              academyWaitlistStatus.textContent = 'Request sent. Thank you.';
-            }
-            academyWaitlistForm.reset();
-            window.setTimeout(() => {
-              closeAcademyWaitlistModal();
-            }, 600);
-          } catch (error) {
-            if (academyWaitlistStatus) {
-              academyWaitlistStatus.textContent = 'Unable to send right now. Please try again in a moment.';
-            }
-          } finally {
-            if (submitButton) {
-              submitButton.disabled = false;
-            }
-          }
-        });
-      }
       document.addEventListener('keydown', (event) => {
         const target = event.target instanceof HTMLElement ? event.target : null;
         const isTypingTarget = Boolean(
@@ -2229,9 +2092,6 @@
         if (event.key === 'Escape' && isContactModalOpen()) {
           closeContactModal();
         }
-        if (event.key === 'Escape' && isAcademyWaitlistModalOpen()) {
-          closeAcademyWaitlistModal();
-        }
         if (event.key === 'Escape' && isInterviewModalOpen()) {
           closeInterviewModal();
         }
@@ -2246,7 +2106,7 @@
         }
 
         if (isTypingTarget) return;
-        if (isAnimating || isContactModalOpen() || isAcademyWaitlistModalOpen() || isInterviewModalOpen() || isFoundationModalOpen() || isFellowsModalOpen() || isSmsTermsModalOpen()) return;
+        if (isAnimating || isContactModalOpen() || isInterviewModalOpen() || isFoundationModalOpen() || isFellowsModalOpen() || isSmsTermsModalOpen()) return;
 
         if (event.key === 'ArrowLeft') {
           event.preventDefault();

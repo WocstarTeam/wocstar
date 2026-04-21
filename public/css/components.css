@@ -252,66 +252,6 @@
       color: rgba(255, 255, 255, 0.88);
     }
 
-.academy-waitlist-modal .contact-modal__panel {
-      background:
-        radial-gradient(130% 120% at 10% 0%, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0) 56%),
-        linear-gradient(165deg, #f8e9cb 0%, #f0d9ae 44%, #e2be87 100%);
-      border: 1px solid rgba(133, 94, 40, 0.4);
-      color: #2e2314;
-      box-shadow: 0 24px 60px rgba(70, 48, 16, 0.34);
-    }
-
-.academy-waitlist-modal .contact-modal__title {
-      color: #5f3d10;
-    }
-
-.academy-waitlist-modal .contact-modal__close {
-      border-color: rgba(115, 79, 33, 0.34);
-      background: rgba(255, 255, 255, 0.48);
-      color: #4f3612;
-    }
-
-.academy-waitlist-modal .contact-modal__close:hover {
-      background: rgba(255, 255, 255, 0.68);
-    }
-
-.academy-waitlist-modal .contact-form__field {
-      color: rgba(64, 43, 16, 0.92);
-    }
-
-.academy-waitlist-modal .contact-form__field input,
-    .academy-waitlist-modal .contact-form__field textarea,
-    .academy-waitlist-modal .contact-form__field select {
-      border: 1px solid rgba(120, 86, 39, 0.36);
-      background: rgba(255, 255, 255, 0.72);
-      color: #2e2314;
-    }
-
-.academy-waitlist-modal .contact-form__field input:focus,
-    .academy-waitlist-modal .contact-form__field textarea:focus,
-    .academy-waitlist-modal .contact-form__field select:focus {
-      border-color: rgba(112, 77, 27, 0.56);
-      background: rgba(255, 255, 255, 0.88);
-    }
-
-.academy-waitlist-modal .contact-form__field textarea::placeholder {
-      color: rgba(79, 61, 37, 0.72);
-    }
-
-.academy-waitlist-modal .contact-form__submit {
-      border-color: rgba(121, 80, 23, 0.6);
-      background: linear-gradient(150deg, #f8e8c7 0%, #edce93 100%);
-      color: #4b3110;
-    }
-
-.academy-waitlist-modal .contact-form__submit:hover {
-      background: linear-gradient(150deg, #fbeecd 0%, #f0d39f 100%);
-    }
-
-.academy-waitlist-modal .contact-form__status {
-      color: rgba(63, 44, 19, 0.84);
-    }
-
 .brand-switcher {
       position: fixed;
       top: 0;
