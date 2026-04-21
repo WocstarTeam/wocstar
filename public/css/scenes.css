@@ -1354,8 +1354,11 @@
       left: 0;
       right: 0;
       height: 82px;
-      background: #e8e8e8;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+      background:
+        radial-gradient(120% 130% at 12% 0%, rgba(232, 140, 34, 0.16) 0%, rgba(232, 140, 34, 0) 52%),
+        radial-gradient(110% 140% at 100% 0%, rgba(93, 114, 136, 0.1) 0%, rgba(93, 114, 136, 0) 58%),
+        linear-gradient(180deg, #f7f6f4 0%, #f2eee8 100%);
+      box-shadow: 0 4px 14px rgba(105, 74, 36, 0.16);
       pointer-events: none;
       z-index: 11;
     }
