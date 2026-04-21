@@ -101,12 +101,14 @@
       const sceneTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'The Wocstar Universe', 'Gayle Jennings-O\'Byrne'];
       const sceneDocumentTitles = ['Wocstar Fund', 'Wocstar Academy', 'Wocstar Media', 'Wocstar Capital', 'Gayle Jennings-O\'Byrne'];
       const sceneRouteByIndex = ['/fund', '/academy', '/media', '/capital', '/gayle'];
+      const fellowsRoutePath = '/media-fellows';
       const sceneIndexByRoute = Object.freeze({
         '/': 0,
         '/index.html': 0,
         '/fund': 0,
         '/academy': 1,
         '/media': 2,
+        '/media-fellows': 2,
         '/capital': 3,
         '/universe': 3,
         '/gayle': 4,
@@ -828,17 +830,36 @@
         foundationModal.setAttribute('aria-hidden', 'true');
       }
 
-      function openFellowsModal(event) {
+      function openFellowsModal(event, options = {}) {
         if (event) event.preventDefault();
         if (!fellowsModal) return;
         fellowsModal.classList.add('is-open');
         fellowsModal.setAttribute('aria-hidden', 'false');
+        if (options.syncRoute !== false) {
+          syncRouteToCurrentScene();
+        }
       }
 
-      function closeFellowsModal() {
+      function closeFellowsModal(options = {}) {
         if (!fellowsModal) return;
         fellowsModal.classList.remove('is-open');
         fellowsModal.setAttribute('aria-hidden', 'true');
+        if (options.syncRoute !== false) {
+          syncRouteToCurrentScene();
+        }
+      }
+
+      function syncFellowsModalWithRoute(pathname = window.location.pathname) {
+        const shouldOpen = normalizePathname(pathname) === fellowsRoutePath;
+        if (shouldOpen) {
+          if (!isFellowsModalOpen()) {
+            openFellowsModal(null, { syncRoute: false });
+          }
+          return;
+        }
+        if (isFellowsModalOpen()) {
+          closeFellowsModal({ syncRoute: false });
+        }
       }
 
       function openSmsTermsModal(event) {
@@ -1164,10 +1185,17 @@
         return sceneRouteByIndex[sceneIndex] || sceneRouteByIndex[0];
       }
 
+      function getRoutePathForCurrentState() {
+        if (currentIndex === 2 && isFellowsModalOpen()) {
+          return fellowsRoutePath;
+        }
+        return getSceneRouteForIndex(currentIndex);
+      }
+
       function syncRouteToCurrentScene(replace = false) {
         if (suppressRouteSync) return;
         if (!window.history || typeof window.history.pushState !== 'function') return;
-        const targetPath = getSceneRouteForIndex(currentIndex);
+        const targetPath = getRoutePathForCurrentState();
         const currentPath = normalizePathname(window.location.pathname);
         if (currentPath === targetPath) return;
         const method = replace ? 'replaceState' : 'pushState';
@@ -2275,13 +2303,14 @@
         handleWindowResize();
       }, { passive: true });
       window.addEventListener('popstate', () => {
-        const routeSceneIndex = getSceneIndexFromPathname(window.location.pathname);
-        if (routeSceneIndex === null || routeSceneIndex === currentIndex) {
-          return;
+        const pathname = window.location.pathname;
+        const routeSceneIndex = getSceneIndexFromPathname(pathname);
+        if (routeSceneIndex !== null && routeSceneIndex !== currentIndex) {
+          suppressRouteSync = true;
+          transitionTo(routeSceneIndex, { immediate: true });
+          suppressRouteSync = false;
         }
-        suppressRouteSync = true;
-        transitionTo(routeSceneIndex, { immediate: true });
-        suppressRouteSync = false;
+        syncFellowsModalWithRoute(pathname);
       });
       if (fundPortcoViewport) {
         fundPortcoViewport.addEventListener('mouseenter', stopFundPortfolioAuto);
@@ -2330,6 +2359,7 @@
         transitionTo(initialRouteSceneIndex, { immediate: true });
         suppressRouteSync = false;
       }
+      syncFellowsModalWithRoute(window.location.pathname);
       suppressRouteSync = true;
       updateStatus();
       suppressRouteSync = false;
